@@ -63,7 +63,7 @@ namespace Aquality.Selenium.Logging
         /// Info log
         /// </summary>
         /// <param name="message">Message</param>
-        public void Info(object message)
+        public void Info(string message)
         {
             Log.Value.Info(message);
         }
@@ -72,7 +72,7 @@ namespace Aquality.Selenium.Logging
         /// Warn log
         /// </summary>
         /// <param name="message">Message</param>
-        public void Warn(object message)
+        public void Warn(string message)
         {
             Log.Value.Warn(message);
         }
@@ -81,7 +81,7 @@ namespace Aquality.Selenium.Logging
         /// Error log
         /// </summary>
         /// <param name="message">Message</param>
-        public void Error(object message)
+        public void Error(string message)
         {
             Log.Value.Error(message);
         }
