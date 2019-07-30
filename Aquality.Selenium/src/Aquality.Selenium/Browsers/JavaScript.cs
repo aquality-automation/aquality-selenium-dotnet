@@ -6,6 +6,7 @@ namespace Aquality.Selenium.Browsers
 {
     public enum JavaScript
     {
-        ScrollWindowBy
+        ScrollWindowBy,
+        GetElementXpath
     }
 }

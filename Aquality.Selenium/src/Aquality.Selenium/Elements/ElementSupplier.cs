@@ -1,8 +1,7 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
-using System;
 
 namespace Aquality.Selenium.Elements
 {
-    public delegate Func<By, string, ElementState, IElement> ElementSupplier();
+    public delegate T ElementSupplier<T>(By locator, string name, ElementState state) where T : IElement;
 }
