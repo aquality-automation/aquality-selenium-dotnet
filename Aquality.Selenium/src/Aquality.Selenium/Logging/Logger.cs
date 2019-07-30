@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Logging
         /// </summary>
         /// <param name="target"></param>
         /// <returns>Logger instance</returns>
-        public Logger AddTarget(TargetWithLayoutHeaderAndFooter target)
+        public Logger AddTarget(Target target)
         {
             LogManager.Configuration.AddRuleForAllLevels(target, Log.Value.Name);
             LogManager.ReconfigExistingLoggers();
@@ -42,7 +42,7 @@ namespace Aquality.Selenium.Logging
         /// </summary>
         /// <param name="target"></param>
         /// <returns>Logger instance</returns>
-        public Logger RemoveTarget(TargetWithLayoutHeaderAndFooter target)
+        public Logger RemoveTarget(Target target)
         {
             LogManager.Configuration.RemoveTarget(target.Name);
             LogManager.ReconfigExistingLoggers();

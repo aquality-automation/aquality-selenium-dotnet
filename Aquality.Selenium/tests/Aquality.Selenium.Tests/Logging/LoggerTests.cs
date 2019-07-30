@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Tests.Logging
                 $"Appender wasn't removed. File '{RemoveAppenderLogFile}' exists.");
         }
 
-        private static TargetWithLayoutHeaderAndFooter GetTarget(string filePath)
+        private static Target GetTarget(string filePath)
         {
             return new FileTarget
             {
