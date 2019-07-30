@@ -174,7 +174,7 @@ namespace Aquality.Selenium.Browsers
             }
             catch (NoAlertPresentException ex)
             {
-                logger.Fatal(logger.GetLoc("loc.browser.alert.fail"), ex);
+                logger.FatalLoc("loc.browser.alert.fail", ex);
                 throw ex;
             }
         }        
