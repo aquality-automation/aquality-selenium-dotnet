@@ -104,62 +104,61 @@ namespace Aquality.Selenium.Logging
         /// <summary>
         /// Gets locale (localized template of message from resources) and Info log
         /// </summary>
-        /// <param name="key">Message key from localization resources</param>
+        /// <param name="messageKey">Message messageKey from localization resources</param>
         /// <param name="args">Arguments to be pasted into message via String.format</param>
-        internal void InfoLoc(string key, params object[] args)
+        internal void InfoLoc(string messageKey, params object[] args)
         {
-            Info(string.Format(GetLoc(key), args));
+            Info(string.Format(GetLocalizedMessage(messageKey), args));
         }
 
         /// <summary>
         /// Gets locale (localized template of message from resources) and Debug log
         /// </summary>
-        /// <param name="key">Message key from localization resources</param>
+        /// <param name="messageKey">Message messageKey from localization resources</param>
         /// <param name="exception">Exception</param>
         /// <param name="args">Arguments to be pasted into message via String.format</param>
-        internal void DebugLoc(string key, Exception exception = null, params object[] args)
+        internal void DebugLoc(string messageKey, Exception exception = null, params object[] args)
         {
-            Debug(string.Format(GetLoc(key), args), exception);
+            Debug(string.Format(GetLocalizedMessage(messageKey), args), exception);
         }
 
         /// <summary>
         /// Gets locale (localized template of message from resources) and Warn log
         /// </summary>
-        /// <param name="key">Message key from localization resources</param>
+        /// <param name="messageKey">Message messageKey from localization resources</param>
         /// <param name="args">Arguments to be pasted into message via String.format</param>
-        internal void WarnLoc(string key, params object[] args)
+        internal void WarnLoc(string messageKey, params object[] args)
         {
-            Warn(string.Format(GetLoc(key), args));
+            Warn(string.Format(GetLocalizedMessage(messageKey), args));
         }
 
         /// <summary>
         /// Gets locale (localized template of message from resources) and Error log
         /// </summary>
-        /// <param name="key">Message key from localization resources</param>
+        /// <param name="messageKey">Message messageKey from localization resources</param>
         /// <param name="args">Arguments to be pasted into message via String.format</param>
-        internal void ErrorLoc(string key, params object[] args)
+        internal void ErrorLoc(string messageKey, params object[] args)
         {
-            Error(string.Format(GetLoc(key), args));
+            Error(string.Format(GetLocalizedMessage(messageKey), args));
         }
 
         /// <summary>
         /// Gets locale (localized template of message from resources) and Fatal log
         /// </summary>
-        /// <param name="key">Message key from localization resources</param>
+        /// <param name="messageKey">Message messageKey from localization resources</param>
         /// <param name="exception">Exception</param>
         /// <param name="args">Arguments to be pasted into message via String.format</param>
-        internal void FatalLoc(string key, Exception exception = null, params object[] args)
+        internal void FatalLoc(string messageKey, Exception exception = null, params object[] args)
         {
-            Fatal(string.Format(GetLoc(key), args), exception);
+            Fatal(string.Format(GetLocalizedMessage(messageKey), args), exception);
         }
-
 
         /// <summary>
         /// Gets locale (localized template of message from resources)
         /// </summary>
-        /// <param name="key">Key in resources file</param>
+        /// <param name="messageKey">Key in resources file</param>
         /// <returns>Template of message</returns>
-        private static string GetLoc(string key)
+        private static string GetLocalizedMessage(string messageKey)
         {
             throw new NotImplementedException();
         }
