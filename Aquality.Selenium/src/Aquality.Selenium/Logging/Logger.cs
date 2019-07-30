@@ -54,14 +54,9 @@ namespace Aquality.Selenium.Logging
         /// </summary>
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
-        public void Debug(object message, Exception exception = null)
+        public void Debug(string message, Exception exception = null)
         {
-            if (exception != null)
-            {
-                message = $"{message}: {exception.GetType()}: {exception.Message}";
-            }
-
-            Log.Value.Debug(message);
+            Log.Value.Debug(exception, message);
         }
 
         /// <summary>
@@ -98,7 +93,7 @@ namespace Aquality.Selenium.Logging
         /// <param name="exception">Exception</param>
         public void Fatal(string message, Exception exception)
         {
-            Log.Value.Fatal($"{message}: {exception}");
+            Log.Value.Fatal(exception, message);
         }
 
         /// <summary>
