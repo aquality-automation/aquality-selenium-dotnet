@@ -91,7 +91,7 @@ namespace Aquality.Selenium.Elements
             throw new NotImplementedException();
         }
 
-        public T FindChildElement<T>(By childLocator, ElementSupplier supplier, ElementState state = ElementState.Displayed) where T : IElement
+        public T FindChildElement<T>(By childLocator, ElementSupplier<T> supplier, ElementState state = ElementState.Displayed) where T : IElement
         {
             throw new NotImplementedException();
         }

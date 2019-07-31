@@ -6,11 +6,7 @@ namespace Aquality.Selenium.Elements
 {
     public class TextBox : Element, ITextBox
     {
-        protected TextBox(By locator, string name) : this(locator, name, ElementState.Displayed)
-        {
-        }
-
-        internal TextBox(By locator, string name, ElementState state) : base(locator, name, state)
+        protected internal TextBox(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
 

@@ -6,6 +6,6 @@ namespace Aquality.Selenium.Elements.Interfaces
     {
         T FindChildElement<T>(By childLocator, ElementState state = ElementState.Displayed) where T : IElement;
         
-        T FindChildElement<T>(By childLocator, ElementSupplier supplier, ElementState state = ElementState.Displayed) where T : IElement;
+        T FindChildElement<T>(By childLocator, ElementSupplier<T> supplier, ElementState state = ElementState.Displayed) where T : IElement;
     }
 }

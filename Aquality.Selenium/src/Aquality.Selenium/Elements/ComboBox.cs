@@ -8,11 +8,7 @@ namespace Aquality.Selenium.Elements
 {
     public class ComboBox : Element, IComboBox
     {
-        protected ComboBox(By locator, string name) : this(locator, name, ElementState.Displayed)
-        {
-        }
-
-        internal ComboBox(By locator, string name, ElementState state) : base(locator, name, state)
+        protected internal ComboBox(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
 

@@ -7,11 +7,7 @@ namespace Aquality.Selenium.Elements
 {
     public class CheckBox : Element, ICheckBox
     {
-        protected CheckBox(By locator, string name) : this(locator, name, ElementState.Displayed)
-        {
-        }
-
-        internal CheckBox(By locator, string name, ElementState state) : base(locator, name, state)
+        protected internal CheckBox(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
 
