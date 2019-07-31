@@ -2,7 +2,6 @@ using Aquality.Selenium.Browsers;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Aquality.Selenium.Tests.JavaScripts
 {
@@ -23,7 +22,7 @@ namespace Aquality.Selenium.Tests.JavaScripts
         [Test]
         public void Should_GetCustomJavaScript()
         {
-            Assert.IsNotEmpty(TestScriptPath.GetScript(Assembly.GetExecutingAssembly()), $"Failed to get javascript {TestScriptPath}");
+            Assert.IsNotEmpty(TestScriptPath.GetScript(), $"Failed to get javascript {TestScriptPath}");
         }
 
         [Test]

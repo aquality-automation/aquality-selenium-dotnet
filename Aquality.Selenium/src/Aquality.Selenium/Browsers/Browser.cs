@@ -5,7 +5,6 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Extensions;
 using System;
 using System.Drawing;
-using System.Reflection;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -117,9 +116,9 @@ namespace Aquality.Selenium.Browsers
             ExecuteScript(JavaScript.ScrollWindowBy, x, y);
         }
 
-        public void ExecuteScriptFromFile(string scriptFilePath, Assembly executingAssembly, params object[] arguments)
+        public void ExecuteScriptFromFile(string embeddedResourcePath, params object[] arguments)
         {
-            ExecuteScript(scriptFilePath.GetScript(executingAssembly), arguments);
+            ExecuteScript(embeddedResourcePath.GetScript(), arguments);
         }
 
         public void ExecuteScript(JavaScript scriptName, params object[] arguments)
@@ -132,9 +131,9 @@ namespace Aquality.Selenium.Browsers
             Driver.ExecuteJavaScript(script, arguments);
         }
 
-        public T ExecuteScriptFromFile<T>(string scriptFilePath, Assembly executingAssembly, params object[] arguments)
+        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
         {
-            return ExecuteScript<T>(scriptFilePath.GetScript(executingAssembly), arguments);
+            return ExecuteScript<T>(embeddedResourcePath.GetScript(), arguments);
         }
 
         public T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
