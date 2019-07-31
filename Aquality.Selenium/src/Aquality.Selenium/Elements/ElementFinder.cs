@@ -13,24 +13,30 @@ namespace Aquality.Selenium.Elements
 {
     internal sealed class ElementFinder : IElementFinder
     {
-        private static readonly ThreadLocal<ElementFinder> instanceHolder = new ThreadLocal<ElementFinder>();
+        private static readonly ThreadLocal<ElementFinder> InstanceHolder = new ThreadLocal<ElementFinder>();
+
+        private ElementFinder()
+        {
+        }
 
         public static ElementFinder Instance
         {
             get
             {
-                if (!instanceHolder.IsValueCreated)
+                if (!InstanceHolder.IsValueCreated)
                 {
-                    instanceHolder.Value = new ElementFinder();
+                    InstanceHolder.Value = new ElementFinder();
                 }
 
-                return instanceHolder.Value;
+                return InstanceHolder.Value;
             }
         }
 
-        private ElementFinder()
-        {
-        }
+        private ITimeoutConfiguration TimeoutConfiguration => Configuration.Instance.TimeoutConfiguration;
+
+        private TimeSpan DefaultTimeout => TimeoutConfiguration.Condition;
+
+        private Browser Browser => BrowserManager.Browser;
 
         public IWebElement FindElement(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState)
         {
@@ -52,7 +58,7 @@ namespace Aquality.Selenium.Elements
         public ReadOnlyCollection<IWebElement> FindElements(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState)
         {
             var resultElements = new List<IWebElement>();
-            var zeroTimeout = TimeSpan.FromSeconds(0);
+            var zeroTimeout = TimeSpan.Zero;
             Browser.ImplicitWaitTimeout = zeroTimeout;
             ConditionalWait.WaitForTrue(driver =>
             {
@@ -63,11 +69,6 @@ namespace Aquality.Selenium.Elements
             }, timeout ?? DefaultTimeout);
             Browser.ImplicitWaitTimeout = TimeoutConfiguration.Implicit;
             return resultElements.ToList().AsReadOnly();
-        }
-
-        public ReadOnlyCollection<IWebElement> FindElements(By by)
-        {
-            return FindElements(by, timeout: null);
         }
 
         private IList<IWebElement> FilterByState(IList<IWebElement> foundElements, ElementState state)
@@ -91,10 +92,9 @@ namespace Aquality.Selenium.Elements
             return filteredElements;
         }
 
-        private ITimeoutConfiguration TimeoutConfiguration => Configuration.Instance.TimeoutConfiguration;
-
-        private TimeSpan DefaultTimeout => TimeoutConfiguration.Condition;
-
-        private Browser Browser => BrowserManager.Browser;
+        public ReadOnlyCollection<IWebElement> FindElements(By by)
+        {
+            return FindElements(by, timeout: null);
+        }
     }
 }
