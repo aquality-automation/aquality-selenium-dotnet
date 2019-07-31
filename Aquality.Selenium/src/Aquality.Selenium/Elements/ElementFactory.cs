@@ -89,7 +89,7 @@ namespace Aquality.Selenium.Elements
         {
             var strBaseLocator = baseLocator.ToString();
             var elementLocator = strBaseLocator.Contains(ByXpathIdentifier)
-                    ? $"{strBaseLocator.Split(':')[1].Trim()}[{elementIndex}]"
+                    ? $"({strBaseLocator.Split(':')[1].Trim()})[{elementIndex}]"
                     : GetBrowser().ExecuteScript<string>(JavaScript.GetElementXpath, webElement);
             return By.XPath(elementLocator);
         }
