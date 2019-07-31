@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="condition"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan timeOut = default(TimeSpan))
+        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
         {
             BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             var wait = new DefaultWait<IWebDriver>(BrowserManager.Browser.Driver)
