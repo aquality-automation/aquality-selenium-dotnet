@@ -58,8 +58,7 @@ namespace Aquality.Selenium.Elements
         public ReadOnlyCollection<IWebElement> FindElements(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState)
         {
             var resultElements = new List<IWebElement>();
-            var zeroTimeout = TimeSpan.Zero;
-            Browser.ImplicitWaitTimeout = zeroTimeout;
+            Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             ConditionalWait.WaitForTrue(driver =>
             {
                 var foundElements = driver.FindElements(locator);
