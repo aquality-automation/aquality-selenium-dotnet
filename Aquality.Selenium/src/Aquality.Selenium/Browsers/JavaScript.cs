@@ -35,16 +35,22 @@ namespace Aquality.Selenium.Browsers
     {
         private const string JavaScriptResourcePath = "Resources.JavaScripts";
         private const string JavaScriptFileExtension = "js";
+        
         public static string GetScript(this JavaScript javaScript)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourcePath = GetResourcePath(javaScript, assembly.GetName().Name);
-            using (var stream = assembly.GetManifestResourceStream(resourcePath))
+            return javaScript.GetResourcePath().GetScript(assembly);
+        }
+
+        public static string GetScript(this string embeddedResourcePath, Assembly executingAssembly)
+        {
+            var resourcePath = $"{executingAssembly.GetName().Name}.{embeddedResourcePath}";
+            using (var stream = executingAssembly.GetManifestResourceStream(resourcePath))
             {
                 if (stream == null)
                 {
                     throw new InvalidOperationException(
-                        $"Assembly {assembly.FullName} doesn't contain JavaScript {javaScript} at path {resourcePath} as EmbeddedResource.");
+                        $"Assembly {executingAssembly.FullName} doesn't contain JavaScript at path {resourcePath} as EmbeddedResource.");
                 }
 
                 using (var reader = new StreamReader(stream))
@@ -54,9 +60,9 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private static string GetResourcePath(this JavaScript javaScript, string assemblyName)
+        private static string GetResourcePath(this JavaScript javaScript)
         {
-            return $"{assemblyName}.{JavaScriptResourcePath}.{javaScript}.{JavaScriptFileExtension}";
+            return $"{JavaScriptResourcePath}.{javaScript}.{JavaScriptFileExtension}";
         }
     }
 }
