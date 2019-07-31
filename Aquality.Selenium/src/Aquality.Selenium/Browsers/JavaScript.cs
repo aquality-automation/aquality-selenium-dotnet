@@ -38,19 +38,19 @@ namespace Aquality.Selenium.Browsers
         
         public static string GetScript(this JavaScript javaScript)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            return javaScript.GetResourcePath().GetScript(assembly);
+            return javaScript.GetResourcePath().GetScript();
         }
 
-        public static string GetScript(this string embeddedResourcePath, Assembly executingAssembly)
+        public static string GetScript(this string embeddedResourcePath)
         {
-            var resourcePath = $"{executingAssembly.GetName().Name}.{embeddedResourcePath}";
-            using (var stream = executingAssembly.GetManifestResourceStream(resourcePath))
+            var assembly = Assembly.GetCallingAssembly();
+            var resourcePath = $"{assembly.GetName().Name}.{embeddedResourcePath}";
+            using (var stream = assembly.GetManifestResourceStream(resourcePath))
             {
                 if (stream == null)
                 {
                     throw new InvalidOperationException(
-                        $"Assembly {executingAssembly.FullName} doesn't contain JavaScript at path {resourcePath} as EmbeddedResource.");
+                        $"Assembly {assembly.FullName} doesn't contain JavaScript at path {resourcePath} as EmbeddedResource.");
                 }
 
                 using (var reader = new StreamReader(stream))

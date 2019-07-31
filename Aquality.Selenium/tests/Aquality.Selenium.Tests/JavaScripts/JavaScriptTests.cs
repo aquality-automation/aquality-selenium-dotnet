@@ -2,14 +2,15 @@ using Aquality.Selenium.Browsers;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Aquality.Selenium.Tests.JavaScripts
 {
     [Parallelizable(ParallelScope.All)]
     public class JavaScriptTests
     {
-        private const string TestScriptPath = "Resources.TestJavaScript.js";
+        private const string TestScriptName = "TestJavaScript.js";
+        private const string TestScriptEmbeddedPath = "Resources." + TestScriptName;
+        private const string TestScriptFilePath = "Resources/" + TestScriptName;
 #pragma warning disable IDE0052 // Remove unread private members
         private static readonly JavaScript[] JavaScripts = Enum.GetValues(typeof(JavaScript)) as JavaScript[];
 #pragma warning restore IDE0052 // Remove unread private members
@@ -21,9 +22,9 @@ namespace Aquality.Selenium.Tests.JavaScripts
         }
 
         [Test]
-        public void Should_GetCustomJavaScript()
+        public void Should_GetCustomJavaScript_FromEmbeddedResourcePath()
         {
-            Assert.IsNotEmpty(TestScriptPath.GetScript(Assembly.GetExecutingAssembly()), $"Failed to get javascript {TestScriptPath}");
+            Assert.IsNotEmpty(TestScriptEmbeddedPath.GetScript(), $"Failed to get javascript {TestScriptEmbeddedPath}");
         }
 
         [Test]
