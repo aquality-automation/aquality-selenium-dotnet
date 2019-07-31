@@ -7,24 +7,27 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Aquality.Selenium.Waitings
 {
+    /// <summary>
+    /// This class is using for waiting any conditions.
+    /// </summary>
     public static class ConditionalWait
     {
-        private static readonly Configuration Configuration = Configuration.Instance;
+        private static readonly IConfiguration Configuration = Configurations.Configuration.Instance;
 
         /// <summary>
         /// Wait for some object from condition with timeout.
-        /// Default timeout(property "Configuration.TimeoutConfiguration.Condition") is using.
+        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="condition"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Type of object which is waiting</typeparam>
+        /// <param name="condition">Function for waiting</param>
+        /// <param name="timeOut">Time-out</param>
+        /// <returns>Object from condition</returns>
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
         {
             BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             var wait = new DefaultWait<IWebDriver>(BrowserManager.Browser.Driver)
             {
-                Timeout = GetConditionTimeOut(timeOut),
+                Timeout = ResolveConditionTimeOut(timeOut),
                 PollingInterval = Configuration.TimeoutConfiguration.PollingInterval
             };
             wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException), typeof(NoSuchElementException));
@@ -41,22 +44,21 @@ namespace Aquality.Selenium.Waitings
             {
                 BrowserManager.Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
             }
-
             return default(T);
         }
 
         /// <summary>
         /// Wait for condition and return true if waiting successful or false - otherwise.
-        /// Default timeout(property "Configuration.TimeoutConfiguration.Condition") is using.
+        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
-        /// <returns></returns>
+        /// <returns>True if waiting successful or false - otherwise.</returns>
         public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan? timeOut = null)
         {
             try
             {
-                return WaitFor(condition, GetConditionTimeOut(timeOut));
+                return WaitFor(condition, ResolveConditionTimeOut(timeOut));
             }
             catch (Exception e)
             {
@@ -67,7 +69,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// For waiting without WebDriver: Wait for function will be true or return some except false.
-        /// Default timeout(property "Configuration.TimeoutConfiguration.Condition") is using.
+        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <typeparam name="T">Type of waitWith param <see cref="DefaultWait{T}"/></typeparam>
         /// <typeparam name="TResult">Type of object which is waiting</typeparam>
@@ -79,7 +81,7 @@ namespace Aquality.Selenium.Waitings
         {
             var wait = new DefaultWait<T>(waitWith)
             {
-                Timeout = GetConditionTimeOut(timeOut),
+                Timeout = ResolveConditionTimeOut(timeOut),
                 PollingInterval = Configuration.TimeoutConfiguration.PollingInterval
             };
 
@@ -91,11 +93,10 @@ namespace Aquality.Selenium.Waitings
             {
                 Logger.Instance.DebugLoc("java.ConditionalWait.waitFor", e);
             }
-
             return default(TResult);
         }
 
-        private static TimeSpan GetConditionTimeOut(TimeSpan? timeOut)
+        private static TimeSpan ResolveConditionTimeOut(TimeSpan? timeOut)
         {
             return timeOut ?? Configuration.TimeoutConfiguration.Condition;
         }
