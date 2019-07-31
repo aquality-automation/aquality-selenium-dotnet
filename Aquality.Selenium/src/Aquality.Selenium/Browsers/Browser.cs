@@ -116,18 +116,14 @@ namespace Aquality.Selenium.Browsers
             ExecuteScript(JavaScript.ScrollWindowBy, x, y);
         }
 
-        public void ExecuteScriptFromFile(string scriptFilePath, params object[] arguments)
+        public void ExecuteScriptFromFile(string embeddedResourcePath, params object[] arguments)
         {
-            throw new NotImplementedException("read script from file");
-            var script = "";
-            ExecuteScript(script, arguments);
+            ExecuteScript(embeddedResourcePath.GetScript(), arguments);
         }
 
         public void ExecuteScript(JavaScript scriptName, params object[] arguments)
         {
-            throw new NotImplementedException("get script by its name");
-            var script = "";
-            ExecuteScript(script, arguments);
+            ExecuteScript(scriptName.GetScript(), arguments);
         }
 
         public void ExecuteScript(string script, params object[] arguments)
@@ -135,18 +131,14 @@ namespace Aquality.Selenium.Browsers
             Driver.ExecuteJavaScript(script, arguments);
         }
 
-        public T ExecuteScriptFromFile<T>(string scriptFilePath, params object[] arguments)
+        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
         {
-            throw new NotImplementedException("read script from file");
-            var script = "";
-            return ExecuteScript<T>(script, arguments);
+            return ExecuteScript<T>(embeddedResourcePath.GetScript(), arguments);
         }
 
         public T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
         {
-            throw new NotImplementedException("get script by its name");
-            var script = "";
-            return ExecuteScript<T>(script, arguments);
+            return ExecuteScript<T>(scriptName.GetScript(), arguments);
         }
 
         public T ExecuteScript<T>(string script, params object[] arguments)
