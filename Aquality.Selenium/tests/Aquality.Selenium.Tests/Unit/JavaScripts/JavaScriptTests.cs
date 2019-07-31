@@ -1,9 +1,9 @@
-using Aquality.Selenium.Browsers;
-using NUnit.Framework;
 using System;
 using System.Linq;
+using Aquality.Selenium.Browsers;
+using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.JavaScripts
+namespace Aquality.Selenium.Tests.Unit.JavaScripts
 {
     [Parallelizable(ParallelScope.All)]
     public class JavaScriptTests
