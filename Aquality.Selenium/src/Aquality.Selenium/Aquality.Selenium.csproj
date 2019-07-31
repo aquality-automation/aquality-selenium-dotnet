@@ -5,6 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\JavaScripts\AutoAcceptAlerts.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\BorderElement.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ClickElement.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ElementIsOnScreen.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetCheckBoxState.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxText.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxValues.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetElementByXPath.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetElementText.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetElementXPath.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetTextFirstChild.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\IsPageLoaded.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\MouseHover.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollBy.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollToBottom.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollToElement.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollToElementCenter.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollToTop.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\ScrollWindowBy.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\SelectComboBoxValueByText.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\SetFocus.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\SetInnerHTML.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NLog" Version="4.6.6" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
