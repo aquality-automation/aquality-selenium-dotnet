@@ -53,7 +53,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
         /// <returns></returns>
-        public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan timeOut = default(TimeSpan))
+        public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan? timeOut = null)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="waitWith">Object who will helping to wait (which will be passed to <see cref="DefaultWait{T}"/>)</param>
         /// <param name="timeOut">Time-out</param>
         /// <returns>Object which waiting for or default of a TResult class - is exceptions occured</returns>
-        public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan timeOut = default(TimeSpan))
+        public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan? timeOut = null)
         {
             var wait = new DefaultWait<T>(waitWith)
             {
@@ -96,9 +96,9 @@ namespace Aquality.Selenium.Waitings
             return default(TResult); ;
         }
 
-        private static TimeSpan GetConditionTimeOut(TimeSpan timeOut)
+        private static TimeSpan GetConditionTimeOut(TimeSpan? timeOut)
         {
-            return timeOut == default(TimeSpan) ? Configuration.TimeoutConfiguration.Condition : timeOut;
+            return timeOut ?? Configuration.TimeoutConfiguration.Condition;
         }
     }
 }
