@@ -1,1 +1,1 @@
-window.scrollBy(arguments[0], arguments[1])
+window.scrollBy(arguments[0], arguments[1]);

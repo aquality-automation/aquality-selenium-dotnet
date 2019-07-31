@@ -1,1 +1,1 @@
-arguments[0].value = arguments[1]
+arguments[0].value = arguments[1];

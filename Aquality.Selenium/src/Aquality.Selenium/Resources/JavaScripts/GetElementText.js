@@ -1,1 +1,1 @@
-return arguments[0].textContent
+return arguments[0].textContent;
