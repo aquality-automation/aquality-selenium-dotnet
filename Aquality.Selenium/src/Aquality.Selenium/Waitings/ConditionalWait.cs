@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Waitings
 {
     public static class ConditionalWait
     {
-        public static bool WaitForTrue(Func<IWebDriver, bool> condition)
+        public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan? timeout = null)
         {
             throw new NotImplementedException();
         }
