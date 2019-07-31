@@ -9,7 +9,6 @@ namespace Aquality.Selenium.Waitings
 {
     public static class ConditionalWait
     {
-        private static readonly Logger Logger = Logger.Instance;
         private static readonly Configuration Configuration = Configuration.Instance;
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.DebugLoc("java.ConditionalWait.waitFor", e);
+                Logger.Instance.DebugLoc("java.ConditionalWait.waitFor", e);
             }
             finally
             {
@@ -61,7 +60,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.DebugLoc("java.ConditionalWait.waitForTrue", e);
+                Logger.Instance.DebugLoc("java.ConditionalWait.waitForTrue", e);
                 return false;
             }
         }
@@ -90,7 +89,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.DebugLoc("java.ConditionalWait.waitFor", e);
+                Logger.Instance.DebugLoc("java.ConditionalWait.waitFor", e);
             }
 
             return default(TResult);
