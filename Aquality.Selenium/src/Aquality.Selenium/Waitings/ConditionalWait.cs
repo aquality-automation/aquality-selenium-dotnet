@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.DebugLoc("java.ConditionalWait.waitFor", e);                
+                Logger.DebugLoc("java.ConditionalWait.waitFor", e);
             }
             finally
             {
@@ -93,7 +93,7 @@ namespace Aquality.Selenium.Waitings
                 Logger.DebugLoc("java.ConditionalWait.waitFor", e);
             }
 
-            return default(TResult); ;
+            return default(TResult);
         }
 
         private static TimeSpan GetConditionTimeOut(TimeSpan? timeOut)
