@@ -1,7 +1,7 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
-using System;
+﻿using System;
+using Aquality.Selenium.Elements.Interfaces;
 
-namespace Aquality.Selenium.Elements.ElementActions
+namespace Aquality.Selenium.Elements.Actions
 {
     public class MouseActions
     {

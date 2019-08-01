@@ -1,7 +1,7 @@
-﻿using Aquality.Selenium.Elements.ElementActions;
+﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-using System;
+using Aquality.Selenium.Elements.Actions;
 
 namespace Aquality.Selenium.Elements.Interfaces
 {

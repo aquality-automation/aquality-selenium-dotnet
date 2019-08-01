@@ -1,9 +1,8 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements.ElementActions;
+using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
@@ -89,7 +88,7 @@ namespace Aquality.Selenium.Elements
             ConditionalWait.WaitFor(driver => 
             {
                 IWebElement element = GetElement();
-                new Actions(driver).MoveToElement(element).ContextClick(element).Build().Perform();
+                new OpenQA.Selenium.Interactions.Actions(driver).MoveToElement(element).ContextClick(element).Build().Perform();
                 return true;
             });
         }

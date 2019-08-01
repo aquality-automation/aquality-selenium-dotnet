@@ -1,7 +1,7 @@
 ﻿using System;
 using Aquality.Selenium.Elements.Interfaces;
 
-namespace Aquality.Selenium.Elements.ElementActions
+namespace Aquality.Selenium.Elements.Actions
 {
     public class CheckBoxJsActions : JsActions
     {
