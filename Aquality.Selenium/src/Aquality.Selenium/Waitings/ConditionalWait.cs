@@ -38,7 +38,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.DebugLoc("java.ConditionalWait.waitFor", e);
+                Logger.Instance.Debug(".net.ConditionalWait.WaitFor", e);
             }
             finally
             {
@@ -62,7 +62,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.DebugLoc("java.ConditionalWait.waitForTrue", e);
+                Logger.Instance.Debug(".net.ConditionalWait.WaitForTrue", e);
                 return false;
             }
         }
@@ -91,7 +91,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.DebugLoc("java.ConditionalWait.waitFor", e);
+                Logger.Instance.Debug(".net.ConditionalWait.WaitFor", e);
             }
             return default(TResult);
         }
