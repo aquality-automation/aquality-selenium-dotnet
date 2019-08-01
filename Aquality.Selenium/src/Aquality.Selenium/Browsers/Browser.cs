@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Logging;
+using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Extensions;
@@ -13,6 +14,7 @@ namespace Aquality.Selenium.Browsers
         private readonly Logger logger = Logger.Instance;
         private readonly IConfiguration configuration;
         private TimeSpan implicitWaitTimeout;
+        private TimeSpan pageLoadTimeout;
 
         public Browser(RemoteWebDriver webDriver, IConfiguration configuration)
         {
@@ -30,10 +32,6 @@ namespace Aquality.Selenium.Browsers
 
         public TimeSpan ImplicitWaitTimeout
         {
-            get
-            {
-                return implicitWaitTimeout;
-            }
             set
             {
                 if (!value.Equals(implicitWaitTimeout))
@@ -55,6 +53,7 @@ namespace Aquality.Selenium.Browsers
                 if (!configuration.BrowserProfile.BrowserName.Equals(BrowserName.Safari))
                 {
                     Driver.Manage().Timeouts().PageLoad = value;
+                    pageLoadTimeout = value;
                 }
             }
         }
@@ -103,7 +102,11 @@ namespace Aquality.Selenium.Browsers
 
         public void WaitForPageToLoad()
         {
-            throw new NotImplementedException();
+            var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout);
+            if (!isLoaded)
+            {
+                logger.WarnLoc("loc.browser.page.timeout");
+            }
         }
 
         public byte[] GetScreenshot()
