@@ -6,7 +6,7 @@
         {
         }
 
-        internal const string Disabled = "disabled";
+        public const string Disabled = "disabled";
     }
 
     internal class Attributes
@@ -15,6 +15,6 @@
         {
         }
 
-        internal const string Class = "class";
+        public const string Class = "class";
     }
 }
