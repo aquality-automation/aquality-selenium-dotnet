@@ -32,10 +32,6 @@ namespace Aquality.Selenium.Browsers
 
         public TimeSpan ImplicitWaitTimeout
         {
-            get
-            {
-                return implicitWaitTimeout;
-            }
             set
             {
                 if (!value.Equals(implicitWaitTimeout))
@@ -52,10 +48,6 @@ namespace Aquality.Selenium.Browsers
         /// <param name="timeout"></param>
         public TimeSpan PageLoadTimeout
         {
-            private get
-            {
-                return pageLoadTimeout;
-            }
             set
             {
                 if (!configuration.BrowserProfile.BrowserName.Equals(BrowserName.Safari))
@@ -110,7 +102,7 @@ namespace Aquality.Selenium.Browsers
 
         public void WaitForPageToLoad()
         {
-            var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), PageLoadTimeout);
+            var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout);
             if (!isLoaded)
             {
                 logger.WarnLoc("loc.browser.page.timeout");
