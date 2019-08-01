@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using System;
 
-namespace Aquality.Selenium.Elements.Actions
+namespace Aquality.Selenium.Elements.ElementActions
 {
     public class JsActions
     {

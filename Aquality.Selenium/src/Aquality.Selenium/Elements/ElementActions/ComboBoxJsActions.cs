@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Aquality.Selenium.Elements.Interfaces;
 
-namespace Aquality.Selenium.Elements.Actions
+namespace Aquality.Selenium.Elements.ElementActions
 {
     public class ComboBoxJsActions : JsActions
     {

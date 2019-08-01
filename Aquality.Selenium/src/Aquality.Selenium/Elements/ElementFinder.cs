@@ -27,73 +27,66 @@ namespace Aquality.Selenium.Elements
                 {
                     InstanceHolder.Value = new ElementFinder();
                 }
-
                 return InstanceHolder.Value;
             }
         }
 
         private ITimeoutConfiguration TimeoutConfiguration => Configuration.Instance.TimeoutConfiguration;
 
-        private TimeSpan DefaultTimeout => TimeoutConfiguration.Condition;
-
         private Browser Browser => BrowserManager.Browser;
 
-        public IWebElement FindElement(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState)
+        public IWebElement FindElement(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)
         {
-            var clearTimeout = timeout ?? DefaultTimeout;
-            var elements = FindElements(locator, clearTimeout, state);
+            var elementStateCondition = ResolveState(state);
+            return FindElement(locator, elementStateCondition, timeout);
+        }
+
+        public IWebElement FindElement(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
+        {
+            var clearTimeout = timeout ?? TimeoutConfiguration.Condition;
+            var elements = FindElements(locator, elementStateCondition, clearTimeout);
             if (elements.Any())
             {
                 return elements.First();
             }
-
-            throw new NoSuchElementException($"Element was not found in {clearTimeout.Seconds} seconds in state {state} by locator {locator}");
+            throw new NoSuchElementException($"Element was not found in {clearTimeout.Seconds} seconds by locator {locator}");
         }
 
-        public IWebElement FindElement(By by)
+        public ReadOnlyCollection<IWebElement> FindElements(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)
         {
-            return FindElement(by, timeout: null);
+            var elementStateCondition = ResolveState(state);
+            return FindElements(locator, elementStateCondition, timeout);
         }
 
-        public ReadOnlyCollection<IWebElement> FindElements(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState)
+        public ReadOnlyCollection<IWebElement> FindElements(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
         {
-            var resultElements = new List<IWebElement>();
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
+            var resultElements = new List<IWebElement>();
             ConditionalWait.WaitForTrue(driver =>
             {
-                var foundElements = driver.FindElements(locator);
-                var filteredElements = FilterByState(foundElements, state);
-                resultElements.AddRange(filteredElements);
-                return filteredElements.Any();
-            }, timeout ?? DefaultTimeout);
+                var elements = driver.FindElements(locator).Where(elementStateCondition);
+                resultElements.AddRange(elements);
+                return elements.Any();
+            }, timeout);
             Browser.ImplicitWaitTimeout = TimeoutConfiguration.Implicit;
-            return resultElements.ToList().AsReadOnly();
+            return resultElements.AsReadOnly();
         }
 
-        private IList<IWebElement> FilterByState(IList<IWebElement> foundElements, ElementState state)
+        private Func<IWebElement, bool> ResolveState(ElementState state)
         {
-            var filteredElements = new List<IWebElement>();
-            if (foundElements.Any())
+            Func<IWebElement, bool> elementStateCondition;
+            switch (state)
             {
-                switch (state)
-                {
-                    case ElementState.Displayed:
-                        filteredElements.AddRange(foundElements.Where(element => element.Displayed));
-                        break;
-                    case ElementState.ExistsInAnyState:
-                        filteredElements.AddRange(foundElements);
-                        break;
-                    default:
-                        throw new InvalidOperationException($"{state} state is not recognized");
-                }
+                case ElementState.Displayed:
+                    elementStateCondition = element => element.Displayed;
+                    break;
+                case ElementState.ExistsInAnyState:
+                    elementStateCondition = element => true;
+                    break;
+                default:
+                    throw new InvalidOperationException($"{state} state is not recognized");
             }
-
-            return filteredElements;
-        }
-
-        public ReadOnlyCollection<IWebElement> FindElements(By by)
-        {
-            return FindElements(by, timeout: null);
+            return elementStateCondition;
         }
     }
 }

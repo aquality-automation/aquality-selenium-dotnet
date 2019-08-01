@@ -1,4 +1,4 @@
-﻿using Aquality.Selenium.Elements.Actions;
+﻿using Aquality.Selenium.Elements.ElementActions;
 using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements.Interfaces

@@ -1,8 +1,8 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Logging;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace Aquality.Selenium.Waitings
@@ -13,39 +13,7 @@ namespace Aquality.Selenium.Waitings
     public static class ConditionalWait
     {
         private static readonly IConfiguration Configuration = Configurations.Configuration.Instance;
-
-        /// <summary>
-        /// Wait for some object from condition with timeout.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
-        /// </summary>
-        /// <typeparam name="T">Type of object which is waiting</typeparam>
-        /// <param name="condition">Function for waiting</param>
-        /// <param name="timeOut">Time-out</param>
-        /// <returns>Object which waiting for or default of a T class - is exceptions occured</returns>
-        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
-        {
-            BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
-            var wait = new DefaultWait<IWebDriver>(BrowserManager.Browser.Driver)
-            {
-                Timeout = ResolveConditionTimeOut(timeOut),
-                PollingInterval = Configuration.TimeoutConfiguration.PollingInterval
-            };
-            wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException), typeof(NoSuchElementException));
-
-            try
-            {
-                return wait.Until(condition);
-            }
-            catch (Exception e)
-            {
-                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitFor", e);
-            }
-            finally
-            {
-                BrowserManager.Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
-            }
-            return default(T);
-        }
+        private static readonly Browser Browser = BrowserManager.Browser;
 
         /// <summary>
         /// Wait for condition and return true if waiting successful or false - otherwise.
@@ -58,12 +26,34 @@ namespace Aquality.Selenium.Waitings
         {
             try
             {
-                return WaitFor(condition, ResolveConditionTimeOut(timeOut));
+                return WaitFor(condition, timeOut);
             }
             catch (Exception e)
             {
                 Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitForTrue", e);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Wait for some object from condition with timeout.
+        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// </summary>
+        /// <typeparam name="T">Type of object which is waiting</typeparam>
+        /// <param name="condition">Function for waiting</param>
+        /// <param name="timeOut">Time-out</param>
+        /// <returns>Object which waiting for or default of a T class - is exceptions occured</returns>
+        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
+        {
+            Browser.ImplicitWaitTimeout = TimeSpan.Zero;
+            try
+            {
+                var exceptionsToIgnore = new Type[] { typeof(StaleElementReferenceException), typeof(NoSuchElementException) };
+                return WaitFor(condition, Browser.Driver, timeOut, exceptionsToIgnore);
+            }
+            finally
+            {
+                Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
             }
         }
 
@@ -76,14 +66,16 @@ namespace Aquality.Selenium.Waitings
         /// <param name="condition">Function for waiting</param>
         /// <param name="waitWith">Object who will helping to wait (which will be passed to <see cref="DefaultWait{T}"/>)</param>
         /// <param name="timeOut">Time-out</param>
+        /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored</param>
         /// <returns>Object which waiting for or default of a TResult class - is exceptions occured</returns>
-        public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan? timeOut = null)
+        public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan? timeOut = null, params Type[] exceptionsToIgnore)
         {
             var wait = new DefaultWait<T>(waitWith)
             {
                 Timeout = ResolveConditionTimeOut(timeOut),
                 PollingInterval = Configuration.TimeoutConfiguration.PollingInterval
             };
+            wait.IgnoreExceptionTypes(exceptionsToIgnore);
 
             try
             {
@@ -93,7 +85,7 @@ namespace Aquality.Selenium.Waitings
             {
                 Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitFor", e);
             }
-            return default(TResult);
+            return default;
         }
 
         private static TimeSpan ResolveConditionTimeOut(TimeSpan? timeOut)
