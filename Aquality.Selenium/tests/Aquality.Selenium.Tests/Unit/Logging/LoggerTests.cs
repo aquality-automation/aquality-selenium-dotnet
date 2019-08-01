@@ -4,7 +4,7 @@ using Aquality.Selenium.Logging;
 using NLog.Targets;
 using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.Logging
+namespace Aquality.Selenium.Tests.Unit.Logging
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
