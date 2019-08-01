@@ -4,6 +4,6 @@
     {
         IElementStateProvider State { get; }
 
-        bool HasState(string classAttributeValue);
+        bool HasState(string className);
     }
 }

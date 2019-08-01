@@ -146,9 +146,9 @@ namespace Aquality.Selenium.Elements
             return ElementFactory.FindChildElement(this, childLocator, supplier, state);
         }
 
-        public bool HasState(string classAttributeValue)
+        public bool HasState(string className)
         {
-            return GetAttribute(Attributes.Class).Contains(classAttributeValue.ToLower());
+            return GetAttribute(Attributes.Class).Contains(className.ToLower());
         }
     }
 }
