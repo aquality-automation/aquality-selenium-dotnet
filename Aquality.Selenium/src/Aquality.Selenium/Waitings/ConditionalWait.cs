@@ -1,9 +1,9 @@
 ﻿using System;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Logging;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace Aquality.Selenium.Waitings
 {
@@ -24,15 +24,7 @@ namespace Aquality.Selenium.Waitings
         /// <returns>True if waiting successful or false - otherwise.</returns>
         public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan? timeOut = null)
         {
-            try
-            {
-                return WaitFor(condition, timeOut);
-            }
-            catch (Exception e)
-            {
-                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitForTrue", e);
-                return false;
-            }
+            return WaitFor(condition, timeOut);
         }
 
         /// <summary>
@@ -46,15 +38,10 @@ namespace Aquality.Selenium.Waitings
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
         {
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
-            try
-            {
-                var exceptionsToIgnore = new Type[] { typeof(StaleElementReferenceException), typeof(NoSuchElementException) };
-                return WaitFor(condition, Browser.Driver, timeOut, exceptionsToIgnore);
-            }
-            finally
-            {
-                Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
-            }
+            var exceptionsToIgnore = new Type[] { typeof(StaleElementReferenceException), typeof(NoSuchElementException) };
+            var result = WaitFor(condition, Browser.Driver, timeOut, exceptionsToIgnore);
+            Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
+            return result;
         }
 
         /// <summary>

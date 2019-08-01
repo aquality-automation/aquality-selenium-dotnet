@@ -49,7 +49,7 @@ namespace Aquality.Selenium.Elements
             {
                 return elements.First();
             }
-            throw new NoSuchElementException($"Element was not found in {clearTimeout.Seconds} seconds by locator {locator}");
+            throw new NoSuchElementException($"Element was not found in desired state in {clearTimeout.Seconds} seconds by locator {locator}");
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)

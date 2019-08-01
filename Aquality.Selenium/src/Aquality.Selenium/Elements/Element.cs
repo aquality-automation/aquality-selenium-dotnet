@@ -87,7 +87,7 @@ namespace Aquality.Selenium.Elements
             logger.InfoLoc("loc.clicking.right");
             ConditionalWait.WaitFor(driver => 
             {
-                IWebElement element = GetElement();
+                var element = GetElement();
                 new OpenQA.Selenium.Interactions.Actions(driver).MoveToElement(element).ContextClick(element).Build().Perform();
                 return true;
             });
