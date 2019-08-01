@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Browsers
     {
         private const string JavaScriptResourcePath = "Resources.JavaScripts";
         private const string JavaScriptFileExtension = "js";
-        
+
         public static string GetScript(this JavaScript javaScript)
         {
             return javaScript.GetResourcePath().GetScript();

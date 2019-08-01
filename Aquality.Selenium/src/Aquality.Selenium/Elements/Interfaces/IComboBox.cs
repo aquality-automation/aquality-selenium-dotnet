@@ -1,5 +1,5 @@
-﻿using Aquality.Selenium.Elements.Actions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Aquality.Selenium.Elements.Actions;
 
 namespace Aquality.Selenium.Elements.Interfaces
 {

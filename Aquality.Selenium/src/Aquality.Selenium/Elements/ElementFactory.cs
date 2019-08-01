@@ -16,6 +16,8 @@ namespace Aquality.Selenium.Elements
     {
         private static readonly string ByXpathIdentifier = "By.XPath";
 
+        private Browser Browser => BrowserManager.Browser;
+
         public IButton GetButton(By locator, string name, ElementState state = ElementState.Displayed)
         {
             return new Button(locator, name, state);
@@ -76,7 +78,7 @@ namespace Aquality.Selenium.Elements
                     throw new ArgumentOutOfRangeException($"No such expected value: {expectedCount}");
             }
 
-            var webElements = GetBrowser().Driver.FindElements(locator);
+            var webElements = Browser.Driver.FindElements(locator);
             IEnumerable<T> elements = webElements.Select((webElement, index) =>
             {
                 var elementIndex = index + 1;
@@ -90,18 +92,13 @@ namespace Aquality.Selenium.Elements
             var strBaseLocator = baseLocator.ToString();
             var elementLocator = strBaseLocator.Contains(ByXpathIdentifier)
                     ? $"({strBaseLocator.Split(':')[1].Trim()})[{elementIndex}]"
-                    : GetBrowser().ExecuteScript<string>(JavaScript.GetElementXPath, webElement);
+                    : Browser.ExecuteScript<string>(JavaScript.GetElementXPath, webElement);
             return By.XPath(elementLocator);
         }
 
         private ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier) where T : IElement
         {
             return supplier ?? ((locator, name, state) => (T)Activator.CreateInstance(typeof(T), locator, name, state));
-        }
-
-        private Browser GetBrowser()
-        {
-            return BrowserManager.Browser;
         }
     }
 }

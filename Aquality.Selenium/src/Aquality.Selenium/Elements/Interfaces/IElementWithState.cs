@@ -4,6 +4,6 @@
     {
         IElementStateProvider State { get; }
 
-        bool HasState(PopularClassNames className); // TODO: need more understandable name
+        bool ContainsClassAttribute(string className);
     }
 }
