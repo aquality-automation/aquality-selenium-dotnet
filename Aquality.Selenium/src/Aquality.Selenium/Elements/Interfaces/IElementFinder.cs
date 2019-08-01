@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <param name="timeout">timeout for search</param>
         /// <param name="state">desired ElementState</param>
         /// <exception cref="OpenQA.Selenium.NoSuchElementException">Thrown if element was not found in time in desired state</exception> 
-        /// <returns></returns>
+        /// <returns>Found element</returns>
         IWebElement FindElement(By locator, TimeSpan? timeout = null, ElementState state = ElementState.ExistsInAnyState);
     }
 }
