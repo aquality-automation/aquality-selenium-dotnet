@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Waitings
         /// <typeparam name="T">Type of object which is waiting</typeparam>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
-        /// <returns>Object from condition</returns>
+        /// <returns>Object which waiting for or default of a T class - is exceptions occured</returns>
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
         {
             BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
@@ -38,7 +38,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.Debug(".net.ConditionalWait.WaitFor", e);
+                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitFor", e);
             }
             finally
             {
@@ -62,7 +62,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.Debug(".net.ConditionalWait.WaitForTrue", e);
+                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitForTrue", e);
                 return false;
             }
         }
@@ -91,7 +91,7 @@ namespace Aquality.Selenium.Waitings
             }
             catch (Exception e)
             {
-                Logger.Instance.Debug(".net.ConditionalWait.WaitFor", e);
+                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitFor", e);
             }
             return default(TResult);
         }
