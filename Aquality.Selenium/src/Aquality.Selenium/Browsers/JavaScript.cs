@@ -28,7 +28,8 @@ namespace Aquality.Selenium.Browsers
         SelectComboBoxValueByText,
         SetFocus,
         SetInnerHTML,
-        SetValue
+        SetValue,
+        GetViewPortCoordinates
     }
 
     public static class JavaScriptExtensions

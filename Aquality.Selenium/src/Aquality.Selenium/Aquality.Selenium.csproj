@@ -16,6 +16,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\GetElementText.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementXPath.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetTextFirstChild.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetViewPortCoordinates.js" />
     <EmbeddedResource Include="Resources\JavaScripts\IsPageLoaded.js" />
     <EmbeddedResource Include="Resources\JavaScripts\MouseHover.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ScrollBy.js" />

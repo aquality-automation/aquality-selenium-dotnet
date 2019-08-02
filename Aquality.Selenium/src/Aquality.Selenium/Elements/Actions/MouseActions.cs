@@ -7,7 +7,7 @@ using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 namespace Aquality.Selenium.Elements.Actions
 {
     /// <summary>
-    /// Allows to perfrom actions on elements using Selenium Actions class.
+    /// Allows to perfrom actions on elements via Selenium Actions class.
     /// </summary>
     public class MouseActions
     {
