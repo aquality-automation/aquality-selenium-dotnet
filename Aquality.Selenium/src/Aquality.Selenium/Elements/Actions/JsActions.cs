@@ -13,7 +13,7 @@ namespace Aquality.Selenium.Elements.Actions
     public class JsActions
     {
         private readonly IConfiguration Configuration = Configurations.Configuration.Instance;
-        private readonly Logger logger = Logger.Instance;
+        protected readonly Logger logger = Logger.Instance;
 
         private readonly IElement element;
         private readonly string elementType;
@@ -153,12 +153,12 @@ namespace Aquality.Selenium.Elements.Actions
             return new Point((int)Math.Round(coordinates[0]), (int)Math.Round(coordinates[1]));
         }
 
-        private T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
+        protected T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
         {
             return Browser.ExecuteScript<T>(scriptName, element.GetElement(), arguments);
         }
 
-        private void ExecuteScript(JavaScript scriptName, params object[] arguments)
+        protected void ExecuteScript(JavaScript scriptName, params object[] arguments)
         {
             Browser.ExecuteScript(scriptName, element.GetElement(), arguments);
         }
