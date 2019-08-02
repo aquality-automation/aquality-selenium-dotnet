@@ -29,8 +29,6 @@ namespace Aquality.Selenium.Elements.Interfaces
 
         void Click();
 
-        void RightClick();
-
         void ClickAndWait();
 
         void WaitAndClick();

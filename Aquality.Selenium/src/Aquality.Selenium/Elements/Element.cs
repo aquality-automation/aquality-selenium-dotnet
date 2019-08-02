@@ -10,9 +10,7 @@ using Aquality.Selenium.Waitings;
 namespace Aquality.Selenium.Elements
 {
     public abstract class Element : IElement
-    {
-        private readonly Logger logger = Logger.Instance;
-
+    {      
         protected Element(By locator, string name, ElementState state)
         {
             Locator = locator;
@@ -30,9 +28,11 @@ namespace Aquality.Selenium.Elements
 
         public JsActions JsActions => new JsActions(this, ElementType);
 
-        public MouseActions MouseActions => new MouseActions(this);
+        public MouseActions MouseActions => new MouseActions(this, ElementType);
 
         public IElementStateProvider State => new ElementStateProvider(Locator);
+
+        private Logger Logger => Logger.Instance;
 
         private Browser Browser => BrowserManager.Browser;
 
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Elements
             }
             catch (NoSuchElementException ex)
             {
-                logger.Debug($"Page source:{Environment.NewLine}{Browser.Driver.PageSource}");
+                Logger.Debug($"Page source:{Environment.NewLine}{Browser.Driver.PageSource}");
                 throw ex;
             }
         }
@@ -73,22 +73,11 @@ namespace Aquality.Selenium.Elements
 
         public void Click()
         {
-            logger.InfoLoc("loc.clicking");
+            Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
             ConditionalWait.WaitFor(driver =>
             {
                 GetElement().Click();
-                return true;
-            });
-        }
-
-        public void RightClick()
-        {
-            logger.InfoLoc("loc.clicking.right");
-            ConditionalWait.WaitFor(driver => 
-            {
-                var element = GetElement();
-                new OpenQA.Selenium.Interactions.Actions(driver).MoveToElement(element).ContextClick(element).Build().Perform();
                 return true;
             });
         }
@@ -100,14 +89,14 @@ namespace Aquality.Selenium.Elements
 
         public string GetAttribute(string attr, HighlightState highlightState = HighlightState.NotHighlight, TimeSpan? timeout = null)
         {
-            logger.InfoLoc("loc.el.getattr", attr);
+            Logger.InfoLoc("loc.el.getattr", attr);
             HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement(timeout).GetAttribute(attr), timeout);
         }
 
         public string GetText(HighlightState highlightState = HighlightState.NotHighlight)
         {
-            logger.InfoLoc("loc.get.text");
+            Logger.InfoLoc("loc.get.text");
             HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement().Text);
         }
@@ -132,7 +121,7 @@ namespace Aquality.Selenium.Elements
         public void SetInnerHtml(string value)
         {
             Click();
-            logger.InfoLoc("loc.send.text", value);
+            Logger.InfoLoc("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
         }
 

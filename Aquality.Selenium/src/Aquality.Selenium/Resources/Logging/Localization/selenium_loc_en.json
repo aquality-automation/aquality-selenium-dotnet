@@ -34,6 +34,7 @@
   "loc.get.text.js": "Getting text from element via Javascript",
   "loc.hover.js": "Hover mouse over element via JavaScript",
   "loc.is.present.js": "Is present via JavaScript",
+  "loc.get.xpath.js": "Getting XPath locator of element via JavaScript",
   "loc.label": "Label",
   "loc.link": "Link",
   "loc.mouse.up": "Mouse Up",

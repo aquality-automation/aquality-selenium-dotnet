@@ -1,35 +1,86 @@
 ﻿using System;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium;
+using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Logging;
+using Aquality.Selenium.Waitings;
 
 namespace Aquality.Selenium.Elements.Actions
 {
+    /// <summary>
+    /// Allows to perfrom actions on elements via Selenium Actions class.
+    /// </summary>
     public class MouseActions
     {
         private readonly IElement element;
+        private readonly string elementType;
 
-        public MouseActions(IElement element)
+        public MouseActions(IElement element, string elementType)
         {
             this.element = element;
+            this.elementType = elementType;
         }
 
+        private Logger Logger => Logger.Instance;
+
+        private JsActions JsActions => new JsActions(element, elementType);
+
+        /// <summary>
+        /// Performs click on element.
+        /// </summary>
         public void Click()
         {
-            throw new NotImplementedException();
+            Logger.InfoLoc("loc.clicking");
+            JsActions.HighlightElement();
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).Click(element)));
         }
 
+        /// <summary>
+        /// Performs double click on element.
+        /// </summary>
         public void DoubleClick()
         {
-            throw new NotImplementedException();
+            Logger.InfoLoc("loc.clicking.double");
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).DoubleClick(element)));
         }
 
+        /// <summary>
+        /// Perfroms right click on element.
+        /// </summary>
+        public void RightClick()
+        {
+            Logger.InfoLoc("loc.clicking.right");
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).ContextClick(element)));
+        }
+
+        /// <summary>
+        /// Moves mouse to the element.
+        /// </summary>
         public void MoveMouseToElement()
         {
-            throw new NotImplementedException();
+            Logger.InfoLoc("loc.moving");
+            JsActions.ScrollIntoView(); // TODO: check on Safari
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element)));
         }
 
-        public void MouseUp()
+        private SeleniumActions MoveToElement(IWebDriver driver, IWebElement element)
         {
-            throw new NotImplementedException();
+            return new SeleniumActions(driver).MoveToElement(element);
+        }
+
+        private bool PerformAction(Func<RemoteWebElement, SeleniumActions> action)
+        {
+            try
+            {
+                action(element.GetElement()).Build().Perform();
+                return true;
+            }
+            catch (WebDriverException ex)
+            {
+                Logger.Debug(ex.Message);
+                return false;
+            }
         }
     }
 }
