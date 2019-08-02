@@ -8,7 +8,6 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
     [Parallelizable(ParallelScope.All)]
     public class JavaScriptTests
     {
-        private const string TestScriptPath = "Resources.TestJavaScript.js";
 #pragma warning disable IDE0052 // Remove unread private members
         private static readonly JavaScript[] JavaScripts = Enum.GetValues(typeof(JavaScript)) as JavaScript[];
 #pragma warning restore IDE0052 // Remove unread private members
@@ -18,13 +17,7 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
         {
             Assert.IsNotEmpty(script.GetScript(), $"Failed to get javascript {script}");
         }
-        /*
-        [Test]
-        public void Should_GetCustomJavaScript()
-        {
-            Assert.Throws<NullReferenceException>(() => new Browser(null, null).ExecuteScriptFromFile(TestScriptPath), $"Failed to get javascript {TestScriptPath}");
-        }*/
-
+        
         [Test]
         public void Should_BeUniqueJavaScripts()
         {
