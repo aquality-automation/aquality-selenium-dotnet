@@ -19,14 +19,14 @@ namespace Aquality.Selenium.Elements.Interfaces
         bool IsExist { get; }
 
         /// <summary>
-        /// Waits for is element displayed on the page.
+        /// Waits for element is displayed on the page.
         /// </summary>
         /// <param name="timeout">Timeout for waiting. Default: Configuration.TimeoutConfiguration.Condition</param>
         /// <returns>true if element displayed after waiting, false otherwise</returns>
         bool WaitForDisplayed(TimeSpan? timeout = null);
 
         /// <summary>
-        /// Waits for is element not displayed on the page.
+        /// Waits for element is not displayed on the page.
         /// </summary>
         /// <param name="timeout">Timeout for waiting. Default: Configuration.TimeoutConfiguration.Condition</param>
         /// <returns>true if element does not display after waiting, false otherwise</returns>
