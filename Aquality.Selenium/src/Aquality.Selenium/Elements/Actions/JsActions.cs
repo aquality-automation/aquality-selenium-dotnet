@@ -12,9 +12,6 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class JsActions
     {
-        private readonly IConfiguration Configuration = Configurations.Configuration.Instance;
-        protected readonly Logger logger = Logger.Instance;
-
         private readonly IElement element;
         private readonly string elementType;
 
@@ -24,7 +21,11 @@ namespace Aquality.Selenium.Elements.Actions
             this.elementType = elementType;
         }
 
+        private IConfiguration Configuration => Configurations.Configuration.Instance;
+
         private Browser Browser => BrowserManager.Browser;
+
+        protected Logger Logger => Logger.Instance;
 
         /// <summary>
         /// Perfroms click on element and waits for page is loaded.
@@ -40,7 +41,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            logger.InfoLoc("loc.clicking.js");
+            Logger.InfoLoc("loc.clicking.js");
             HighlightElement();
             ExecuteScript(JavaScript.ClickElement);
         }
@@ -61,7 +62,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollIntoView()
         {
-            logger.InfoLoc("loc.scrolling.js");
+            Logger.InfoLoc("loc.scrolling.js");
             ExecuteScript(JavaScript.ScrollToElement, true);
         }
 
@@ -72,7 +73,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="y">Verticale coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            logger.InfoLoc("loc.scrolling.js");
+            Logger.InfoLoc("loc.scrolling.js");
             ExecuteScript(JavaScript.ScrollBy, x, y);
         }
 
@@ -81,7 +82,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollToTheCenter()
         {
-            logger.InfoLoc("loc.scrolling.center.js");
+            Logger.InfoLoc("loc.scrolling.center.js");
             ExecuteScript(JavaScript.ScrollToElementCenter);
         }
 
@@ -91,7 +92,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="value">Value to set</param>
         public void SetValue(string value)
         {
-            logger.InfoLoc("loc.setting.value");
+            Logger.InfoLoc("loc.setting.value");
             ExecuteScript(JavaScript.SetValue, value);
         }
 
@@ -100,7 +101,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void SetFocus()
         {
-            logger.InfoLoc("loc.focusing");
+            Logger.InfoLoc("loc.focusing");
             ExecuteScript(JavaScript.SetFocus);
         }
 
@@ -110,7 +111,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>True if element is on screen and false otherwise.</returns>
         public bool IsElementOnScreen()
         {
-            logger.InfoLoc("loc.is.present.js");
+            Logger.InfoLoc("loc.is.present.js");
             return ExecuteScript<bool>(JavaScript.ElementIsOnScreen);
         }
 
@@ -120,7 +121,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Text from element</returns>
         public string GetElementText()
         {
-            logger.InfoLoc("loc.get.text.js");
+            Logger.InfoLoc("loc.get.text.js");
             return ExecuteScript<string>(JavaScript.GetElementText);
         }
 
@@ -129,7 +130,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void HoverMouse()
         {
-            logger.InfoLoc("loc.hover.js");
+            Logger.InfoLoc("loc.hover.js");
             ExecuteScript(JavaScript.MouseHover);
         }
 
@@ -139,7 +140,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>String representation of element's XPath locator.</returns>
         public string GetXPath()
         {
-            logger.InfoLoc("loc.get.xpath.js");
+            Logger.InfoLoc("loc.get.xpath.js");
             return ExecuteScript<string>(JavaScript.GetElementXPath);
         }
 

@@ -7,7 +7,6 @@ namespace Aquality.Selenium.Browsers
 {
     public class BrowserNavigation : INavigation
     {
-        private readonly Logger logger = Logger.Instance;
         private readonly RemoteWebDriver driver;
 
         internal BrowserNavigation(RemoteWebDriver driver)
@@ -15,33 +14,35 @@ namespace Aquality.Selenium.Browsers
             this.driver = driver;
         }
 
+        private Logger Logger => Logger.Instance;
+
         public void Back()
         {
-            logger.InfoLoc("loc.browser.back");
+            Logger.InfoLoc("loc.browser.back");
             driver.Navigate().Back();
         }
 
         public void Forward()
         {
-            logger.InfoLoc("loc.browser.forward");
+            Logger.InfoLoc("loc.browser.forward");
             driver.Navigate().Forward();
         }
 
         public void GoToUrl(string url)
         {
-            logger.InfoLoc("loc.browser.navigate", url);
+            Logger.InfoLoc("loc.browser.navigate", url);
             driver.Navigate().GoToUrl(url);
         }
 
         public void GoToUrl(Uri url)
         {
-            logger.InfoLoc("loc.browser.navigate", url);
+            Logger.InfoLoc("loc.browser.navigate", url);
             driver.Navigate().GoToUrl(url);
         }
 
         public void Refresh()
         {
-            logger.InfoLoc("loc.browser.refresh");
+            Logger.InfoLoc("loc.browser.refresh");
             driver.Navigate().Refresh();
         }
     }

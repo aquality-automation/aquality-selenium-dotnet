@@ -1,8 +1,8 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
+﻿using OpenQA.Selenium;
+using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
+using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
-using OpenQA.Selenium;
-using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -11,8 +11,6 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class MouseActions
     {
-        private readonly Logger logger = Logger.Instance;
-
         private readonly IElement element;
         private readonly string elementType;
 
@@ -22,6 +20,8 @@ namespace Aquality.Selenium.Elements.Actions
             this.elementType = elementType;
         }
 
+        private Logger Logger => Logger.Instance;
+
         private JsActions JsActions => new JsActions(element, elementType);
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            logger.InfoLoc("loc.clicking");
+            Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
             ConditionalWait.WaitFor(driver => PerformAction(new SeleniumActions(driver).Click(element.GetElement())));
         }
@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void DoubleClick()
         {
-            logger.InfoLoc("loc.clicking.double");
+            Logger.InfoLoc("loc.clicking.double");
             ConditionalWait.WaitFor(driver => {
                 var currentElement = element.GetElement();
                 return PerformAction(new SeleniumActions(driver).MoveToElement(currentElement).DoubleClick(currentElement));
@@ -51,7 +51,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void RightClick()
         {
-            logger.InfoLoc("loc.clicking.right");
+            Logger.InfoLoc("loc.clicking.right");
             ConditionalWait.WaitFor(driver =>
             {
                 var currentElement = element.GetElement();
@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void MoveMouseToElement()
         {
-            logger.InfoLoc("loc.moving");
+            Logger.InfoLoc("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
             ConditionalWait.WaitFor(driver => PerformAction(new SeleniumActions(driver).MoveToElement(element.GetElement())));
         }
@@ -78,7 +78,7 @@ namespace Aquality.Selenium.Elements.Actions
             }
             catch (WebDriverException ex)
             {
-                logger.Debug(ex.Message);
+                Logger.Debug(ex.Message);
                 return false;
             }
         }
