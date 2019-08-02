@@ -1,7 +1,9 @@
-﻿using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Elements.Interfaces;
+﻿using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Aquality.Selenium.Elements
 {
@@ -14,30 +16,33 @@ namespace Aquality.Selenium.Elements
             this.elementLocator = elementLocator;
         }
 
-        public bool IsDisplayed => throw new NotImplementedException();
+        public bool IsDisplayed => WaitForDisplayed(TimeSpan.Zero);
 
-        public bool IsExist => throw new NotImplementedException();
-
-        public TimeSpan DefaultTimeout => Configuration.Instance.TimeoutConfiguration.Condition;
-
+        public bool IsExist => WaitForExist(TimeSpan.Zero);
+        
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
-            throw new NotImplementedException();
+            return FindElements(timeout, ElementState.Displayed).Any();
         }
 
         public bool WaitForExist(TimeSpan? timeout = null)
         {
-            throw new NotImplementedException();
+            return FindElements(timeout, ElementState.ExistsInAnyState).Any();
         }
 
         public bool WaitForNotDisplayed(TimeSpan? timeout = null)
         {
-            throw new NotImplementedException();
+            return ConditionalWait.WaitForTrue(driver => !IsDisplayed, timeout);
         }
 
         public bool WaitForNotExist(TimeSpan? timeout = null)
         {
-            throw new NotImplementedException();
+            return ConditionalWait.WaitForTrue(driver => !IsExist, timeout);
+        }
+
+        private ReadOnlyCollection<IWebElement> FindElements(TimeSpan? timeout, ElementState state)
+        {
+            return ElementFinder.Instance.FindElements(elementLocator, state, timeout);
         }
     }
 }
