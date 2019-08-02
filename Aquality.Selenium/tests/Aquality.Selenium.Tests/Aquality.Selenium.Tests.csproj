@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\src\Aquality.Selenium\Aquality.Selenium.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

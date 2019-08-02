@@ -1,6 +1,4 @@
 ﻿using Aquality.Selenium.Utilities;
-using System;
-using System.IO;
 using System.Reflection;
 
 namespace Aquality.Selenium.Browsers
@@ -39,12 +37,12 @@ namespace Aquality.Selenium.Browsers
 
         public static string GetScript(this JavaScript javaScript)
         {
-            return javaScript.GetResourcePath().GetScript();
+            return javaScript.GetResourcePath().GetScript(Assembly.GetExecutingAssembly());
         }
 
-        public static string GetScript(this string embeddedResourcePath, Assembly assembly = null)
+        internal static string GetScript(this string embeddedResourcePath, Assembly assembly)
         {
-            return FileReader.GetTextFromEmbeddedResource(embeddedResourcePath, assembly ?? Assembly.GetCallingAssembly());
+            return FileReader.GetTextFromEmbeddedResource(embeddedResourcePath, assembly);
         }
 
         private static string GetResourcePath(this JavaScript javaScript)

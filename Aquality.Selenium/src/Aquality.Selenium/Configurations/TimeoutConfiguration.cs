@@ -1,17 +1,35 @@
-﻿using System;
+﻿using Aquality.Selenium.Utilities;
+using System;
 
 namespace Aquality.Selenium.Configurations
 {
     public class TimeoutConfiguration : ITimeoutConfiguration
     {
-        public TimeSpan Implicit => throw new NotImplementedException();
+        private readonly JsonFile settingsFile;
 
-        public TimeSpan Script => throw new NotImplementedException();
+        public TimeoutConfiguration(JsonFile settingsFile)
+        {
+            this.settingsFile = settingsFile;
+            Implicit = GetTimeout(nameof(Implicit));
+            Script = GetTimeout(nameof(Script));
+            PageLoad = GetTimeout("Pageload"); // todo: rename in settings.json
+            Condition = GetTimeout(nameof(Condition));
+            PollingInterval = GetTimeout(nameof(PollingInterval));
+        }
 
-        public TimeSpan PageLoad => throw new NotImplementedException();
+        private TimeSpan GetTimeout(string name)
+        {
+            return TimeSpan.FromSeconds(settingsFile.GetObject<int>($".timeouts.timeout{name}"));
+        }
 
-        public TimeSpan Condition => throw new NotImplementedException();
+        public TimeSpan Implicit { get; }
 
-        public TimeSpan PollingInterval => throw new NotImplementedException();
+        public TimeSpan Script { get; }
+
+        public TimeSpan PageLoad { get; }
+
+        public TimeSpan Condition { get; }
+
+        public TimeSpan PollingInterval { get; }
     }
 }

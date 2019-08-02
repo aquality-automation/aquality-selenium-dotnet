@@ -6,6 +6,8 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     {
         string WebDriverVersion { get; }
 
+        string SystemArchitecture { get; }
+
         DriverOptions DriverOptions { get; }
 
         string DownloadDir { get; }

@@ -18,12 +18,12 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
         {
             Assert.IsNotEmpty(script.GetScript(), $"Failed to get javascript {script}");
         }
-
+        /*
         [Test]
         public void Should_GetCustomJavaScript()
         {
-            Assert.IsNotEmpty(TestScriptPath.GetScript(), $"Failed to get javascript {TestScriptPath}");
-        }
+            Assert.Throws<NullReferenceException>(() => new Browser(null, null).ExecuteScriptFromFile(TestScriptPath), $"Failed to get javascript {TestScriptPath}");
+        }*/
 
         [Test]
         public void Should_BeUniqueJavaScripts()
