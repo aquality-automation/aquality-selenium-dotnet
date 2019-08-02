@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Elements
 
         public JsActions JsActions => new JsActions(this, ElementType);
 
-        public MouseActions MouseActions => new MouseActions(this);
+        public MouseActions MouseActions => new MouseActions(this, ElementType);
 
         public IElementStateProvider State => new ElementStateProvider(Locator);
 
@@ -78,17 +78,6 @@ namespace Aquality.Selenium.Elements
             ConditionalWait.WaitFor(driver =>
             {
                 GetElement().Click();
-                return true;
-            });
-        }
-
-        public void RightClick()
-        {
-            logger.InfoLoc("loc.clicking.right");
-            ConditionalWait.WaitFor(driver => 
-            {
-                var element = GetElement();
-                new OpenQA.Selenium.Interactions.Actions(driver).MoveToElement(element).ContextClick(element).Build().Perform();
                 return true;
             });
         }
