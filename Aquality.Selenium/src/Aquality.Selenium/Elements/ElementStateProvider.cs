@@ -22,12 +22,12 @@ namespace Aquality.Selenium.Elements
         
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
-            return !FindElements(timeout, ElementState.Displayed).Any();
+            return FindElements(timeout, ElementState.Displayed).Any();
         }
 
         public bool WaitForExist(TimeSpan? timeout = null)
         {
-            return !FindElements(timeout, ElementState.ExistsInAnyState).Any();
+            return FindElements(timeout, ElementState.ExistsInAnyState).Any();
         }
 
         public bool WaitForNotDisplayed(TimeSpan? timeout = null)
