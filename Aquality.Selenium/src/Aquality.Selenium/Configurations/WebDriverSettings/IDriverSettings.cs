@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -6,7 +7,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     {
         string WebDriverVersion { get; }
 
-        string SystemArchitecture { get; }
+        Architecture SystemArchitecture { get; }
 
         DriverOptions DriverOptions { get; }
 

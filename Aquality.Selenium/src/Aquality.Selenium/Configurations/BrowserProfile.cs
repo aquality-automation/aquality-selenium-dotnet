@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Configurations
                     case BrowserName.Safari:
                         return new SafariSettings(settingsFile);
                     default:
-                        throw new ArgumentOutOfRangeException($"There are no assigned behaviour for retrieving driver driversettings for browser {BrowserName}");
+                        throw new ArgumentOutOfRangeException($"There is no assigned behaviour for retrieving driver driversettings for browser {BrowserName}");
                 }
             }
         }

@@ -8,7 +8,6 @@ using OpenQA.Selenium.Safari;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -25,27 +24,23 @@ namespace Aquality.Selenium.Browsers
             var browserName = Configuration.BrowserProfile.BrowserName;
             var driverSettings = Configuration.BrowserProfile.DriverSettings;
             var driverManager = new DriverManager();
-            if(!Enum.TryParse(Configuration.BrowserProfile.DriverSettings.SystemArchitecture, out Architecture ieArchitecture))
-            {
-                ieArchitecture = Architecture.X32;
-            }
             RemoteWebDriver driver;
             switch (browserName)
             {
                 case BrowserName.Chrome:
-                    driverManager.SetUpDriver(new ChromeConfig(), driverSettings.WebDriverVersion);
+                    driverManager.SetUpDriver(new ChromeConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Firefox:
-                    driverManager.SetUpDriver(new FirefoxConfig(), driverSettings.WebDriverVersion);
+                    driverManager.SetUpDriver(new FirefoxConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new FirefoxDriver((FirefoxOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.InternetExplorer:
-                    driverManager.SetUpDriver(new InternetExplorerConfig(), driverSettings.WebDriverVersion, ieArchitecture);
+                    driverManager.SetUpDriver(new InternetExplorerConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new InternetExplorerDriver((InternetExplorerOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Edge:
-                    driverManager.SetUpDriver(new EdgeConfig(), driverSettings.WebDriverVersion);
+                    driverManager.SetUpDriver(new EdgeConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new EdgeDriver((EdgeOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Safari:

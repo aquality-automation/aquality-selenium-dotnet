@@ -34,10 +34,14 @@ namespace Aquality.Selenium.Utilities
             return GetEnvironmentValueOrDefault(jsonPath);
         }
 
+        public bool IsValuePresent(string jsonPath)
+        {
+            return GetEnvironmentValue(jsonPath) != null || GetJsonNode(jsonPath) != null;
+        }
+
         private object GetEnvironmentValueOrDefault(string jsonPath)
         {
-            var key = jsonPath.Substring(1);
-            var envValue = EnvironmentConfiguration.GetVariable(key);
+            var envValue = GetEnvironmentValue(jsonPath);
             if(envValue == null)
             {
                 var node = GetJsonNode(jsonPath);
@@ -60,9 +64,15 @@ namespace Aquality.Selenium.Utilities
             }
             else
             {
-                Logger.Instance.Debug($"***** Using variable passed from environment {key}={envValue}");
+                Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
                 return envValue;
             }
+        }
+
+        private string GetEnvironmentValue(string jsonPath)
+        {
+            var key = jsonPath.Substring(1);
+            return EnvironmentConfiguration.GetVariable(key);
         }
 
         private JToken GetJsonNode(string jsonPath)

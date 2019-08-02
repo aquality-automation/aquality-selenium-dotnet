@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -14,7 +15,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         public string WebDriverVersion { get; protected set; } = "Latest";
 
-        public string SystemArchitecture => throw new System.NotImplementedException();
+        public Architecture SystemArchitecture => Architecture.Auto;
 
         public abstract DriverOptions DriverOptions { get; }
 
