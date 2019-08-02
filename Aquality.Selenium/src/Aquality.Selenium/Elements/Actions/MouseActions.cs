@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
-            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).Click(element)));
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).Click(element)));
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void DoubleClick()
         {
             Logger.InfoLoc("loc.clicking.double");
-            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element).DoubleClick(element)));
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).DoubleClick(element)));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void RightClick()
         {
             Logger.InfoLoc("loc.clicking.right");
-            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element).ContextClick(element)));
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).ContextClick(element)));
         }
 
         /// <summary>
@@ -61,7 +61,12 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
-            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element)));
+            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element)));
+        }
+
+        private SeleniumActions MoveToElement(IWebDriver driver, IWebElement element)
+        {
+            return new SeleniumActions(driver).MoveToElement(element);
         }
 
         private bool PerformAction(Func<RemoteWebElement, SeleniumActions> action)
