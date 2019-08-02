@@ -2,6 +2,10 @@
 
 namespace Aquality.Selenium.Elements.Interfaces
 {
+    /// <summary>
+    /// Provides ability to define of element's state (whether it is displayed, exist or not)
+    /// Also provides respective positive and negative waiting functions
+    /// </summary>
     public interface IElementStateProvider
     {
         /// <summary>
