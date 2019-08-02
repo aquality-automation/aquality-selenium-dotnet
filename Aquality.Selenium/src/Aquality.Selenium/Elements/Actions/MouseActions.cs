@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium;
 using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
@@ -31,7 +33,7 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
-            ConditionalWait.WaitFor(driver => PerformAction(new SeleniumActions(driver).Click(element.GetElement())));
+            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).Click(element)));
         }
 
         /// <summary>
@@ -40,10 +42,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void DoubleClick()
         {
             Logger.InfoLoc("loc.clicking.double");
-            ConditionalWait.WaitFor(driver => {
-                var currentElement = element.GetElement();
-                return PerformAction(new SeleniumActions(driver).MoveToElement(currentElement).DoubleClick(currentElement));
-            });
+            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element).DoubleClick(element)));
         }
 
         /// <summary>
@@ -52,11 +51,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void RightClick()
         {
             Logger.InfoLoc("loc.clicking.right");
-            ConditionalWait.WaitFor(driver =>
-            {
-                var currentElement = element.GetElement();
-                return PerformAction(new SeleniumActions(driver).MoveToElement(currentElement).ContextClick(currentElement));
-            });
+            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element).ContextClick(element)));
         }
 
         /// <summary>
@@ -66,14 +61,14 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
-            ConditionalWait.WaitFor(driver => PerformAction(new SeleniumActions(driver).MoveToElement(element.GetElement())));
+            ConditionalWait.WaitFor(driver => PerformAction(element => new SeleniumActions(driver).MoveToElement(element)));
         }
 
-        private bool PerformAction(SeleniumActions actions)
+        private bool PerformAction(Func<RemoteWebElement, SeleniumActions> action)
         {
             try
             {
-                actions.Build().Perform();
+                action(element.GetElement()).Build().Perform();
                 return true;
             }
             catch (WebDriverException ex)
