@@ -30,6 +30,8 @@ namespace Aquality.Selenium.Browsers
             {
                 SetDefaultFactory();
             }
+
+            Browser = browserFactoryContainer.Value.Browser;
         }
 
         public static void SetDefaultFactory()

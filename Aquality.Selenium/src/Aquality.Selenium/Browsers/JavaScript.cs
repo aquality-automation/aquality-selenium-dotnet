@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using Aquality.Selenium.Utilities;
 using System.Reflection;
 
 namespace Aquality.Selenium.Browsers
@@ -39,26 +38,12 @@ namespace Aquality.Selenium.Browsers
 
         public static string GetScript(this JavaScript javaScript)
         {
-            return javaScript.GetResourcePath().GetScript();
+            return javaScript.GetResourcePath().GetScript(Assembly.GetExecutingAssembly());
         }
 
-        public static string GetScript(this string embeddedResourcePath)
+        internal static string GetScript(this string embeddedResourcePath, Assembly assembly)
         {
-            var assembly = Assembly.GetCallingAssembly();
-            var resourcePath = $"{assembly.GetName().Name}.{embeddedResourcePath}";
-            using (var stream = assembly.GetManifestResourceStream(resourcePath))
-            {
-                if (stream == null)
-                {
-                    throw new InvalidOperationException(
-                        $"Assembly {assembly.FullName} doesn't contain JavaScript at path {resourcePath} as EmbeddedResource.");
-                }
-
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
+            return FileReader.GetTextFromEmbeddedResource(embeddedResourcePath, assembly);
         }
 
         private static string GetResourcePath(this JavaScript javaScript)

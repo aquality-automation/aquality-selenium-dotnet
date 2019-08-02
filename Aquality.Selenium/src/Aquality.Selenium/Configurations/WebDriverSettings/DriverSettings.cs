@@ -1,10 +1,22 @@
-﻿using OpenQA.Selenium;
+﻿using Aquality.Selenium.Utilities;
+using OpenQA.Selenium;
+using System;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
     public abstract class DriverSettings : IDriverSettings
     {
-        public string WebDriverVersion { get; protected set; } = "Latest";
+        public DriverSettings(JsonFile settingsFile)
+        {
+            SettingsFile = settingsFile;
+        }
+
+        protected JsonFile SettingsFile { get; }
+
+        public string WebDriverVersion => throw new NotImplementedException();
+
+        public Architecture SystemArchitecture => throw new NotImplementedException();
 
         public abstract DriverOptions DriverOptions { get; }
 

@@ -1,13 +1,40 @@
-﻿using System;
+﻿using Aquality.Selenium.Utilities;
+using System.Threading;
 
 namespace Aquality.Selenium.Configurations
 {
     public class Configuration : IConfiguration
     {
-        public IBrowserProfile BrowserProfile => throw new NotImplementedException();
+        private static readonly ThreadLocal<Configuration> InstanceHolder = new ThreadLocal<Configuration>();        
 
-        public ITimeoutConfiguration TimeoutConfiguration => throw new NotImplementedException();                       
+        private Configuration()
+        {
+            var settings = GetSettings();
+            BrowserProfile = new BrowserProfile(settings);
+            TimeoutConfiguration = new TimeoutConfiguration(settings);
+        }
 
-        public static Configuration Instance => throw new NotImplementedException();
+        private JsonFile GetSettings()
+        {
+            var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("profile");
+            var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
+            return new JsonFile(settingsProfile);
+        }
+
+        public IBrowserProfile BrowserProfile { get; }
+
+        public ITimeoutConfiguration TimeoutConfiguration { get; }                      
+
+        public static Configuration Instance
+        {
+            get
+            {
+                if (!InstanceHolder.IsValueCreated)
+                {
+                    InstanceHolder.Value = new Configuration();
+                }
+                return InstanceHolder.Value;
+            }
+        }
     }
 }
