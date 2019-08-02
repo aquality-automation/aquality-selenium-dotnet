@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
             Implicit = GetTimeout(nameof(Implicit));
             Script = GetTimeout(nameof(Script));
-            PageLoad = GetTimeout("Pageload"); // todo: rename in settings.json
+            PageLoad = GetTimeout(nameof(PageLoad));
             Condition = GetTimeout(nameof(Condition));
             PollingInterval = GetTimeout(nameof(PollingInterval));
         }
