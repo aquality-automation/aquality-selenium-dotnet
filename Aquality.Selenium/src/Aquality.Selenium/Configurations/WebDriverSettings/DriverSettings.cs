@@ -5,8 +5,15 @@ using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
+    /// <summary>
+    /// Abstract representation of web driver settings.
+    /// </summary>
     public abstract class DriverSettings : IDriverSettings
     {
+        /// <summary>
+        /// Instantiates class using JSON file with general settings.
+        /// </summary>
+        /// <param name="settingsFile">JSON settings file.</param>
         public DriverSettings(JsonFile settingsFile)
         {
             SettingsFile = settingsFile;

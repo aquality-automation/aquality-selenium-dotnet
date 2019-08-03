@@ -4,8 +4,15 @@ using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
+    /// <summary>
+    /// Settings specific for InternetExplorer web driver.
+    /// </summary>
     public class InternetExplorerSettings : DriverSettings
     {
+        /// <summary>
+        /// Instantiates class using JSON file with general settings.
+        /// </summary>
+        /// <param name="settingsFile">JSON settings file.</param>
         public InternetExplorerSettings(JsonFile settingsFile) : base(settingsFile)
         {
         }

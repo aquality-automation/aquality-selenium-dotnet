@@ -5,6 +5,9 @@ using System.IO;
 
 namespace Aquality.Selenium.Utilities
 {
+    /// <summary>
+    /// Provides methods to get info from JSON files.
+    /// </summary>
     public sealed class JsonFile
     {
         private readonly string fileName;
@@ -12,28 +15,52 @@ namespace Aquality.Selenium.Utilities
 
         private JObject JsonObject => JsonConvert.DeserializeObject<JObject>(fileContent);
 
+        /// <summary>
+        /// Inistantiates class using desired JSON fileinfo.
+        /// </summary>
+        /// <param name="fileInfo">JSON fileinfo.</param>
         public JsonFile(FileInfo fileInfo)
         {
             fileContent = FileReader.GetTextFromFile(fileInfo);
             fileName = fileInfo.Name;
         }
 
+        /// <summary>
+        /// Inistantiates class using desired resource file info.
+        /// </summary>
+        /// <param name="resourceFileName"></param>
         public JsonFile(string resourceFileName)
         {
             fileContent = FileReader.GetTextFromResource(resourceFileName);
             fileName = resourceFileName;
         }
 
+        /// <summary>
+        /// Gets object from JSON.
+        /// </summary>
+        /// <param name="jsonPath">Relative JsonPath to the object.</param>
+        /// <typeparam name="T">Type of the object.</typeparam>
+        /// <returns>Object from JSON by JsonPath.</returns>
         public T GetObject<T>(string jsonPath)
         {
             return (T) GetValue(jsonPath);
         }
 
+        /// <summary>
+        /// Gets value of object from JSON.
+        /// </summary>
+        /// <param name="jsonPath">Relative JsonPath to the object.</param>
+        /// <returns>Value of JSON object.</returns>
         public object GetValue(string jsonPath)
         {
             return GetEnvironmentValueOrDefault(jsonPath);
         }
 
+        /// <summary>
+        /// Checks whether value present on JSON by JsonPath or not.
+        /// </summary>
+        /// <param name="jsonPath">Relative JsonPath to the object.</param>
+        /// <returns>True if present and false otherwise.</returns>
         public bool IsValuePresent(string jsonPath)
         {
             return GetEnvironmentValue(jsonPath) != null || GetJsonNode(jsonPath) != null;

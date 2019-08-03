@@ -3,6 +3,9 @@ using System.Threading;
 
 namespace Aquality.Selenium.Configurations
 {
+    /// <summary>
+    /// Provides tool configuration.
+    /// </summary>
     public class Configuration : IConfiguration
     {
         private static readonly ThreadLocal<Configuration> InstanceHolder = new ThreadLocal<Configuration>();        
@@ -25,6 +28,10 @@ namespace Aquality.Selenium.Configurations
 
         public ITimeoutConfiguration TimeoutConfiguration { get; }                      
 
+        /// <summary>
+        /// Gets thread-safe instance of configuration.
+        /// </summary>
+        /// <value>Instance of configuration.</value>
         public static Configuration Instance
         {
             get
