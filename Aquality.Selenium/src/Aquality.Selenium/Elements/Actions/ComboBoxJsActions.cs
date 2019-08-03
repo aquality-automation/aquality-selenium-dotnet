@@ -5,7 +5,7 @@ using Aquality.Selenium.Elements.Interfaces;
 namespace Aquality.Selenium.Elements.Actions
 {
     /// <summary>
-    /// Allows to perfrom actions on elements via JavaScript specific for ComboBoxes.
+    /// Allows to perform actions on elements via JavaScript specific for ComboBoxes.
     /// </summary>
     public class ComboBoxJsActions : JsActions
     {

@@ -4,6 +4,9 @@ using System;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines Link UI element.
+    /// </summary>
     public class Link : Element, ILink
     {
         protected internal Link(By locator, string name, ElementState state) : base(locator, name, state)

@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// Wait for condition and return true if waiting successful or false - otherwise.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout(<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// Wait for some object from condition with timeout.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout(<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <typeparam name="T">Type of object which is waiting</typeparam>
         /// <param name="condition">Function for waiting</param>
@@ -46,7 +46,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// For waiting without WebDriver: Wait for function will be true or return some except false.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout(<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <typeparam name="T">Type of waitWith param <see cref="DefaultWait{T}"/></typeparam>
         /// <typeparam name="TResult">Type of object which is waiting</typeparam>
