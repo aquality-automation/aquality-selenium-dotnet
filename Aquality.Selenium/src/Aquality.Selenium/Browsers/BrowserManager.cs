@@ -3,11 +3,18 @@ using System.Threading;
 
 namespace Aquality.Selenium.Browsers
 {
+    /// <summary>
+    /// Controls browser instance creation.
+    /// </summary>
     public static class BrowserManager
     {
         private static readonly ThreadLocal<Browser> browserContainer = new ThreadLocal<Browser>();
         private static readonly ThreadLocal<IBrowserFactory> browserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 
+        /// <summary>
+        /// Gets and sets thread-safe instance of browser.
+        /// </summary>
+        /// <value>Instance of desired browser.</value>
         public static Browser Browser
         {
             get
@@ -34,6 +41,10 @@ namespace Aquality.Selenium.Browsers
             Browser = browserFactoryContainer.Value.Browser;
         }
 
+        /// <summary>
+        /// Sets default factory responsible for browser creation.
+        /// RemoteBrowserFactory if value set in configuration and LocalBrowserFactory otherwise.
+        /// </summary>
         public static void SetDefaultFactory()
         {
             IBrowserFactory browserFactory;
@@ -50,6 +61,10 @@ namespace Aquality.Selenium.Browsers
             SetFactory(browserFactory);
         }
 
+        /// <summary>
+        /// Sets custom browser factory.
+        /// </summary>
+        /// <param name="browserFactory">Custom implementation of <see cref="Aquality.Selenium.Browsers.IBrowserFactory"/></param>
         public static void SetFactory(IBrowserFactory browserFactory)
         {
             browserFactoryContainer.Value = browserFactory;
