@@ -11,6 +11,9 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace Aquality.Selenium.Browsers
 {
+    /// <summary>
+    /// Factory that creates instance of local Browser.
+    /// </summary>
     public class LocalBrowserFactory : BrowserFactory
     {
         public LocalBrowserFactory(IConfiguration configuration) : base(configuration)
