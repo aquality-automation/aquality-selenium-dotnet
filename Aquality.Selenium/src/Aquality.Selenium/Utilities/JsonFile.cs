@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.IO;
 
 namespace Aquality.Selenium.Utilities
@@ -43,7 +44,13 @@ namespace Aquality.Selenium.Utilities
         /// <returns>Object from JSON by JsonPath.</returns>
         public T GetObject<T>(string jsonPath)
         {
-            return (T) GetValue(jsonPath);
+            var envValue = GetEnvironmentValue(jsonPath);
+            if (envValue != null)
+            {
+                return (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(envValue);
+            }
+
+            return GetJsonNode(jsonPath).ToObject<T>();
         }
 
         /// <summary>
@@ -84,10 +91,16 @@ namespace Aquality.Selenium.Utilities
                 {
                     return node.ToObject<int>();
                 }
-                else
+                else if (node.Type == JTokenType.Float)
                 {
-                    return node.ToString();
+                    return node.ToObject<float>();
                 }
+                else if (node.Type == JTokenType.String)
+                {
+                    return node.ToObject<string>();
+                }
+                
+                return node.ToObject<object>();
             }
             else
             {

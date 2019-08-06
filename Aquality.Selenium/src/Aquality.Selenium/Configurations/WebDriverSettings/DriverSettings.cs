@@ -31,11 +31,11 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private IDictionary<string, object> BrowserCapabilities
+        protected IDictionary<string, object> BrowserCapabilities
         {
             get
             {
-                return SettingsFile.GetObject<IDictionary<string, object>>($"{DriverSettingsPath}.driversettings");
+                return SettingsFile.GetObject<IDictionary<string, object>>($"{DriverSettingsPath}.capabilities");
             }
         }
 

@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -21,7 +21,7 @@
       "startArguments": []
     },
     "firefox": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -43,7 +43,7 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true

@@ -1,6 +1,8 @@
 ﻿using System;
+using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Edge;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -17,10 +19,18 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        public override DriverOptions DriverOptions => throw new NotImplementedException();
+        public override DriverOptions DriverOptions
+        {
+            get
+            {
+                var options = new EdgeOptions();
+                SetCapabilities(options);
+                return options;
+            }
+        }
+        
+        public override string DownloadDirCapabilityKey => throw new NotSupportedException("Download directory key for Edge profiles is not supported");
 
-        public override string DownloadDir => throw new NotImplementedException();
-
-        public override string DownloadDirCapabilityKey => throw new NotImplementedException();
+        protected override BrowserName BrowserName => BrowserName.Edge;
     }
 }

@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
         [Test]
         public void Should_BeAbleGetBrowser()
         {
-            Assert.Throws<NotImplementedException>(() => BrowserManager.Browser.WaitForPageToLoad());
+            Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
         }
     }
 }
