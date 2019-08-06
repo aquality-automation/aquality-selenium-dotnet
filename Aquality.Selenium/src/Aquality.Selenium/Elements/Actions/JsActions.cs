@@ -3,6 +3,7 @@ using System.Drawing;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions
@@ -41,7 +42,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            Logger.InfoLoc("loc.clicking.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking.js"));
             HighlightElement();
             ExecuteScript(JavaScript.ClickElement);
         }
@@ -62,7 +63,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollIntoView()
         {
-            Logger.InfoLoc("loc.scrolling.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.scrolling.js"));
             ExecuteScript(JavaScript.ScrollToElement, true);
         }
 
@@ -73,7 +74,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="y">Verticale coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            Logger.InfoLoc("loc.scrolling.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.scrolling.js"));
             ExecuteScript(JavaScript.ScrollBy, x, y);
         }
 
@@ -82,7 +83,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollToTheCenter()
         {
-            Logger.InfoLoc("loc.scrolling.center.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.scrolling.center.js"));
             ExecuteScript(JavaScript.ScrollToElementCenter);
         }
 
@@ -92,7 +93,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="value">Value to set</param>
         public void SetValue(string value)
         {
-            Logger.InfoLoc("loc.setting.value");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.setting.value"));
             ExecuteScript(JavaScript.SetValue, value);
         }
 
@@ -101,7 +102,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void SetFocus()
         {
-            Logger.InfoLoc("loc.focusing");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.focusing"));
             ExecuteScript(JavaScript.SetFocus);
         }
 
@@ -111,7 +112,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>True if element is on screen and false otherwise.</returns>
         public bool IsElementOnScreen()
         {
-            Logger.InfoLoc("loc.is.present.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.is.present.js"));
             return ExecuteScript<bool>(JavaScript.ElementIsOnScreen);
         }
 
@@ -121,7 +122,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Text from element</returns>
         public string GetElementText()
         {
-            Logger.InfoLoc("loc.get.text.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.get.text.js"));
             return ExecuteScript<string>(JavaScript.GetElementText);
         }
 
@@ -130,7 +131,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void HoverMouse()
         {
-            Logger.InfoLoc("loc.hover.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.hover.js"));
             ExecuteScript(JavaScript.MouseHover);
         }
 
@@ -140,7 +141,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>String representation of element's XPath locator.</returns>
         public string GetXPath()
         {
-            Logger.InfoLoc("loc.get.xpath.js");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.get.xpath.js"));
             return ExecuteScript<string>(JavaScript.GetElementXPath);
         }
 

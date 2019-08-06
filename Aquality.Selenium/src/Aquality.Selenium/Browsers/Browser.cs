@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
@@ -105,7 +106,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                logger.InfoLoc("loc.browser.getUrl");
+                logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.getUrl"));
                 return Driver.Url;
             }
         }
@@ -115,7 +116,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Quit()
         {
-            logger.InfoLoc("loc.browser.driver.quit");
+            logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.driver.quit"));
             Driver?.Quit();
         }
 
@@ -164,7 +165,7 @@ namespace Aquality.Selenium.Browsers
             }
             catch (NoAlertPresentException ex)
             {
-                logger.FatalLoc("loc.browser.alert.fail", ex);
+                Logger.Instance.Fatal(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.alert.fail"), ex);
                 throw ex;
             }
         }
@@ -174,7 +175,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Maximize()
         {
-            logger.InfoLoc("loc.browser.maximize");
+            logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.maximize"));
             Driver.Manage().Window.Maximize();
         }
 
@@ -187,7 +188,7 @@ namespace Aquality.Selenium.Browsers
             var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout);
             if (!isLoaded)
             {
-                logger.WarnLoc("loc.browser.page.timeout");
+                logger.Warn(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.page.timeout"));
             }
         }
 

@@ -5,6 +5,7 @@ using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
+using Aquality.Selenium.Localization;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -31,7 +32,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            Logger.InfoLoc("loc.clicking");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking"));
             JsActions.HighlightElement();
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).Click(element)));
         }
@@ -41,7 +42,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void DoubleClick()
         {
-            Logger.InfoLoc("loc.clicking.double");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking.double"));
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).DoubleClick(element)));
         }
 
@@ -50,7 +51,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void RightClick()
         {
-            Logger.InfoLoc("loc.clicking.right");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking.right"));
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).ContextClick(element)));
         }
 
@@ -59,7 +60,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void MoveMouseToElement()
         {
-            Logger.InfoLoc("loc.moving");
+            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.moving"));
             JsActions.ScrollIntoView(); // TODO: check on Safari
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element)));
         }
