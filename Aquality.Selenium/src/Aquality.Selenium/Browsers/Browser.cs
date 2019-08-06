@@ -132,7 +132,7 @@ namespace Aquality.Selenium.Browsers
         /// Refreshes web page and handles alert. 
         /// </summary>
         /// <param name="alertAction">Action which should be done with appeared alert.</param>
-        public void RefreshPageWithAlert(AlertActions alertAction)
+        public void RefreshPageWithAlert(AlertAction alertAction)
         {
             Navigate().Refresh();
             HandleAlert(alertAction);
@@ -144,7 +144,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="alertAction">Action which should be done with appeared alert.</param>
         /// <param name="text">Text which can be send to alert.</param>
         /// <exception cref="OpenQA.Selenium.NoAlertPresentException">Thrown when no alert found.</exception>
-        public void HandleAlert(AlertActions alertAction, string text = null)
+        public void HandleAlert(AlertAction alertAction, string text = null)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace Aquality.Selenium.Browsers
                 {
                     alert.SendKeys(text);
                 }
-                if (alertAction.Equals(AlertActions.Accept))
+                if (alertAction.Equals(AlertAction.Accept))
                 {
                     alert.Accept();
                 }
@@ -180,6 +180,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Waits for page to load.
+        /// Default value of timeout: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.PageLoad"/>.
         /// </summary>
         public void WaitForPageToLoad()
         {
@@ -299,9 +300,9 @@ namespace Aquality.Selenium.Browsers
     }
 
     /// <summary>
-    /// Possible alert actions.
+    /// Possible alert action.
     /// </summary>
-    public enum AlertActions
+    public enum AlertAction
     {
         Accept,
         Decline
