@@ -8,7 +8,7 @@ using Aquality.Selenium.Logging;
 namespace Aquality.Selenium.Elements.Actions
 {
     /// <summary>
-    /// Allows to perfrom actions on elements via JavaScript.
+    /// Allows to perform actions on elements via JavaScript.
     /// </summary>
     public class JsActions
     {

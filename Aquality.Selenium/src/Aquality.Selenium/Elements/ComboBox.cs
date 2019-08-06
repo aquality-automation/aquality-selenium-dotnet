@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines ComboBox UI element.
+    /// </summary>
     public class ComboBox : Element, IComboBox
     {
         protected internal ComboBox(By locator, string name, ElementState state) : base(locator, name, state)

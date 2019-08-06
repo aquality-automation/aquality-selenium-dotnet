@@ -9,7 +9,7 @@ using Aquality.Selenium.Waitings;
 namespace Aquality.Selenium.Elements.Actions
 {
     /// <summary>
-    /// Allows to perfrom actions on elements via Selenium Actions class.
+    /// Allows to perform actions on elements via Selenium Actions class.
     /// </summary>
     public class MouseActions
     {

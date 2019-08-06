@@ -4,6 +4,9 @@ using System;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines Button UI element.
+    /// </summary>
     public class Button : Element, IButton
     {
         protected internal Button(By locator, string name, ElementState state) : base(locator, name, state)

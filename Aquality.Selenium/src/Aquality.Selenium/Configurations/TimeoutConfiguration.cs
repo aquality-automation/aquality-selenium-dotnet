@@ -3,10 +3,17 @@ using System;
 
 namespace Aquality.Selenium.Configurations
 {
+    /// <summary>
+    /// Provides timeouts configuration.
+    /// </summary>
     public class TimeoutConfiguration : ITimeoutConfiguration
     {
         private readonly JsonFile settingsFile;
 
+        /// <summary>
+        /// Instantiates class using JSON file with general settings.
+        /// </summary>
+        /// <param name="settingsFile">JSON settings file.</param>
         public TimeoutConfiguration(JsonFile settingsFile)
         {
             this.settingsFile = settingsFile;

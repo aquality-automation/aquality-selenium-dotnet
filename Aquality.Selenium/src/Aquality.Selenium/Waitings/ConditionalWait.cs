@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// Wait for condition and return true if waiting successful or false - otherwise.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
@@ -29,12 +29,12 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// Wait for some object from condition with timeout.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <typeparam name="T">Type of object which is waiting</typeparam>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeOut">Time-out</param>
-        /// <returns>Object which waiting for or default of a T class - is exceptions occured</returns>
+        /// <returns>Object which waiting for or default of a T class - if exceptions occurred</returns>
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
         {
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
@@ -46,7 +46,7 @@ namespace Aquality.Selenium.Waitings
 
         /// <summary>
         /// For waiting without WebDriver: Wait for function will be true or return some except false.
-        /// Default timeout(<see cref="ITimeoutConfiguration.Condition"/>) is using.
+        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
         /// </summary>
         /// <typeparam name="T">Type of waitWith param <see cref="DefaultWait{T}"/></typeparam>
         /// <typeparam name="TResult">Type of object which is waiting</typeparam>
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="waitWith">Object who will helping to wait (which will be passed to <see cref="DefaultWait{T}"/>)</param>
         /// <param name="timeOut">Time-out</param>
         /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored</param>
-        /// <returns>Object which waiting for or default of a TResult class - is exceptions occured</returns>
+        /// <returns>Object which waiting for or default of a TResult class - if exceptions occurred</returns>
         public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan? timeOut = null, params Type[] exceptionsToIgnore)
         {
             var wait = new DefaultWait<T>(waitWith)

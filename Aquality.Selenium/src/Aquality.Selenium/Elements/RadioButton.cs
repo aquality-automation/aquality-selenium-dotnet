@@ -4,6 +4,9 @@ using System;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines RadioButton UI element.
+    /// </summary>
     public class RadioButton : Element, IRadioButton
     {
         protected internal RadioButton(By locator, string name, ElementState state) : base(locator, name, state)

@@ -4,6 +4,9 @@ using System;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines TextBox UI element.
+    /// </summary>
     public class TextBox : Element, ITextBox
     {
         protected internal TextBox(By locator, string name, ElementState state) : base(locator, name, state)

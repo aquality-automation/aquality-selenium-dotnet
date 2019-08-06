@@ -3,6 +3,9 @@ using OpenQA.Selenium.Remote;
 
 namespace Aquality.Selenium.Browsers
 {
+    /// <summary>
+    /// Factory that creates instance of remote Browser.
+    /// </summary>
     public class RemoteBrowserFactory : BrowserFactory
     {
         public RemoteBrowserFactory(IConfiguration configuration) : base(configuration)

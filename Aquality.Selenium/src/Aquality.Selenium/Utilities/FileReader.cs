@@ -4,10 +4,19 @@ using System.Reflection;
 
 namespace Aquality.Selenium.Utilities
 {
+    /// <summary>
+    /// Utility methods to read files.
+    /// </summary>
     internal static class FileReader
     {
         private const string ResourcesFolder = "Resources";
 
+        /// <summary>
+        /// Gets text from embedded resource file.
+        /// </summary>
+        /// <param name="embeddedResourcePath">Embedded resource path.</param>
+        /// <param name="resourceAssembly">Assembly which resource belongs to.</param>
+        /// <returns>Text of the file.</returns>
         public static string GetTextFromEmbeddedResource(string embeddedResourcePath, Assembly resourceAssembly = null)
         {
             var assembly = resourceAssembly ?? Assembly.GetCallingAssembly();
@@ -28,20 +37,20 @@ namespace Aquality.Selenium.Utilities
         }
 
         /// <summary>
-        /// Gets text from the file in the Resources folded (should be copied to output directory)
+        /// Gets text from the file in the Resources folded (should be copied to output directory).
         /// </summary>
-        /// <param name="fileName">name of the resource file</param>
-        /// <returns>text of the file</returns>
+        /// <param name="fileName">Name of the resource file.</param>
+        /// <returns>Text of the file.</returns>
         public static string GetTextFromResource(string fileName)
         {
             return GetTextFromFile(new FileInfo(Path.Combine(ResourcesFolder, fileName)));
         }
 
         /// <summary>
-        /// Gets text from the file
+        /// Gets text from the file.
         /// </summary>
-        /// <param name="fileInfo">required file info</param>
-        /// <returns>text of the file</returns>
+        /// <param name="fileInfo">Required file info.</param>
+        /// <returns>Text of the file.</returns>
         public static string GetTextFromFile(FileInfo fileInfo)
         {
             using (var reader = fileInfo.OpenText())

@@ -9,6 +9,9 @@ using Aquality.Selenium.Waitings;
 
 namespace Aquality.Selenium.Elements
 {
+    /// <summary>
+    /// Defines base class for any UI element.
+    /// </summary>
     public abstract class Element : IElement
     {      
         protected Element(By locator, string name, ElementState state)

@@ -2,6 +2,9 @@
 
 namespace Aquality.Selenium.Browsers
 {
+    /// <summary>
+    /// Abstract representation of <see cref="Aquality.Selenium.Browsers.IBrowserFactory"/>.
+    /// </summary>
     public abstract class BrowserFactory : IBrowserFactory
     {
         protected BrowserFactory(IConfiguration configuration)

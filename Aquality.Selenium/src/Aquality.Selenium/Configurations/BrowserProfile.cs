@@ -5,10 +5,17 @@ using System;
 
 namespace Aquality.Selenium.Configurations
 {
+    /// <summary>
+    /// Provides target browser profile.
+    /// </summary>
     public class BrowserProfile : IBrowserProfile
     {
         private readonly JsonFile settingsFile;
 
+        /// <summary>
+        /// Instantiates class using JSON file with general settings.
+        /// </summary>
+        /// <param name="settingsFile">JSON settings file.</param>
         public BrowserProfile(JsonFile settingsFile)
         {
             this.settingsFile = settingsFile;

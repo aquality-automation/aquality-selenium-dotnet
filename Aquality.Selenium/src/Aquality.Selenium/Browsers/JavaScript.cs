@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace Aquality.Selenium.Browsers
 {
+    /// <summary>
+    /// Predefined JS scripts.
+    /// </summary>
     public enum JavaScript
     {
         AutoAcceptAlerts,
@@ -31,11 +34,19 @@ namespace Aquality.Selenium.Browsers
         GetViewPortCoordinates
     }
 
+    /// <summary>
+    /// Extensions for <see cref="Aquality.Selenium.Browsers.JavaScript"/> enum.
+    /// </summary>
     public static class JavaScriptExtensions
     {
         private const string JavaScriptResourcePath = "Resources.JavaScripts";
         private const string JavaScriptFileExtension = "js";
 
+        /// <summary>
+        /// Gets string representation of JS script.
+        /// </summary>
+        /// <param name="javaScript">Desired JS script name.</param>
+        /// <returns>String representation of script.</returns>
         public static string GetScript(this JavaScript javaScript)
         {
             return javaScript.GetResourcePath().GetScript(Assembly.GetExecutingAssembly());
