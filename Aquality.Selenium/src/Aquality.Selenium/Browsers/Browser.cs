@@ -165,7 +165,7 @@ namespace Aquality.Selenium.Browsers
             }
             catch (NoAlertPresentException ex)
             {
-                Logger.Instance.Fatal(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.alert.fail"), ex);
+                logger.Fatal(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.alert.fail"), ex);
                 throw ex;
             }
         }
