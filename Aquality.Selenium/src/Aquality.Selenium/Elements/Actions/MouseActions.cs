@@ -5,7 +5,6 @@ using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
-using Aquality.Selenium.Localization;
 
 namespace Aquality.Selenium.Elements.Actions
 {

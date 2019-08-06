@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;

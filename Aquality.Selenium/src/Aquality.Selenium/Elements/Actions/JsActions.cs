@@ -3,7 +3,6 @@ using System.Drawing;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions

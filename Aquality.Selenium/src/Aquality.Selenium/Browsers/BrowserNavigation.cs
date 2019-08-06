@@ -1,5 +1,4 @@
-﻿using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
+﻿using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
