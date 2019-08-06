@@ -3,7 +3,7 @@
 namespace Aquality.Selenium.Localization
 {
     /// <summary>
-    /// This class is using for translation messages to  different languages
+    /// This class is using for translation messages to different languages
     /// </summary>
     internal sealed class LocalizationManager
     {
@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Localization
         /// </summary>
         /// <param name="messageKey">Key in resources file.</param>
         /// <param name="attributes">Attributes, which will be provided to template of localized message.</param>
-        /// <returns>Template of message.</returns>
+        /// <returns>Localized message.</returns>
         public string GetLocalizedMessage(string messageKey, params string [] attributes)
         {
             throw new NotImplementedException();

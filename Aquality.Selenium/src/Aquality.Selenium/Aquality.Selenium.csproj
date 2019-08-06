@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Localization\en.json" />
+    <None Remove="Resources\Localization\ru.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Resources\JavaScripts\AutoAcceptAlerts.js" />
     <EmbeddedResource Include="Resources\JavaScripts\BorderElement.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ClickElement.js" />
@@ -29,6 +34,8 @@
     <EmbeddedResource Include="Resources\JavaScripts\SetFocus.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetInnerHTML.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
+    <EmbeddedResource Include="Resources\Localization\en.json" />
+    <EmbeddedResource Include="Resources\Localization\ru.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +47,9 @@
 
   <ItemGroup>
     <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Logging\loglang.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\settings.json">
