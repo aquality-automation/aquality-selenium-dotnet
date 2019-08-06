@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="url">String representation of URL.</param>
         public void GoToUrl(string url)
         {
-            Logger.InfoLoc("loc.browser.navigate", url.ToString());
+            Logger.InfoLoc("loc.browser.navigate", url);
             driver.Navigate().GoToUrl(url);
         }
 
