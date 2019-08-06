@@ -25,9 +25,9 @@ namespace Aquality.Selenium.Localization
         /// Get localized message from resources by its key.
         /// </summary>
         /// <param name="messageKey">Key in resources file.</param>
-        /// <param name="attributes">Attributes, which will be provided to template of localized message.</param>
+        /// <param name="args">Arguments, which will be provided to template of localized message.</param>
         /// <returns>Localized message.</returns>
-        public string GetLocalizedMessage(string messageKey, params string [] attributes)
+        public string GetLocalizedMessage(string messageKey, params string [] args)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
+using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>True if checked and false otherwise.</returns>
         public bool GetState()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.checkbox.get.state"));
+            Logger.InfoLoc("loc.checkbox.get.state");
             return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
         }
     }

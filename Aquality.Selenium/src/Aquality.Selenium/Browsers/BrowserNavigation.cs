@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Back()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.back"));
+            Logger.InfoLoc("loc.browser.back");
             driver.Navigate().Back();
         }
 
@@ -34,7 +34,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Forward()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.forward"));
+            Logger.InfoLoc("loc.browser.forward");
             driver.Navigate().Forward();
         }
 
@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="url">String representation of URL.</param>
         public void GoToUrl(string url)
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.navigate", url.ToString()));
+            Logger.InfoLoc("loc.browser.navigate", url.ToString());
             driver.Navigate().GoToUrl(url);
         }
 
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="url">Uri representation of URL.</param>
         public void GoToUrl(Uri url)
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.navigate", url.ToString()));
+            Logger.InfoLoc("loc.browser.navigate", url.ToString());
             driver.Navigate().GoToUrl(url);
         }
 
@@ -63,7 +63,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Refresh()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.browser.refresh"));
+            Logger.InfoLoc("loc.browser.refresh");
             driver.Navigate().Refresh();
         }
     }

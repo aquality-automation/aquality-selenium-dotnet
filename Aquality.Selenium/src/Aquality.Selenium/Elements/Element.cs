@@ -77,7 +77,7 @@ namespace Aquality.Selenium.Elements
 
         public void Click()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking"));
+            Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
             ConditionalWait.WaitFor(driver =>
             {
@@ -93,14 +93,14 @@ namespace Aquality.Selenium.Elements
 
         public string GetAttribute(string attr, HighlightState highlightState = HighlightState.NotHighlight, TimeSpan? timeout = null)
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.el.getattr", attr));
+            Logger.InfoLoc("loc.el.getattr", attr);
             HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement(timeout).GetAttribute(attr), timeout);
         }
 
         public string GetText(HighlightState highlightState = HighlightState.NotHighlight)
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.get.text"));
+            Logger.InfoLoc("loc.get.text");
             HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement().Text);
         }
@@ -125,7 +125,7 @@ namespace Aquality.Selenium.Elements
         public void SetInnerHtml(string value)
         {
             Click();
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.send.text", value));
+            Logger.InfoLoc("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
         }
 

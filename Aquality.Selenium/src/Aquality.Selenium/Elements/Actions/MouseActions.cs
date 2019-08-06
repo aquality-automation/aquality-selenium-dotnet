@@ -32,7 +32,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking"));
+            Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).Click(element)));
         }
@@ -42,7 +42,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void DoubleClick()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking.double"));
+            Logger.InfoLoc("loc.clicking.double");
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).DoubleClick(element)));
         }
 
@@ -51,7 +51,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void RightClick()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.clicking.right"));
+            Logger.InfoLoc("loc.clicking.right");
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).ContextClick(element)));
         }
 
@@ -60,7 +60,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void MoveMouseToElement()
         {
-            Logger.Info(LocalizationManager.Instance.GetLocalizedMessage("loc.moving"));
+            Logger.InfoLoc("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
             ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element)));
         }
