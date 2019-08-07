@@ -97,7 +97,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                     return pathInConfiguration.Contains(".") ? Path.GetFullPath(pathInConfiguration) : pathInConfiguration;
                 }
 
-                throw new InvalidDataException($"failed to find {DownloadDirCapabilityKey} profiles option for {BrowserName}");
+                throw new InvalidDataException($"failed to find {DownloadDirCapabilityKey} option in settings profile for {BrowserName}");
             }
         }
 
