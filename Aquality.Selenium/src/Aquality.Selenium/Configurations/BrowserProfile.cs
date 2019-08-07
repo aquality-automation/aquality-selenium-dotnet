@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Configurations
                         return new EdgeSettings(settingsFile);
                     case BrowserName.Firefox:
                         return new FirefoxSettings(settingsFile);
-                    case BrowserName.InternetExplorer:
+                    case BrowserName.IExplorer:
                         return new InternetExplorerSettings(settingsFile);
                     case BrowserName.Safari:
                         return new SafariSettings(settingsFile);

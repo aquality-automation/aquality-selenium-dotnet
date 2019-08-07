@@ -18,17 +18,18 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
+        protected override BrowserName BrowserName => BrowserName.Safari;
+
         public override DriverOptions DriverOptions
         {
             get
             {
                 var options = new SafariOptions();
                 SetCapabilities(options);
+                SetOptionsByPropertyNames(options);
                 return options;
             }
         }
         public override string DownloadDirCapabilityKey => "safari.options.dataDir";
-
-        protected override BrowserName BrowserName => BrowserName.Safari;
     }
 }

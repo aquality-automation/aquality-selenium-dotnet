@@ -38,12 +38,11 @@ namespace Aquality.Selenium.Browsers
                     driverManager.SetUpDriver(new FirefoxConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new FirefoxDriver((FirefoxOptions)driverSettings.DriverOptions);
                     break;
-                case BrowserName.InternetExplorer:
+                case BrowserName.IExplorer:
                     driverManager.SetUpDriver(new InternetExplorerConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new InternetExplorerDriver((InternetExplorerOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Edge:
-                    driverManager.SetUpDriver(new EdgeConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
                     driver = new EdgeDriver((EdgeOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Safari:

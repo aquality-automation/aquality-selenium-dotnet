@@ -25,7 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\local.settings.json">
+    <None Update="Resources\settings.local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

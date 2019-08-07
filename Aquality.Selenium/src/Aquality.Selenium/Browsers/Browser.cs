@@ -295,7 +295,7 @@ namespace Aquality.Selenium.Browsers
         Chrome,
         Edge,
         Firefox,
-        InternetExplorer,
+        IExplorer,
         Safari
     }
 

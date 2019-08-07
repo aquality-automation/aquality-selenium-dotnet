@@ -2,7 +2,6 @@
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Linq;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -19,9 +18,9 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        public override string DownloadDirCapabilityKey => "download.default_directory";
-
         protected override BrowserName BrowserName => BrowserName.Chrome;
+
+        public override string DownloadDirCapabilityKey => "download.default_directory";
 
         public override DriverOptions DriverOptions
         {
@@ -29,7 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 var options = new ChromeOptions();
                 SetChromePrefs(options);
-                SetGlobalCapabilities(options);
+                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
                 SetChromeArguments(options);
                 return options;
             }
@@ -47,11 +46,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         private void SetChromeArguments(ChromeOptions options)
         {
             options.AddArguments(BrowserStartArguments);
-        }
-
-        private void SetGlobalCapabilities(ChromeOptions options)
-        {
-            BrowserCapabilities.ToList().ForEach(capability => options.AddAdditionalCapability(capability.Key, capability.Value, isGlobalCapability: true));
         }
     }
 }

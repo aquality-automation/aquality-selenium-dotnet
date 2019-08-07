@@ -1,28 +1,19 @@
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Utilities;
 using NUnit.Framework;
-using System.IO;
+using System;
 
 namespace Aquality.Selenium.Tests.Unit.JavaScripts
 {
     [Parallelizable(ParallelScope.All)]
     public class ConfigurationTests
     {
-        private const string ConfigFile = "local.settings.json";
-        
         [Test]
-        public void Should_GetLocalConfigurationFile()
+        [Parallelizable(ParallelScope.None)]
+        public void Should_GetConfiguration_FromCustomConfigurationProfile()
         {
-            var fileObject = new JsonFile(new FileInfo(Path.Combine("Resources", ConfigFile))).GetObject<object>("$");
-            Assert.IsNotNull(fileObject);
-            Assert.IsNotEmpty(fileObject.ToString());
-        }
-
-        [Test]
-        public void Should_ParseLocalConfigurationFile()
-        {
-            var settingsFile = new JsonFile(new FileInfo(Path.Combine("Resources", ConfigFile)));
-            Assert.IsNotNull(new TimeoutConfiguration(settingsFile));
+            Environment.SetEnvironmentVariable("profile", "local");
+            Assert.IsNotNull(Configuration.Instance);
+            Assert.IsFalse(Configuration.Instance.BrowserProfile.IsRemote);
         }
 
         [Test]

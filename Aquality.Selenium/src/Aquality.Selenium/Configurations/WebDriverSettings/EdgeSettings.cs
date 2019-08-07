@@ -19,18 +19,19 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
+        protected override BrowserName BrowserName => BrowserName.Edge;
+
         public override DriverOptions DriverOptions
         {
             get
             {
                 var options = new EdgeOptions();
                 SetCapabilities(options);
+                SetOptionsByPropertyNames(options);
                 return options;
             }
         }
         
         public override string DownloadDirCapabilityKey => throw new NotSupportedException("Download directory key for Edge profiles is not supported");
-
-        protected override BrowserName BrowserName => BrowserName.Edge;
     }
 }

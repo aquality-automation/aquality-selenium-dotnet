@@ -59,11 +59,22 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected abstract BrowserName BrowserName { get; }
 
+        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>();
+
         public abstract string DownloadDirCapabilityKey { get; }
 
         public abstract DriverOptions DriverOptions { get; }
 
-        public string WebDriverVersion => SettingsFile.GetObject<string>($"{DriverSettingsPath}.webDriverVersion");
+        public string WebDriverVersion
+        {
+            get
+            {
+                var jsonPath = $"{DriverSettingsPath}.webDriverVersion";
+                return SettingsFile.IsValuePresent(jsonPath)
+                ? SettingsFile.GetObject<string>(jsonPath)
+                : "Latest";
+            }
+        }
 
         public Architecture SystemArchitecture
         {
@@ -71,7 +82,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 var jsonPath = $"{DriverSettingsPath}.systemArchitecture";
                 return SettingsFile.IsValuePresent(jsonPath)
-                ? (Architecture) Enum.Parse(typeof(Architecture), SettingsFile.GetObject<string>(jsonPath))
+                ? SettingsFile.GetObject<string>(jsonPath).ToEnum<Architecture>()
                 : Architecture.Auto;
             }
         }
@@ -90,9 +101,63 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        protected void SetCapabilities(DriverOptions options)
+        protected void SetCapabilities(DriverOptions options, Action<string, object> addCapabilityMethod = null)
         {
-            BrowserCapabilities.ToList().ForEach(capability => options.AddAdditionalCapability(capability.Key, capability.Value));
+            foreach(var capability in BrowserCapabilities)
+            {
+                try
+                {
+                    var defaultAddCapabilityMethod = addCapabilityMethod ?? options.AddAdditionalCapability;
+                    defaultAddCapabilityMethod(capability.Key, capability.Value);
+                } 
+                catch(ArgumentException exception)
+                {
+                    if(exception.Message.StartsWith("There is already an option"))
+                    {
+                        SetKnownProperty(options, capability, exception);
+                    }
+                    else
+                    {
+                        throw exception;
+                    }
+                }
+            }
+        }
+
+        private void SetKnownProperty(DriverOptions options, KeyValuePair<string, object> capability, ArgumentException exception)
+        {
+            if (KnownCapabilitySetters.ContainsKey(capability.Key))
+            {
+                KnownCapabilitySetters[capability.Key](options, capability.Value);
+            }
+            else
+            {
+                SetOptionByPropertyName(options, capability, exception);
+            }            
+        }
+
+        protected void SetOptionsByPropertyNames(DriverOptions options)
+        {
+            foreach (var option in BrowserOptions)
+            {
+                SetOptionByPropertyName(options, option, new NotSupportedException($"Property for option {option.Key} is not supported"));
+            }
+        }
+
+        private void SetOptionByPropertyName(DriverOptions options, KeyValuePair<string, object> option, Exception exception)
+        {
+            var optionProperty = options
+                            .GetType()
+                            .GetProperties()
+                            .FirstOrDefault(property => IsPropertyNameMatchOption(property.Name, option.Key) && property.CanWrite)
+                            ?? throw exception;
+            optionProperty.SetValue(options, option.Value);
+        }
+
+        private bool IsPropertyNameMatchOption(string propertyName, string optionKey)
+        {
+            return propertyName.Equals(optionKey, StringComparison.InvariantCultureIgnoreCase)
+                || optionKey.ToLowerInvariant().Contains(propertyName.ToLowerInvariant());
         }
     }
 }

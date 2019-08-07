@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "Latest",
+      "webDriverVersion": "75.0.3770.140",
       "capabilities": {
         "enableVNC": true
       },
@@ -22,6 +22,7 @@
     },
     "firefox": {
       "webDriverVersion": "Latest",
+      "systemArchitecture": "X64",
       "capabilities": {
         "enableVNC": true
       },
@@ -46,7 +47,9 @@
       "webDriverVersion": "Latest",
       "systemArchitecture": "X32",
       "capabilities": {
-        "ignoreProtectedModeSettings": true
+        "ignoreProtectedModeSettings": true,
+        "requireWindowFocus": false,
+        "elementScrollBehavior": 2
       },
       "options": {
       },

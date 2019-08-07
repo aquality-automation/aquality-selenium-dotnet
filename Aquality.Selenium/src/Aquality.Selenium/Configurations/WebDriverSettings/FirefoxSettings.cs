@@ -2,7 +2,8 @@
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
-using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -19,17 +20,29 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
+        protected override BrowserName BrowserName => BrowserName.Firefox;
+
+        protected override IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
+        {
+            { "binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },            
+            { "firefox_binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },
+            { "firefox_profile", (options, value) => ((FirefoxOptions) options).Profile = new FirefoxProfileManager().GetProfile(value.ToString()) },
+            { "log", (options, value) => ((FirefoxOptions) options).LogLevel = value.ToEnum<FirefoxDriverLogLevel>() },
+            { "marionette", (options, value) => ((FirefoxOptions) options).UseLegacyImplementation = (bool) value }
+        };
+
         public override DriverOptions DriverOptions
         {
             get
             {
                 var options = new FirefoxOptions();
-                SetGlobalCapabilities(options);
+                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
                 SetFirefoxPrefs(options);
                 SetFirefoxArguments(options);
                 return options;
             }
         }
+
         private void SetFirefoxPrefs(FirefoxOptions options)
         {
             foreach (var option in BrowserOptions)
@@ -63,13 +76,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             options.AddArguments(BrowserStartArguments);
         }
 
-        private void SetGlobalCapabilities(FirefoxOptions options)
-        {
-            BrowserCapabilities.ToList().ForEach(capability => options.AddAdditionalCapability(capability.Key, capability.Value, isGlobalCapability: true));
-        }
-
         public override string DownloadDirCapabilityKey => "browser.download.dir";
-
-        protected override BrowserName BrowserName => BrowserName.Firefox;
     }
 }
