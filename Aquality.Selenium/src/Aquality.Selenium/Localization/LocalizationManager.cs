@@ -10,9 +10,7 @@ namespace Aquality.Selenium.Localization
     /// </summary>
     internal sealed class LocalizationManager
     {
-        private const string LocaleKey = "locale";
         private const string LangResource = "Resources.Localization.{0}.json";
-        private const string LocaleConfig = "Localization\\localeConfig{0}.json";
         private readonly JsonFile localManager;
         private static readonly Lazy<LocalizationManager> LazyInstance = new Lazy<LocalizationManager>(() => new LocalizationManager());        
 
