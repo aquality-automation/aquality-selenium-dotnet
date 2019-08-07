@@ -59,10 +59,13 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
-    "timeoutCondition" : 30,
-    "timeoutScript" : 10,
-    "timeoutPageLoad" : 15,
+    "timeoutImplicit": 0,
+    "timeoutCondition": 30,
+    "timeoutScript": 10,
+    "timeoutPageLoad": 15,
     "timeoutPollingInterval": 300
+  },
+  "locale": {
+    "lang": "en"
   }
 }

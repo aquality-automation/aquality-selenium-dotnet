@@ -1,8 +1,8 @@
 {
-  "browserName" : "firefox",
+  "browserName": "firefox",
   "isRemote": false,
   "remoteConnectionUrl": "http://qa-auto-nexus:4444/wd/hub",
-  "isElementHighlightEnabled" : true,
+  "isElementHighlightEnabled": true,
 
   "driverSettings": {
     "chrome": {
@@ -59,10 +59,13 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
-    "timeoutCondition" : 30,
-    "timeoutScript" : 10,
-    "timeoutPageLoad" : 15,
+    "timeoutImplicit": 0,
+    "timeoutCondition": 30,
+    "timeoutScript": 10,
+    "timeoutPageLoad": 15,
     "timeoutPollingInterval": 300
+  },
+  "locale": {
+    "lang": "en"
   }
 }

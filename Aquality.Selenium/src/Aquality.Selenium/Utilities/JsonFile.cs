@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Reflection;
 
 namespace Aquality.Selenium.Utilities
 {
@@ -33,6 +34,17 @@ namespace Aquality.Selenium.Utilities
         {
             fileContent = FileReader.GetTextFromResource(resourceFileName);
             fileName = resourceFileName;
+        }
+
+        /// <summary>
+        /// Inistantiates class using desired resource file info.
+        /// </summary>
+        /// <param name="embededResourceName">Embeded resource name</param>
+        /// <param name="assembly">Assembly which resource belongs to</param>
+        public JsonFile(string embededResourceName, Assembly assembly)
+        {
+            fileContent = FileReader.GetTextFromEmbeddedResource(embededResourceName);
+            fileName = embededResourceName;
         }
 
         /// <summary>

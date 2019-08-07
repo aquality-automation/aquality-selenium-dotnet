@@ -5,7 +5,7 @@
     /// </summary>
     internal enum SupportedLocale
     {
-        RU,
-        EN
+        EN,
+        RU        
     }
 }

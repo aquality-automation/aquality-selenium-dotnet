@@ -10,35 +10,35 @@ namespace Aquality.Selenium.Tests.Unit.Logging
     [Parallelizable(ParallelScope.All)]
     public class Tests
     {
-        private const string AddAppenderLogFile = "AddAppenderTestLog.log";
-        private const string RemoveAppenderLogFile = "RemoveAppenderTestLog.log";
+        private const string AddTargetLogFile = "AddTargetTestLog.log";
+        private const string RemoveTargetLogFile = "RemoveTargetTestLog.log";
         private const string TestMessage = "test message";
 
         [SetUp]
         public void Setup()
         {
-            File.Delete(AddAppenderLogFile);
-            File.Delete(RemoveAppenderLogFile);
+            File.Delete(AddTargetLogFile);
+            File.Delete(RemoveTargetLogFile);
         }
 
         [Test]
-        public void TestShouldBePossibleToAddAppender()
+        public void TestShouldBePossibleToAddTarget()
         {
-            Logger.Instance.AddTarget(GetTarget(AddAppenderLogFile)).Info(TestMessage);
-            Assert.True(File.Exists(AddAppenderLogFile),
-                $"Appender wasn't added. File '{AddAppenderLogFile}' doesn't exist.");
-            var log = File.ReadAllText(AddAppenderLogFile).Trim();
+            Logger.Instance.AddTarget(GetTarget(AddTargetLogFile)).Info(TestMessage);
+            Assert.True(File.Exists(AddTargetLogFile),
+                $"Target wasn't added. File '{AddTargetLogFile}' doesn't exist.");
+            var log = File.ReadAllText(AddTargetLogFile).Trim();
             Assert.True(log.Equals(TestMessage),
-                $"Appender wasn't added. File doesn't contain message: '{TestMessage}'.");
+                $"Target wasn't added. File doesn't contain message: '{TestMessage}'.");
         }
 
         [Test]
-        public void TestShouldBePossibleToRemoveAppender()
+        public void TestShouldBePossibleToRemoveTarget()
         {
-            var appender = GetTarget(RemoveAppenderLogFile);
-            Logger.Instance.AddTarget(appender).RemoveTarget(appender).Info(TestMessage);
-            Assert.False(File.Exists(RemoveAppenderLogFile),
-                $"Appender wasn't removed. File '{RemoveAppenderLogFile}' exists.");
+            var Target = GetTarget(RemoveTargetLogFile);
+            Logger.Instance.AddTarget(Target).RemoveTarget(Target).Info(TestMessage);
+            Assert.False(File.Exists(RemoveTargetLogFile),
+                $"Target wasn't removed. File '{RemoveTargetLogFile}' exists.");
         }
 
         private static Target GetTarget(string filePath)

@@ -16,5 +16,11 @@
         /// </summary>
         /// <value>Configuration of timeouts.</value>
         ITimeoutConfiguration TimeoutConfiguration { get; }
+
+        /// <summary>
+        /// Gets configuration of locale.
+        /// </summary>
+        /// <value>Configuration of supported locales.</value>
+        ILocaleConfiguration LocaleConfiguration { get; }
     }
 }
