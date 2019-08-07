@@ -37,7 +37,7 @@ namespace Aquality.Selenium.Utilities
         }
 
         /// <summary>
-        /// Inistantiates class using desired resource file info.
+        /// Inistantiates class using desired embeded resource.
         /// </summary>
         /// <param name="embededResourceName">Embeded resource name</param>
         /// <param name="assembly">Assembly which resource belongs to</param>
