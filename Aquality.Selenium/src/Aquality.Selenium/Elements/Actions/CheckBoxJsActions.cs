@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions
 {

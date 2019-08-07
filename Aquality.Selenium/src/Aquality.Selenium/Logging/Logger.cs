@@ -10,8 +10,6 @@ namespace Aquality.Selenium.Logging
     /// </summary>
     public sealed class Logger
     {
-        private const string DefLocale = "en";
-        private const string LocaleKey = "logger.lang";
         private static readonly Lazy<Logger> LazyInstance = new Lazy<Logger>(() => new Logger());
         private static readonly ThreadLocal<ILogger> Log = new ThreadLocal<ILogger>(() => LogManager.GetLogger(Thread.CurrentThread.ManagedThreadId.ToString()));
 
@@ -94,68 +92,6 @@ namespace Aquality.Selenium.Logging
         public void Fatal(string message, Exception exception)
         {
             Log.Value.Fatal(exception, message);
-        }
-
-        /// <summary>
-        /// Log localized info message.
-        /// </summary>
-        /// <param name="messageKey">Message messageKey from localization resources.</param>
-        /// <param name="args">Arguments to be pasted into message via string.Format.</param>
-        internal void InfoLoc(string messageKey, params object[] args)
-        {
-            Info(string.Format(GetLocalizedMessage(messageKey), args));
-        }
-
-        /// <summary>
-        /// Log localized debug message with optional exception.
-        /// </summary>
-        /// <param name="messageKey">Message messageKey from localization resources.</param>
-        /// <param name="exception">Occurred exception.</param>
-        /// <param name="args">Arguments to be pasted into message via string.Format.</param>
-        internal void DebugLoc(string messageKey, Exception exception = null, params object[] args)
-        {
-            Debug(string.Format(GetLocalizedMessage(messageKey), args), exception);
-        }
-
-        /// <summary>
-        /// Log localized warning message.
-        /// </summary>
-        /// <param name="messageKey">Message messageKey from localization resources.</param>
-        /// <param name="args">Arguments to be pasted into message via string.Format.</param>
-        internal void WarnLoc(string messageKey, params object[] args)
-        {
-            Warn(string.Format(GetLocalizedMessage(messageKey), args));
-        }
-
-        /// <summary>
-        /// Log localized error message.
-        /// </summary>
-        /// <param name="messageKey">Message messageKey from localization resources.</param>
-        /// <param name="args">Arguments to be pasted into message via string.Format</param>
-        internal void ErrorLoc(string messageKey, params object[] args)
-        {
-            Error(string.Format(GetLocalizedMessage(messageKey), args));
-        }
-
-        /// <summary>
-        /// Log localized fatal message with exception.
-        /// </summary>
-        /// <param name="messageKey">Message messageKey from localization resources.</param>
-        /// <param name="exception">Occurred exception.</param>
-        /// <param name="args">Arguments to be pasted into message via string.Format.</param>
-        internal void FatalLoc(string messageKey, Exception exception = null, params object[] args)
-        {
-            Fatal(string.Format(GetLocalizedMessage(messageKey), args), exception);
-        }
-
-        /// <summary>
-        /// Get localized message from resources by its key.
-        /// </summary>
-        /// <param name="messageKey">Key in resources file.</param>
-        /// <returns>Template of message.</returns>
-        private static string GetLocalizedMessage(string messageKey)
-        {
-            throw new NotImplementedException();
         }
     }
 }

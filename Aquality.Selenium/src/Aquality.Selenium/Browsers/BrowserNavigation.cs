@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="url">String representation of URL.</param>
         public void GoToUrl(string url)
         {
-            Logger.InfoLoc("loc.browser.navigate", url);
+            InfoLocNavigate(url);
             driver.Navigate().GoToUrl(url);
         }
 
@@ -53,7 +53,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="url">Uri representation of URL.</param>
         public void GoToUrl(Uri url)
         {
-            Logger.InfoLoc("loc.browser.navigate", url);
+            InfoLocNavigate(url.ToString());
             driver.Navigate().GoToUrl(url);
         }
 
@@ -64,6 +64,11 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.InfoLoc("loc.browser.refresh");
             driver.Navigate().Refresh();
+        }
+
+        private void InfoLocNavigate(string url)
+        {
+            Logger.InfoLoc("loc.browser.navigate", url);
         }
     }
 }
