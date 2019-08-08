@@ -1,4 +1,5 @@
 {
+  "loc.baseform.unknown.type": "Unknown type of locator for page '{0}'",
   "loc.browser.arguments.setting": "Setting browser start arguments from JSON file: {0}",
   "loc.browser.back": "Return to previous page",
   "loc.browser.forward": "Proceed to the next page",
