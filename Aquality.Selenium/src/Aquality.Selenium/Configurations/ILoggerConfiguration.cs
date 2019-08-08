@@ -1,4 +1,6 @@
-﻿namespace Aquality.Selenium.Configurations
+﻿using Aquality.Selenium.Localization;
+
+namespace Aquality.Selenium.Configurations
 {
     /// <summary>
     /// Describes logger configuration.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Gets language of framework.
         /// </summary>
-        /// <value>Language.</value>
-        string Language { get; }
+        /// <value>Supported language.</value>
+        SupportedLanguage Language { get; }
     }
 }

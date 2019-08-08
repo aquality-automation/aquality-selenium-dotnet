@@ -1,4 +1,6 @@
-﻿using Aquality.Selenium.Utilities;
+﻿using Aquality.Selenium.Localization;
+using Aquality.Selenium.Logging;
+using Aquality.Selenium.Utilities;
 
 namespace Aquality.Selenium.Configurations
 {
@@ -18,6 +20,17 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
         }
 
-        public string Language => settingsFile.GetValue<string>(".logger.language");
+        public SupportedLanguage Language
+        {
+            get
+            {
+                var loggerLang = settingsFile.GetValue<string>(".logger.language");
+                if (!loggerLang.TryParseToEnum<SupportedLanguage>(out var language))
+                {
+                    Logger.Instance.Warn($"Provided logger language '{loggerLang}' is not supported.");
+                }
+                return language;
+            }
+        }
     }
 }

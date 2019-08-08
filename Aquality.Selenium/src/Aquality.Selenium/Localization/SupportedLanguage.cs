@@ -3,7 +3,7 @@
     /// <summary>
     /// Supported logger language.
     /// </summary>
-    internal enum SupportedLanguage
+    public enum SupportedLanguage
     {
         EN,
         RU        

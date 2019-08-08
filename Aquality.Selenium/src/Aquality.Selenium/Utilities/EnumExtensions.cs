@@ -18,5 +18,12 @@ namespace Aquality.Selenium.Utilities
             Contract.Assert(type.IsEnum, "T must be an enum type");
             return (T) Enum.Parse(type, value, ignoreCase: true);
         }
+
+        internal static bool TryParseToEnum<T>(this string value, out T enumValue) where T : struct, IConvertible
+        {
+            var type = typeof(T);
+            Contract.Assert(type.IsEnum, "T must be an enum type");
+            return Enum.TryParse(value, ignoreCase: true, result: out enumValue);
+        }
     }
 }
