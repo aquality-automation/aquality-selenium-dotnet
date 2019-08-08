@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Localization
                 return string.Format(localManager.GetValue<string>(jsonKey), args);
             }
 
-            Logger.Instance.Debug($"Cannot file localizaed message by key '{jsonKey}'");
+            Logger.Instance.Debug($"Cannot find localized message by key '{jsonKey}'");
             return default;
         }
     }
