@@ -1,7 +1,8 @@
 ﻿using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Localization;
+using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
-using System;
 
 namespace Aquality.Selenium.Elements
 {
@@ -14,25 +15,47 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => throw new NotImplementedException();
+        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.checkbox");
 
-        public bool IsChecked => throw new NotImplementedException();
-
-        CheckBoxJsActions ICheckBox.JsActions => new CheckBoxJsActions(this, ElementType);
-
-        public void Check()
+        public bool IsChecked
         {
-            throw new NotImplementedException();
+            get
+            {
+                Logger.InfoLoc("loc.checkbox.get.state");
+                return GetElement().Selected;
+            }
         }
 
-        public void Toggle()
+        public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType);
+        
+        public void Check()
         {
-            throw new NotImplementedException();
+            SetState(true);
         }
 
         public void Uncheck()
         {
-            throw new NotImplementedException();
+            SetState(false);
+        }
+
+        public void Toggle()
+        {
+            SetState(!IsChecked);
+        }
+
+        private void SetState(bool state)
+        {
+            Logger.InfoLoc("loc.setting.value", state.ToString());
+            if (state && !IsChecked)
+            {
+                Logger.InfoLoc("loc.checkbox.check", Name, ElementType, bool.TrueString);
+                Click();
+            }
+            else if (!state && IsChecked)
+            {
+                Logger.InfoLoc("loc.checkbox.uncheck", Name, ElementType, bool.FalseString);
+                Click();
+            }
         }
     }
 }

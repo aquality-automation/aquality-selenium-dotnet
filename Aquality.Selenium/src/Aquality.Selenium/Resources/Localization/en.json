@@ -44,7 +44,7 @@
   "loc.scrolling.js": "Scrolling via JavaScript",
   "loc.selecting.value": "Selecting value",
   "loc.send.text": "Setting text - '{0}'",
-  "loc.setting.value": "Setting value",
+  "loc.setting.value": "Setting value - '{0}'",
   "loc.text.clearing": "Clearing",
   "loc.text.field": "Text Field",
   "loc.text.sending.keys": "Sending keys '{0}'",

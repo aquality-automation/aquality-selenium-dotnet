@@ -16,5 +16,6 @@
         }
 
         public const string Class = "class";
+        public const string Value = "value";
     }
 }
