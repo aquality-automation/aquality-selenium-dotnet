@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Logging;
 using Aquality.Selenium.Utilities;
 using System;
 using System.Reflection;
@@ -12,11 +13,14 @@ namespace Aquality.Selenium.Localization
     {
         private const string LangResource = "Resources.Localization.{0}.json";
         private readonly JsonFile localManager;
-        private static readonly Lazy<LocalizationManager> LazyInstance = new Lazy<LocalizationManager>(() => new LocalizationManager());        
+        private static readonly Lazy<LocalizationManager> LazyInstance = new Lazy<LocalizationManager>(() => new LocalizationManager());
 
         private LocalizationManager()
-        {            
-            Enum.TryParse(Configuration.Instance.LocaleConfiguration.Language.ToUpper(), out SupportedLocale currentLocale);
+        {
+            var language = Configuration.Instance.LoggerConfiguration.Language;
+            if (!Enum.TryParse(language.ToUpper(), out SupportedLanguage currentLocale)) {
+                Logger.Instance.Warn($"Provided logger language '{language}' is not supported.");
+            }
             localManager = new JsonFile(string.Format(LangResource, currentLocale.ToString().ToLower()), Assembly.GetCallingAssembly());
         }
 

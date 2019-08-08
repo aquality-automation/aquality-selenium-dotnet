@@ -18,9 +18,9 @@
         ITimeoutConfiguration TimeoutConfiguration { get; }
 
         /// <summary>
-        /// Gets configuration of locale.
+        /// Gets configuration of logger.
         /// </summary>
-        /// <value>Configuration of supported locales.</value>
-        ILocaleConfiguration LocaleConfiguration { get; }
+        /// <value>Configuration of logger.</value>
+        ILoggerConfiguration LoggerConfiguration { get; }
     }
 }

@@ -3,9 +3,9 @@
 namespace Aquality.Selenium.Configurations
 {
     /// <summary>
-    /// Provides locale configuration.
+    /// Provides logger configuration.
     /// </summary>
-    public class LocaleConfiguration : ILocaleConfiguration
+    public class LoggerConfiguration : ILoggerConfiguration
     {
         private readonly JsonFile settingsFile;
 
@@ -13,11 +13,11 @@ namespace Aquality.Selenium.Configurations
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public LocaleConfiguration(JsonFile settingsFile)
+        public LoggerConfiguration(JsonFile settingsFile)
         {
             this.settingsFile = settingsFile;
         }
 
-        public string Language => settingsFile.GetObject<string>(".locale.lang");
+        public string Language => settingsFile.GetObject<string>(".logger.language");
     }
 }

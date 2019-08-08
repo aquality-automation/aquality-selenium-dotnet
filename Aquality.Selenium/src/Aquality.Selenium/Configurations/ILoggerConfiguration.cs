@@ -1,9 +1,9 @@
 ﻿namespace Aquality.Selenium.Configurations
 {
     /// <summary>
-    /// Describes locale configuration.
+    /// Describes logger configuration.
     /// </summary>
-    public interface ILocaleConfiguration
+    public interface ILoggerConfiguration
     {
         /// <summary>
         /// Gets language of framework.

@@ -1,8 +1,8 @@
 {
-  "browserName" : "chrome",
+  "browserName": "chrome",
   "isRemote": true,
   "remoteConnectionUrl": "http://qa-auto-nexus:4444/wd/hub",
-  "isElementHighlightEnabled" : true,
+  "isElementHighlightEnabled": true,
 
   "driverSettings": {
     "chrome": {
@@ -65,7 +65,7 @@
     "timeoutPageLoad": 15,
     "timeoutPollingInterval": 300
   },
-  "locale": {
-    "lang": "en"
+  "logger": {
+    "language": "en"
   }
 }

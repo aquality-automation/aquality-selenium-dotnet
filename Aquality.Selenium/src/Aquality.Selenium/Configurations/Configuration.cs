@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Configurations
             var settings = GetSettings();
             BrowserProfile = new BrowserProfile(settings);
             TimeoutConfiguration = new TimeoutConfiguration(settings);
-            LocaleConfiguration = new LocaleConfiguration(settings);
+            LoggerConfiguration = new LoggerConfiguration(settings);
         }
 
         private JsonFile GetSettings()
@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Configurations
 
         public ITimeoutConfiguration TimeoutConfiguration { get; }
 
-        public ILocaleConfiguration LocaleConfiguration { get; }
+        public ILoggerConfiguration LoggerConfiguration { get; }
 
         /// <summary>
         /// Gets thread-safe instance of configuration.

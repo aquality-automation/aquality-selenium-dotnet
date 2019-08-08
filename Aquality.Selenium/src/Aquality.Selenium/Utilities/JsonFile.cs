@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Utilities
         /// <param name="assembly">Assembly which resource belongs to</param>
         public JsonFile(string embededResourceName, Assembly assembly)
         {
-            fileContent = FileReader.GetTextFromEmbeddedResource(embededResourceName);
+            fileContent = FileReader.GetTextFromEmbeddedResource(embededResourceName, assembly);
             fileName = embededResourceName;
         }
 

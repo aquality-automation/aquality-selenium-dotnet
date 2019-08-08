@@ -35,8 +35,8 @@ namespace Aquality.Selenium.Tests.Unit.Logging
         [Test]
         public void TestShouldBePossibleToRemoveTarget()
         {
-            var Target = GetTarget(RemoveTargetLogFile);
-            Logger.Instance.AddTarget(Target).RemoveTarget(Target).Info(TestMessage);
+            var target = GetTarget(RemoveTargetLogFile);
+            Logger.Instance.AddTarget(target).RemoveTarget(target).Info(TestMessage);
             Assert.False(File.Exists(RemoveTargetLogFile),
                 $"Target wasn't removed. File '{RemoveTargetLogFile}' exists.");
         }

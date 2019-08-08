@@ -65,7 +65,7 @@
     "timeoutPageLoad": 15,
     "timeoutPollingInterval": 300
   },
-  "locale": {
-    "lang": "en"
+  "logger": {
+    "language": "en"
   }
 }
