@@ -1,11 +1,11 @@
 ﻿namespace Aquality.Selenium.Localization
 {
     /// <summary>
-    /// Supported locale.
+    /// Supported language.
     /// </summary>
-    internal enum SupportedLocale
+    public enum SupportedLanguage
     {
-        RU,
-        EN
+        EN,
+        RU        
     }
 }

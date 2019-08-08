@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Aquality.Selenium.Utilities
 {
@@ -35,6 +36,16 @@ namespace Aquality.Selenium.Utilities
         public JsonFile(string resourceFileName)
         {
             fileContent = FileReader.GetTextFromResource(resourceFileName);
+        }
+
+        /// <summary>
+        /// Inistantiates class using desired embeded resource.
+        /// </summary>
+        /// <param name="embededResourceName">Embeded resource name</param>
+        /// <param name="assembly">Assembly which resource belongs to</param>
+        public JsonFile(string embededResourceName, Assembly assembly)
+        {
+            fileContent = FileReader.GetTextFromEmbeddedResource(embededResourceName, assembly);
         }
 
         /// <summary>

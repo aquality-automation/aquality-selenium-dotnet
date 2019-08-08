@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Logging;
+using Aquality.Selenium.Utilities;
+using System;
+using System.Reflection;
 
 namespace Aquality.Selenium.Localization
 {
@@ -7,13 +11,14 @@ namespace Aquality.Selenium.Localization
     /// </summary>
     internal sealed class LocalizationManager
     {
-        private const string DefLocale = "en";
-        private const string LocaleKey = "locale";
-        private const string LangResources = "Resources.Localization.{0}.json";
+        private const string LangResource = "Resources.Localization.{0}.json";
+        private readonly JsonFile localManager;
         private static readonly Lazy<LocalizationManager> LazyInstance = new Lazy<LocalizationManager>(() => new LocalizationManager());
-        
+
         private LocalizationManager()
-        {   
+        {
+            var language = Configuration.Instance.LoggerConfiguration.Language;
+            localManager = new JsonFile(string.Format(LangResource, language.ToString().ToLower()), Assembly.GetCallingAssembly());
         }
 
         /// <summary>
@@ -29,7 +34,14 @@ namespace Aquality.Selenium.Localization
         /// <returns>Localized message.</returns>
         public string GetLocalizedMessage(string messageKey, params string [] args)
         {
-            throw new NotImplementedException();
+            var jsonKey = $"$['{messageKey}']";
+            if (localManager.IsValuePresent(jsonKey))
+            {
+                return string.Format(localManager.GetValue<string>(jsonKey), args);
+            }
+
+            Logger.Instance.Debug($"Cannot find localized message by key '{jsonKey}'");
+            return default;
         }
     }
 }
