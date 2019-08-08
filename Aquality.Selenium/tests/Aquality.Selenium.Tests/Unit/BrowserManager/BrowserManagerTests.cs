@@ -1,4 +1,5 @@
 using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
 using NUnit.Framework;
 using System;
 
@@ -9,6 +10,16 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
         [Test]
         public void Should_BeAbleGetBrowser()
         {
+            Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
+        }
+
+        [TestCase(null)]
+        [TestCase("--headless")]
+        [TestCase("a")]
+        public void Should_BeAbleGetBrowser_WithStartArguments(string startArguments)
+        {
+            var currentBrowser = Configuration.Instance.BrowserProfile.BrowserName;
+            Environment.SetEnvironmentVariable($"driverSettings.{currentBrowser.ToString().ToLowerInvariant()}.startArguments", startArguments);
             Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
         }
 

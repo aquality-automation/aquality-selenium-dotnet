@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Configurations
 
         private TimeSpan GetTimeout(string name)
         {
-            return TimeSpan.FromSeconds(settingsFile.GetObject<int>($".timeouts.timeout{name}"));
+            return TimeSpan.FromSeconds(settingsFile.GetValue<int>($".timeouts.timeout{name}"));
         }
 
         public TimeSpan Implicit { get; }

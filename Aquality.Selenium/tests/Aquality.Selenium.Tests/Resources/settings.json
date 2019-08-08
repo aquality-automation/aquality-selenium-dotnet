@@ -18,7 +18,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
       },
-      "startArguments": []
+      "startArguments": ["--headless"]
     },
     "firefox": {
       "webDriverVersion": "Latest",
@@ -50,25 +50,12 @@
         "ignoreProtectedModeSettings": true,
         "requireWindowFocus": false,
         "elementScrollBehavior": 2
-      },
-      "options": {
-      },
-      "startArguments": []
-    },
-    "edge": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X32",
-      "capabilities": {
-      },
-      "options": {
-      },
-      "startArguments": []
+      }
     },
     "safari": {
       "options": {
         "safari.options.dataDir": "/Users/username/Downloads"
-      },
-      "startArguments": []
+      }
     }
   },
   "timeouts": {

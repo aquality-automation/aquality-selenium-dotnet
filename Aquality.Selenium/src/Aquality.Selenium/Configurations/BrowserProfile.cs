@@ -21,13 +21,13 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
         }
 
-        public BrowserName BrowserName => (BrowserName) Enum.Parse(typeof(BrowserName), settingsFile.GetObject<string>(".browserName"), ignoreCase: true);
+        public BrowserName BrowserName => (BrowserName) Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
 
-        public bool IsElementHighlightEnabled => settingsFile.GetObject<bool>(".isElementHighlightEnabled");
+        public bool IsElementHighlightEnabled => settingsFile.GetValue<bool>(".isElementHighlightEnabled");
 
-        public bool IsRemote => settingsFile.GetObject<bool>(".isRemote");
+        public bool IsRemote => settingsFile.GetValue<bool>(".isRemote");
 
-        public Uri RemoteConnectionUrl => new Uri(settingsFile.GetObject<string>(".remoteConnectionUrl"));
+        public Uri RemoteConnectionUrl => new Uri(settingsFile.GetValue<string>(".remoteConnectionUrl"));
 
         public IDriverSettings DriverSettings
         {

@@ -23,37 +23,13 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             SettingsFile = settingsFile;
         }
 
-        private string DriverSettingsPath
-        {
-            get
-            {
-                return $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
-            }
-        }
+        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
 
-        protected IDictionary<string, object> BrowserCapabilities
-        {
-            get
-            {
-                return SettingsFile.GetObject<IDictionary<string, object>>($"{DriverSettingsPath}.capabilities");
-            }
-        }
+        protected IDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.capabilities");
 
-        protected IDictionary<string, object> BrowserOptions
-        {
-            get
-            {
-                return SettingsFile.GetObject<IDictionary<string, object>>($"{DriverSettingsPath}.options");
-            }
-        }
+        protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
 
-        protected IList<string> BrowserStartArguments
-        {
-            get
-            {
-                return SettingsFile.GetObject<IList<string>>($"{DriverSettingsPath}.startArguments");
-            }
-        }
+        protected IList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
 
         protected JsonFile SettingsFile { get; }
 
@@ -65,27 +41,9 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         public abstract DriverOptions DriverOptions { get; }
 
-        public string WebDriverVersion
-        {
-            get
-            {
-                var jsonPath = $"{DriverSettingsPath}.webDriverVersion";
-                return SettingsFile.IsValuePresent(jsonPath)
-                ? SettingsFile.GetObject<string>(jsonPath)
-                : "Latest";
-            }
-        }
+        public string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", defaultValue: "Latest");
 
-        public Architecture SystemArchitecture
-        {
-            get
-            {
-                var jsonPath = $"{DriverSettingsPath}.systemArchitecture";
-                return SettingsFile.IsValuePresent(jsonPath)
-                ? SettingsFile.GetObject<string>(jsonPath).ToEnum<Architecture>()
-                : Architecture.Auto;
-            }
-        }
+        public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", "Auto").ToEnum<Architecture>();
 
         public virtual string DownloadDir
         {
