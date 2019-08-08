@@ -29,10 +29,5 @@
         /// Submit typed value.
         /// </summary>
         void Submit();
-
-        /// <summary>
-        /// Set focus on element.
-        /// </summary>
-        new void Focus();
     }
 }
