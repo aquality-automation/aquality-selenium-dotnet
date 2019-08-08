@@ -14,11 +14,12 @@ namespace Aquality.Selenium.Tests.Unit.JavaScripts
         }
 
         [TestCase(null)]
-        [TestCase("--headless")]
+        [TestCase("--headless, --disable-infobars")]
         [TestCase("a")]
         public void Should_BeAbleGetBrowser_WithStartArguments(string startArguments)
         {
             var currentBrowser = Configuration.Instance.BrowserProfile.BrowserName;
+            Environment.SetEnvironmentVariable("isRemote", "false");
             Environment.SetEnvironmentVariable($"driverSettings.{currentBrowser.ToString().ToLowerInvariant()}.startArguments", startArguments);
             Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
         }

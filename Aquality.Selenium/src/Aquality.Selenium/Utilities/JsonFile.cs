@@ -71,7 +71,7 @@ namespace Aquality.Selenium.Utilities
             if (envValue != null)
             {
                 Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
-                return envValue.Split(',').Select(value => (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value)).ToList();
+                return envValue.Split(',').Select(value => (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value.Trim())).ToList();
             }
 
             return GetJsonNode(jsonPath).ToObject<IList<T>>();
