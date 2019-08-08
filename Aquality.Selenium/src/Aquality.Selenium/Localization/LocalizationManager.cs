@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Logging;
 using Aquality.Selenium.Utilities;
 using System;
 using System.Reflection;
@@ -33,7 +34,14 @@ namespace Aquality.Selenium.Localization
         /// <returns>Localized message.</returns>
         public string GetLocalizedMessage(string messageKey, params string [] args)
         {
-            return string.Format(localManager.GetValue<string>($"$['{messageKey}']"), args);
+            var jsonKey = $"$['{messageKey}']";
+            if (localManager.IsValuePresent(jsonKey))
+            {
+                return string.Format(localManager.GetValue<string>(jsonKey), args);
+            }
+
+            Logger.Instance.Debug($"Cannot file localizaed message by key '{jsonKey}'");
+            return default;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Utilities;
+using System;
 
 namespace Aquality.Selenium.Configurations
 {
@@ -25,7 +26,7 @@ namespace Aquality.Selenium.Configurations
             get
             {
                 var loggerLang = settingsFile.GetValueOrDefault<string>(".logger.language");
-                if (!loggerLang.TryParseToEnum<SupportedLanguage>(out var language))
+                if (!Enum.TryParse<SupportedLanguage>(loggerLang, ignoreCase: true, result: out var language))
                 {
                     Logger.Instance.Warn($"Provided logger language '{loggerLang}' is not supported.");
                 }
