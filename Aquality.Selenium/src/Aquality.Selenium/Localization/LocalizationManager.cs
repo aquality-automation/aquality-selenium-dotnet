@@ -37,7 +37,7 @@ namespace Aquality.Selenium.Localization
         /// <returns>Localized message.</returns>
         public string GetLocalizedMessage(string messageKey, params string [] args)
         {
-            return string.Format(localManager.GetObject<string>($"$['{messageKey}']"), args);
+            return string.Format(localManager.GetValue<string>($"$['{messageKey}']"), args);
         }
     }
 }

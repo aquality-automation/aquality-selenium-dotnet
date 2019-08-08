@@ -46,11 +46,9 @@ namespace Aquality.Selenium.Utilities
         public JsonFile(string embededResourceName, Assembly assembly)
         {
             fileContent = FileReader.GetTextFromEmbeddedResource(embededResourceName, assembly);
-            fileName = embededResourceName;
         }
 
         /// <summary>
-        /// Gets object from JSON.
         /// Gets value from JSON.
         /// Note that the value can be overriden via Environment variable with the same name
         /// (e.g. for json path ".timeouts.timeoutScript" you can set environment variable "timeouts.timeoutScript")

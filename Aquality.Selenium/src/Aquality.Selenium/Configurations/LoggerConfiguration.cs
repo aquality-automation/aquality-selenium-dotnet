@@ -18,6 +18,6 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
         }
 
-        public string Language => settingsFile.GetObject<string>(".logger.language");
+        public string Language => settingsFile.GetValue<string>(".logger.language");
     }
 }
