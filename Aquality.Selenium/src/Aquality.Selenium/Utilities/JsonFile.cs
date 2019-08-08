@@ -1,16 +1,20 @@
 ﻿using Aquality.Selenium.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace Aquality.Selenium.Utilities
 {
     /// <summary>
     /// Provides methods to get info from JSON files.
+    /// Note that the value can be overriden via Environment variable with the same name
+    /// (e.g. for json path ".timeouts.timeoutScript" you can set environment variable "timeouts.timeoutScript"
     /// </summary>
     public sealed class JsonFile
     {
-        private readonly string fileName;
         private readonly string fileContent;
 
         private JObject JsonObject => JsonConvert.DeserializeObject<JObject>(fileContent);
@@ -22,7 +26,6 @@ namespace Aquality.Selenium.Utilities
         public JsonFile(FileInfo fileInfo)
         {
             fileContent = FileReader.GetTextFromFile(fileInfo);
-            fileName = fileInfo.Name;
         }
 
         /// <summary>
@@ -32,68 +35,56 @@ namespace Aquality.Selenium.Utilities
         public JsonFile(string resourceFileName)
         {
             fileContent = FileReader.GetTextFromResource(resourceFileName);
-            fileName = resourceFileName;
         }
 
         /// <summary>
-        /// Gets object from JSON.
+        /// Gets value from JSON.
+        /// Note that the value can be overriden via Environment variable with the same name
+        /// (e.g. for json path ".timeouts.timeoutScript" you can set environment variable "timeouts.timeoutScript")
         /// </summary>
-        /// <param name="jsonPath">Relative JsonPath to the object.</param>
-        /// <typeparam name="T">Type of the object.</typeparam>
-        /// <returns>Object from JSON by JsonPath.</returns>
-        public T GetObject<T>(string jsonPath)
+        /// <param name="jsonPath">Relative JsonPath to the value.</param>
+        /// <typeparam name="T">Type of the value.</typeparam>
+        /// <returns>Value from JSON/Environment by JsonPath.</returns>
+        public T GetValue<T>(string jsonPath)
         {
-            return (T) GetValue(jsonPath);
+            var envValue = GetEnvironmentValue(jsonPath);
+            if (envValue != null)
+            {
+                Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
+                return (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(envValue);                
+            }
+
+            return GetJsonNode(jsonPath).ToObject<T>();
         }
 
         /// <summary>
-        /// Gets value of object from JSON.
+        /// Gets list of values from JSON.
+        /// Note that the value can be overriden via Environment variable with the same name; values must be separated by ','
+        /// (e.g. for json path ".driverSettings.chrome.startArguments" you can set environment variable "driverSettings.chrome.startArguments")
         /// </summary>
-        /// <param name="jsonPath">Relative JsonPath to the object.</param>
-        /// <returns>Value of JSON object.</returns>
-        public object GetValue(string jsonPath)
+        /// <param name="jsonPath">Relative JsonPath to the values.</param>
+        /// <typeparam name="T">Type of the value.</typeparam>
+        /// <returns>Value from JSON/Environment by JsonPath.</returns>
+        public IList<T> GetValueList<T>(string jsonPath)
         {
-            return GetEnvironmentValueOrDefault(jsonPath);
+            var envValue = GetEnvironmentValue(jsonPath);
+            if (envValue != null)
+            {
+                Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
+                return envValue.Split(',').Select(value => (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value.Trim())).ToList();
+            }
+
+            return GetJsonNode(jsonPath).ToObject<IList<T>>();
         }
 
         /// <summary>
-        /// Checks whether value present on JSON by JsonPath or not.
+        /// Checks whether value present on JSON/Environment by JsonPath or not.
         /// </summary>
         /// <param name="jsonPath">Relative JsonPath to the object.</param>
         /// <returns>True if present and false otherwise.</returns>
         public bool IsValuePresent(string jsonPath)
         {
             return GetEnvironmentValue(jsonPath) != null || GetJsonNode(jsonPath) != null;
-        }
-
-        private object GetEnvironmentValueOrDefault(string jsonPath)
-        {
-            var envValue = GetEnvironmentValue(jsonPath);
-            if(envValue == null)
-            {
-                var node = GetJsonNode(jsonPath);
-                if(node == null)
-                {
-                    throw new InvalidDataException($"Failed to get value by JPath {jsonPath} from json file {fileName}");
-                }
-                if (node.Type == JTokenType.Boolean)
-                {
-                    return node.ToObject<bool>();
-                }
-                else if (node.Type == JTokenType.Integer)
-                {
-                    return node.ToObject<int>();
-                }
-                else
-                {
-                    return node.ToString();
-                }
-            }
-            else
-            {
-                Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
-                return envValue;
-            }
         }
 
         private string GetEnvironmentValue(string jsonPath)

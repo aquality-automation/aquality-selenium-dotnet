@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -17,10 +21,30 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        public override DriverOptions DriverOptions => throw new NotImplementedException();
+        protected override BrowserName BrowserName => BrowserName.IExplorer;
 
-        public override string DownloadDir => throw new NotImplementedException();
+        protected override IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
+        {
+            { "ignoreProtectedModeSettings", (options, value) => ((InternetExplorerOptions) options).IntroduceInstabilityByIgnoringProtectedModeSettings = (bool) value },
+            { "ignoreZoomSetting", (options, value) => ((InternetExplorerOptions) options).IgnoreZoomLevel = (bool) value },
+            { CapabilityType.HasNativeEvents, (options, value) => ((InternetExplorerOptions) options).EnableNativeEvents = (bool) value },
+            { CapabilityType.UnexpectedAlertBehavior, (options, value) => ((InternetExplorerOptions) options).UnhandledPromptBehavior = value.ToEnum<UnhandledPromptBehavior>() },
+            { "ie.browserCommandLineSwitches", (options, value) => ((InternetExplorerOptions) options).BrowserCommandLineArguments = value.ToString() },
+            { "elementScrollBehavior", (options, value) => ((InternetExplorerOptions) options).ElementScrollBehavior = value.ToEnum<InternetExplorerElementScrollBehavior>() }
+        };
 
-        public override string DownloadDirCapabilityKey => throw new NotImplementedException();
+        public override DriverOptions DriverOptions
+        {
+            get
+            {
+                var options = new InternetExplorerOptions();
+                SetCapabilities(options);
+                SetOptionsByPropertyNames(options);
+                options.BrowserCommandLineArguments = string.Join(" ", BrowserStartArguments);
+                return options;
+            }
+        }
+
+        public override string DownloadDirCapabilityKey => throw new NotSupportedException("Download directory key for Internet Explorer profiles is not supported");
     }
 }
