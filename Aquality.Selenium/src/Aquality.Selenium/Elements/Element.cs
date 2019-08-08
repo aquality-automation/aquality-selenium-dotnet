@@ -43,12 +43,6 @@ namespace Aquality.Selenium.Elements
 
         private IElementFactory ElementFactory => new ElementFactory();
 
-        public bool IsEnabled(TimeSpan? timeout = null)
-        {
-            bool isElementEnabled(IWebElement element) => element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
-            return Finder.FindElements(Locator, isElementEnabled, timeout).Count != 0;
-        }
-
         public RemoteWebElement GetElement(TimeSpan? timeout = null)
         {
             try
@@ -70,7 +64,7 @@ namespace Aquality.Selenium.Elements
 
         public void WaitAndClick()
         {
-            WaitForElementIsClickable();            
+            State.WaitForClickable();            
             Click();
         }
 
@@ -126,11 +120,6 @@ namespace Aquality.Selenium.Elements
             Click();
             Logger.InfoLoc("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
-        }
-
-        public void WaitForElementIsClickable(TimeSpan? timeout = null)
-        {
-            Finder.FindElements(Locator, element => element.Displayed && element.Enabled, timeout);
         }
         
         public T FindChildElement<T>(By childLocator, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) where T : IElement
