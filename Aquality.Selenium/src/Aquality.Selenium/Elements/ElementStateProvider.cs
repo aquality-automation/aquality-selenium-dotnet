@@ -25,23 +25,23 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForClickable(TimeSpan? timeout = null)
         {
-            return AreAnyElementsFound(timeout, element => element.Displayed && element.Enabled);
+            return IsAnyElementFound(timeout, element => element.Displayed && element.Enabled);
         }
 
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
-            return AreAnyElementsFound(timeout, ElementState.Displayed);
+            return IsAnyElementFound(timeout, ElementState.Displayed);
         }
 
         public bool WaitForEnabled(TimeSpan? timeout = null)
         {
             bool isElementEnabled(IWebElement element) => element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
-            return AreAnyElementsFound(timeout, isElementEnabled);
+            return IsAnyElementFound(timeout, isElementEnabled);
         }
 
         public bool WaitForExist(TimeSpan? timeout = null)
         {
-            return AreAnyElementsFound(timeout, ElementState.ExistsInAnyState);
+            return IsAnyElementFound(timeout, ElementState.ExistsInAnyState);
         }
 
         public bool WaitForNotDisplayed(TimeSpan? timeout = null)
@@ -54,12 +54,12 @@ namespace Aquality.Selenium.Elements
             return ConditionalWait.WaitForTrue(driver => !IsExist, timeout);
         }
 
-        private bool AreAnyElementsFound(TimeSpan? timeout, ElementState state)
+        private bool IsAnyElementFound(TimeSpan? timeout, ElementState state)
         {
             return ElementFinder.Instance.FindElements(elementLocator, state, timeout).Any();
         }
 
-        private bool AreAnyElementsFound(TimeSpan? timeout, Func<IWebElement, bool> elementStateCondition)
+        private bool IsAnyElementFound(TimeSpan? timeout, Func<IWebElement, bool> elementStateCondition)
         {
             return ElementFinder.Instance.FindElements(elementLocator, elementStateCondition, timeout).Any();
         }

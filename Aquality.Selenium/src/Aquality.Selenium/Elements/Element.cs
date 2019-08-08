@@ -13,19 +13,19 @@ namespace Aquality.Selenium.Elements
     /// Defines base class for any UI element.
     /// </summary>
     public abstract class Element : IElement
-    {      
+    {
+        private readonly ElementState elementState;
+
         protected Element(By locator, string name, ElementState state)
         {
             Locator = locator;
             Name = name;
-            ElementState = state;
+            elementState = state;
         }
 
         public By Locator { get; }
 
         public string Name { get; }
-
-        public ElementState ElementState { get; }
 
         protected abstract string ElementType { get; }
 
@@ -47,7 +47,7 @@ namespace Aquality.Selenium.Elements
         {
             try
             {
-                return (RemoteWebElement)Finder.FindElement(Locator, ElementState, timeout);
+                return (RemoteWebElement)Finder.FindElement(Locator, elementState, timeout);
             }
             catch (NoSuchElementException ex)
             {
