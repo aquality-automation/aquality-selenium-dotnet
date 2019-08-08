@@ -8,29 +8,21 @@ namespace Aquality.Selenium.Forms
         /// <summary>
         /// Page name
         /// </summary>
-        public string PageName { get; private set; }
+        public string PageName { get; set; } = default;
 
         /// <summary>
         /// Page xpath anchor
         /// </summary>
-        public string Xpath { get; private set; }
+        public string Xpath { get; set; } = default;
 
         /// <summary>
         /// Page id anchor getter
         /// </summary>
-        public string Id { get; private set; }
+        public string Id { get; set; } = default;
 
         /// <summary>
         /// Page css anchor
         /// </summary>
-        public string Css { get; private set; }
-
-        public PageInfoAttribute(string pageName = default, string xpath = default, string id = default, string css = default)
-        {
-            PageName = pageName;
-            Xpath = xpath;
-            Id = id;
-            Css = css;
-        }
+        public string Css { get; set; } = default;
     }
 }

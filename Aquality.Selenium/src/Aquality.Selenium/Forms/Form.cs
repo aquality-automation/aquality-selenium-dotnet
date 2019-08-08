@@ -4,6 +4,7 @@ using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 using System;
+using System.Drawing;
 using System.Linq;
 
 namespace Aquality.Selenium.Forms
@@ -22,14 +23,17 @@ namespace Aquality.Selenium.Forms
         /// </summary>
         protected readonly string Name;
 
-        private readonly IElementFactory ElementFactory;
+        /// <summary>
+        /// Element factory <see cref="Aquality.Selenium.Elements.Interfaces.IElementFactory">
+        /// </summary>
+        protected readonly IElementFactory ElementFactory;
 
         /// <summary>
         /// Constructor
         /// </summary>
         protected Form()
         {
-            var type = typeof(Form).GetCustomAttributes(false).OfType<PageInfoAttribute>().FirstOrDefault();
+            var type = GetType().GetCustomAttributes(false).OfType<PageInfoAttribute>().FirstOrDefault();
             Name = type.PageName;
             Locator = GetLocatorFromPageInfo(type);
             ElementFactory = new ElementFactory();
@@ -74,7 +78,31 @@ namespace Aquality.Selenium.Forms
         /// False - form is not opened</returns>
         public bool IsFormDisplayed()
         {
-            return ElementFactory.GetLabel(Locator, Name).State.WaitForDisplayed();
+            return GetPageLabel().State.WaitForDisplayed();
+        }
+
+        /// <summary>
+        /// Scroll form without scrolling entire page
+        /// </summary>
+        /// <param name="x">horizontal coordinate</param>
+        /// <param name="y">vertical coordinate</param>
+        public void ScrollBy(int x, int y)
+        {
+            GetPageLabel().JsActions.ScrollBy(x, y);
+        }
+
+        /// <summary>
+        /// Get form size
+        /// </summary>
+        /// <returns>size</returns>
+        public Size GetFormSize()
+        {
+            return GetPageLabel().GetElement().Size;
+        }
+
+        private ILabel GetPageLabel()
+        {
+            return ElementFactory.GetLabel(Locator, Name);
         }
     }
 }
