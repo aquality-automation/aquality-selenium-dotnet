@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -17,10 +18,34 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        public override DriverOptions DriverOptions => throw new NotImplementedException();
+        protected override BrowserName BrowserName => BrowserName.Chrome;
 
-        public override string DownloadDir => throw new NotImplementedException();
+        public override string DownloadDirCapabilityKey => "download.default_directory";
 
-        public override string DownloadDirCapabilityKey => throw new NotImplementedException();
+        public override DriverOptions DriverOptions
+        {
+            get
+            {
+                var options = new ChromeOptions();
+                SetChromePrefs(options);
+                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
+                SetChromeArguments(options);
+                return options;
+            }
+        }
+
+        private void SetChromePrefs(ChromeOptions options)
+        {
+            foreach(var option in BrowserOptions)
+            {
+                var value = option.Key == DownloadDirCapabilityKey ? DownloadDir : option.Value;
+                options.AddUserProfilePreference(option.Key, value);                
+            }
+        }
+
+        private void SetChromeArguments(ChromeOptions options)
+        {
+            options.AddArguments(BrowserStartArguments);
+        }
     }
 }

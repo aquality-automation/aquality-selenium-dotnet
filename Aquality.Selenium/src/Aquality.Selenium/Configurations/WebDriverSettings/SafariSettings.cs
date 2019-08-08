@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Safari;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -17,10 +18,18 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        public override DriverOptions DriverOptions => throw new NotImplementedException();
+        protected override BrowserName BrowserName => BrowserName.Safari;
 
-        public override string DownloadDir => throw new NotImplementedException();
-
-        public override string DownloadDirCapabilityKey => throw new NotImplementedException();
+        public override DriverOptions DriverOptions
+        {
+            get
+            {
+                var options = new SafariOptions();
+                SetCapabilities(options);
+                SetOptionsByPropertyNames(options);
+                return options;
+            }
+        }
+        public override string DownloadDirCapabilityKey => "safari.options.dataDir";
     }
 }
