@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Localization;
 using OpenQA.Selenium;
-using System;
 
 namespace Aquality.Selenium.Elements
 {
@@ -13,8 +13,8 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => throw new NotImplementedException();
+        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.link");
 
-        public string Href => throw new NotImplementedException();
+        public string Href => GetAttribute("href");
     }
 }
