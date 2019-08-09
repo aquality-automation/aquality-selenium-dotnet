@@ -16,5 +16,11 @@
         /// </summary>
         /// <value>Configuration of timeouts.</value>
         ITimeoutConfiguration TimeoutConfiguration { get; }
+
+        /// <summary>
+        /// Gets configuration of logger.
+        /// </summary>
+        /// <value>Configuration of logger.</value>
+        ILoggerConfiguration LoggerConfiguration { get; }
     }
 }
