@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Forms
         /// Element factory <see cref="Aquality.Selenium.Elements.Interfaces.IElementFactory">
         /// </summary>
         /// <value>Element factory.</value>
-        protected static readonly IElementFactory ElementFactory = new ElementFactory();
+        protected IElementFactory ElementFactory => new ElementFactory();
 
         private ILabel FormLabel => ElementFactory.GetLabel(Locator, Name);
 
