@@ -23,13 +23,13 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Gets element's clickable state, which means element is displayed and enabled.
         /// </summary>
-        /// <value>True if element is clickable and false otherwise</value>        
+        /// <value>True if element is clickable, false otherwise</value>        
         bool IsClickable { get; }
 
         /// <summary>
         /// Gets element's Enabled state, which means element is Enabled and does not have "disabled" class.
         /// </summary>
-        /// <value>True if enabled and false otherwise.</value>
+        /// <value>True if enabled, false otherwise.</value>
         bool IsEnabled { get; }
 
         /// <summary>
@@ -64,13 +64,28 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// Waits for element is clickable which means element is displayed and enabled.
         /// </summary>
         /// <param name="timeout">Timeout for wait. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
+        /// <returns>true if element is clickable after waiting, false otherwise</returns>
         bool WaitForClickable(TimeSpan? timeout = null);
+
+        /// <summary>
+        /// Waits for element is not clickable which means element is not displayed or not enabled.
+        /// </summary>
+        /// <param name="timeout">Timeout for wait. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
+        /// <returns>true if element is not clickable after waiting, false otherwise</returns>
+        bool WaitForNotClickable(TimeSpan? timeout = null);
 
         /// <summary>
         /// Waits for element is enabled state which means element is Enabled and does not have "disabled" class.
         /// </summary>
         /// <param name="timeout">Timeout to get state. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        /// <returns>True if enabled and false otherwise.</returns>
+        /// <returns>True if enabled, false otherwise.</returns>
         bool WaitForEnabled(TimeSpan? timeout = null);
+
+        /// <summary>
+        /// Waits for element is not enabled state which means element is not Enabled or does have "disabled" class.
+        /// </summary>
+        /// <param name="timeout">Timeout to get state. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
+        /// <returns>True if not enabled, false otherwise.</returns>
+        bool WaitForNotEnabled(TimeSpan? timeout = null);
     }
 }

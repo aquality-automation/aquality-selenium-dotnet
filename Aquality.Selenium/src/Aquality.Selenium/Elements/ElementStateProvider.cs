@@ -28,9 +28,19 @@ namespace Aquality.Selenium.Elements
             return IsAnyElementFound(timeout, element => element.Displayed && element.Enabled);
         }
 
+        public bool WaitForNotClickable(TimeSpan? timeout = null)
+        {
+            return ConditionalWait.WaitForTrue(driver => !IsClickable, timeout);
+        }
+        
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
             return IsAnyElementFound(timeout, ElementState.Displayed);
+        }
+
+        public bool WaitForNotDisplayed(TimeSpan? timeout = null)
+        {
+            return ConditionalWait.WaitForTrue(driver => !IsDisplayed, timeout);
         }
 
         public bool WaitForEnabled(TimeSpan? timeout = null)
@@ -39,14 +49,14 @@ namespace Aquality.Selenium.Elements
             return IsAnyElementFound(timeout, isElementEnabled);
         }
 
+        public bool WaitForNotEnabled(TimeSpan? timeout = null)
+        {
+            return ConditionalWait.WaitForTrue(driver => !IsEnabled, timeout);
+        }
+
         public bool WaitForExist(TimeSpan? timeout = null)
         {
             return IsAnyElementFound(timeout, ElementState.ExistsInAnyState);
-        }
-
-        public bool WaitForNotDisplayed(TimeSpan? timeout = null)
-        {
-            return ConditionalWait.WaitForTrue(driver => !IsDisplayed, timeout);
         }
 
         public bool WaitForNotExist(TimeSpan? timeout = null)
