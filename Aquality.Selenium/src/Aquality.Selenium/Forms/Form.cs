@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Aquality.Selenium.Forms
 {
+    /// <summary>
+    /// Defines base class for any UI form.
+    /// </summary>
     public abstract class Form
     {
         private readonly Logger logger = Logger.Instance;
@@ -29,21 +32,26 @@ namespace Aquality.Selenium.Forms
         protected readonly IElementFactory ElementFactory;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
+        /// Gets locator and name from <see cref="Aquality.Selenium.Forms.PageInfoAttribute">.
         /// </summary>
         protected Form()
         {
-            var type = GetType().GetCustomAttributes(false).OfType<PageInfoAttribute>().FirstOrDefault();
-            Name = type.PageName;
-            Locator = GetLocatorFromPageInfo(type);
+            var pageInfo = GetType().GetCustomAttributes(false).OfType<PageInfoAttribute>().FirstOrDefault();
+            if(pageInfo == null)
+            {
+                throw new ArgumentNullException(nameof(pageInfo), LocalizationManager.Instance.GetLocalizedMessage("loc.baseform.null.pageinfo", GetType().ToString()));
+            }
+            Name = pageInfo.PageName;
+            Locator = GetLocatorFromPageInfo(pageInfo);
             ElementFactory = new ElementFactory();
         }
 
         /// <summary>
         /// Constructor with parameters
         /// </summary>
-        /// <param name="locator">Unique locator of the page.</param>
-        /// <param name="name">Name of the page.</param>
+        /// <param name="locator">Unique locator of the form.</param>
+        /// <param name="name">Name of the form.</param>
         protected Form(By locator, string name)
         {
             Locator = locator;
