@@ -84,33 +84,25 @@ namespace Aquality.Selenium.Elements
             JsActions.SetFocus();
         }
 
-        public string GetAttribute(string attr, HighlightState highlightState = HighlightState.NotHighlight, TimeSpan? timeout = null)
+        public string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null)
         {
             Logger.InfoLoc("loc.el.getattr", attr);
-            HighlightElement(highlightState);
+            JsActions.HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement(timeout).GetAttribute(attr), timeout);
         }
 
-        public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.NotHighlight, TimeSpan? timeout = null)
+        public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null)
         {
             Logger.InfoLoc("loc.el.cssvalue", propertyName);
-            HighlightElement(highlightState);
+            JsActions.HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement(timeout).GetCssValue(propertyName), timeout);
         }
 
-        public string GetText(HighlightState highlightState = HighlightState.NotHighlight)
+        public string GetText(HighlightState highlightState = HighlightState.Default)
         {
             Logger.InfoLoc("loc.get.text");
-            HighlightElement(highlightState);
+            JsActions.HighlightElement(highlightState);
             return ConditionalWait.WaitFor(driver => GetElement().Text);
-        }
-
-        private void HighlightElement(HighlightState highlightState)
-        {
-            if (highlightState.Equals(HighlightState.Highlight))
-            {
-                JsActions.HighlightElement();
-            }
         }
 
         public void SendKeys(string key)

@@ -5,6 +5,7 @@
     /// </summary>
     public enum HighlightState
     {
+        Default,
         Highlight,
         NotHighlight
     }

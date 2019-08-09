@@ -48,10 +48,11 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Highlights the element.
+        /// Default value is from configuration: <see cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled">
         /// </summary>
-        public void HighlightElement()
+        public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {
-            if (Configuration.BrowserProfile.IsElementHighlightEnabled)
+            if (Configuration.BrowserProfile.IsElementHighlightEnabled || highlightState.Equals(HighlightState.Highlight))
             {
                 ExecuteScript(JavaScript.BorderElement);
             }
