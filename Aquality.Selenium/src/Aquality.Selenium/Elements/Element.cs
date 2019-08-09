@@ -91,6 +91,13 @@ namespace Aquality.Selenium.Elements
             return ConditionalWait.WaitFor(driver => GetElement(timeout).GetAttribute(attr), timeout);
         }
 
+        public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null)
+        {
+            Logger.InfoLoc("loc.el.cssvalue", propertyName);
+            JsActions.HighlightElement(highlightState);
+            return ConditionalWait.WaitFor(driver => GetElement(timeout).GetCssValue(propertyName), timeout);
+        }
+
         public string GetText(HighlightState highlightState = HighlightState.Default)
         {
             Logger.InfoLoc("loc.get.text");
