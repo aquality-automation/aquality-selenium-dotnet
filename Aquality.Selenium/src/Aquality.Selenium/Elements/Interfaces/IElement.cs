@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Elements.Interfaces
     /// <summary>
     /// Describes behavior of any UI element.
     /// </summary>
-    public interface IElement : IParent, IElementWithState
+    public interface IElement : IParent
     {
         /// <summary>
         /// Gets JavaScript actions that can be performed with an element.
@@ -21,6 +21,12 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.MouseActions"/></value>
         MouseActions MouseActions { get; }
+
+        /// <summary>
+        /// Gets element state.
+        /// </summary>
+        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Interfaces.IElementStateProvider"/></value>
+        IElementStateProvider State { get; }
 
         /// <summary>
         /// Unique locator of element.
