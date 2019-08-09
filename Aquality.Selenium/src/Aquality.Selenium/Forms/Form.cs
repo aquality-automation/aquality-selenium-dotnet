@@ -2,6 +2,7 @@
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 using System.Drawing;
+using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Forms
 {
@@ -11,6 +12,12 @@ namespace Aquality.Selenium.Forms
     public abstract class Form
     {
         /// <summary>
+        /// Instance of logger <see cref="Aquality.Selenium.Logging.Logger">
+        /// </summary>
+        /// <value>Logger instance.</value>
+        protected Logger Logger => Logger.Instance;
+
+        /// <summary>
         /// Locator for specified form
         /// </summary>
         protected readonly By Locator;
@@ -18,13 +25,29 @@ namespace Aquality.Selenium.Forms
         /// <summary>
         /// Name of specified form
         /// </summary>
-        protected readonly string Name;
+        protected readonly string Name;        
 
         /// <summary>
         /// Element factory <see cref="Aquality.Selenium.Elements.Interfaces.IElementFactory">
         /// </summary>
-        protected readonly IElementFactory ElementFactory;
-        
+        /// <value>Element factory.</value>
+        protected static readonly IElementFactory ElementFactory = new ElementFactory();
+
+        private ILabel FormLabel => ElementFactory.GetLabel(Locator, Name);
+
+        /// <summary>
+        /// Get form size
+        /// </summary>
+        /// <value>Size.</value>
+        public Size Size => FormLabel.GetElement().Size;
+
+        /// <summary>
+        /// Return form state for form locator
+        /// </summary>
+        /// <value>True - form is opened,
+        /// False - form is not opened.</value>
+        public bool IsDisplayed => FormLabel.State.WaitForDisplayed();
+
         /// <summary>
         /// Constructor with parameters
         /// </summary>
@@ -34,17 +57,6 @@ namespace Aquality.Selenium.Forms
         {
             Locator = locator;
             Name = name;
-            ElementFactory = new ElementFactory();
-        }
-
-        /// <summary>
-        /// Return form state for form locator
-        /// </summary>
-        /// <returns>True - form is opened,
-        /// False - form is not opened</returns>
-        public bool IsFormDisplayed()
-        {
-            return GetFormLabel().State.WaitForDisplayed();
         }
 
         /// <summary>
@@ -54,21 +66,7 @@ namespace Aquality.Selenium.Forms
         /// <param name="y">vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            GetFormLabel().JsActions.ScrollBy(x, y);
-        }
-
-        /// <summary>
-        /// Get form size
-        /// </summary>
-        /// <returns>size</returns>
-        public Size GetFormSize()
-        {
-            return GetFormLabel().GetElement().Size;
-        }
-
-        private ILabel GetFormLabel()
-        {
-            return ElementFactory.GetLabel(Locator, Name);
+            FormLabel.JsActions.ScrollBy(x, y);
         }
     }
 }
