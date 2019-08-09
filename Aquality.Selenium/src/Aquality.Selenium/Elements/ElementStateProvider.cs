@@ -19,19 +19,19 @@ namespace Aquality.Selenium.Elements
 
         public bool IsExist => WaitForExist(TimeSpan.Zero);
 
-        public bool IsClickable => WaitForIsClickable(TimeSpan.Zero);
+        public bool IsClickable => IsElementClickable(TimeSpan.Zero);
 
         public bool IsEnabled => WaitForEnabled(TimeSpan.Zero);
 
         public void WaitForClickable(TimeSpan? timeout = null)
         {
-            if (!WaitForIsClickable(timeout))
+            if (!IsElementClickable(timeout))
             {
                 throw new WebDriverTimeoutException("element is not clickable after wait");
             }
         }
 
-        private bool WaitForIsClickable(TimeSpan? timeout = null)
+        private bool IsElementClickable(TimeSpan? timeout = null)
         {
             return IsElementInDesiredCondition(timeout, element => element.Displayed && element.Enabled);
         }
