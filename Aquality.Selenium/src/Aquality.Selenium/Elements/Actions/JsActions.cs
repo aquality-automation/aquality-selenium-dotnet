@@ -52,8 +52,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {
-            var hightlightByDefault = highlightState.Equals(HighlightState.Default) && Configuration.BrowserProfile.IsElementHighlightEnabled;
-            if (hightlightByDefault || highlightState.Equals(HighlightState.Highlight))
+            if (Configuration.BrowserProfile.IsElementHighlightEnabled || highlightState.Equals(HighlightState.Highlight))
             {
                 ExecuteScript(JavaScript.BorderElement);
             }
