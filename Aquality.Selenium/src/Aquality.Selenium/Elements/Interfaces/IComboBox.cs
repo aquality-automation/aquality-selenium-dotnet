@@ -53,13 +53,13 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Selects option by partial text. 
         /// </summary>
-        /// <param name="partialText">Partial text of option.</param>
-        void SelectByContainingText(string partialText);
+        /// <param name="text">Partial text of option.</param>
+        void SelectOptionThatContainsText(string text);
 
         /// <summary>
         /// Selects option by partial value. 
         /// </summary>
-        /// <param name="partialValue">Partial value of option.</param>
-        void SelectByContainingValue(string partialValue);
+        /// <param name="value">Partial value of option.</param>
+        void SelectOptionThatContainsValue(string value);
     }
 }

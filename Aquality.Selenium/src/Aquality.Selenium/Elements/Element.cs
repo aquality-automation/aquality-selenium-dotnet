@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Elements
 
         public IElementStateProvider State => new ElementStateProvider(Locator);
 
-        private Logger Logger => Logger.Instance;
+        protected Logger Logger => Logger.Instance;
 
         private Browser Browser => BrowserManager.Browser;
 
