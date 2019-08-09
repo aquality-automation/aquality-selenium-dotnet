@@ -19,20 +19,23 @@ namespace Aquality.Selenium.Elements
 
         public bool IsExist => WaitForExist(TimeSpan.Zero);
 
-        public bool IsClickable => WaitForClickable(TimeSpan.Zero);
+        public bool IsClickable => IsElementClickable(TimeSpan.Zero);
 
         public bool IsEnabled => WaitForEnabled(TimeSpan.Zero);
 
-        public bool WaitForClickable(TimeSpan? timeout = null)
+        public void WaitForClickable(TimeSpan? timeout = null)
         {
-            return IsAnyElementFound(timeout, element => element.Displayed && element.Enabled);
+            if (!IsElementClickable(timeout))
+            {
+                throw new WebDriverTimeoutException("element is not clickable after wait");
+            }
         }
 
-        public bool WaitForNotClickable(TimeSpan? timeout = null)
+        private bool IsElementClickable(TimeSpan? timeout = null)
         {
-            return ConditionalWait.WaitForTrue(driver => !IsClickable, timeout);
+            return IsElementInDesiredCondition(timeout, element => element.Displayed && element.Enabled);
         }
-        
+
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
             return IsAnyElementFound(timeout, ElementState.Displayed);
@@ -46,11 +49,12 @@ namespace Aquality.Selenium.Elements
         public bool WaitForEnabled(TimeSpan? timeout = null)
         {
             bool isElementEnabled(IWebElement element) => element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
-            return IsAnyElementFound(timeout, isElementEnabled);
+            return IsElementInDesiredCondition(timeout, isElementEnabled);
         }
 
         public bool WaitForNotEnabled(TimeSpan? timeout = null)
         {
+            ElementFinder.Instance.FindElement(elementLocator, timeout: timeout);
             return ConditionalWait.WaitForTrue(driver => !IsEnabled, timeout);
         }
 
@@ -69,8 +73,9 @@ namespace Aquality.Selenium.Elements
             return ElementFinder.Instance.FindElements(elementLocator, state, timeout).Any();
         }
 
-        private bool IsAnyElementFound(TimeSpan? timeout, Func<IWebElement, bool> elementStateCondition)
+        private bool IsElementInDesiredCondition(TimeSpan? timeout, Func<IWebElement, bool> elementStateCondition)
         {
+            ElementFinder.Instance.FindElement(elementLocator, timeout: timeout);
             return ElementFinder.Instance.FindElements(elementLocator, elementStateCondition, timeout).Any();
         }
     }

@@ -61,18 +61,10 @@ namespace Aquality.Selenium.Elements.Interfaces
         bool WaitForNotExist(TimeSpan? timeout = null);
 
         /// <summary>
-        /// Waits for element is clickable which means element is displayed and enabled.
+        /// Waits for element to become clickable which means element is displayed and enabled.
         /// </summary>
         /// <param name="timeout">Timeout for wait. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        /// <returns>true if element is clickable after waiting, false otherwise</returns>
-        bool WaitForClickable(TimeSpan? timeout = null);
-
-        /// <summary>
-        /// Waits for element is not clickable which means element is not displayed or not enabled.
-        /// </summary>
-        /// <param name="timeout">Timeout for wait. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        /// <returns>true if element is not clickable after waiting, false otherwise</returns>
-        bool WaitForNotClickable(TimeSpan? timeout = null);
+        void WaitForClickable(TimeSpan? timeout = null);
 
         /// <summary>
         /// Waits for element is enabled state which means element is Enabled and does not have "disabled" class.
