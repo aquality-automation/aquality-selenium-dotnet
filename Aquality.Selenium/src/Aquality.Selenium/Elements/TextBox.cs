@@ -34,6 +34,7 @@ namespace Aquality.Selenium.Elements
                 } catch (WebDriverException ex)
                 {
                     Logger.Debug(ex.Message);
+                    GetElement().Clear();
                     return false;
                 }
             });

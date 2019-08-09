@@ -46,14 +46,8 @@ namespace Aquality.Selenium.Elements
         private void SetState(bool state)
         {
             Logger.InfoLoc("loc.setting.value", state.ToString());
-            if (state && !IsChecked)
+            if (state != IsChecked)
             {
-                Logger.InfoLoc("loc.checkbox.check", Name, ElementType, bool.TrueString);
-                Click();
-            }
-            else if (!state && IsChecked)
-            {
-                Logger.InfoLoc("loc.checkbox.uncheck", Name, ElementType, bool.FalseString);
                 Click();
             }
         }

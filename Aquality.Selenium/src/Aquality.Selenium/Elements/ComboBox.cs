@@ -49,7 +49,6 @@ namespace Aquality.Selenium.Elements
                 foreach (var element in select.Options)
                 {
                     var elementText = element.Text;
-                    Logger.Debug(elementText);
                     if (elementText.ToLower().Contains(text.ToLower()))
                     {
                         select.SelectByText(elementText);
@@ -69,7 +68,6 @@ namespace Aquality.Selenium.Elements
                 foreach (var element in select.Options)
                 {
                     var elementValue = element.GetAttribute(Attributes.Value);
-                    Logger.Debug(elementValue);
                     if (elementValue.ToLower().Contains(value.ToLower()))
                     {
                         select.SelectByValue(elementValue);
