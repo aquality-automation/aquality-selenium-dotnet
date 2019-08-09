@@ -13,19 +13,19 @@ namespace Aquality.Selenium.Elements
     /// Defines base class for any UI element.
     /// </summary>
     public abstract class Element : IElement
-    {      
+    {
+        private readonly ElementState elementState;
+
         protected Element(By locator, string name, ElementState state)
         {
             Locator = locator;
             Name = name;
-            ElementState = state;
+            elementState = state;
         }
 
         public By Locator { get; }
 
         public string Name { get; }
-
-        public ElementState ElementState { get; }
 
         protected abstract string ElementType { get; }
 
@@ -43,17 +43,11 @@ namespace Aquality.Selenium.Elements
 
         private IElementFactory ElementFactory => new ElementFactory();
 
-        public bool IsEnabled(TimeSpan? timeout = null)
-        {
-            bool isElementEnabled(IWebElement element) => element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
-            return Finder.FindElements(Locator, isElementEnabled, timeout).Count != 0;
-        }
-
         public RemoteWebElement GetElement(TimeSpan? timeout = null)
         {
             try
             {
-                return (RemoteWebElement)Finder.FindElement(Locator, ElementState, timeout);
+                return (RemoteWebElement)Finder.FindElement(Locator, elementState, timeout);
             }
             catch (NoSuchElementException ex)
             {
@@ -70,7 +64,7 @@ namespace Aquality.Selenium.Elements
 
         public void WaitAndClick()
         {
-            WaitForElementIsClickable();            
+            State.WaitForClickable();            
             Click();
         }
 
@@ -127,20 +121,10 @@ namespace Aquality.Selenium.Elements
             Logger.InfoLoc("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
         }
-
-        public void WaitForElementIsClickable(TimeSpan? timeout = null)
-        {
-            Finder.FindElements(Locator, element => element.Displayed && element.Enabled, timeout);
-        }
         
         public T FindChildElement<T>(By childLocator, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) where T : IElement
         {
             return ElementFactory.FindChildElement(this, childLocator, supplier, state);
-        }
-
-        public bool ContainsClassAttribute(string className)
-        {
-            return GetAttribute(Attributes.Class).Contains(className.ToLower());
         }
     }
 }

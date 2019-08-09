@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Elements.Interfaces
     /// <summary>
     /// Describes behavior of any UI element.
     /// </summary>
-    public interface IElement : IParent, IElementWithState
+    public interface IElement : IParent
     {
         /// <summary>
         /// Gets JavaScript actions that can be performed with an element.
@@ -21,6 +21,12 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.MouseActions"/></value>
         MouseActions MouseActions { get; }
+
+        /// <summary>
+        /// Gets element state.
+        /// </summary>
+        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Interfaces.IElementStateProvider"/></value>
+        IElementStateProvider State { get; }
 
         /// <summary>
         /// Unique locator of element.
@@ -41,13 +47,6 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <returns>Instance of <see cref="OpenQA.Selenium.Remote.RemoteWebElement"/> if found.</returns>
         /// <exception cref="OpenQA.Selenium.NoSuchElementException">Thrown when no elements found.</exception>
         RemoteWebElement GetElement(TimeSpan? timeout = null);
-        
-        /// <summary>
-        /// Gets element Enabled state. Checks that element is Enabled and does not have "disabled" class.
-        /// </summary>
-        /// <param name="timeout">Timeout to get state. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        /// <returns>True if enabled and false otherwise.</returns>
-        bool IsEnabled(TimeSpan? timeout = null);
 
         /// <summary>
         /// Gets element text.
@@ -69,13 +68,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// Sends keys to element.
         /// </summary>
         /// <param name="key">Key to send.</param>
-        void SendKeys(string key);        
-
-        /// <summary>
-        /// Waits for element is clickable which means element is displayed and enabled.
-        /// </summary>
-        /// <param name="timeout">Timeout for wait. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        void WaitForElementIsClickable(TimeSpan? timeout = null);
+        void SendKeys(string key);
 
         /// <summary>
         /// Clicks the element.
