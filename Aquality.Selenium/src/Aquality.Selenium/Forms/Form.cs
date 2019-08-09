@@ -1,7 +1,6 @@
 ﻿using Aquality.Selenium.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
-using System.Drawing;
 using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Forms
@@ -34,12 +33,6 @@ namespace Aquality.Selenium.Forms
         protected IElementFactory ElementFactory => new ElementFactory();
 
         private ILabel FormLabel => ElementFactory.GetLabel(Locator, Name);
-
-        /// <summary>
-        /// Get form size
-        /// </summary>
-        /// <value>Size.</value>
-        public Size Size => FormLabel.GetElement().Size;
 
         /// <summary>
         /// Return form state for form locator
