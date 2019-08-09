@@ -86,7 +86,7 @@ namespace Aquality.Selenium.Forms
         /// False - form is not opened</returns>
         public bool IsFormDisplayed()
         {
-            return GetPageLabel().State.WaitForDisplayed();
+            return GetFormLabel().State.WaitForDisplayed();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Aquality.Selenium.Forms
         /// <param name="y">vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            GetPageLabel().JsActions.ScrollBy(x, y);
+            GetFormLabel().JsActions.ScrollBy(x, y);
         }
 
         /// <summary>
@@ -105,10 +105,10 @@ namespace Aquality.Selenium.Forms
         /// <returns>size</returns>
         public Size GetFormSize()
         {
-            return GetPageLabel().GetElement().Size;
+            return GetFormLabel().GetElement().Size;
         }
 
-        private ILabel GetPageLabel()
+        private ILabel GetFormLabel()
         {
             return ElementFactory.GetLabel(Locator, Name);
         }
