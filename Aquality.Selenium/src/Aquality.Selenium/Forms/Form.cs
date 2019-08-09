@@ -1,11 +1,7 @@
 ﻿using Aquality.Selenium.Elements;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
-using System;
 using System.Drawing;
-using System.Linq;
 
 namespace Aquality.Selenium.Forms
 {
@@ -14,8 +10,6 @@ namespace Aquality.Selenium.Forms
     /// </summary>
     public abstract class Form
     {
-        private readonly Logger logger = Logger.Instance;
-
         /// <summary>
         /// Locator for specified form
         /// </summary>
@@ -30,23 +24,7 @@ namespace Aquality.Selenium.Forms
         /// Element factory <see cref="Aquality.Selenium.Elements.Interfaces.IElementFactory">
         /// </summary>
         protected readonly IElementFactory ElementFactory;
-
-        /// <summary>
-        /// Constructor.
-        /// Gets locator and name from <see cref="Aquality.Selenium.Forms.PageInfoAttribute">.
-        /// </summary>
-        protected Form()
-        {
-            var pageInfo = GetType().GetCustomAttributes(false).OfType<PageInfoAttribute>().FirstOrDefault();
-            if(pageInfo == null)
-            {
-                throw new ArgumentNullException(nameof(pageInfo), LocalizationManager.Instance.GetLocalizedMessage("loc.baseform.null.pageinfo", GetType().ToString()));
-            }
-            Name = pageInfo.PageName;
-            Locator = GetLocatorFromPageInfo(pageInfo);
-            ElementFactory = new ElementFactory();
-        }
-
+        
         /// <summary>
         /// Constructor with parameters
         /// </summary>
@@ -57,26 +35,6 @@ namespace Aquality.Selenium.Forms
             Locator = locator;
             Name = name;
             ElementFactory = new ElementFactory();
-        }
-
-        protected By GetLocatorFromPageInfo(PageInfoAttribute pageInfo)
-        {
-            if (!string.IsNullOrWhiteSpace(pageInfo.Xpath))
-            {
-                return By.XPath(pageInfo.Xpath);
-            }
-            else if (!string.IsNullOrWhiteSpace(pageInfo.Id))
-            {
-                return By.Id(pageInfo.Id);
-            }
-            else if (!string.IsNullOrWhiteSpace(pageInfo.Css))
-            {
-                return By.CssSelector(pageInfo.Css);
-            }
-            var message = string.Format(LocalizationManager.Instance.GetLocalizedMessage("loc.baseform.unknown.type"), Name);
-            var exception = new ArgumentException(message);
-            logger.FatalLoc(message, exception);
-            throw exception;
         }
 
         /// <summary>

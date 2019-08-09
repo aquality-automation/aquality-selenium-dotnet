@@ -1,6 +1,4 @@
 {
-  "loc.baseform.unknown.type": "Unknown type of locator for page '{0}'",
-  "loc.baseform.null.pageinfo": "PageInfo attribute wasn't specified for {0}. Specify it or just use constructor with parameters.",
   "loc.browser.arguments.setting": "Setting browser start arguments from JSON file: {0}",
   "loc.browser.back": "Return to previous page",
   "loc.browser.forward": "Proceed to the next page",
