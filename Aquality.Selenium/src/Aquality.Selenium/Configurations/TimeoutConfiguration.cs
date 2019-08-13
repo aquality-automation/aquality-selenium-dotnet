@@ -17,14 +17,14 @@ namespace Aquality.Selenium.Configurations
         public TimeoutConfiguration(JsonFile settingsFile)
         {
             this.settingsFile = settingsFile;
-            Implicit = GetTimeout(nameof(Implicit));
-            Script = GetTimeout(nameof(Script));
-            PageLoad = GetTimeout(nameof(PageLoad));
-            Condition = GetTimeout(nameof(Condition));
-            PollingInterval = GetTimeout(nameof(PollingInterval));
+            Implicit = GetTimeoutFromSeconds(nameof(Implicit));
+            Script = GetTimeoutFromSeconds(nameof(Script));
+            PageLoad = GetTimeoutFromSeconds(nameof(PageLoad));
+            Condition = GetTimeoutFromSeconds(nameof(Condition));
+            PollingInterval = TimeSpan.FromMilliseconds(settingsFile.GetValue<int>($".timeouts.timeout{nameof(PollingInterval)}"));
         }
 
-        private TimeSpan GetTimeout(string name)
+        private TimeSpan GetTimeoutFromSeconds(string name)
         {
             return TimeSpan.FromSeconds(settingsFile.GetValue<int>($".timeouts.timeout{name}"));
         }

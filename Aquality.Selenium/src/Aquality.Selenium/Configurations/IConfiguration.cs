@@ -18,6 +18,12 @@
         ITimeoutConfiguration TimeoutConfiguration { get; }
 
         /// <summary>
+        /// Gets configuration of retries.
+        /// </summary>
+        /// <value>Configuration of retries.</value>
+        IRetryConfiguration RetryConfiguration { get; }
+
+        /// <summary>
         /// Gets configuration of logger.
         /// </summary>
         /// <value>Configuration of logger.</value>

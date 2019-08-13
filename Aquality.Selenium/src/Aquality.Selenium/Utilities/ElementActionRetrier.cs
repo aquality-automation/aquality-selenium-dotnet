@@ -5,24 +5,35 @@ using System.Threading;
 
 namespace Aquality.Selenium.Utilities
 {
+    /// <summary>
+    /// Retries an action or function when <see cref="StaleElementReferenceException"/> occures.
+    /// </summary>
     internal sealed class ElementActionRetrier
     {
-        private const int DefaultRetryCount = 2;
-        
-        public static void DoWithRetry(Action action, int? retryCount = DefaultRetryCount, TimeSpan? retryInterval = default)
+        /// <summary>
+        /// Retries the action when <see cref="StaleElementReferenceException"/> occures.
+        /// </summary>
+        /// <param name="action">Action to be applied.</param>
+        public static void DoWithRetry(Action action)
         {
             DoWithRetry(() =>
             {
                 action();
                 return true;
-            }, retryCount, retryInterval);
+            });
         }
 
-        public static T DoWithRetry<T>(Func<T> function, int? retryCount = DefaultRetryCount, TimeSpan? retryInterval = default)
+        /// <summary>
+        /// Retries the function when <see cref="StaleElementReferenceException"/> occures.
+        /// </summary>
+        /// <typeparam name="T">Return type of function.</typeparam>
+        /// <param name="function">Function to be applied.</param>
+        /// <returns>Result of the function</returns>
+        public static T DoWithRetry<T>(Func<T> function)
         {
-            var timeoutConfiguration = Configuration.Instance.TimeoutConfiguration;
-            var retryAttemptsLeft = retryCount;
-            var actualInterval = retryInterval ?? timeoutConfiguration.PollingInterval;
+            var retryConfiguration = Configuration.Instance.RetryConfiguration;
+            var retryAttemptsLeft = retryConfiguration.Number;
+            var actualInterval = retryConfiguration.PollingInterval;
             var result = default(T);
             while(retryAttemptsLeft >= 0)
             {

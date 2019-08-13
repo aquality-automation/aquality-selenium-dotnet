@@ -15,6 +15,7 @@ namespace Aquality.Selenium.Configurations
             var settings = GetSettings();
             BrowserProfile = new BrowserProfile(settings);
             TimeoutConfiguration = new TimeoutConfiguration(settings);
+            RetryConfiguration = new RetryConfiguration(settings);
             LoggerConfiguration = new LoggerConfiguration(settings);
         }
 
@@ -28,6 +29,8 @@ namespace Aquality.Selenium.Configurations
         public IBrowserProfile BrowserProfile { get; }
 
         public ITimeoutConfiguration TimeoutConfiguration { get; }
+
+        public IRetryConfiguration RetryConfiguration { get; }
 
         public ILoggerConfiguration LoggerConfiguration { get; }
 

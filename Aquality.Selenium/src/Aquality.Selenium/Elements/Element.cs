@@ -120,14 +120,14 @@ namespace Aquality.Selenium.Elements
             return ElementFactory.FindChildElement(this, childLocator, supplier, state);
         }
 
-        protected void DoWithRetry(Action action, int? retryCount = default, TimeSpan? retryInterval = default)
+        protected void DoWithRetry(Action action)
         {
-            ElementActionRetrier.DoWithRetry(action, retryCount, retryInterval);
+            ElementActionRetrier.DoWithRetry(action);
         }
 
-        protected T DoWithRetry<T>(Func<T> function, int? retryCount = default, TimeSpan? retryInterval = default)
+        protected T DoWithRetry<T>(Func<T> function)
         {
-            return ElementActionRetrier.DoWithRetry(function, retryCount, retryInterval);
+            return ElementActionRetrier.DoWithRetry(function);
         }
     }
 }
