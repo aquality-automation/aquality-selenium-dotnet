@@ -29,6 +29,7 @@ namespace Aquality.Selenium.Utilities
                 try
                 {
                     result = function();
+                    break;
                 }
                 catch (Exception exception)
                 {
