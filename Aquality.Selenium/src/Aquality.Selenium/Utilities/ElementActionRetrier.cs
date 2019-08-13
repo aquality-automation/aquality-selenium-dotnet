@@ -7,9 +7,9 @@ namespace Aquality.Selenium.Utilities
 {
     internal sealed class ElementActionRetrier
     {
-        private const int defaultRetryCount = 2;
+        private const int DefaultRetryCount = 2;
         
-        public static void DoWithRetry(Action action, int? retryCount = defaultRetryCount, TimeSpan? retryInterval = default)
+        public static void DoWithRetry(Action action, int? retryCount = DefaultRetryCount, TimeSpan? retryInterval = default)
         {
             DoWithRetry(() =>
             {
@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Utilities
             }, retryCount, retryInterval);
         }
 
-        public static T DoWithRetry<T>(Func<T> function, int? retryCount = defaultRetryCount, TimeSpan? retryInterval = default)
+        public static T DoWithRetry<T>(Func<T> function, int? retryCount = DefaultRetryCount, TimeSpan? retryInterval = default)
         {
             var timeoutConfiguration = Configuration.Instance.TimeoutConfiguration;
             var retryAttemptsLeft = retryCount;
