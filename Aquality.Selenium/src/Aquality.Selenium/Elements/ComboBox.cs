@@ -51,6 +51,7 @@ namespace Aquality.Selenium.Elements
                     if (elementText.ToLower().Contains(text.ToLower()))
                     {
                         select.SelectByText(elementText);
+                        return;
                     }
                 }
                 throw new InvalidElementStateException($"Failed to select option that contains text {text}");
@@ -69,6 +70,7 @@ namespace Aquality.Selenium.Elements
                     if (elementValue.ToLower().Contains(value.ToLower()))
                     {
                         select.SelectByValue(elementValue);
+                        return;
                     }
                 }
                 throw new InvalidElementStateException($"Failed to select option that contains value {value}");
