@@ -4,7 +4,8 @@ using OpenQA.Selenium;
 using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
-using Aquality.Selenium.Waitings;
+using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Browsers;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -33,7 +34,7 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.clicking");
             JsActions.HighlightElement();
-            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).Click(element)));
+            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).Click(element)));
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void DoubleClick()
         {
             Logger.InfoLoc("loc.clicking.double");
-            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).DoubleClick(element)));
+            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).DoubleClick(element)));
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void RightClick()
         {
             Logger.InfoLoc("loc.clicking.right");
-            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element).ContextClick(element)));
+            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).ContextClick(element)));
         }
 
         /// <summary>
@@ -61,26 +62,17 @@ namespace Aquality.Selenium.Elements.Actions
         {
             Logger.InfoLoc("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
-            ConditionalWait.WaitFor(driver => PerformAction(element => MoveToElement(driver, element)));
+            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element)));
         }
 
-        private SeleniumActions MoveToElement(IWebDriver driver, IWebElement element)
+        private SeleniumActions MoveToElement(IWebElement element)
         {
-            return new SeleniumActions(driver).MoveToElement(element);
+            return new SeleniumActions(BrowserManager.Browser.Driver).MoveToElement(element);
         }
 
-        private bool PerformAction(Func<RemoteWebElement, SeleniumActions> action)
+        private void PerformAction(Func<RemoteWebElement, SeleniumActions> action)
         {
-            try
-            {
-                action(element.GetElement()).Build().Perform();
-                return true;
-            }
-            catch (WebDriverException ex)
-            {
-                Logger.Debug(ex.Message);
-                return false;
-            }
+            action(element.GetElement()).Build().Perform();
         }
     }
 }
