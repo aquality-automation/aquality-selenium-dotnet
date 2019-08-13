@@ -21,12 +21,17 @@ namespace Aquality.Selenium.Configurations
             Script = GetTimeoutFromSeconds(nameof(Script));
             PageLoad = GetTimeoutFromSeconds(nameof(PageLoad));
             Condition = GetTimeoutFromSeconds(nameof(Condition));
-            PollingInterval = TimeSpan.FromMilliseconds(settingsFile.GetValue<int>($".timeouts.timeout{nameof(PollingInterval)}"));
+            PollingInterval = TimeSpan.FromMilliseconds(GetIntFromTimeoutSettings(nameof(PollingInterval)));
         }
 
         private TimeSpan GetTimeoutFromSeconds(string name)
         {
-            return TimeSpan.FromSeconds(settingsFile.GetValue<int>($".timeouts.timeout{name}"));
+            return TimeSpan.FromSeconds(GetIntFromTimeoutSettings(name));
+        }
+
+        private int GetIntFromTimeoutSettings(string name)
+        {
+            return settingsFile.GetValue<int>($".timeouts.timeout{name}");
         }
 
         public TimeSpan Implicit { get; }
