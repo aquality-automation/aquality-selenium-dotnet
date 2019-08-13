@@ -5,7 +5,6 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Logging;
-using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Utilities;
 
 namespace Aquality.Selenium.Elements
@@ -82,18 +81,18 @@ namespace Aquality.Selenium.Elements
             JsActions.SetFocus();
         }
 
-        public string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null)
+        public string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default)
         {
             Logger.InfoLoc("loc.el.getattr", attr);
             JsActions.HighlightElement(highlightState);
-            return DoWithRetry(() => GetElement(timeout).GetAttribute(attr), GetRetryCount(timeout));
+            return DoWithRetry(() => GetElement().GetAttribute(attr));
         }
 
-        public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null)
+        public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default)
         {
             Logger.InfoLoc("loc.el.cssvalue", propertyName);
             JsActions.HighlightElement(highlightState);
-            return DoWithRetry(() => GetElement(timeout).GetCssValue(propertyName), GetRetryCount(timeout));
+            return DoWithRetry(() => GetElement().GetCssValue(propertyName));
         }
 
         public string GetText(HighlightState highlightState = HighlightState.Default)
@@ -121,21 +120,14 @@ namespace Aquality.Selenium.Elements
             return ElementFactory.FindChildElement(this, childLocator, supplier, state);
         }
 
-        protected void DoWithRetry(Action action, int retryCount = default, TimeSpan? retryInterval = default)
+        protected void DoWithRetry(Action action, int? retryCount = default, TimeSpan? retryInterval = default)
         {
             ElementActionRetrier.DoWithRetry(action, retryCount, retryInterval);
         }
 
-        protected T DoWithRetry<T>(Func<T> function, int retryCount = default, TimeSpan? retryInterval = default)
+        protected T DoWithRetry<T>(Func<T> function, int? retryCount = default, TimeSpan? retryInterval = default)
         {
             return ElementActionRetrier.DoWithRetry(function, retryCount, retryInterval);
-        }
-
-        private int GetRetryCount(TimeSpan? timeout = default)
-        {
-            var timeoutConfiguration = Configuration.Instance.TimeoutConfiguration;
-            var contidionTimeout = timeout ?? timeoutConfiguration.Condition;
-            return contidionTimeout.Milliseconds / timeoutConfiguration.PollingInterval.Milliseconds;
         }
     }
 }

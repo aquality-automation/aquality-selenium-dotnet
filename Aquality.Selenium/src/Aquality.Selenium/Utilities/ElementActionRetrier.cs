@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Utilities
     {
         private const int defaultRetryCount = 2;
         
-        public static void DoWithRetry(Action action, int retryCount = default, TimeSpan? retryInterval = default)
+        public static void DoWithRetry(Action action, int? retryCount = default, TimeSpan? retryInterval = default)
         {
             DoWithRetry(() =>
             {
@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Utilities
             }, retryCount, retryInterval);
         }
 
-        public static T DoWithRetry<T>(Func<T> function, int retryCount = default, TimeSpan? retryInterval = default)
+        public static T DoWithRetry<T>(Func<T> function, int? retryCount = default, TimeSpan? retryInterval = default)
         {
             var timeoutConfiguration = Configuration.Instance.TimeoutConfiguration;
             var retryAttemptsLeft = retryCount == default ? defaultRetryCount : retryCount;
