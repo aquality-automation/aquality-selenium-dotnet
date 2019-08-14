@@ -1,4 +1,3 @@
-using System.Drawing;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
 using NUnit.Framework;
