@@ -80,8 +80,7 @@ namespace Aquality.Selenium.Elements
             var errorMessage = GetErrorMessage("CLICKABLE");
             var desiredState = new DesiredState(element => element.Displayed && element.Enabled, errorMessage)
             {
-                IsCatchingTimeoutException = true,
-                IsThrowingNoSuchElementException = true
+                IsCatchingTimeoutException = true
             };
             return IsElementInDesiredCondition(timeout, desiredState);
         }
