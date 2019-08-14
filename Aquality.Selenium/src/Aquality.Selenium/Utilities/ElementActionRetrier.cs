@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Utilities
             var retryAttemptsLeft = retryConfiguration.Number;
             var actualInterval = retryConfiguration.PollingInterval;
             var result = default(T);
-            while(retryAttemptsLeft >= 0)
+            while (retryAttemptsLeft >= 0)
             {
                 try
                 {

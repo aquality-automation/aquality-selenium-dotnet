@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Localization;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 
@@ -31,25 +30,17 @@ namespace Aquality.Selenium.Elements
             }
         }
 
-        private ITimeoutConfiguration TimeoutConfiguration => Configuration.Instance.TimeoutConfiguration;
-
-        private Browser Browser => BrowserManager.Browser;
-
         public IWebElement FindElement(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)
         {
-            var elementStateCondition = ResolveState(state);
+            var elementStateCondition = ResolveState(state);            
             return FindElement(locator, elementStateCondition, timeout);
         }
 
         public IWebElement FindElement(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
         {
-            var clearTimeout = timeout ?? TimeoutConfiguration.Condition;
-            var elements = FindElements(locator, elementStateCondition, clearTimeout);
-            if (elements.Any())
-            {
-                return elements.First();
-            }
-            throw new NoSuchElementException($"Element was not found in desired state in {clearTimeout.Seconds} seconds by locator {locator}");
+            var errorMessage = GetErrorMessage(locator);
+            var desiredState = new DesiredState(elementStateCondition, errorMessage) { IsCatchingTimeoutException = true, IsThrowingNoSuchElementException = true };
+            return FindElements(locator, desiredState, timeout).First();
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)
@@ -60,15 +51,28 @@ namespace Aquality.Selenium.Elements
 
         public ReadOnlyCollection<IWebElement> FindElements(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
         {
-            Browser.ImplicitWaitTimeout = TimeSpan.Zero;
+            var errorMessage = GetErrorMessage(locator);
+            var desiredState = new DesiredState(elementStateCondition, errorMessage) { IsCatchingTimeoutException = true };
+            return FindElements(locator, desiredState, timeout);
+        }
+
+        internal ReadOnlyCollection<IWebElement> FindElements(By locator, DesiredState elementStateCondition, TimeSpan? timeout = null)
+        {
             var resultElements = new List<IWebElement>();
-            ConditionalWait.WaitForTrue(driver =>
+            try
             {
-                var elements = driver.FindElements(locator).Where(elementStateCondition);
-                resultElements.AddRange(elements);
-                return elements.Any();
-            }, timeout);
-            Browser.ImplicitWaitTimeout = TimeoutConfiguration.Implicit;
+                ConditionalWait.WaitFor(driver =>
+                {
+                    var elements = driver.FindElements(locator).Where(elementStateCondition.ElementStateCondition);
+                    resultElements.AddRange(elements);
+                    return elements.Any();
+                }, timeout);
+            }
+            catch (WebDriverTimeoutException ex)
+            {
+                elementStateCondition.Message = $"{ex.Message}: {elementStateCondition.Message}";
+                elementStateCondition.Apply();
+            }
             return resultElements.AsReadOnly();
         }
 
@@ -87,6 +91,11 @@ namespace Aquality.Selenium.Elements
                     throw new InvalidOperationException($"{state} state is not recognized");
             }
             return elementStateCondition;
+        }
+
+        private string GetErrorMessage(By locator)
+        {
+            return LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), "desired");
         }
     }
 }

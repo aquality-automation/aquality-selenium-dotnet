@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
@@ -184,11 +185,8 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void WaitForPageToLoad()
         {
-            var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout);
-            if (!isLoaded)
-            {
-                logger.WarnLoc("loc.browser.page.timeout");
-            }
+            var errorMessage = LocalizationManager.Instance.GetLocalizedMessage("loc.browser.page.timeout");
+            ConditionalWait.WaitFor(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
         }
 
         /// <summary>

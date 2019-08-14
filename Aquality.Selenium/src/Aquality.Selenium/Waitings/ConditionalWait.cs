@@ -3,7 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Logging;
+using System.Linq;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Aquality.Selenium.Waitings
 {
@@ -16,68 +18,89 @@ namespace Aquality.Selenium.Waitings
         private static readonly Browser Browser = BrowserManager.Browser;
 
         /// <summary>
-        /// Wait for condition and return true if waiting successful or false - otherwise.
-        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
+        /// Wait for some object from condition with timeout using Selenium WebDriver.
         /// </summary>
+        /// <typeparam name="T">Type of object which is waiting for</typeparam>
         /// <param name="condition">Function for waiting</param>
-        /// <param name="timeOut">Time-out</param>
-        /// <returns>True if waiting successful or false - otherwise.</returns>
-        public static bool WaitForTrue(Func<IWebDriver, bool> condition, TimeSpan? timeOut = null)
-        {
-            return WaitFor(condition, timeOut);
-        }
-
-        /// <summary>
-        /// Wait for some object from condition with timeout.
-        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
-        /// </summary>
-        /// <typeparam name="T">Type of object which is waiting</typeparam>
-        /// <param name="condition">Function for waiting</param>
-        /// <param name="timeOut">Time-out</param>
-        /// <returns>Object which waiting for or default of a T class - if exceptions occurred</returns>
-        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeOut = null)
+        /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
+        /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored.
+        /// Handles <see cref="StaleElementReferenceException"/> by default.</param>
+        /// <returns>Condition result which is waiting for.</returns>
+        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, params Type[] exceptionsToIgnore)
         {
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
-            var exceptionsToIgnore = new Type[] { typeof(StaleElementReferenceException), typeof(NoSuchElementException) };
-            var result = WaitFor(condition, Browser.Driver, timeOut, exceptionsToIgnore);
+            var waitTimeout = ResolveConditionTimeout(timeout);
+            var wait = new WebDriverWait(Browser.Driver, waitTimeout);
+            var ignoreExceptions = exceptionsToIgnore.Concat(new Type[] { typeof(StaleElementReferenceException) }).ToArray();
+            wait.IgnoreExceptionTypes(ignoreExceptions);
+            var result = wait.Until(condition);
             Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
             return result;
         }
 
         /// <summary>
-        /// For waiting without WebDriver: Wait for function will be true or return some except false.
-        /// Default timeout (<see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/>) is using.
+        /// Wait for some object from condition with timeout.
         /// </summary>
-        /// <typeparam name="T">Type of waitWith param <see cref="DefaultWait{T}"/></typeparam>
-        /// <typeparam name="TResult">Type of object which is waiting</typeparam>
+        /// <typeparam name="T">Type of object which is waiting for.</typeparam>
         /// <param name="condition">Function for waiting</param>
-        /// <param name="waitWith">Object who will helping to wait (which will be passed to <see cref="DefaultWait{T}"/>)</param>
-        /// <param name="timeOut">Time-out</param>
-        /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored</param>
-        /// <returns>Object which waiting for or default of a TResult class - if exceptions occurred</returns>
-        public static TResult WaitFor<T, TResult>(Func<T, TResult> condition, T waitWith, TimeSpan? timeOut = null, params Type[] exceptionsToIgnore)
+        /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
+        /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
+        /// <param name="message">Message in case of Timeout exception</param>
+        /// <returns>Condition result which is waiting for.</returns>
+        public static T WaitFor<T>(Func<T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
         {
-            var wait = new DefaultWait<T>(waitWith)
-            {
-                Timeout = ResolveConditionTimeOut(timeOut),
-                PollingInterval = Configuration.TimeoutConfiguration.PollingInterval
-            };
-            wait.IgnoreExceptionTypes(exceptionsToIgnore);
+            var waitTimeout = ResolveConditionTimeout(timeout);
+            var checkInterval = pollingInterval ?? Configuration.TimeoutConfiguration.PollingInterval;
 
-            try
+            if (condition == null)
             {
-                return wait.Until(condition);
+                throw new ArgumentNullException("condition", "condition cannot be null");
             }
-            catch (Exception e)
+
+            var resultType = typeof(T);
+            if ((resultType.IsValueType && resultType != typeof(bool)) || !typeof(object).IsAssignableFrom(resultType))
             {
-                Logger.Instance.Debug("Aquality.Selenium.Waitings.ConditionalWait.WaitFor", e);
+                throw new ArgumentException($"Can only wait on an object or boolean response, tried to use type: {resultType}", "condition");
             }
-            return default;
+
+            var stopwatch = Stopwatch.StartNew();
+            while (true)
+            {
+                var result = condition();
+                if (resultType == typeof(bool))
+                {
+                    var boolResult = result as bool?;
+                    if (boolResult.HasValue && boolResult.Value)
+                    {
+                        return result;
+                    }
+                }
+                else
+                {
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                }
+
+                if (stopwatch.Elapsed > waitTimeout)
+                {
+                    var exceptionMessage = $"Timed out after {waitTimeout.Seconds} seconds";
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        exceptionMessage += $": {message}";
+                    }
+
+                    throw new Exception(exceptionMessage);
+                }
+
+                Thread.Sleep(checkInterval);
+            }
         }
 
-        private static TimeSpan ResolveConditionTimeOut(TimeSpan? timeOut)
+        private static TimeSpan ResolveConditionTimeout(TimeSpan? timeout)
         {
-            return timeOut ?? Configuration.TimeoutConfiguration.Condition;
+            return timeout ?? Configuration.TimeoutConfiguration.Condition;
         }
     }
 }
