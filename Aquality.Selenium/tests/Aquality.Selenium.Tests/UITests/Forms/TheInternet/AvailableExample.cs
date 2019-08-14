@@ -7,6 +7,10 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
         [Description("checkboxes")]
         Checkboxes,
         [Description("dropdown")]
-        Dropdown
+        Dropdown,
+        [Description("hovers")]
+        Hovers,
+        [Description("key_presses")]
+        KeyPresses
     }
 }

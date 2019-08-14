@@ -2,7 +2,7 @@ using System.Linq;
 using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
 using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.UITests.Integration
+namespace Aquality.Selenium.Tests.UITests.Integration.Actions
 {
     public class ComboBoxJsActionsTests : UITest
     {

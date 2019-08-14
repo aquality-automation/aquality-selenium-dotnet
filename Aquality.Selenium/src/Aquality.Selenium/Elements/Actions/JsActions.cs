@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements.Interfaces;
@@ -93,7 +95,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="value">Value to set</param>
         public void SetValue(string value)
         {
-            Logger.InfoLoc("loc.setting.value");
+            Logger.InfoLoc("loc.setting.value", value);
             ExecuteScript(JavaScript.SetValue, value);
         }
 
@@ -151,7 +153,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Point object.</returns>
         public Point GetViewPortCoordinates()
         {
-            var coordinates = ExecuteScript<double []>(JavaScript.GetViewPortCoordinates);
+            var coordinates = ExecuteScript<IList<object>>(JavaScript.GetViewPortCoordinates).Select(item => double.Parse(item.ToString())).ToArray();
             return new Point((int)Math.Round(coordinates[0]), (int)Math.Round(coordinates[1]));
         }
 
