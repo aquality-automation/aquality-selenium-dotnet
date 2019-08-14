@@ -62,9 +62,8 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <param name="attr">Name of attrbiute</param>
         /// <param name="highlightState">Should the element be hightlighted or not. 
         /// Default value is from configuration: <seealso cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
-        /// <param name="timeout">Timeout to get attribute value. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
         /// <returns>Value of element attribute.</returns>
-        string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null);
+        string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default);
 
         /// <summary>
         /// Gets css value of the element.
@@ -72,9 +71,8 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <param name="propertyName">Name of css property</param>
         /// <param name="highlightState">Should the element be hightlighted or not. 
         /// Default value is from configuration: <seealso cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
-        /// <param name="timeout">Timeout to get css value. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
         /// <returns>Value of element attribute.</returns>
-        string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default, TimeSpan? timeout = null);
+        string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default);
 
         /// <summary>
         /// Sends keys to element.
