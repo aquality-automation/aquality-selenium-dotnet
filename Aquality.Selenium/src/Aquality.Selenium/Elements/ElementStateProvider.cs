@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForNotDisplayed(TimeSpan? timeout = null)
         {
-            return ConditionalWait.WaitFor(() => !IsDisplayed, timeout);
+            return ConditionalWait.WaitFor(() => !IsDisplayed, timeout, message: GetErrorMessage("NOT DISPLAYED"));
         }
 
         public bool WaitForExist(TimeSpan? timeout = null)
@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForNotExist(TimeSpan? timeout = null)
         {
-            return ConditionalWait.WaitFor(() => !IsExist, timeout);
+            return ConditionalWait.WaitFor(() => !IsExist, timeout, message: GetErrorMessage("NOT EXIST"));
         }
 
         public bool WaitForEnabled(TimeSpan? timeout = null)

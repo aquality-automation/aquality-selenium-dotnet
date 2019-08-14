@@ -181,7 +181,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Waits for page to load.
-        /// Default value of timeout: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.PageLoad"/>.
+        /// Default value of timeout: <see cref="ITimeoutConfiguration.PageLoad"/>.
         /// </summary>
         public void WaitForPageToLoad()
         {

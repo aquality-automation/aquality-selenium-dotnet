@@ -23,15 +23,22 @@ namespace Aquality.Selenium.Waitings
         /// <typeparam name="T">Type of object which is waiting for</typeparam>
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
+        /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
+        /// <param name="message">Part of error message in case of Timeout exception</param>
         /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored.
         /// Handles <see cref="StaleElementReferenceException"/> by default.</param>
         /// <returns>Condition result which is waiting for.</returns>
         /// <exception cref="WebDriverTimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
-        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, params Type[] exceptionsToIgnore)
+        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null, params Type[] exceptionsToIgnore)
         {
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             var waitTimeout = ResolveConditionTimeout(timeout);
-            var wait = new WebDriverWait(Browser.Driver, waitTimeout);
+            var checkInterval = ResolvePollingInterval(pollingInterval);
+            var wait = new WebDriverWait(Browser.Driver, waitTimeout)
+            {
+                Message = message,
+                PollingInterval = checkInterval
+            };
             var ignoreExceptions = exceptionsToIgnore.Concat(new Type[] { typeof(StaleElementReferenceException) }).ToArray();
             wait.IgnoreExceptionTypes(ignoreExceptions);
             var result = wait.Until(condition);
@@ -46,13 +53,13 @@ namespace Aquality.Selenium.Waitings
         /// <param name="condition">Function for waiting</param>
         /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
         /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
-        /// <param name="message">Message in case of Timeout exception</param>
+        /// <param name="message">Part of error message in case of Timeout exception</param>
         /// <returns>Condition result which is waiting for.</returns>
         /// <exception cref="TimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
         public static T WaitFor<T>(Func<T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
         {
             var waitTimeout = ResolveConditionTimeout(timeout);
-            var checkInterval = pollingInterval ?? Configuration.TimeoutConfiguration.PollingInterval;
+            var checkInterval = ResolvePollingInterval(pollingInterval);
 
             if (condition == null)
             {
@@ -103,6 +110,11 @@ namespace Aquality.Selenium.Waitings
         private static TimeSpan ResolveConditionTimeout(TimeSpan? timeout)
         {
             return timeout ?? Configuration.TimeoutConfiguration.Condition;
+        }
+
+        private static TimeSpan ResolvePollingInterval(TimeSpan? pollingInterval)
+        {
+            return pollingInterval ?? Configuration.TimeoutConfiguration.PollingInterval;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Elements
 
         public IWebElement FindElement(By locator, ElementState state = ElementState.ExistsInAnyState, TimeSpan? timeout = null)
         {
-            var elementStateCondition = ResolveState(state);            
+            var elementStateCondition = ResolveState(state);
             return FindElement(locator, elementStateCondition, timeout);
         }
 
