@@ -26,6 +26,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored.
         /// Handles <see cref="StaleElementReferenceException"/> by default.</param>
         /// <returns>Condition result which is waiting for.</returns>
+        /// <exception cref="WebDriverTimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, params Type[] exceptionsToIgnore)
         {
             Browser.ImplicitWaitTimeout = TimeSpan.Zero;
@@ -47,6 +48,7 @@ namespace Aquality.Selenium.Waitings
         /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
         /// <param name="message">Message in case of Timeout exception</param>
         /// <returns>Condition result which is waiting for.</returns>
+        /// <exception cref="TimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
         public static T WaitFor<T>(Func<T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
         {
             var waitTimeout = ResolveConditionTimeout(timeout);
@@ -91,7 +93,7 @@ namespace Aquality.Selenium.Waitings
                         exceptionMessage += $": {message}";
                     }
 
-                    throw new Exception(exceptionMessage);
+                    throw new TimeoutException(exceptionMessage);
                 }
 
                 Thread.Sleep(checkInterval);

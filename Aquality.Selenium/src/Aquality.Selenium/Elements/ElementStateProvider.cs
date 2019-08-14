@@ -46,14 +46,17 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForEnabled(TimeSpan? timeout = null)
         {
-            bool isElementEnabled(IWebElement element) => element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
-            return IsElementInDesiredState(isElementEnabled, "ENABLED", timeout);
+            return IsElementInDesiredState(element => IsElementEnabled(element), "ENABLED", timeout);
         }
 
         public bool WaitForNotEnabled(TimeSpan? timeout = null)
         {
-            bool isElementNotEnabled(IWebElement element) => !(element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled));
-            return IsElementInDesiredState(isElementNotEnabled, "NOT ENABLED", timeout);
+            return IsElementInDesiredState(element => !IsElementEnabled(element), "NOT ENABLED", timeout);
+        }
+
+        bool IsElementEnabled(IWebElement element)
+        {
+            return element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
         }
 
         private bool IsElementInDesiredState(Func<IWebElement, bool> elementStateCondition, string state, TimeSpan? timeout)
