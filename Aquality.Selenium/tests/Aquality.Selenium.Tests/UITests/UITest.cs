@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.UITests
         [TearDown]
         public void CleanUp()
         {
-            BrowserManager.Browser.Driver.Quit();
+            BrowserManager.Browser.Quit();
         }
     }
 }

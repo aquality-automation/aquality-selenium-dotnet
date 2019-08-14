@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Elements
             var resultElements = new List<IWebElement>();
             ConditionalWait.WaitForTrue(driver =>
             {
-                var elements = driver.FindElements(locator).Where(elementStateCondition);
+                var elements = BrowserManager.Browser.Driver.FindElements(locator).Where(elementStateCondition);
                 resultElements.AddRange(elements);
                 return elements.Any();
             }, timeout);

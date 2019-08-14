@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
         public void SelectExample(AvailableExample example)
         {
             var menuItemXpath = string.Format(TmpExampleLoc, example.GetDescription());
-            ElementFactory.GetLink(By.XPath(menuItemXpath), example.ToString()).ClickAndWait();
+            ElementFactory.GetLink(By.XPath(menuItemXpath), example.ToString()).Click();
         }
     }
 }
