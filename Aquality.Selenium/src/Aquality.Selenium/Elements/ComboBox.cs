@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Elements
 
         public new ComboBoxJsActions JsActions => new ComboBoxJsActions(this, ElementType);
 
-        public void SelectOptionThatContainsText(string text)
+        public void SelectByContainingText(string text)
         {
             Logger.InfoLoc("loc.selecting.value");
             DoWithRetry(() =>
@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Elements
             });
         }
 
-        public void SelectOptionThatContainsValue(string value)
+        public void SelectByContainingValue(string value)
         {
             Logger.InfoLoc("loc.selecting.value");
             DoWithRetry(() =>
