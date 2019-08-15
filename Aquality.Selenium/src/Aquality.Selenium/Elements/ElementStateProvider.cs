@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Elements
 
         public bool IsEnabled => WaitForEnabled(TimeSpan.Zero);
 
-        public bool IsClickable => IsElementClickable(TimeSpan.Zero);
+        public bool IsClickable => IsElementClickable(TimeSpan.Zero, true);
 
         public bool WaitForDisplayed(TimeSpan? timeout = null)
         {
@@ -42,6 +42,11 @@ namespace Aquality.Selenium.Elements
         public bool WaitForNotExist(TimeSpan? timeout = null)
         {
             return ConditionalWait.WaitFor(() => !IsExist, timeout, message: GetErrorMessage("NOT EXIST"));
+        }
+
+        private bool IsAnyElementFound(TimeSpan? timeout, ElementState state)
+        {
+            return ElementFinder.Instance.FindElements(elementLocator, state, timeout).Any();
         }
 
         public bool WaitForEnabled(TimeSpan? timeout = null)
@@ -72,25 +77,17 @@ namespace Aquality.Selenium.Elements
 
         public void WaitForClickable(TimeSpan? timeout = null)
         {
-            if (!IsElementClickable(timeout))
-            {
-                throw new WebDriverTimeoutException("element is not clickable after wait");
-            }
+            IsElementClickable(timeout, false);
         }
 
-        private bool IsElementClickable(TimeSpan? timeout = null)
+        private bool IsElementClickable(TimeSpan? timeout, bool catchTimeoutException)
         {
             var errorMessage = GetErrorMessage("CLICKABLE");
             var desiredState = new DesiredState(element => element.Displayed && element.Enabled, errorMessage)
             {
-                IsCatchingTimeoutException = true
+                IsCatchingTimeoutException = catchTimeoutException
             };
             return IsElementInDesiredCondition(timeout, desiredState);
-        }
-
-        private bool IsAnyElementFound(TimeSpan? timeout, ElementState state)
-        {
-            return ElementFinder.Instance.FindElements(elementLocator, state, timeout).Any();
         }
 
         private bool IsElementInDesiredCondition(TimeSpan? timeout, DesiredState elementStateCondition)

@@ -47,49 +47,29 @@ namespace Aquality.Selenium.Waitings
         }
 
         /// <summary>
-        /// Wait for some object from condition with timeout.
+        /// Wait for some condition within timeout.
         /// </summary>
-        /// <typeparam name="T">Type of object which is waiting for.</typeparam>
-        /// <param name="condition">Function for waiting</param>
+        /// <param name="condition">Predicate for waiting</param>
         /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
         /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
         /// <param name="message">Part of error message in case of Timeout exception</param>
-        /// <returns>Condition result which is waiting for.</returns>
+        /// <returns>True if condition satisfied.</returns>
         /// <exception cref="TimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
-        public static T WaitFor<T>(Func<T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
-        {
-            var waitTimeout = ResolveConditionTimeout(timeout);
-            var checkInterval = ResolvePollingInterval(pollingInterval);
-
+        public static bool WaitFor(Func<bool> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
+        {          
             if (condition == null)
             {
-                throw new ArgumentNullException("condition", "condition cannot be null");
+                throw new ArgumentNullException(nameof(condition), "condition cannot be null");
             }
 
-            var resultType = typeof(T);
-            if ((resultType.IsValueType && resultType != typeof(bool)) || !typeof(object).IsAssignableFrom(resultType))
-            {
-                throw new ArgumentException($"Can only wait on an object or boolean response, tried to use type: {resultType}", "condition");
-            }
-
+            var waitTimeout = ResolveConditionTimeout(timeout);
+            var checkInterval = ResolvePollingInterval(pollingInterval);
             var stopwatch = Stopwatch.StartNew();
             while (true)
             {
-                var result = condition();
-                if (resultType == typeof(bool))
+                if (condition())
                 {
-                    var boolResult = result as bool?;
-                    if (boolResult.HasValue && boolResult.Value)
-                    {
-                        return result;
-                    }
-                }
-                else
-                {
-                    if (result != null)
-                    {
-                        return result;
-                    }
+                    return true;
                 }
 
                 if (stopwatch.Elapsed > waitTimeout)
