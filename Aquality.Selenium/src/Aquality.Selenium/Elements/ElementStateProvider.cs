@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 using System;
@@ -31,7 +30,7 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForNotDisplayed(TimeSpan? timeout = null)
         {
-            return ConditionalWait.WaitFor(() => !IsDisplayed, timeout, message: GetErrorMessage("NOT DISPLAYED"));
+            return ConditionalWait.WaitFor(() => !IsDisplayed, timeout);
         }
 
         public bool WaitForExist(TimeSpan? timeout = null)
@@ -41,7 +40,7 @@ namespace Aquality.Selenium.Elements
 
         public bool WaitForNotExist(TimeSpan? timeout = null)
         {
-            return ConditionalWait.WaitFor(() => !IsExist, timeout, message: GetErrorMessage("NOT EXIST"));
+            return ConditionalWait.WaitFor(() => !IsExist, timeout);
         }
 
         private bool IsAnyElementFound(TimeSpan? timeout, ElementState state)
@@ -66,8 +65,7 @@ namespace Aquality.Selenium.Elements
 
         private bool IsElementInDesiredState(Func<IWebElement, bool> elementStateCondition, string state, TimeSpan? timeout)
         {
-            var errorMessage = GetErrorMessage(state);
-            var desiredState = new DesiredState(elementStateCondition, errorMessage)
+            var desiredState = new DesiredState(elementStateCondition, state)
             {
                 IsCatchingTimeoutException = true,
                 IsThrowingNoSuchElementException = true
@@ -82,8 +80,7 @@ namespace Aquality.Selenium.Elements
 
         private bool IsElementClickable(TimeSpan? timeout, bool catchTimeoutException)
         {
-            var errorMessage = GetErrorMessage("CLICKABLE");
-            var desiredState = new DesiredState(element => element.Displayed && element.Enabled, errorMessage)
+            var desiredState = new DesiredState(element => element.Displayed && element.Enabled, "CLICKABLE")
             {
                 IsCatchingTimeoutException = catchTimeoutException
             };
@@ -93,11 +90,6 @@ namespace Aquality.Selenium.Elements
         private bool IsElementInDesiredCondition(TimeSpan? timeout, DesiredState elementStateCondition)
         {
             return ElementFinder.Instance.FindElements(elementLocator, elementStateCondition, timeout).Any();
-        }
-
-        private string GetErrorMessage(string expectedState)
-        {
-            return LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", elementLocator.ToString(), expectedState);
         }
     }
 }

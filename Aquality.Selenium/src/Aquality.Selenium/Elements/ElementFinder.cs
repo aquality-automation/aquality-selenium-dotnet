@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Elements
 
         public IWebElement FindElement(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
         {
-            var desiredState = new DesiredState(elementStateCondition)
+            var desiredState = new DesiredState(elementStateCondition, "desired")
             {
                 IsCatchingTimeoutException = true,
                 IsThrowingNoSuchElementException = true
@@ -57,7 +57,7 @@ namespace Aquality.Selenium.Elements
 
         public ReadOnlyCollection<IWebElement> FindElements(By locator, Func<IWebElement, bool> elementStateCondition, TimeSpan? timeout = null)
         {
-            var desiredState = new DesiredState(elementStateCondition)
+            var desiredState = new DesiredState(elementStateCondition, "desired")
             {
                 IsCatchingTimeoutException = true
             };
@@ -85,12 +85,11 @@ namespace Aquality.Selenium.Elements
 
         private void HandleTimeoutException(WebDriverTimeoutException ex, DesiredState desiredState, By locator, List<IWebElement> resultElements)
         {
-            desiredState.Message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), "desired");
+            var message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), desiredState.Message);
             if (desiredState.IsCatchingTimeoutException)
             {
                 if (!resultElements.Any())
                 {
-                    var message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.by.locator", locator.ToString());
                     if (desiredState.IsThrowingNoSuchElementException)
                     {
                         throw new NoSuchElementException(message);
@@ -104,8 +103,7 @@ namespace Aquality.Selenium.Elements
             }
             else
             {
-                var errorMessage = $"{ex.Message}: {desiredState.Message}";
-                throw new WebDriverTimeoutException(errorMessage);
+                throw new WebDriverTimeoutException($"{ex.Message}: {message}");
             }
         }
 

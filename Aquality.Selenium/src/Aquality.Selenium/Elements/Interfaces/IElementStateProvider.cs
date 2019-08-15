@@ -26,6 +26,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Gets element's Enabled state, which means element is Enabled and does not have "disabled" class: true if enabled, false otherwise.
         /// </summary>
+        /// <exception cref="OpenQA.Selenium.NoSuchElementException">Throws when element not found.</exception>
         bool IsEnabled { get; }
 
         /// <summary>
@@ -54,13 +55,14 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="timeout">Timeout for waiting. Default: <see cref="Configurations.ITimeoutConfiguration.Condition"/></param>
         /// <returns>true if element does not exist after waiting, false otherwise</returns>
-        bool WaitForNotExist(TimeSpan? timeout = null);        
+        bool WaitForNotExist(TimeSpan? timeout = null);
 
         /// <summary>
         /// Waits for element is enabled state which means element is Enabled and does not have "disabled" class.
         /// </summary>
         /// <param name="timeout">Timeout to get state. Default: <see cref="Configurations.ITimeoutConfiguration.Condition"/></param>
         /// <returns>True if enabled, false otherwise.</returns>
+        /// <exception cref="OpenQA.Selenium.NoSuchElementException">Throws when timeout exceeded and element not found.</exception>
         bool WaitForEnabled(TimeSpan? timeout = null);
 
         /// <summary>
@@ -68,6 +70,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="timeout">Timeout to get state. Default: <see cref="Configurations.ITimeoutConfiguration.Condition"/></param>
         /// <returns>True if not enabled, false otherwise.</returns>
+        /// <exception cref="OpenQA.Selenium.NoSuchElementException">Throws when timeout exceeded and element not found.</exception>
         bool WaitForNotEnabled(TimeSpan? timeout = null);
 
         /// <summary>

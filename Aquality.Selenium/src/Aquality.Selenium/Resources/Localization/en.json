@@ -53,6 +53,5 @@
   "loc.waitinvisible": "Wait until element is not visible",
   "loc.waitnotexists": "Wait until element does not exist in DOM during {0} seconds",
   "loc.no.elements.found.in.state": "No elements with locator '{0}' found in {1} state",
-  "loc.no.elements.found.by.locator": "No elements were found by locator '{0}'",
   "loc.elements.were.found.but.not.in.state": "Elements were found by locator '{0}'. But {1}"
 }

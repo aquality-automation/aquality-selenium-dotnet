@@ -52,11 +52,30 @@ namespace Aquality.Selenium.Waitings
         /// <param name="condition">Predicate for waiting</param>
         /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
         /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
-        /// <param name="message">Part of error message in case of Timeout exception</param>
-        /// <returns>True if condition satisfied.</returns>
-        /// <exception cref="TimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
-        public static bool WaitFor(Func<bool> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
+        /// <returns>True if condition satisfied and false otherwise.</returns>
+        public static bool WaitFor(Func<bool> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null)
         {          
+            try
+            {
+                WaitForTrue(condition, timeout, pollingInterval);
+                return true;
+            }
+            catch (TimeoutException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Wait for some condition within timeout.
+        /// </summary>
+        /// <param name="condition">Predicate for waiting</param>
+        /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
+        /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
+        /// <param name="message">Part of error message in case of Timeout exception</param>
+        /// <exception cref="TimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
+        public static void WaitForTrue(Func<bool> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null)
+        {
             if (condition == null)
             {
                 throw new ArgumentNullException(nameof(condition), "condition cannot be null");
@@ -69,7 +88,7 @@ namespace Aquality.Selenium.Waitings
             {
                 if (condition())
                 {
-                    return true;
+                    return;
                 }
 
                 if (stopwatch.Elapsed > waitTimeout)
