@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Aquality.Selenium</id>
+    <version>1.0.0-alpha</version>
+    <authors>Aquality Committers</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <description>Wrapper over Selenium WebDriver for .NET</description>
+    <tags>selenium webdriver browser automation</tags>
+    <repository type="git" url="https://github.com/aquality-automation/aquality-selenium-dotnet" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="NLog" version="4.6.6" exclude="Build,Analyzers" />
+        <dependency id="Selenium.Support" version="3.141.0" exclude="Build,Analyzers" />
+        <dependency id="Selenium.WebDriver" version="3.141.0" exclude="Build,Analyzers" />
+        <dependency id="WebDriverManager" version="2.5.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\netstandard2.0\Aquality.Selenium.dll" target="lib\netstandard2.0\Aquality.Selenium.dll" />
+    <file src="Resources\settings.json" target="Resources\settings.json"/>
+  </files>
+</package>
