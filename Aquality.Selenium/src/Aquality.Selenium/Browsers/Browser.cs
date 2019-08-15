@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
@@ -49,7 +50,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Sets Selenium WebDriver ImplicitWait timeout. 
-        /// Default value: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Implicit"/>.
+        /// Default value: <see cref="ITimeoutConfiguration.Implicit"/>.
         /// </summary>
         public TimeSpan ImplicitWaitTimeout
         {
@@ -65,7 +66,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Sets Selenium WebDriver PageLoad timeout. 
-        /// Default value: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.PageLoad"/>.
+        /// Default value: <see cref="ITimeoutConfiguration.PageLoad"/>.
         /// Ignored for Safari cause of https://github.com/SeleniumHQ/selenium-google-code-issue-archive/issues/687.
         /// </summary>
         public TimeSpan PageLoadTimeout
@@ -82,7 +83,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Sets Selenium WebDriver AsynchronousJavaScript timeout. 
-        /// Default value: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Script"/>.
+        /// Default value: <see cref="ITimeoutConfiguration.Script"/>.
         /// </summary>
         public TimeSpan ScriptTimeout
         {
@@ -143,7 +144,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <param name="alertAction">Action which should be done with appeared alert.</param>
         /// <param name="text">Text which can be send to alert.</param>
-        /// <exception cref="OpenQA.Selenium.NoAlertPresentException">Thrown when no alert found.</exception>
+        /// <exception cref="NoAlertPresentException">Thrown when no alert found.</exception>
         public void HandleAlert(AlertAction alertAction, string text = null)
         {
             try
@@ -179,16 +180,13 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Waits for page to load.
-        /// Default value of timeout: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.PageLoad"/>.
+        /// Waits for page to load within <see cref="ITimeoutConfiguration.PageLoad"/> timeout.
         /// </summary>
+        /// <exception cref="TimeoutException">Throws when timeout exceeded and page is not loaded.</exception>
         public void WaitForPageToLoad()
         {
-            var isLoaded = ConditionalWait.WaitForTrue(driver => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout);
-            if (!isLoaded)
-            {
-                logger.WarnLoc("loc.browser.page.timeout");
-            }
+            var errorMessage = LocalizationManager.Instance.GetLocalizedMessage("loc.browser.page.timeout");
+            ConditionalWait.WaitForTrue(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
         }
 
         /// <summary>
