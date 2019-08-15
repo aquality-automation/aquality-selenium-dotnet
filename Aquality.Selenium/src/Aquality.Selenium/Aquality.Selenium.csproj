@@ -4,6 +4,23 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AssemblyTitle>Aquality.Selenium</AssemblyTitle>
+    <Description>Wrapper over Selenium WebDriver for .NET</Description>
+    <Company>aquality-automation</Company>
+    <Product>Aquality.Selenium</Product>
+    <Version>1.0.0</Version>
+    <PackageId>Aquality.Selenium</PackageId>
+    <Authors>Aquality Committers</Authors>
+    <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>selenium, automation, webdriver, browser</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <NeutralLanguage></NeutralLanguage>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
