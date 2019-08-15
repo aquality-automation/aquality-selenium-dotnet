@@ -11,6 +11,8 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
         [Description("hovers")]
         Hovers,
         [Description("key_presses")]
-        KeyPresses
+        KeyPresses,
+        [Description("infinite_scroll")]
+        InfiniteScroll
     }
 }

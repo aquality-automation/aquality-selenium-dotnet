@@ -1,6 +1,11 @@
+using System.Threading;
+using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
+using Aquality.Selenium.Tests.Constants;
 using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
+using Aquality.Selenium.Waitings;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.UITests.Integration.Actions
 {
@@ -33,14 +38,47 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
         }
 
         [Test]
+        public void Should_BeAbleHover_WithJsActions()
+        {
+            BrowserManager.Browser.Navigate().GoToUrl(TestConstants.UrlAutomationPractice);
+            var productList = new ProductListForm();
+            productList.NavigateToLastProduct();
+
+            var product = new ProductForm();
+            product.GetProductView().JsActions.HoverMouse();
+            var classAttribute = product.GetProductView().GetAttribute("class");
+            Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown");
+        }
+
+        [Test]
         public void Should_BeAbleSetFocus_WithJsActions()
+        {
+            BrowserManager.Browser.Navigate().GoToUrl(TestConstants.UrlAutomationPractice);
+            var productList = new ProductListForm();
+            productList.NavigateToLastProduct();
+
+            var product = new ProductForm();
+            var currentText = product.TxtQuantity.Value;
+            var expectedText = currentText.Remove(currentText.Length - 1);
+            product.TxtQuantity.JsActions.SetFocus();
+            product.TxtQuantity.SendKeys(Keys.Delete);
+            Assert.AreEqual(expectedText, product.TxtQuantity.Value, $"One character should be removed from '{currentText}'");
+        }
+
+        [Test]
+        public void Should_BeAbleCheckIsElementOnScreen_WithJsActions()
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.SelectExample(AvailableExample.Hovers);
 
             var hoversForm = new HoversForm();
-            hoversForm.SetFocusViaJs(HoverExample.First);
-            Assert.IsTrue(hoversForm.IsHiddenElementVisible(HoverExample.First), $"Hidden element for {HoverExample.First} should be visible after set focus via js.");
+            Assert.Multiple(() =>
+            {
+                Assert.IsFalse(hoversForm.IsHiddenElementOnScreenViaJs(HoverExample.First, ElementState.ExistsInAnyState),
+                    $"Hidden element for {HoverExample.First} should be invisible.");
+                Assert.IsTrue(hoversForm.IsElementOnScreenViaJs(HoverExample.First),
+                    $"Element for {HoverExample.First} should be visible.");
+            });
         }
 
         [Test]
@@ -60,7 +98,8 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
         public void Should_BeAbleGetText_WithJsActions()
         {
             var welcomeForm = new WelcomeForm();
-            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.GetSubTitleViaJs(), $"Sub title should be {WelcomeForm.SubTitle}");
+            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.GetSubTitleViaJs(),
+                $"Sub title should be {WelcomeForm.SubTitle}");
         }
 
         [Test]
@@ -78,6 +117,48 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             var actualPoint = welcomeForm.GetSubTitleCoordinatesViaJs();
             Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
+        }
+
+        [Test]
+        public void Should_BeAbleScrollIntoView_WithJsActions()
+        {
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
+
+            var infiniteScrollForm = new InfiniteScrollForm();
+            var defaultCount = infiniteScrollForm.GetExamplesCount();
+            infiniteScrollForm.ScrollIntoViewToLastExample();
+            Assert.DoesNotThrow(
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.GetExamplesCount() > defaultCount),
+                "Some examples should be added after scroll");
+        }
+
+        [Test]
+        public void Should_BeAbleScrollBy_WithJsActions()
+        {
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
+
+            var infiniteScrollForm = new InfiniteScrollForm();
+            var defaultCount = infiniteScrollForm.GetExamplesCount();
+            infiniteScrollForm.ScrollByCoordinates(100000, 100000);
+            Assert.DoesNotThrow(
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.GetExamplesCount() > defaultCount),
+                "Some examples should be added after scroll");
+        }
+
+        [Test]
+        public void Should_BeAbleToTheCenter_WithJsActions()
+        {
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
+
+            var infiniteScrollForm = new InfiniteScrollForm();
+            var defaultCount = infiniteScrollForm.GetExamplesCount();
+            infiniteScrollForm.ScrollToTheCenterOfLastExample();
+            Assert.DoesNotThrow(
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.GetExamplesCount() > defaultCount),
+                "Some examples should be added after scroll");
         }
     }
 }

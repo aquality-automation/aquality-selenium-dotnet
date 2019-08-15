@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Aquality.Selenium.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
@@ -21,15 +22,25 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
             GetExample(example).JsActions.SetFocus();
         }
 
+        public bool IsHiddenElementOnScreenViaJs(HoverExample example, ElementState state)
+        {
+            return GetHiddenElement(example, state).JsActions.IsElementOnScreen();
+        }
+
+        public bool IsElementOnScreenViaJs(HoverExample example)
+        {
+            return GetExample(example).JsActions.IsElementOnScreen();
+        }
+
         public bool IsHiddenElementVisible(HoverExample example)
         {
             return GetHiddenElement(example).State.IsDisplayed;
         }
 
-        private ILabel GetHiddenElement(HoverExample example)
+        private ILabel GetHiddenElement(HoverExample example, ElementState state = ElementState.Displayed)
         {
             var xpath = string.Format(HiddenElementTmpLoc, ((int)example).ToString());
-            return ElementFactory.GetLabel(By.XPath(xpath), $"Hidden element for {example} example");
+            return ElementFactory.GetLabel(By.XPath(xpath), $"Hidden element for {example} example", state);
         }
 
         private ILabel GetExample(HoverExample example)
