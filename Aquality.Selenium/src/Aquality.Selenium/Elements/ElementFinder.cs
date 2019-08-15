@@ -85,7 +85,7 @@ namespace Aquality.Selenium.Elements
 
         private void HandleTimeoutException(WebDriverTimeoutException ex, DesiredState desiredState, By locator, List<IWebElement> resultElements)
         {
-            var message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), desiredState.Message);
+            var message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), desiredState.StateName);
             if (desiredState.IsCatchingTimeoutException)
             {
                 if (!resultElements.Any())
@@ -98,7 +98,7 @@ namespace Aquality.Selenium.Elements
                 }
                 else
                 {
-                    Logger.DebugLoc("loc.elements.were.found.but.not.in.state", null, locator.ToString(), desiredState.Message);
+                    Logger.DebugLoc("loc.elements.were.found.but.not.in.state", null, locator.ToString(), desiredState.StateName);
                 }
             }
             else

@@ -5,10 +5,10 @@ namespace Aquality.Selenium.Elements
 {
     internal class DesiredState
     {
-        public DesiredState(Func<IWebElement, bool> elementStateCondition, string message)
+        public DesiredState(Func<IWebElement, bool> elementStateCondition, string stateName)
         {
             ElementStateCondition = elementStateCondition;
-            Message = message;
+            StateName = stateName;
         }
 
         public Func<IWebElement, bool> ElementStateCondition { get; }
@@ -17,6 +17,6 @@ namespace Aquality.Selenium.Elements
 
         public bool IsThrowingNoSuchElementException { get; set; }
 
-        public string Message { get; }
+        public string StateName { get; }
     }
 }
