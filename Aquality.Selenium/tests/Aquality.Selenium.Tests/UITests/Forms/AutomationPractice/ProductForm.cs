@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
         {
         }
 
-        public ILabel GetProductView()
+        public ILabel GetLastProductView()
         {
             return LblsProductView.Last();
         }

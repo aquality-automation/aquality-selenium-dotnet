@@ -45,8 +45,8 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
             productList.NavigateToLastProduct();
 
             var product = new ProductForm();
-            product.GetProductView().JsActions.HoverMouse();
-            var classAttribute = product.GetProductView().GetAttribute("class");
+            product.GetLastProductView().JsActions.HoverMouse();
+            var classAttribute = product.GetLastProductView().GetAttribute("class");
             Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown");
         }
 
