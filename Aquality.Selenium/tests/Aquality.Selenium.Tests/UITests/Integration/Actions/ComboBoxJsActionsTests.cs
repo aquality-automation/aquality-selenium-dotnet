@@ -1,4 +1,3 @@
-using System.Linq;
 using Aquality.Selenium.Tests.UITests.Forms.TheInternet;
 using NUnit.Framework;
 

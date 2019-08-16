@@ -9,7 +9,6 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 {
     public class DropdownListForm : Form
     {
-        private const string FormName = "Dropdown List";
         private static readonly By DropdownLocator = By.Id("dropdown");
         public IComboBox CbbDropdown => ElementFactory.GetComboBox(DropdownLocator, "Dropdown");
         private static readonly IDictionary<DropdownValue, string> DropdownValues = new Dictionary<DropdownValue, string>
@@ -19,7 +18,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
             {DropdownValue.Option2, "Option 2"}
         };
 
-        public DropdownListForm() : base(DropdownLocator, FormName)
+        public DropdownListForm() : base(DropdownLocator, "Dropdown List")
         {
         }
 

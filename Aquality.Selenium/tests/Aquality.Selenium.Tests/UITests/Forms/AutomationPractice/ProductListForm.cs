@@ -9,11 +9,10 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
 {
     public class ProductListForm : Form
     {
-        private const string FormName = "Product list";
         private static readonly By ProductsLocator = By.XPath("//ul[@id='homefeatured']");
         private IEnumerable<ILink> LnksProduct => ElementFactory.FindElements(By.XPath("//ul[@id='homefeatured']//a[@class='product_img_link']"), ElementFactory.GetLink);
 
-        public ProductListForm() : base(ProductsLocator, FormName)
+        public ProductListForm() : base(ProductsLocator, "Product list")
         {
         }
 

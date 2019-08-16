@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;

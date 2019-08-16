@@ -7,12 +7,11 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 {
     public class HoversForm : Form
     {
-        private const string FormName = "Hovers";
         private static readonly By FormLocator = By.XPath("//h3[contains(.,'Hovers')]");
         private const string ExampleTmpLoc = "//div[@class='figure'][{0}]";
         private const string HiddenElementTmpLoc = "//a[contains(@href,'users/{0}')]";
 
-        public HoversForm() : base(FormLocator, FormName)
+        public HoversForm() : base(FormLocator, "Hovers")
         {
         }
 
