@@ -14,13 +14,13 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
 
             var dropdownListForm = new DropdownListForm();
             var selectedText = dropdownListForm.CbbDropdown.JsActions.GetSelectedText();
-            var expectedText = DropdownListForm.DropdownValues[DropdownValue.SelectTest];
+            var expectedText = dropdownListForm.GetDropdownText(DropdownValue.SelectTest);
 
             var actualValues = dropdownListForm.CbbDropdown.JsActions.GetValues();
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(expectedText, selectedText, $"Selected option by default should be '{expectedText}'");
-                Assert.AreEqual(DropdownListForm.DropdownValues.Values.ToList(), actualValues, "Dropdown values should be the same as expected.");
+                Assert.AreEqual(dropdownListForm.GetDropdownValues(), actualValues, "Dropdown values should be the same as expected.");
             });
         }
 
@@ -31,9 +31,9 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
             welcomeForm.SelectExample(AvailableExample.Dropdown);
 
             var dropdownListForm = new DropdownListForm();
-            dropdownListForm.CbbDropdown.JsActions.SelectValueByText(DropdownListForm.DropdownValues[DropdownValue.Option1]);
+            var expectedText = dropdownListForm.GetDropdownText(DropdownValue.Option1);
+            dropdownListForm.CbbDropdown.JsActions.SelectValueByText(expectedText);
             var selectedText = dropdownListForm.CbbDropdown.JsActions.GetSelectedText();
-            var expectedText = DropdownListForm.DropdownValues[DropdownValue.Option1];
             Assert.AreEqual(expectedText, selectedText, $"Selected option should be '{expectedText}'");
         }
     }

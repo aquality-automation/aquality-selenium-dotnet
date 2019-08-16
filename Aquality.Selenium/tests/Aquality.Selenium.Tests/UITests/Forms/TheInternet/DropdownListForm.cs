@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
@@ -10,7 +12,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
         private const string FormName = "Dropdown List";
         private static readonly By DropdownLocator = By.Id("dropdown");
         public IComboBox CbbDropdown => ElementFactory.GetComboBox(DropdownLocator, "Dropdown");
-        public static readonly IDictionary<DropdownValue, string> DropdownValues = new Dictionary<DropdownValue, string>
+        private static readonly IDictionary<DropdownValue, string> DropdownValues = new Dictionary<DropdownValue, string>
         {
             {DropdownValue.SelectTest, "Please select an option"},
             {DropdownValue.Option1, "Option 1"},
@@ -19,6 +21,20 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 
         public DropdownListForm() : base(DropdownLocator, FormName)
         {
+        }
+
+        public string GetDropdownText(DropdownValue value)
+        {
+            if (!DropdownValues.TryGetValue(value, out var result))
+            {
+                throw new ArgumentOutOfRangeException($"{value} could not be processed for dropdown.");
+            }
+            return result;
+        }
+
+        public IList<string> GetDropdownValues()
+        {
+            return DropdownValues.Values.ToList();
         }
     }
 
