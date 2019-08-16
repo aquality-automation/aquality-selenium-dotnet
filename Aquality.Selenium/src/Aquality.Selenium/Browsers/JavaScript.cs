@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Browsers
     }
 
     /// <summary>
-    /// Extensions for <see cref="Aquality.Selenium.Browsers.JavaScript"/> enum.
+    /// Extensions for <see cref="JavaScript"/> enum.
     /// </summary>
     public static class JavaScriptExtensions
     {
