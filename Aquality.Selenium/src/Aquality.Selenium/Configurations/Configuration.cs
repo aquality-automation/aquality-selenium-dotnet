@@ -24,15 +24,9 @@ namespace Aquality.Selenium.Configurations
         {
             var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("profile");
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
-            JsonFile jsonFile;
-            if (FileReader.IsResourceFileExist(settingsProfile))
-            {
-                jsonFile = new JsonFile(settingsProfile);
-            }
-            else
-            {
-                jsonFile = new JsonFile($"Resources.{settingsProfile}", Assembly.GetCallingAssembly());
-            }
+            var jsonFile = FileReader.IsResourceFileExist(settingsProfile) 
+                ? new JsonFile(settingsProfile) 
+                : new JsonFile($"Resources.{settingsProfile}", Assembly.GetCallingAssembly())
             return jsonFile;
         }
 
