@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using NLog;
+using NLog.Config;
 using NLog.Targets;
 
 namespace Aquality.Selenium.Logging
@@ -15,7 +17,30 @@ namespace Aquality.Selenium.Logging
 
         private Logger()
         {
-            LogManager.LoadConfiguration("nlog.config");
+            try
+            {
+                LogManager.LoadConfiguration("NLog.config");
+            }
+            catch (FileNotFoundException)
+            {
+                LogManager.Configuration = GetConfiguration();
+            }
+        }
+
+        private LoggingConfiguration GetConfiguration()
+        {
+            var layout = "${date:format=yyyy-MM-dd HH:mm:ss} ${level:uppercase=true} - ${message}";
+            var config = new LoggingConfiguration();
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, new ConsoleTarget("logconsole")
+            {
+                Layout = layout
+            });
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, new FileTarget("logfile")
+            {
+                FileName = "Log/log.log",
+                Layout = layout
+            });
+            return config;
         }
 
         /// <summary>

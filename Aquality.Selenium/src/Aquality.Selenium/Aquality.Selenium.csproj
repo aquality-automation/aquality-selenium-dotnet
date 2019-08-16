@@ -58,10 +58,4 @@
     <PackageReference Include="WebDriverManager" Version="2.5.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="nlog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
