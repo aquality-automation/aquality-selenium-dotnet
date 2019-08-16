@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
 
@@ -19,7 +20,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>List of values</returns>
         public IList<string> GetValues()
         {
-            return ExecuteScript<IList<string>>(JavaScript.GetComboBoxValues);
+            return ExecuteScript<IList<object>>(JavaScript.GetComboBoxValues).Select(item => item.ToString()).ToList();
         }
 
         /// <summary>

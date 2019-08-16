@@ -17,8 +17,7 @@
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
-      },
-      "startArguments": [ "--headless" ]
+      }
     },
     "firefox": {
       "webDriverVersion": "Latest",

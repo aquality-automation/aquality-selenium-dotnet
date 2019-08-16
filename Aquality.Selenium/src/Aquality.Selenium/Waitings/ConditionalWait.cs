@@ -15,7 +15,6 @@ namespace Aquality.Selenium.Waitings
     public static class ConditionalWait
     {
         private static readonly IConfiguration Configuration = Configurations.Configuration.Instance;
-        private static readonly Browser Browser = BrowserManager.Browser;
 
         /// <summary>
         /// Wait for some object from condition with timeout using Selenium WebDriver.
@@ -31,10 +30,10 @@ namespace Aquality.Selenium.Waitings
         /// <exception cref="WebDriverTimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
         public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null, params Type[] exceptionsToIgnore)
         {
-            Browser.ImplicitWaitTimeout = TimeSpan.Zero;
+            BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             var waitTimeout = ResolveConditionTimeout(timeout);
             var checkInterval = ResolvePollingInterval(pollingInterval);
-            var wait = new WebDriverWait(Browser.Driver, waitTimeout)
+            var wait = new WebDriverWait(BrowserManager.Browser.Driver, waitTimeout)
             {
                 Message = message,
                 PollingInterval = checkInterval
@@ -42,7 +41,7 @@ namespace Aquality.Selenium.Waitings
             var ignoreExceptions = exceptionsToIgnore.Concat(new Type[] { typeof(StaleElementReferenceException) }).ToArray();
             wait.IgnoreExceptionTypes(ignoreExceptions);
             var result = wait.Until(condition);
-            Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
+            BrowserManager.Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
             return result;
         }
 
