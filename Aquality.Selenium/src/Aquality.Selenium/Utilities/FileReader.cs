@@ -37,13 +37,24 @@ namespace Aquality.Selenium.Utilities
         }
 
         /// <summary>
-        /// Gets text from the file in the Resources folded (should be copied to output directory).
+        /// Gets text from the file in the Resources folder (should be copied to output directory).
         /// </summary>
         /// <param name="fileName">Name of the resource file.</param>
         /// <returns>Text of the file.</returns>
         public static string GetTextFromResource(string fileName)
         {
             return GetTextFromFile(new FileInfo(Path.Combine(ResourcesFolder, fileName)));
+        }
+
+        /// <summary>
+        /// Checks whether file exists in Resources folder or not.
+        /// </summary>
+        /// <param name="fileName">Name of resource file.</param>
+        /// <returns>True if exists and false otherwise</returns>
+        public static bool IsResourceFileExist(string fileName)
+        {
+            var fileInfo = new FileInfo(Path.Combine(ResourcesFolder, fileName));
+            return fileInfo.Exists;
         }
 
         /// <summary>

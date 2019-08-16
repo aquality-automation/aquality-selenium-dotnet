@@ -3,13 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 
-    <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.0-alpha</Version>
+    <Authors>Aquality Committers</Authors>
+    <Company>aquality-automation</Company>
+    <Description>Wrapper over Selenium WebDriver for .NET</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>selenium webdriver browser automation</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
+    <None Remove="Resources\settings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +48,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
     <EmbeddedResource Include="Resources\Localization\en.json" />
     <EmbeddedResource Include="Resources\Localization\ru.json" />
+    <EmbeddedResource Include="Resources\settings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,9 +61,6 @@
   <ItemGroup>
     <None Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

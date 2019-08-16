@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Utilities;
+using System.Reflection;
 using System.Threading;
 
 namespace Aquality.Selenium.Configurations
@@ -23,7 +24,16 @@ namespace Aquality.Selenium.Configurations
         {
             var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("profile");
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
-            return new JsonFile(settingsProfile);
+            JsonFile jsonFile;
+            if (FileReader.IsResourceFileExist(settingsProfile))
+            {
+                jsonFile = new JsonFile(settingsProfile);
+            }
+            else
+            {
+                jsonFile = new JsonFile($"Resources.{settingsProfile}", Assembly.GetCallingAssembly());
+            }
+            return jsonFile;
         }
 
         public IBrowserProfile BrowserProfile { get; }
