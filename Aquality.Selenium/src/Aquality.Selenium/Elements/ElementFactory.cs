@@ -72,7 +72,7 @@ namespace Aquality.Selenium.Elements
                 case ElementsCount.Zero:
                     break;
                 case ElementsCount.MoreThenZero:
-                    ConditionalWait.WaitFor(driver => driver.FindElements(locator).Any());
+                    ConditionalWait.WaitFor(driver => BrowserManager.Browser.Driver.FindElements(locator).Any());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"No such expected value: {expectedCount}");

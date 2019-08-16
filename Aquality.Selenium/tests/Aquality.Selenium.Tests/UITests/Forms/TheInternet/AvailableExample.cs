@@ -13,6 +13,10 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
         [Description("key_presses")]
         KeyPresses,
         [Description("infinite_scroll")]
-        InfiniteScroll
+        InfiniteScroll,
+        [Description("add_remove_elements")]
+        AddRemoveElements,
+        [Description("context_menu")]
+        ContextMenu
     }
 }

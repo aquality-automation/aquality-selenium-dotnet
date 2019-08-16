@@ -2,7 +2,7 @@
 using Aquality.Selenium.Tests.Constants;
 using NUnit.Framework;
 
-[assembly: LevelOfParallelism(5)]
+[assembly: LevelOfParallelism(1)]
 namespace Aquality.Selenium.Tests.UITests
 {
     [TestFixture]
