@@ -1,10 +1,9 @@
-﻿using System.Drawing;
-using Aquality.Selenium.Elements.Interfaces;
+﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using Aquality.Selenium.Tests.Utilities;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
+namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 {
     public class WelcomeForm : Form
     {

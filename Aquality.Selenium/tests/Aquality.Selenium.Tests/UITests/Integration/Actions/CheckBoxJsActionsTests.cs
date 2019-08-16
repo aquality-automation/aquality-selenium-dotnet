@@ -1,4 +1,4 @@
-using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
+using Aquality.Selenium.Tests.UITests.Forms.TheInternet;
 using NUnit.Framework;
 
 namespace Aquality.Selenium.Tests.UITests.Integration.Actions

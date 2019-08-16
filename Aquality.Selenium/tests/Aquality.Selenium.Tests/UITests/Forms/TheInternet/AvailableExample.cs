@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
+namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 {
     public enum AvailableExample
     {
