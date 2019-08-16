@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
 {
     public class WelcomeForm : Form
     {
-        private const string FormName = "Welcom form";
+        private const string FormName = "Welcome to the-internet";
         private const string TmpExampleLoc = "//a[contains(@href,'{0}')]";
         public const string SubTitle = "Available Examples";
         private static readonly By FormLocator = By.XPath("//h1[contains(.,'Welcome to the-internet')]");
