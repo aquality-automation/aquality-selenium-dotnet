@@ -10,8 +10,8 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
     {
         private const string FormName = "Product";
         private static readonly By ProductsLocator = By.Id("product");
-        public ITextBox TxtQuantity => ElementFactory.GetTextBox(By.Id("quantity_wanted"), "Quantity");
         private IEnumerable<ILabel> LblsProductView => ElementFactory.FindElements(By.XPath("//li[contains(@id,'thumbnail_')]//a"), ElementFactory.GetLabel);
+        public ITextBox TxtQuantity => ElementFactory.GetTextBox(By.Id("quantity_wanted"), "Quantity");
         
         public ProductForm() : base(ProductsLocator, FormName)
         {

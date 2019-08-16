@@ -13,8 +13,8 @@ namespace Aquality.Selenium.Tests.UITests.Integration.Actions
             var checkboxesForm = new CheckboxesForm();
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(checkboxesForm.GetFirstStateViaJs(), "First checkbox should be unchecked");
-                Assert.IsTrue(checkboxesForm.GetSecondStateViaJs(), "Second checkbox should be checked");
+                Assert.IsFalse(checkboxesForm.CbxFirst.JsActions.GetState(), "First checkbox should be unchecked");
+                Assert.IsTrue(checkboxesForm.CbxSecond.JsActions.GetState(), "Second checkbox should be checked");
             });
         }
     }

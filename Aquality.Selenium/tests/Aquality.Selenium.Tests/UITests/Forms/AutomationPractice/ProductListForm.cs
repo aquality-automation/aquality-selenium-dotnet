@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
@@ -23,7 +22,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
             BrowserManager.Browser.Navigate().GoToUrl(GetLastProduct().Href);
         }
 
-        private ILink GetLastProduct()
+        public ILink GetLastProduct()
         {
             return LnksProduct.Last();
         }

@@ -10,30 +10,15 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
     {
         private const string FormName = "Infinite Scroll";
         private static readonly By FormLocator = By.XPath("//h3[contains(.,'Infinite Scroll')]");
-        private IList<ILabel> LblExamples => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
+        public IList<ILabel> LblExamples => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
 
         public InfiniteScrollForm() : base(FormLocator, FormName)
         {
         }
 
-        public int GetExamplesCount()
+        public ILabel GetLastExample()
         {
-            return LblExamples.Count;
-        }
-
-        public void ScrollIntoViewToLastExample()
-        {
-            LblExamples.Last().JsActions.ScrollIntoView();
-        }
-
-        public void ScrollToTheCenterOfLastExample()
-        {
-            LblExamples.Last().JsActions.ScrollToTheCenter();
-        }
-
-        public void ScrollByCoordinates(int x, int y)
-        {
-            LblExamples.Last().JsActions.ScrollBy(x, y);
+            return LblExamples.Last();
         }
     }
 }

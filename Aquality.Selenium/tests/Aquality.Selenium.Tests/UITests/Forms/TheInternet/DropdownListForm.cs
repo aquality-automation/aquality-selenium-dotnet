@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
     {
         private const string FormName = "Dropdown List";
         private static readonly By DropdownLocator = By.Id("dropdown");
-        private IComboBox CbbDropdown => ElementFactory.GetComboBox(DropdownLocator, "Dropdown");
+        public IComboBox CbbDropdown => ElementFactory.GetComboBox(DropdownLocator, "Dropdown");
         public static readonly IDictionary<DropdownValue, string> DropdownValues = new Dictionary<DropdownValue, string>
         {
             {DropdownValue.SelectTest, "Please select an option"},
@@ -19,21 +19,6 @@ namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
 
         public DropdownListForm() : base(DropdownLocator, FormName)
         {
-        }
-
-        public IEnumerable<string> GetValuesViaJs()
-        {
-            return CbbDropdown.JsActions.GetValues();
-        }
-
-        public string GetSelectedTextViaJs()
-        {
-            return CbbDropdown.JsActions.GetSelectedText();
-        }
-
-        public void SelectByTextViaJs(DropdownValue option)
-        {
-            CbbDropdown.JsActions.SelectValueByText(DropdownValues[option]);
         }
     }
 
