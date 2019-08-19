@@ -96,14 +96,6 @@ public void SelectGender(int genderId)
 ```
 
 
-## Use several browser instances in parallel (multithreading):
-In our library instances of some core classes (Browser, BrowserManager, Logger, Configuration) are stored in thread-local containers.
-You may want to interact with more than one instance of Browser. For this purpose, you will need to create browser instances in separate threads, to make sure that their work does not interrupt each other.<br>
-You can take a look at our test class BrowserConcurrencyTests for example:
-```csharp
-```
-
-
 ## Library structure: 
 - **Aquality.Selenium**:
     - **Browsers**: classes and methods to setup and interract with browser
