@@ -123,15 +123,48 @@ You can take a look at our test class BrowserConcurrencyTests for example:
     - **Waitings**: contains ConditionalWait class with functionality for conditional waitings.
     - **Resources**:
       - **JavaScripts**: JS functions used within this package.
+      - **Localization**: JSON files with localized values for logging.
       - *settings.json*: default library settings.
 
 
 ## Configuration
-We store configuration parameters in JSON files.<br>
-You can find default configuration files inside the library in the `Resources` folder <br>
+We store configuration parameters in `settings.json` file.<br>
+You can find default configuration in the `Resources` folder.<br>
 To change some parameter, you have to add related resource file into your project and change the required parameter.<br>
+Also you can define several configurations by adding files with appropriate suffixes like `settings.{config_name}.json` and then pass this suffix into environment variable with name `profile`.<br>
 Make sure to add it to the same path where it is presented in library.<br>
-Alternatively, you can override some class from the ``` namespace Aquality.Selenium.Configurations  ```
+Alternatively, you can override some class from the ``` namespace Aquality.Selenium.Configurations  ```.
 
+#### Configuration file content description
 
-#### Configuration resources structure
+###### General properties
+- "browserName": "chrome" - defines default browser to run tests.
+- "isRemote": true - defines if the remote WebDriver instance will be created. Set "true" to use Selenium Grid.
+- "remoteConnectionUrl": "http://localhost:4444/wd/hub" - URL of the remote web driver.
+- "isElementHighlightEnabled": true - defines whether to highlight elements during actions or not. "Highlight" is made of red border, which is added to each interacted element using specific JavaScript. Set "false" if you want to switch off this feature.
+
+###### driverSettings
+Threre are separate object with settings in this section for each supported browser which is mapped to appropriate `IDriverSettings` implementation.<br>
+Each settings object consists of:<br>
+- "webDriverVersion": "Latest" - version of web driver for [WebDriverManager](https://github.com/bonigarcia/webdrivermanager).<br>
+- "capabilities": {} - you can read more about desired capabilities at [SeleniumHQ wiki](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities).<br>
+Values from this object are set to specific Options object (e.g. ChromeOptions, FirefoxOptions etc.) with command `options.SetCapability(key, value);`<br>
+- "options": {} - values from this file are set to specific Options object (e.g. ChromeOptions, FirefoxOptions etc.) with command `options.SetExperimentalOption("prefs", chromePrefs);`<br>
+- "startArguments": {} - values from this object are set to specific Options object (e.g. ChromeOptions, FirefoxOptions etc.) with command `options.AddArguments(arg);`<br>
+
+Afterwards this Settings object is passed as parameter to WebDriver constructor.
+
+###### timeouts
+- "timeoutImplicit": 0 - implicit wait timeout in seconds. We do not recommend to set non-zero value to it. Instead of implicit wait you can take advantage of ConditionalWait.
+- "timeoutCondition": 30 - timeout in seconds for waiting actions.
+- "timeoutScript": 10 - timeout in seconds for script execution.
+- "timeoutPageLoad": 15 - page loading timeout in seconds.
+- "timeoutPollingInterval": 300 - retry interval in milliseconds for waiting actions.
+- "timeoutCommand": 60 - command timeout in seconds for remote web driver.
+
+###### retry (generally uses to handle StaleElementReferenceException)
+- "number": 2 - default number of retries for some actions. 
+- "pollingInterval": 300 - interval in milliseconds between retries.
+
+###### logger
+- "language": "en" - default language for log messages.
