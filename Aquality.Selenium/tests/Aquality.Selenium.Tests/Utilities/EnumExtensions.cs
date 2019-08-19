@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Aquality.Selenium.Tests.Utilities
 {
-    public static class EnumExtensions
+    internal static class EnumExtensions
     {
         public static string GetDescription<T>(this T value) where T : struct, IConvertible
         {

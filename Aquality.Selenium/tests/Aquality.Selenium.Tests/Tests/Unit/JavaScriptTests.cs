@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Aquality.Selenium.Tests.Unit.JavaScripts
 {
     [Parallelizable(ParallelScope.All)]
-    public class JavaScriptTests
+    internal class JavaScriptTests
     {
 #pragma warning disable IDE0052 // Remove unread private members
         private static readonly JavaScript[] JavaScripts = Enum.GetValues(typeof(JavaScript)) as JavaScript[];

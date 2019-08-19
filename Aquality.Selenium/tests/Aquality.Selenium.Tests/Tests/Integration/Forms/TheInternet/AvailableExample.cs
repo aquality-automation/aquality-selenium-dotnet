@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public enum AvailableExample
+    internal enum AvailableExample
     {
         [Description("checkboxes")]
         Checkboxes,

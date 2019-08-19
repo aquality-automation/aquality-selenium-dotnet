@@ -3,9 +3,9 @@ using Aquality.Selenium.Forms;
 using Aquality.Selenium.Tests.Utilities;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public class WelcomeForm : Form
+    internal class WelcomeForm : Form
     {
         private const string TmpExampleLoc = "//a[contains(@href,'{0}')]";
         public const string SubTitle = "Available Examples";

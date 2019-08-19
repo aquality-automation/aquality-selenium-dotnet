@@ -5,9 +5,9 @@ using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public class DropdownListForm : Form
+    internal class DropdownListForm : Form
     {
         private static readonly By DropdownLocator = By.Id("dropdown");
         public IComboBox CbbDropdown => ElementFactory.GetComboBox(DropdownLocator, "Dropdown");

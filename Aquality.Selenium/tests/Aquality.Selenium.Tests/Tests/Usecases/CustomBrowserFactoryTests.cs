@@ -75,6 +75,8 @@ namespace Aquality.Selenium.Tests.Usecases
         public TimeSpan Condition => TimeSpan.FromSeconds(15);
 
         public TimeSpan PollingInterval => TimeSpan.FromMilliseconds(100);
+
+        public TimeSpan Command => TimeSpan.FromSeconds(30);
     }
 
     class LoggerConfiguration : ILoggerConfiguration

@@ -1,9 +1,9 @@
-using Aquality.Selenium.Tests.UITests.Forms.TheInternet;
+using Aquality.Selenium.Tests.Integration.Forms.TheInternet;
 using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.UITests.Integration.Actions
+namespace Aquality.Selenium.Tests.Integration.Actions
 {
-    public class ComboBoxJsActionsTests : UITest
+    internal class ComboBoxJsActionsTests : UITest
     {
         [Test]
         public void Should_BeAbleGetValues_WithJsActions()

@@ -1,15 +1,15 @@
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Constants;
-using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
-using Aquality.Selenium.Tests.UITests.Forms.TheInternet;
+using Aquality.Selenium.Tests.Integration.Forms.AutomationPractice;
+using Aquality.Selenium.Tests.Integration.Forms.TheInternet;
 using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Integration.Actions
+namespace Aquality.Selenium.Tests.Integration.Actions
 {
-    public class JsActionsTests : UITest
+    internal class JsActionsTests : UITest
     {
         [Test]
         public void Should_BeAbleClick_WithJsActions()

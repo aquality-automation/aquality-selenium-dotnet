@@ -5,7 +5,7 @@ using System;
 namespace Aquality.Selenium.Tests.Unit.JavaScripts
 {
     [Parallelizable(ParallelScope.All)]
-    public class ConfigurationTests
+    internal class ConfigurationTests
     {
         [Test]
         [Parallelizable(ParallelScope.None)]

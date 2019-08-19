@@ -3,9 +3,9 @@ using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public class HoversForm : Form
+    internal class HoversForm : Form
     {
         private static readonly By FormLocator = By.XPath("//h3[contains(.,'Hovers')]");
         private const string ExampleTmpLoc = "//div[@class='figure'][{0}]";

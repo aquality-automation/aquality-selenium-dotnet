@@ -5,7 +5,7 @@ using System;
 
 namespace Aquality.Selenium.Tests.Unit.JavaScripts
 {
-    public class BrowserManagerTests
+    internal class BrowserManagerTests
     {
         [Test]
         public void Should_BeAbleGetBrowser()

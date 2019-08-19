@@ -1,12 +1,12 @@
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Tests.Constants;
-using Aquality.Selenium.Tests.UITests.Forms.AutomationPractice;
-using Aquality.Selenium.Tests.UITests.Forms.TheInternet;
+using Aquality.Selenium.Tests.Integration.Forms.AutomationPractice;
+using Aquality.Selenium.Tests.Integration.Forms.TheInternet;
 using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.UITests.Integration.Actions
+namespace Aquality.Selenium.Tests.Integration.Actions
 {
-    public class MouseActionsTests : UITest
+    internal class MouseActionsTests : UITest
     {
         [Test]
         public void Should_BeAbleClick_WithMouseActions()

@@ -5,9 +5,9 @@ using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
+namespace Aquality.Selenium.Tests.Integration.Forms.AutomationPractice
 {
-    public class ProductListForm : Form
+    internal class ProductListForm : Form
     {
         private static readonly By ProductsLocator = By.XPath("//ul[@id='homefeatured']");
         private IEnumerable<ILink> LnksProduct => ElementFactory.FindElements(By.XPath("//ul[@id='homefeatured']//a[@class='product_img_link']"), ElementFactory.GetLink);

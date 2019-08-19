@@ -2,9 +2,9 @@
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public class CheckboxesForm : Form
+    internal class CheckboxesForm : Form
     {
         private static readonly By FormLocator = By.Id("checkboxes");
         public ICheckBox CbxFirst => ElementFactory.GetCheckBox(By.XPath("//input[1]"), "First checkBox");

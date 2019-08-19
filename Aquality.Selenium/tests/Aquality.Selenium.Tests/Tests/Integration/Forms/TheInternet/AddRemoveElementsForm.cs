@@ -3,9 +3,9 @@ using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.TheInternet
+namespace Aquality.Selenium.Tests.Integration.Forms.TheInternet
 {
-    public class AddRemoveElementsForm : Form
+    internal class AddRemoveElementsForm : Form
     {
         private static readonly By FormLocator = By.XPath("//h3[contains(.,'Add/Remove Elements')]");
         public IButton BtnAdd => ElementFactory.GetButton(By.XPath("//button[contains(@onclick,'addElement')]"), "Add element");

@@ -4,9 +4,9 @@ using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
-namespace Aquality.Selenium.Tests.UITests.Forms.AutomationPractice
+namespace Aquality.Selenium.Tests.Integration.Forms.AutomationPractice
 {
-    public class ProductForm : Form
+    internal class ProductForm : Form
     {
         private static readonly By ProductsLocator = By.Id("product");
         public IList<ILabel> LblsProductView => ElementFactory.FindElements(By.XPath("//li[contains(@id,'thumbnail_')]//a"), ElementFactory.GetLabel);

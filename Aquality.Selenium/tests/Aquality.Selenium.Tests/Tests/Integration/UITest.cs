@@ -3,11 +3,11 @@ using Aquality.Selenium.Tests.Constants;
 using NUnit.Framework;
 
 [assembly: LevelOfParallelism(1)]
-namespace Aquality.Selenium.Tests.UITests
+namespace Aquality.Selenium.Tests.Integration
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
-    public class UITest
+    internal class UITest
     {
         [SetUp]
         public void SetUp()
