@@ -1,8 +1,8 @@
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Constants;
 using Aquality.Selenium.Tests.Integration.Forms.AutomationPractice;
 using Aquality.Selenium.Tests.Integration.Forms.TheInternet;
+using Aquality.Selenium.Tests.Utilities;
 using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;

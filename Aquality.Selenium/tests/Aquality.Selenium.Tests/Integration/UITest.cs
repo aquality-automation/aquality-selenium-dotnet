@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Constants;
+using Aquality.Selenium.Tests.Utilities;
 using NUnit.Framework;
 
 [assembly: LevelOfParallelism(1)]

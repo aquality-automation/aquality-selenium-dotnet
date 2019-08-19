@@ -1,4 +1,4 @@
-﻿namespace Aquality.Selenium.Tests.Constants
+﻿namespace Aquality.Selenium.Tests.Utilities
 {
     internal static class TestConstants
     {
