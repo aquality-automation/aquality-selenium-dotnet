@@ -17,7 +17,8 @@ namespace Aquality.Selenium.Browsers
             get
             {
                 var browserProfile = Configuration.BrowserProfile;
-                var driver = new RemoteWebDriver(browserProfile.RemoteConnectionUrl, browserProfile.DriverSettings.DriverOptions);
+                var capabilities = browserProfile.DriverSettings.DriverOptions.ToCapabilities();
+                var driver = new RemoteWebDriver(browserProfile.RemoteConnectionUrl, capabilities, Configuration.TimeoutConfiguration.Command);
                 return new Browser(driver, Configuration);
             }
         }
