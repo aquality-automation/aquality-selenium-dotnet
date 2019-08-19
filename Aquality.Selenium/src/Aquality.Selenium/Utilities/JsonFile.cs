@@ -74,7 +74,7 @@ namespace Aquality.Selenium.Utilities
             var node = GetJsonNode(jsonPath);
             if (node == null)
             {
-                throw new ArgumentException($"There is no value found by path '{jsonPath}' in JSON resource '{resourceName}'");
+                throw new ArgumentException($"There is no value found by path '{jsonPath}' in JSON file '{resourceName}'");
             }
             return node.ToObject<T>();
         }
@@ -87,6 +87,7 @@ namespace Aquality.Selenium.Utilities
         /// <param name="jsonPath">Relative JsonPath to the values.</param>
         /// <typeparam name="T">Type of the value.</typeparam>
         /// <returns>Value from JSON/Environment by JsonPath.</returns>
+        /// <exception cref="ArgumentException">Throws when there are no values found by jsonPath in desired JSON file.</exception>
         public IList<T> GetValueList<T>(string jsonPath)
         {
             var envValue = GetEnvironmentValue(jsonPath);
@@ -96,7 +97,12 @@ namespace Aquality.Selenium.Utilities
                 return envValue.Split(',').Select(value => (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value.Trim())).ToList();
             }
 
-            return GetJsonNode(jsonPath).ToObject<IList<T>>();
+            var node = GetJsonNode(jsonPath);
+            if (node == null)
+            {
+                throw new ArgumentException($"There are no values found by path '{jsonPath}' in JSON file '{resourceName}'");
+            }
+            return node.ToObject<IList<T>>();
         }
 
         /// <summary>
