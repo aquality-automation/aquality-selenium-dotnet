@@ -22,6 +22,7 @@ namespace Aquality.Selenium.Configurations
             PageLoad = GetTimeoutFromSeconds(nameof(PageLoad));
             Condition = GetTimeoutFromSeconds(nameof(Condition));
             PollingInterval = TimeSpan.FromMilliseconds(GetIntFromTimeoutSettings(nameof(PollingInterval)));
+            Command = GetTimeoutFromSeconds(nameof(Command));
         }
 
         private TimeSpan GetTimeoutFromSeconds(string name)
@@ -43,5 +44,7 @@ namespace Aquality.Selenium.Configurations
         public TimeSpan Condition { get; }
 
         public TimeSpan PollingInterval { get; }
+
+        public TimeSpan Command { get; }
     }
 }
