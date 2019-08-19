@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Tests.Usecases
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
-    internal class Tests
+    internal class LoggerTests
     {
         private const string AddTargetLogFile = "AddTargetTestLog.log";
         private const string RemoveTargetLogFile = "RemoveTargetTestLog.log";

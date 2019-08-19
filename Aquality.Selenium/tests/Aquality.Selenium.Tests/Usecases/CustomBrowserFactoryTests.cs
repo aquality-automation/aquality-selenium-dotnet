@@ -52,19 +52,6 @@ namespace Aquality.Selenium.Tests.Usecases
         }
     }
 
-    class CustomLocalBrowserFactoryWithOverridenConfig : IBrowserFactory
-    {
-        public Browser Browser
-        {
-            get
-            {
-                new DriverManager().SetUpDriver(new ChromeConfig());
-                var chromeDriver = new ChromeDriver();
-                return new Browser(chromeDriver, new CustomConfiguration());
-            }
-        }
-    }
-
     class CustomConfiguration : IConfiguration
     {
         public IBrowserProfile BrowserProfile => new CustomBrowserProfile();
