@@ -8,33 +8,33 @@ namespace Aquality.Selenium.Configurations
     public interface ITimeoutConfiguration
     {
         /// <summary>
-        /// Gets WedDriver ImplicitWait timeout.
+        /// Gets WedDriver ImplicitWait timeout (in seconds).
         /// </summary>
-        /// <value>ImplicitWait timeout.</value>
         TimeSpan Implicit { get; }
 
         /// <summary>
-        /// Gets WedDriver AsynchronousJavaScript timeout.
+        /// Gets WedDriver AsynchronousJavaScript timeout (in seconds).
         /// </summary>
-        /// <value>AsynchronousJavaScript timeout.</value>
         TimeSpan Script { get; }
 
         /// <summary>
-        /// Gets WedDriver PageLoad timeout.
+        /// Gets WedDriver PageLoad timeout (in seconds).
         /// </summary>
-        /// <value>PageLoad timeout.</value>
         TimeSpan PageLoad { get; }
 
         /// <summary>
-        /// Gets default ConditionalWait timeout.
+        /// Gets default ConditionalWait timeout (in seconds).
         /// </summary>
-        /// <value>ConditionalWait timeout.</value>
         TimeSpan Condition { get; }
 
         /// <summary>
-        /// Gets ConditionalWait polling interfal.
+        /// Gets ConditionalWait polling interfal (in milliseconds).
         /// </summary>
-        /// <value>ConditionalWait polling interfal.</value>
         TimeSpan PollingInterval { get; }
+
+        /// <summary>
+        /// Gets Command timeout (in seconds).
+        /// </summary>
+        TimeSpan Command { get; }
     }
 }
