@@ -4,11 +4,11 @@ using Aquality.Selenium.Logging;
 using NLog.Targets;
 using NUnit.Framework;
 
-namespace Aquality.Selenium.Tests.Unit.Logging
+namespace Aquality.Selenium.Tests.Usecases
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
-    public class Tests
+    internal class Tests
     {
         private const string AddTargetLogFile = "AddTargetTestLog.log";
         private const string RemoveTargetLogFile = "RemoveTargetTestLog.log";
@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Tests.Unit.Logging
         }
 
         [Test]
-        public void TestShouldBePossibleToAddTarget()
+        public void Should_BePossibleTo_AddTarget()
         {
             Logger.Instance.AddTarget(GetTarget(AddTargetLogFile)).Info(TestMessage);
             Assert.True(File.Exists(AddTargetLogFile),
@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Tests.Unit.Logging
         }
 
         [Test]
-        public void TestShouldBePossibleToRemoveTarget()
+        public void Should_BePossibleTo_RemoveTarget()
         {
             var target = GetTarget(RemoveTargetLogFile);
             Logger.Instance.AddTarget(target).RemoveTarget(target).Info(TestMessage);

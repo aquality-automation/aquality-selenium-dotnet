@@ -10,7 +10,7 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 
-namespace Aquality.Selenium.Tests.Usecases.BrowserFactory
+namespace Aquality.Selenium.Tests.Usecases
 {
     [TestFixture]
     internal class CustomBrowserFactoryTests
