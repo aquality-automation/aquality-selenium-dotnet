@@ -1,4 +1,5 @@
-﻿using Aquality.Selenium.Utilities;
+﻿using Aquality.Selenium.Logging;
+using Aquality.Selenium.Utilities;
 using System.Reflection;
 using System.Threading;
 
@@ -9,7 +10,8 @@ namespace Aquality.Selenium.Configurations
     /// </summary>
     public class Configuration : IConfiguration
     {
-        private static readonly ThreadLocal<Configuration> InstanceHolder = new ThreadLocal<Configuration>();        
+        private static readonly ThreadLocal<Configuration> InstanceHolder = new ThreadLocal<Configuration>();
+        private Logger Logger => Logger.Instance;
 
         private Configuration()
         {
@@ -22,8 +24,10 @@ namespace Aquality.Selenium.Configurations
 
         private JsonFile GetSettings()
         {
-            var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("profile");
+            var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("PROFILE");
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
+            Logger.Info($"Get settings from: {settingsProfile}");
+
             var jsonFile = FileReader.IsResourceFileExist(settingsProfile)
                 ? new JsonFile(settingsProfile)
                 : new JsonFile($"Resources.{settingsProfile}", Assembly.GetCallingAssembly());
