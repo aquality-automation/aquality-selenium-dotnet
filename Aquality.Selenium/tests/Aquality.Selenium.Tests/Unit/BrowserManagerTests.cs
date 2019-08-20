@@ -24,6 +24,7 @@ namespace Aquality.Selenium.Tests.Unit
             Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
         }
 
+        [Ignore("Not all browsers are supported")]
         [TestCase(BrowserName.IExplorer)]
         [TestCase(BrowserName.Firefox)]
         [TestCase(BrowserName.Chrome)]
