@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\GetCurrentUrl.js" />
     <None Remove="Resources\TestJavaScript.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\GetCurrentUrl.js" />
     <EmbeddedResource Include="Resources\TestJavaScript.js" />
   </ItemGroup>
 

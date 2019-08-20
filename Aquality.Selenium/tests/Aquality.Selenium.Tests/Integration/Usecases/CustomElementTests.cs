@@ -24,6 +24,12 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             Assert.AreEqual(userNameTxb.Value, userNameCustomTxb.Text);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            BrowserManager.Browser.Quit();
+        }
+
         private class CustomTextBox : TextBox
         {
             protected internal CustomTextBox(By locator, string name, ElementState state) : base(locator, name, state)
