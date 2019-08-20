@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:2.1
+      - image: autotests/mcr-dotnet-core-browsers:latest
 
     steps:
       - checkout
