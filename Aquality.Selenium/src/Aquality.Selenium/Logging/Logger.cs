@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Logging
 
         private LoggingConfiguration GetConfiguration()
         {
-            var layout = "${date:format=yyyy-MM-dd HH:mm:ss} ${level:uppercase=true} - ${message}";
+            var layout = "${date:format=yyyy-MM-dd HH\\:mm\\:ss} ${level:uppercase=true} - ${message}";
             var config = new LoggingConfiguration();
             config.AddRule(LogLevel.Info, LogLevel.Fatal, new ConsoleTarget("logconsole")
             {
@@ -37,7 +37,7 @@ namespace Aquality.Selenium.Logging
             });
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, new FileTarget("logfile")
             {
-                FileName = "Log/log.log",
+                FileName = "../../../Log/log.log",
                 Layout = layout
             });
             return config;
