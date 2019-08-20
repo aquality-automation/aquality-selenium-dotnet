@@ -2,6 +2,7 @@
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 using Aquality.Selenium.Logging;
+using System.Drawing;
 
 namespace Aquality.Selenium.Forms
 {
@@ -11,7 +12,7 @@ namespace Aquality.Selenium.Forms
     public abstract class Form
     {
         /// <summary>
-        /// Instance of logger <see cref="Aquality.Selenium.Logging.Logger">
+        /// Instance of logger <see cref="Logging.Logger">
         /// </summary>
         /// <value>Logger instance.</value>
         protected Logger Logger => Logger.Instance;
@@ -24,10 +25,10 @@ namespace Aquality.Selenium.Forms
         /// <summary>
         /// Name of specified form
         /// </summary>
-        protected readonly string Name;        
+        protected readonly string Name;
 
         /// <summary>
-        /// Element factory <see cref="Aquality.Selenium.Elements.Interfaces.IElementFactory">
+        /// Element factory <see cref="IElementFactory">
         /// </summary>
         /// <value>Element factory.</value>
         protected IElementFactory ElementFactory => new ElementFactory();
@@ -40,6 +41,11 @@ namespace Aquality.Selenium.Forms
         /// <value>True - form is opened,
         /// False - form is not opened.</value>
         public bool IsDisplayed => FormLabel.State.WaitForDisplayed();
+
+        /// <summary>
+        /// Gets size of form element defined by its locator.
+        /// </summary>
+        public Size Size => FormLabel.GetElement().Size;
 
         /// <summary>
         /// Constructor with parameters
