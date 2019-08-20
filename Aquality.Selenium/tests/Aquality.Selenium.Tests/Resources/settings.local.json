@@ -19,6 +19,7 @@
         "download.default_directory": "//home//selenium//downloads"
       },
       "startArguments": [
+        "--no-sandbox"
       ]
     },
     "firefox": {
