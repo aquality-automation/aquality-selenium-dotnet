@@ -129,6 +129,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(valueToSet, authForm.UserNameTxb.Value);
         }
 
+        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_SetWindowSize()
         {

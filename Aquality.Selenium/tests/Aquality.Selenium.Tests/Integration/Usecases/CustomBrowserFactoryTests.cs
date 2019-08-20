@@ -45,8 +45,9 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 get
                 {
                     new DriverManager().SetUpDriver(new ChromeConfig());
-                    var chromeDriver = new ChromeDriver();
-                    return new Browser(chromeDriver, new CustomConfiguration());
+                    var configuration = new CustomConfiguration();
+                    var chromeDriver = new ChromeDriver((ChromeOptions)configuration.BrowserProfile.DriverSettings.DriverOptions);
+                    return new Browser(chromeDriver, configuration);
                 }
             }
         }
@@ -109,7 +110,15 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
             public Architecture SystemArchitecture => Architecture.Auto;
 
-            public DriverOptions DriverOptions => new ChromeOptions();
+            public DriverOptions DriverOptions
+            {
+                get
+                {
+                    var options = new ChromeOptions();
+                    options.AddArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                    return options;
+                }
+            }
 
             public string DownloadDir => "custom download dir";
 

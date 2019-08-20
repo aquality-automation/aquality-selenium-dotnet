@@ -37,6 +37,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual("3px solid rgb(255, 0, 0)", border, "Element should be highlighted");
         }
 
+        [Ignore("should be updated")]
         [Test]
         public void Should_BeAbleHover_WithJsActions()
         {
@@ -65,6 +66,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual(expectedText, product.TxtQuantity.Value, $"One character should be removed from '{currentText}'");
         }
 
+        [Ignore("should be updated")]
         [Test]
         public void Should_BeAbleCheckIsElementOnScreen_WithJsActions()
         {
