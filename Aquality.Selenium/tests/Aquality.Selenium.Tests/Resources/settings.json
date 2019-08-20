@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "75.0.3770.140",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -17,7 +17,8 @@
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
-      }
+      },
+      "startArguments": []
     },
     "firefox": {
       "webDriverVersion": "Latest",
@@ -61,7 +62,7 @@
     "timeoutImplicit": 0,
     "timeoutCondition": 30,
     "timeoutScript": 10,
-    "timeoutPageLoad": 15,
+    "timeoutPageLoad": 60,
     "timeoutPollingInterval": 300,
     "timeoutCommand": 60
   },
