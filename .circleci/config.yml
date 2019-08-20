@@ -9,10 +9,10 @@ jobs:
 
       - run:
           name: Build
-          command:
-            dotnet build Aquality.Selenium/Aquality.Selenium.sln
+          command: dotnet build Aquality.Selenium/Aquality.Selenium.sln
 
       - run:
           name: Run Tests
-          command:
-            dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj -- profile=local
+          command: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+          environment:
+            profile: local
