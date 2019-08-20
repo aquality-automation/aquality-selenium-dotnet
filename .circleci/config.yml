@@ -13,9 +13,9 @@ jobs:
 
       - run:
           name: Run Tests
-          command: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj -- profile=testasf
-          #environment:
-          #  profile: testset
+          command: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+          environment:
+            PROFILE: local
 
       - store_artifacts:
           path: Aquality.Selenium/tests/Aquality.Selenium.Tests/Log/log.log
