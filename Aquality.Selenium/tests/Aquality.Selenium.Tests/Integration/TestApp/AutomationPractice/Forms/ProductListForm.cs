@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public void NavigateToLastProduct()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(GetLastProduct().Href);
+            BrowserManager.Browser.GoTo(GetLastProduct().Href);
         }
 
         public ILink GetLastProduct()

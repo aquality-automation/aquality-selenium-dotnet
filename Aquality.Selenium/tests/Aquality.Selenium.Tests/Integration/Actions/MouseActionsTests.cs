@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BeAbleMoveMouse_WithMouseActions()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(Constants.UrlAutomationPractice);
+            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 

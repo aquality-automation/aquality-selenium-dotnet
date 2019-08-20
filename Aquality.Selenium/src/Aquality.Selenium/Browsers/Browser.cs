@@ -121,12 +121,28 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Gets wrapper over Selenium WebDriver INavigate implementation.
+        /// Navigates to desired url.
         /// </summary>
-        /// <returns>Instance of custom navigation object.</returns>
-        public INavigation Navigate()
+        /// <param name="url">String representation of URL.</param>
+        public void GoTo(string url)
         {
-            return new BrowserNavigation(Driver);
+            Navigate().GoToUrl(url);
+        }
+
+        /// <summary>
+        /// Navigates back.
+        /// </summary>
+        public void GoBack()
+        {
+            Navigate().Back();
+        }
+
+        /// <summary>
+        /// Navigates forward.
+        /// </summary>
+        public void GoForward()
+        {
+            Navigate().Forward();
         }
 
         /// <summary>
@@ -135,8 +151,21 @@ namespace Aquality.Selenium.Browsers
         /// <param name="alertAction">Action which should be done with appeared alert.</param>
         public void RefreshPageWithAlert(AlertAction alertAction)
         {
-            Navigate().Refresh();
+            Refresh();
             HandleAlert(alertAction);
+        }
+
+        /// <summary>
+        /// Refreshes current page.
+        /// </summary>
+        public void Refresh()
+        {
+            Navigate().Refresh();
+        }
+
+        private INavigation Navigate()
+        {
+            return new BrowserNavigation(Driver);
         }
 
         /// <summary>

@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BeAbleHover_WithJsActions()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(Constants.UrlAutomationPractice);
+            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BeAbleSetFocus_WithJsActions()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(Constants.UrlAutomationPractice);
+            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
