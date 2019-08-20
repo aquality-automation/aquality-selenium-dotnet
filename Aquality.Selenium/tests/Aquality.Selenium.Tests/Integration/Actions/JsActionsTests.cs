@@ -135,6 +135,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 "Some examples should be added after scroll");
         }
 
+        [Ignore("should be updated")]
         [Test]
         public void Should_BeAbleScrollBy_WithJsActions()
         {

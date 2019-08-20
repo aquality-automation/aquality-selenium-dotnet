@@ -77,6 +77,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreNotEqual(firstItem, firstItemAfterRefresh);
         }
 
+        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_SetPageLoadTimeout()
         {
