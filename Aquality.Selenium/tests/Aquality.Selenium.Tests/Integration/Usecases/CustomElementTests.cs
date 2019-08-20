@@ -13,7 +13,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void ShouldBe_PossibleTo_CreateCustomTextBox()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(TheInternetPage.Login);
+            BrowserManager.Browser.GoTo(TheInternetPage.Login);
             var authForm = new AuthenticationForm();
             var userNameTxb = authForm.UserNameTxb;
 

@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_StartBrowserAndNavigate()
         {
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(TheInternetPage.Login);
+            browser.GoTo(TheInternetPage.Login);
             Assert.AreEqual(browser.CurrentUrl, TheInternetPage.Login);
         }
 
@@ -38,16 +38,16 @@ namespace Aquality.Selenium.Tests.Integration
             var secondNavigationUrl = TheInternetPage.Checkboxes;
 
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(firstNavigationUrl);
+            browser.GoTo(firstNavigationUrl);
             Assert.AreEqual(browser.CurrentUrl, firstNavigationUrl);
 
-            browser.Navigate().GoToUrl(secondNavigationUrl);
+            browser.GoTo(secondNavigationUrl);
             Assert.AreEqual(browser.CurrentUrl, secondNavigationUrl);
 
-            browser.Navigate().Back();
+            browser.GoBack();
             Assert.AreEqual(browser.CurrentUrl, firstNavigationUrl);
 
-            browser.Navigate().Forward();
+            browser.GoForward();
             Assert.AreEqual(browser.CurrentUrl, secondNavigationUrl);
         }
 
@@ -57,7 +57,7 @@ namespace Aquality.Selenium.Tests.Integration
             var browser = BrowserManager.Browser;
             var url = TheInternetPage.Login;
 
-            browser.Navigate().GoToUrl(url);
+            browser.GoTo(url);
             browser.Quit();
 
             Assert.AreNotEqual(url, BrowserManager.Browser.CurrentUrl);
@@ -67,11 +67,11 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_RefreshPage()
         {
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(TheInternetPage.DynamicContent);
+            browser.GoTo(TheInternetPage.DynamicContent);
             var dynamicContentForm = new DynamicContentForm();
             var firstItem = dynamicContentForm.GetContentItem(1).GetText();
 
-            browser.Navigate().Refresh();
+            browser.Refresh();
             browser.WaitForPageToLoad();
             var firstItemAfterRefresh = dynamicContentForm.GetContentItem(1).GetText();
             Assert.AreNotEqual(firstItem, firstItemAfterRefresh);
@@ -82,14 +82,14 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = BrowserManager.Browser;
             browser.PageLoadTimeout = TimeSpan.FromSeconds(1);
-            Assert.Throws<WebDriverTimeoutException>(() => browser.Navigate().GoToUrl("https://github.com/aquality-automation"));
+            Assert.Throws<WebDriverTimeoutException>(() => browser.GoTo("https://github.com/aquality-automation"));
         }
 
         [Test]
         public void Should_BePossibleTo_TakeScreenshot()
         {
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(TheInternetPage.DynamicContent);
+            browser.GoTo(TheInternetPage.DynamicContent);
             browser.WaitForPageToLoad();
             Assert.IsTrue(browser.GetScreenshot().Length > 0);
         }
@@ -99,7 +99,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var url = TheInternetPage.DynamicContent;
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(url);
+            browser.GoTo(url);
             browser.WaitForPageToLoad();
             var currentUrl = browser.ExecuteScript<string>("return window.location.href");
             Assert.AreEqual(url, currentUrl);
@@ -110,7 +110,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var url = TheInternetPage.DynamicContent;
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(url);
+            browser.GoTo(url);
             browser.WaitForPageToLoad();
             var currentUrl = browser.ExecuteScriptFromFile<string>("Resources.GetCurrentUrl.js");
             Assert.AreEqual(url, currentUrl);
@@ -120,7 +120,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_ExecuteJavaScriptFromPredefinedFile()
         {
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(TheInternetPage.Login);
+            browser.GoTo(TheInternetPage.Login);
             browser.WaitForPageToLoad();
 
             var valueToSet = "username";
@@ -163,7 +163,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_ScrollWindowBy()
         {
             var browser = BrowserManager.Browser;
-            browser.Navigate().GoToUrl(Constants.UrlAutomationPractice);
+            browser.GoTo(Constants.UrlAutomationPractice);
             var sliderForm = new SliderForm();
             var initialY = sliderForm.FormPointInViewPort.Y;
             var formHeight = sliderForm.Size.Height;

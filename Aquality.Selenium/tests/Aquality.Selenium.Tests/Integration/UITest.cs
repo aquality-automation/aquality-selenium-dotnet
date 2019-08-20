@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void SetUp()
         {
-            BrowserManager.Browser.Navigate().GoToUrl(Constants.UrlTheInternet);
+            BrowserManager.Browser.GoTo(Constants.UrlTheInternet);
             BrowserManager.Browser.SetWindowSize(DefaultWindowSize.Width, DefaultWindowSize.Height);
         }
 
