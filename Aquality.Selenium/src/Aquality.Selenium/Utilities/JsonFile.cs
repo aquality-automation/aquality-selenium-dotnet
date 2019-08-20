@@ -68,7 +68,15 @@ namespace Aquality.Selenium.Utilities
             if (envValue != null)
             {
                 Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
-                return (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(envValue);                
+                try
+                {
+                    return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(envValue);
+                }
+                catch (ArgumentException ex)
+                {
+                    var message = $"Value of '{jsonPath}' environment variable has incorrect format: {ex.Message}";
+                    throw new ArgumentException(message);
+                }
             }
 
             var node = GetJsonNode(jsonPath);
@@ -94,7 +102,15 @@ namespace Aquality.Selenium.Utilities
             if (envValue != null)
             {
                 Logger.Instance.Debug($"***** Using variable passed from environment {jsonPath.Substring(1)}={envValue}");
-                return envValue.Split(',').Select(value => (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value.Trim())).ToList();
+                try
+                {
+                    return envValue.Split(',').Select(value => (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value.Trim())).ToList();
+                }
+                catch (ArgumentException ex)
+                {
+                    var message = $"Value of '{jsonPath}' environment variable has incorrect format: {ex.Message}";
+                    throw new ArgumentException(message);
+                }
             }
 
             var node = GetJsonNode(jsonPath);
