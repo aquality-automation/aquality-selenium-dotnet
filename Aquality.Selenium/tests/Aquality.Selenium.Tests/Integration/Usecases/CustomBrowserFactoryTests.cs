@@ -46,7 +46,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 {
                     new DriverManager().SetUpDriver(new ChromeConfig());
                     var configuration = new CustomConfiguration();
-                    var chromeDriver = new ChromeDriver((ChromeOptions)configuration.BrowserProfile.DriverSettings);
+                    var chromeDriver = new ChromeDriver((ChromeOptions)configuration.BrowserProfile.DriverSettings.DriverOptions);
                     return new Browser(chromeDriver, configuration);
                 }
             }
