@@ -19,7 +19,9 @@
         "download.default_directory": "//home//selenium//downloads"
       },
       "startArguments": [
-        "--no-sandbox"
+        "--no-sandbox",
+        "--headless",
+        "--disable-dev-shm-usage"
       ]
     },
     "firefox": {
