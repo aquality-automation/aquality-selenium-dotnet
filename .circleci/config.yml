@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.1
+
+    #working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: 
+          name: Restore packages
+          command:
+            dotnet restore
+
+      - run:
+          name: Build
+          command:
+            dotnet build
