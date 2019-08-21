@@ -7,5 +7,6 @@
         public static string Dropdown => Constants.UrlTheInternet + "dynamic_controls";
         public static string Login => Constants.UrlTheInternet + "login";
         public static string DynamicContent => Constants.UrlTheInternet + "dynamic_content";
+        public static string JavaScriptAlerts => Constants.UrlTheInternet + "javascript_alerts";
     }
 }
