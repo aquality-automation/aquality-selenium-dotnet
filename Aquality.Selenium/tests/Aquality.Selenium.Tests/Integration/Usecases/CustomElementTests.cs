@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -13,8 +12,8 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void ShouldBe_PossibleTo_CreateCustomTextBox()
         {
-            BrowserManager.Browser.GoTo(TheInternetPage.Login);
             var authForm = new AuthenticationForm();
+            authForm.Open();
             var userNameTxb = authForm.UserNameTxb;
 
             var userNameCustomTxb = new CustomTextBox(userNameTxb.Locator, userNameTxb.Name);

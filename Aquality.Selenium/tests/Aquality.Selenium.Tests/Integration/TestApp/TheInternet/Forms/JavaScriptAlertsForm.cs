@@ -1,10 +1,9 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
-    internal class JavaScriptAlertsForm : Form
+    internal class JavaScriptAlertsForm : TheInternetForm
     {
         public JavaScriptAlertsForm() : base(By.Id("content"), "JavaScript Alerts")
         {
@@ -17,5 +16,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public IButton JsPromptBtn => ElementFactory.GetButton(By.XPath("//button[@onclick='jsPrompt()']"), "JS Prompt");
 
         public ILabel ResultLbl => ElementFactory.GetLabel(By.Id("result"), "Result");
+
+        protected override string UrlPart => "javascript_alerts";
     }
 }

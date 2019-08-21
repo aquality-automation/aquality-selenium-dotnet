@@ -18,24 +18,26 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_StartBrowserAndNavigate()
         {
+            var url = new WelcomeForm().Url;
             var browser = BrowserManager.Browser;
-            browser.GoTo(TheInternetPage.Login);
-            Assert.AreEqual(browser.CurrentUrl, TheInternetPage.Login);
+            browser.GoTo(url);
+            Assert.AreEqual(browser.CurrentUrl, url);
         }
 
         [Test]
         public void Should_BePossibleTo_GetWebDriverInstance()
         {
+            var url = new WelcomeForm().Url;
             var browser = BrowserManager.Browser;
-            browser.Driver.Navigate().GoToUrl(TheInternetPage.Login);
-            Assert.AreEqual(browser.Driver.Url, TheInternetPage.Login);
+            browser.Driver.Navigate().GoToUrl(url);
+            Assert.AreEqual(browser.Driver.Url, url);
         }
 
         [Test]
         public void Should_BePossibleTo_NavigateBackAndForward()
         {
-            var firstNavigationUrl = TheInternetPage.Login;
-            var secondNavigationUrl = TheInternetPage.Checkboxes;
+            var firstNavigationUrl = new WelcomeForm().Url;
+            var secondNavigationUrl = new CheckBoxesForm().Url;
 
             var browser = BrowserManager.Browser;
             browser.GoTo(firstNavigationUrl);
@@ -54,9 +56,8 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_OpenNewBrowserAfterQuit()
         {
+            var url = new WelcomeForm().Url;
             var browser = BrowserManager.Browser;
-            var url = TheInternetPage.Login;
-
             browser.GoTo(url);
             browser.Quit();
 
@@ -66,8 +67,9 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_RefreshPage()
         {
+            var url = new DynamicContentForm().Url;
             var browser = BrowserManager.Browser;
-            browser.GoTo(TheInternetPage.DynamicContent);
+            browser.GoTo(url);
             var dynamicContentForm = new DynamicContentForm();
             var firstItem = dynamicContentForm.GetContentItem(1).GetText();
 
@@ -89,8 +91,9 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_TakeScreenshot()
         {
+            var url = new DynamicContentForm().Url;
             var browser = BrowserManager.Browser;
-            browser.GoTo(TheInternetPage.DynamicContent);
+            browser.GoTo(url);
             browser.WaitForPageToLoad();
             Assert.IsTrue(browser.GetScreenshot().Length > 0);
         }
@@ -98,7 +101,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ExecuteJavaScript()
         {
-            var url = TheInternetPage.DynamicContent;
+            var url = new DynamicContentForm().Url;
             var browser = BrowserManager.Browser;
             browser.GoTo(url);
             browser.WaitForPageToLoad();
@@ -109,7 +112,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ExecuteJavaScriptFromFile()
         {
-            var url = TheInternetPage.DynamicContent;
+            var url = new DynamicContentForm().Url;
             var browser = BrowserManager.Browser;
             browser.GoTo(url);
             browser.WaitForPageToLoad();
@@ -120,13 +123,10 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ExecuteJavaScriptFromPredefinedFile()
         {
-            var browser = BrowserManager.Browser;
-            browser.GoTo(TheInternetPage.Login);
-            browser.WaitForPageToLoad();
-
             var valueToSet = "username";
             var authForm = new AuthenticationForm();
-            browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTxb.GetElement(), valueToSet);
+            authForm.Open();
+            BrowserManager.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTxb.GetElement(), valueToSet);
             Assert.AreEqual(valueToSet, authForm.UserNameTxb.Value);
         }
 
@@ -134,6 +134,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_SetWindowSize()
         {
+            var defaultSize = new Size(1024, 768);
             var browser = BrowserManager.Browser;
             var initialSize = browser.Driver.Manage().Window.Size;
 
@@ -157,8 +158,8 @@ namespace Aquality.Selenium.Tests.Integration
                 Assert.IsTrue(currentSize.Width > testSize.Width);
             });
 
-            browser.SetWindowSize(DefaultWindowSize.Width, DefaultWindowSize.Height);
-            Assert.AreEqual(browser.Driver.Manage().Window.Size, DefaultWindowSize);
+            browser.SetWindowSize(defaultSize.Width, defaultSize.Height);
+            Assert.AreEqual(browser.Driver.Manage().Window.Size, defaultSize);
         }
 
         [Test]
@@ -185,6 +186,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetImplicitWait()
         {
             var browser = BrowserManager.Browser;
+            browser.GoTo(new WelcomeForm().Url);
             var waitTime = TimeSpan.FromSeconds(5);
             browser.ImplicitWaitTimeout = waitTime;
 

@@ -1,19 +1,19 @@
 ﻿using Aquality.Selenium.Elements;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
-    internal class HoversForm : Form
+    internal class HoversForm : TheInternetForm
     {
-        private static readonly By FormLocator = By.XPath("//h3[contains(.,'Hovers')]");
         private const string ExampleTmpLoc = "//div[@class='figure'][{0}]";
         private const string HiddenElementTmpLoc = "//a[contains(@href,'users/{0}')]";
 
-        public HoversForm() : base(FormLocator, "Hovers")
+        public HoversForm() : base(By.XPath("//h3[contains(.,'Hovers')]"), "Hovers")
         {
         }
+
+        protected override string UrlPart => "hovers";
 
         public ILabel GetHiddenElement(HoverExample example, ElementState state = ElementState.Displayed)
         {
