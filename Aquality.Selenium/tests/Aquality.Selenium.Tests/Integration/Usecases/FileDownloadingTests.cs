@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             downloaderForm.GetDownloadLink(fileName).JsActions.ClickAndWait();
 
             browser.Driver.SwitchTo().Window(tabs[0]);
-            bool condition() => FileUtil.IsFileDownloaded(filePath, lblFileContent);
+            bool condition() => FileUtil.IsFileDownloaded(filePath, lblFileContent) || file.Exists;
             try
             {
                 ConditionalWait.WaitForTrue(condition);
