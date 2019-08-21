@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Gets ComboBox specific JavaScript actions.
         /// </summary>
-        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.ComboBoxJsActions"/></value>
+        /// <value>Instance of <see cref="ComboBoxJsActions"/></value>
         new ComboBoxJsActions JsActions { get; }
 
         /// <summary>
