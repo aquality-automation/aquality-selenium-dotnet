@@ -16,7 +16,7 @@
         "profile.default_content_settings.popups": "0",
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
-        "download.default_directory": "/home/circleci/repo/target/downloads"
+        "download.default_directory": "//root//selenium//downloads"
       },
       "startArguments": [
         "--no-sandbox",
