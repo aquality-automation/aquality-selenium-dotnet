@@ -6,12 +6,12 @@ using System.Threading;
 namespace Aquality.Selenium.Utilities
 {
     /// <summary>
-    /// Retries an action or function when <see cref="StaleElementReferenceException"/> occures.
+    /// Retries an action or function when <see cref="StaleElementReferenceException"/> or <see cref="InvalidElementStateException"/> occures.
     /// </summary>
     internal sealed class ElementActionRetrier
     {
         /// <summary>
-        /// Retries the action when <see cref="StaleElementReferenceException"/> occures.
+        /// Retries the action when <see cref="StaleElementReferenceException"/> or <see cref="InvalidElementStateException"/> occures.
         /// </summary>
         /// <param name="action">Action to be applied.</param>
         public static void DoWithRetry(Action action)
@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Utilities
         }
 
         /// <summary>
-        /// Retries the function when <see cref="StaleElementReferenceException"/> occures.
+        /// Retries the function when <see cref="StaleElementReferenceException"/> or <see cref="InvalidElementStateException"/> occures.
         /// </summary>
         /// <typeparam name="T">Return type of function.</typeparam>
         /// <param name="function">Function to be applied.</param>
@@ -61,7 +61,7 @@ namespace Aquality.Selenium.Utilities
 
         private static bool IsExceptionHandled(Exception exception)
         {
-            return exception is StaleElementReferenceException;
+            return exception is StaleElementReferenceException || exception is InvalidElementStateException;
         }
     }
 }
