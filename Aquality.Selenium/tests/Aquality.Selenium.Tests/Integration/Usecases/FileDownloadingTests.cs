@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
@@ -16,10 +17,16 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void Should_BePossibleTo_DownloadTextFile()
         {
+            var browser = BrowserManager.Browser;
             var downloaderForm = new FileDownloaderForm();
             var fileName = downloaderForm.FileName;
             var filePath = FileUtil.GetTargetFilePath(fileName);
             var file = new FileInfo(filePath);
+
+            if (!Directory.Exists(browser.DownloadDirectory) && !Configuration.Instance.BrowserProfile.IsRemote)
+            {
+                Directory.CreateDirectory(browser.DownloadDirectory);
+            }
 
             if (file.Exists)
             {
@@ -29,7 +36,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var lblFileContent = new ElementFactory().GetLabel(By.XPath("//pre"), "text file content");
             Assert.False(FileUtil.IsFileDownloaded(filePath, lblFileContent), "file should not exist before downloading");
 
-            var browser = BrowserManager.Browser;
             browser.ExecuteScriptFromFile("Resources.OpenUrlInNewWindow.js", TheInternetPage.Download);
             var tabs = new List<string>(BrowserManager.Browser.Driver.WindowHandles);
 
