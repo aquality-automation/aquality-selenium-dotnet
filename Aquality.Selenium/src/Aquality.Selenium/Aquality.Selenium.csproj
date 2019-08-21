@@ -9,16 +9,22 @@
     <Authors>Aquality Committers</Authors>
     <Company>aquality-automation</Company>
     <Description>Wrapper over Selenium WebDriver for .NET</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>selenium webdriver browser automation</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>Copyright 2019 Aquality Automation</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
     <None Remove="Resources\settings.json" />
+    <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
