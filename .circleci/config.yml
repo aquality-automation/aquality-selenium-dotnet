@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: autotests/mcr-dotnet-core-browsers:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build
+          command: dotnet build Aquality.Selenium/Aquality.Selenium.sln
+
+      - run:
+          name: Run Tests
+          command: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+          environment:
+            profile: local
+
+      - store_artifacts:
+          path: Aquality.Selenium/tests/Aquality.Selenium.Tests/Log/log.log
+          destination: log

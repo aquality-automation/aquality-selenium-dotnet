@@ -1,12 +1,12 @@
 {
-  "browserName": "firefox",
+  "browserName": "chrome",
   "isRemote": false,
   "remoteConnectionUrl": "http://qa-auto-nexus:4444/wd/hub",
   "isElementHighlightEnabled": true,
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -18,10 +18,14 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
       },
-      "startArguments": []
+      "startArguments": [
+        "--no-sandbox",
+        "--headless",
+        "--disable-dev-shm-usage"
+      ]
     },
     "firefox": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -43,7 +47,7 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "latest",
+      "webDriverVersion": "Latest",
       "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true
@@ -62,7 +66,7 @@
     "timeoutImplicit": 0,
     "timeoutCondition": 30,
     "timeoutScript": 10,
-    "timeoutPageLoad": 15,
+    "timeoutPageLoad": 60,
     "timeoutPollingInterval": 300,
     "timeoutCommand": 60
   },
