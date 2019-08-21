@@ -17,8 +17,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var authForm = new AuthenticationForm();
             var userNameTxb = authForm.UserNameTxb;
 
-            var userNameCustomTxb = new ElementFactory().GetCustomElement((locator, name, state) => new CustomTextBox(locator, name, state), 
-                userNameTxb.Locator, userNameTxb.Name, ElementState.ExistsInAnyState);
+            var userNameCustomTxb = new CustomTextBox(userNameTxb.Locator, userNameTxb.Name);
             userNameTxb.Type("wrong");
             userNameCustomTxb.Type("right");
             Assert.AreEqual(userNameTxb.Value, userNameCustomTxb.Text);
@@ -32,7 +31,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
         private class CustomTextBox : TextBox
         {
-            protected internal CustomTextBox(By locator, string name, ElementState state) : base(locator, name, state)
+            public CustomTextBox(By locator, string name) : base(locator, name, ElementState.ExistsInAnyState)
             {
             }
 

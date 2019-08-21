@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Aquality.Selenium.Elements
 {
@@ -14,7 +15,7 @@ namespace Aquality.Selenium.Elements
     /// </summary>
     public class ElementFactory : IElementFactory
     {
-        private static readonly string ByXpathIdentifier = "By.XPath";
+        private static readonly string ByXpathIdentifier = "By.XPath";        
 
         private Browser Browser => BrowserManager.Browser;
 
@@ -82,7 +83,7 @@ namespace Aquality.Selenium.Elements
             IEnumerable<T> elements = webElements.Select((webElement, index) =>
             {
                 var elementIndex = index + 1;
-                return supplier(GenerateXpathLocator(locator, webElement, elementIndex), $"element {elementIndex}", state);
+                return elementSupplier(GenerateXpathLocator(locator, webElement, elementIndex), $"element {elementIndex}", state);
             });
             return elements.ToList();
         }
@@ -98,7 +99,40 @@ namespace Aquality.Selenium.Elements
 
         private ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier) where T : IElement
         {
-            return supplier ?? ((locator, name, state) => (T)Activator.CreateInstance(typeof(T), locator, name, state));
+            if (supplier != null)
+            {
+                return supplier;
+            }
+            else
+            {
+                var type = typeof(T);
+                var elementType = type.IsInterface ? GetElementTypesMap()[type] : type;
+                var elementCntr = elementType.GetConstructor(
+                        BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.CreateInstance | BindingFlags.Instance,
+                        null,
+                        new[] { typeof(By), typeof(string), typeof(ElementState) },
+                        null);
+                return (locator, name, state) => (T)elementCntr.Invoke(new object[] { locator, name, state });
+            }
+        }
+
+        /// <summary>
+        /// Gets map between elements interfaces and their implementations.
+        /// Can be extended for custom elements with custom interfaces.
+        /// </summary>
+        /// <returns>Dictionary where key is interface and value is its implementation.</returns>
+        protected virtual IDictionary<Type, Type> GetElementTypesMap()
+        {
+            return new Dictionary<Type, Type>
+            {
+                { typeof(IButton), typeof(Button) },
+                { typeof(ICheckBox), typeof(CheckBox) },
+                { typeof(IComboBox), typeof(ComboBox) },
+                { typeof(ILabel), typeof(Label) },
+                { typeof(ILink), typeof(Link) },
+                { typeof(IRadioButton), typeof(RadioButton) },
+                { typeof(ITextBox), typeof(TextBox) }
+            };
         }
     }
 }
