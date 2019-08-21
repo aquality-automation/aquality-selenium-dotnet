@@ -44,8 +44,9 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_AcceptPromptAlertWithText()
         {
             alertsForm.JsPromptBtn.Click();
-            BrowserManager.Browser.HandleAlert(AlertAction.Accept, "accept alert text");
-            Assert.AreEqual("You entered: accept alert text", alertsForm.ResultLbl.GetText());
+            var text = "accept alert text";
+            BrowserManager.Browser.HandleAlert(AlertAction.Accept, text);
+            Assert.AreEqual($"You entered: {text}", alertsForm.ResultLbl.GetText());
         }
 
         [Test]
