@@ -13,7 +13,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).MouseActions.Click();
-            Assert.IsTrue(new DropdownListForm().IsDisplayed, "Dropdown form should be displayed");
+            Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
         [Test]
