@@ -185,7 +185,7 @@ var browser = BrowserManager.Browser;
 
 ```json
 {
-  "download.default_directory": ".//target//downloads//"
+  "download.default_directory": "//home//selenium//downloads"
 }
 ```
 
