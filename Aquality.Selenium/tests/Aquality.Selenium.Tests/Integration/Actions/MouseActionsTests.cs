@@ -22,8 +22,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var addRemoveElementsForm = new AddRemoveElementsForm();
             addRemoveElementsForm.Open();
-            addRemoveElementsForm.AddBtn.MouseActions.DoubleClick();
-            var addedButtonsCount = addRemoveElementsForm.ListOfDeleteBtns.Count;
+            addRemoveElementsForm.AddButton.MouseActions.DoubleClick();
+            var addedButtonsCount = addRemoveElementsForm.ListOfDeleteButtons.Count;
             Assert.AreEqual(2, addedButtonsCount, "2 elements should be added after double click");
         }
 
@@ -32,7 +32,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var contextMenuForm = new ContextMenuForm();
             contextMenuForm.Open();
-            contextMenuForm.LblHotSpot.MouseActions.RightClick();
+            contextMenuForm.HotSpotLabel.MouseActions.RightClick();
             Assert.DoesNotThrow(() => BrowserManager.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
         }
 

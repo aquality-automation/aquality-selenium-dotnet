@@ -90,8 +90,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var keyPressesForm = new KeyPressesForm();
             keyPressesForm.Open();
             var text = "text";
-            keyPressesForm.TxtInput.JsActions.SetValue(text);
-            var actualText = keyPressesForm.TxtInput.Value;
+            keyPressesForm.InputTextBox.JsActions.SetValue(text);
+            var actualText = keyPressesForm.InputTextBox.Value;
             Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via JS");
         }
 
@@ -100,7 +100,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.SubTitleLbl.JsActions.GetElementText(),
+            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.SubTitleLabel.JsActions.GetElementText(),
                 $"Sub title should be {WelcomeForm.SubTitle}");
         }
 
@@ -109,7 +109,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            var actualLocator = welcomeForm.SubTitleLbl.JsActions.GetXPath();
+            var actualLocator = welcomeForm.SubTitleLabel.JsActions.GetXPath();
             var expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
             Assert.AreEqual(expectedLocator, actualLocator, $"Locator of sub title should be {expectedLocator}");
         }
@@ -119,7 +119,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            var actualPoint = welcomeForm.SubTitleLbl.JsActions.GetViewPortCoordinates();
+            var actualPoint = welcomeForm.SubTitleLabel.JsActions.GetViewPortCoordinates();
             Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
         }
 
@@ -129,10 +129,10 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.LastExample.JsActions.ScrollIntoView();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
 
@@ -142,10 +142,10 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.LastExample.JsActions.ScrollBy(100000, 100000);
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
 
@@ -155,10 +155,10 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.LastExample.JsActions.ScrollToTheCenter();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
     }

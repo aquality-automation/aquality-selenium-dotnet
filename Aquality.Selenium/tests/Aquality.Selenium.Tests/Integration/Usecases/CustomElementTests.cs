@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         {
             var authForm = new AuthenticationForm();
             authForm.Open();
-            var userNameTxb = authForm.UserNameTxb;
+            var userNameTxb = authForm.UserNameTextBox;
 
             var userNameCustomTxb = new CustomTextBox(userNameTxb.Locator, userNameTxb.Name);
             userNameTxb.Type("wrong");

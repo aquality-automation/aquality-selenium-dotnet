@@ -11,17 +11,17 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public ITextBox UserNameTxb => ElementFactory.GetTextBox(By.Id("username"), "username");
+        public ITextBox UserNameTextBox => ElementFactory.GetTextBox(By.Id("username"), "username");
 
-        public ITextBox PasswordTxb => ElementFactory.GetTextBox(By.Id("password"), "password");
+        public ITextBox PasswordTextBox => ElementFactory.GetTextBox(By.Id("password"), "password");
 
-        public ILabel LoginLbl => ElementFactory.GetLabel(By.XPath(LoginLblXpath), "Login");
+        public ILabel LoginLabel => ElementFactory.GetLabel(By.XPath(LoginLblXpath), "Login");
 
-        public ITextBox NotExistTxb => ElementFactory.GetTextBox(By.XPath("//div[@class='not exist element']"), "not exist element");
+        public ITextBox NotExistTextBox => ElementFactory.GetTextBox(By.XPath("//div[@class='not exist element']"), "not exist element");
 
         protected override string UrlPart => "login";
 
-        public ILabel GetCustomElementBasedOnLoginLbl(string childXpath)
+        public ILabel GetCustomElementBasedOnLoginLabel(string childXpath)
         {
             return ElementFactory.GetLabel(By.XPath(LoginLblXpath + childXpath), "Custom Element Based On Login");
         }

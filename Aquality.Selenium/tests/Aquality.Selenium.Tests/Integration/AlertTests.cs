@@ -18,42 +18,42 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_AcceptAlert()
         {
-            alertsForm.JsAlertBtn.Click();
+            alertsForm.JsAlertButton.Click();
             BrowserManager.Browser.HandleAlert(AlertAction.Accept);
-            Assert.AreEqual("You successfuly clicked an alert", alertsForm.ResultLbl.GetText());
+            Assert.AreEqual("You successfuly clicked an alert", alertsForm.ResultLabel.GetText());
         }
 
         [Test]
         public void Should_BePossibleTo_AcceptConfirmationAlert()
         {
-            alertsForm.JsConfirmBtn.Click();
+            alertsForm.JsConfirmButton.Click();
             BrowserManager.Browser.HandleAlert(AlertAction.Accept);
-            Assert.AreEqual("You clicked: Ok", alertsForm.ResultLbl.GetText());
+            Assert.AreEqual("You clicked: Ok", alertsForm.ResultLabel.GetText());
         }
 
         [Test]
         public void Should_BePossibleTo_DeclineConfirmationAlert()
         {
-            alertsForm.JsConfirmBtn.Click();
+            alertsForm.JsConfirmButton.Click();
             BrowserManager.Browser.HandleAlert(AlertAction.Decline);
-            Assert.AreEqual("You clicked: Cancel", alertsForm.ResultLbl.GetText());
+            Assert.AreEqual("You clicked: Cancel", alertsForm.ResultLabel.GetText());
         }
 
         [Test]
         public void Should_BePossibleTo_AcceptPromptAlertWithText()
         {
-            alertsForm.JsPromptBtn.Click();
+            alertsForm.JsPromptButton.Click();
             var text = "accept alert text";
             BrowserManager.Browser.HandleAlert(AlertAction.Accept, text);
-            Assert.AreEqual($"You entered: {text}", alertsForm.ResultLbl.GetText());
+            Assert.AreEqual($"You entered: {text}", alertsForm.ResultLabel.GetText());
         }
 
         [Test]
         public void Should_BePossibleTo_DeclinePromptAlertWithText()
         {
-            alertsForm.JsPromptBtn.Click();
+            alertsForm.JsPromptButton.Click();
             BrowserManager.Browser.HandleAlert(AlertAction.Decline, "decline alert text");
-            Assert.AreEqual("You entered: null", alertsForm.ResultLbl.GetText());
+            Assert.AreEqual("You entered: null", alertsForm.ResultLabel.GetText());
         }
 
         [Test]

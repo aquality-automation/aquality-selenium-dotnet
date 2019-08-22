@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         public void Should_BePossibleTo_FocusAndType()
         {
             var text = "wrong";
-            var usernameTxb = authForm.UserNameTxb;
+            var usernameTxb = authForm.UserNameTextBox;
             usernameTxb.Type(text);
             Assert.AreEqual(text, usernameTxb.Value);
         }
@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var initialText = "initial value";
             var targetText = "target value";
-            var usernameTxb = authForm.UserNameTxb;
+            var usernameTxb = authForm.UserNameTextBox;
             usernameTxb.Type(initialText);
             usernameTxb.ClearAndType(targetText);
             Assert.AreEqual(targetText, usernameTxb.Value);
@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_BePossibleTo_SendKeys()
         {
-            var passwordTxb = authForm.PasswordTxb;
+            var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.SendKeys(Keys.NumberPad0);
             Assert.AreEqual("0", passwordTxb.Value);
         }
@@ -48,7 +48,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_BePossibleTo_Submit()
         {
-            var passwordTxb = authForm.PasswordTxb;
+            var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.Submit();
             Assert.IsTrue(ConditionalWait.WaitFor(() => passwordTxb.Value.Equals("", StringComparison.OrdinalIgnoreCase)));
         }
@@ -56,15 +56,15 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_BePossibleTo_SetInnerHtml()
         {
-            var usernameTxb = authForm.UserNameTxb;
+            var usernameTxb = authForm.UserNameTextBox;
             usernameTxb.State.WaitForDisplayed();
-            var loginLbl = authForm.LoginLbl;
+            var loginLbl = authForm.LoginLabel;
             loginLbl.SetInnerHtml("<p>123123</p>");
 
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(usernameTxb.State.WaitForNotExist());
-                Assert.IsTrue(authForm.GetCustomElementBasedOnLoginLbl("/p[.='123123']").State.WaitForDisplayed());
+                Assert.IsTrue(authForm.GetCustomElementBasedOnLoginLabel("/p[.='123123']").State.WaitForDisplayed());
             });
         }
 
@@ -73,7 +73,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var propertyName = "font-family";
             var expectedCssValue = "Helvetica";
-            var usernameTxb = authForm.UserNameTxb;
+            var usernameTxb = authForm.UserNameTextBox;
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(usernameTxb.GetCssValue(propertyName).Contains(expectedCssValue));
@@ -84,7 +84,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_ThrowNoSuchElementException_ForNotExistElement_OnSendKeys()
         {
-            Assert.Throws<NoSuchElementException>(() => authForm.NotExistTxb.SendKeys(Keys.Backspace));
+            Assert.Throws<NoSuchElementException>(() => authForm.NotExistTextBox.SendKeys(Keys.Backspace));
         }
     }
 }

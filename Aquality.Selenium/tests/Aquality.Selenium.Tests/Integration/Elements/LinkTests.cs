@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_BePossibleTo_Click()
         {
-            var link = redirectorForm.RedirectLnk;
+            var link = redirectorForm.RedirectLink;
             link.Click();
             WaitForRedirect();
             Assert.AreEqual(new StatusCodesForm().Url.ToLower(), BrowserManager.Browser.CurrentUrl.ToLower());
@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [Test]
         public void Should_BePossibleTo_GetHref()
         {
-            var link = redirectorForm.RedirectLnk;
+            var link = redirectorForm.RedirectLink;
             BrowserManager.Browser.GoTo(link.Href);
             WaitForRedirect();
             Assert.AreEqual(new StatusCodesForm().Url.ToLower(), BrowserManager.Browser.CurrentUrl.ToLower());

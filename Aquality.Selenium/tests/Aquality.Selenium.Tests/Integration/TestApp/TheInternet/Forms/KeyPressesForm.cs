@@ -11,6 +11,6 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected override string UrlPart => "key_presses";
 
-        public ITextBox TxtInput => ElementFactory.GetTextBox(By.Id("target"), "Input");
+        public ITextBox InputTextBox => ElementFactory.GetTextBox(By.Id("target"), "Input");
     }
 }

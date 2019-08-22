@@ -126,8 +126,8 @@ namespace Aquality.Selenium.Tests.Integration
             var valueToSet = "username";
             var authForm = new AuthenticationForm();
             authForm.Open();
-            BrowserManager.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTxb.GetElement(), valueToSet);
-            Assert.AreEqual(valueToSet, authForm.UserNameTxb.Value);
+            BrowserManager.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTextBox.GetElement(), valueToSet);
+            Assert.AreEqual(valueToSet, authForm.UserNameTextBox.Value);
         }
 
         [Ignore("should be updated")]

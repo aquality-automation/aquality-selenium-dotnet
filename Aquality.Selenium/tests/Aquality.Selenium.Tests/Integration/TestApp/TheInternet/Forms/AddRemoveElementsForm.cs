@@ -10,9 +10,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public IButton AddBtn => ElementFactory.GetButton(By.XPath("//button[contains(@onclick,'addElement')]"), "Add element");
+        public IButton AddButton => ElementFactory.GetButton(By.XPath("//button[contains(@onclick,'addElement')]"), "Add element");
 
-        public IList<IButton> ListOfDeleteBtns => ElementFactory.FindElements(By.XPath("//button[contains(@class,'added-manually')]"), ElementFactory.GetButton);
+        public IList<IButton> ListOfDeleteButtons => ElementFactory.FindElements(By.XPath("//button[contains(@class,'added-manually')]"), ElementFactory.GetButton);
 
         protected override string UrlPart => "add_remove_elements/";
     }

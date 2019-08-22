@@ -11,6 +11,6 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected override string UrlPart => "context_menu";
 
-        public ILabel LblHotSpot => ElementFactory.GetLabel(By.Id("hot-spot"), "Hot spot");
+        public ILabel HotSpotLabel => ElementFactory.GetLabel(By.Id("hot-spot"), "Hot spot");
     }
 }

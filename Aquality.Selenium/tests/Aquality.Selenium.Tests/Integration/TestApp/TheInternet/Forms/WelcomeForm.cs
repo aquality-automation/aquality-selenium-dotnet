@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public ILabel SubTitleLbl => ElementFactory.GetLabel(By.XPath("//h2"), "Sub title");
+        public ILabel SubTitleLabel => ElementFactory.GetLabel(By.XPath("//h2"), "Sub title");
 
         protected override string UrlPart => string.Empty;
 

@@ -13,8 +13,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected override string UrlPart => "infinite_scroll";
 
-        public IList<ILabel> LblExamples => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
+        public IList<ILabel> ExampleLabels => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
 
-        public ILabel LastExample => LblExamples.Last();
+        public ILabel LastExampleLabel => ExampleLabels.Last();
     }
 }

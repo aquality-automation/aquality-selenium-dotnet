@@ -9,9 +9,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public ICheckBox FirstChbx => ElementFactory.GetCheckBox(By.XPath("//input[1]"), "First checkBox");
+        public ICheckBox FirstCheckBox => ElementFactory.GetCheckBox(By.XPath("//input[1]"), "First checkBox");
 
-        public ICheckBox SecondChbx => ElementFactory.GetCheckBox(By.XPath("//input[2]"), "Second checkBox");
+        public ICheckBox SecondCheckBox => ElementFactory.GetCheckBox(By.XPath("//input[2]"), "Second checkBox");
 
         protected override string UrlPart => "checkboxes";
     }

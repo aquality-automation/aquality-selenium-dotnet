@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public ILink RedirectLnk => ElementFactory.GetLink(By.Id("redirect"), "Link");
+        public ILink RedirectLink => ElementFactory.GetLink(By.Id("redirect"), "Link");
 
         protected override string UrlPart => "redirector";
     }
