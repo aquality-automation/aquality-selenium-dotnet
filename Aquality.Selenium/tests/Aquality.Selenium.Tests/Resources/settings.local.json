@@ -18,11 +18,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
       },
-      "startArguments": [
-        "--no-sandbox",
-        "--headless",
-        "--disable-dev-shm-usage"
-      ]
+      "startArguments": []
     },
     "firefox": {
       "webDriverVersion": "Latest",
