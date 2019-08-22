@@ -17,7 +17,7 @@ Aquality Selenium is a wrapper over Selenium WebDriver tool that allows to autom
     - <a href='#31-parallel-runs'>3.1. PARALLEL RUNS</a>
     - <a href='#32-browser-manager'>3.2. BROWSER MANAGER</a>
     - <a href='#33-browser-factory'>3.3. BROWSER FACTORY</a>
-    - <a href='#34-driver-capabilities'>3.4. DRIVER CAPABILITIES</a>
+    - <a href='#34-driver-options'>3.4. DRIVER OPTIONS</a>
     - <a href='#35-download-directory'>3.5. DOWNLOAD DIRECTORY</a>
     - <a href='#36-alerts'>3.6. ALERTS</a>
     - <a href='#37-screenshots'>3.7. SCREENSHOTS</a>
@@ -77,14 +77,14 @@ Please use official sources from web browser developers to get list of available
 
 [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) contains `timeouts` section which includes a set of parameters related to different timeouts that are using in the library.
 
-Все параметры данной конфигурации используются для инициализации объекта класса [TimeoutConfiguration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/TimeoutConfiguration.cs), доступного впоследствии путем обращения `Configuration.Instance.TimeoutConfiguration`.
+All these parameters are using to initialize object of [TimeoutConfiguration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/TimeoutConfiguration.cs) which is accessible throught `Configuration.Instance.TimeoutConfiguration`.
 
-Ниже приводится описание параметров из секции `timeouts` c их назначением:
+The following are the parameters from `timeouts` section:
 
-- `timeoutImplicit` = 0 seconds - значение неявного ожидания web driver'а [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
+- `timeoutImplicit` = 0 seconds - web driver implicit wait timeout [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
 - `timeoutCondition` = 15 seconds - время ожидания событий в решении. К событиям относятся ожидание элементов или их состояния
 - `timeoutScript` = 10 seconds - данное значение служит лимитом выполнения скриптов с использованием метода WebDriver **ExecuteAsyncScript**
-- `timeoutPageLoad` = 30 seconds - время ожидания загрузки страницы
+- `timeoutPageLoad` = 30 seconds - page load timeout
 - `timeoutPollingInterval` = 300 milliseconds - интервал опроса в при явных ожиданиях
 - `timeoutCommand` = 60 seconds - максимальное время ожидания выполнения каждой команды, отправляемой web driver'у 
 
@@ -274,7 +274,7 @@ var isDisplayed = UserNameTextBox.State.IsDisplayed;
 
 ### **5. FORMS**
 
-Основное назначение решения  - помощь в автоматизации тестирования Web приложений. Существует практика автоматизации с использованием подхода [Page Objects](https://github.com/SeleniumHQ/selenium/wiki/PageObjects). Для поддержания и расширения данного подхода решение предлагает к использованию класс [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs), который может служить родительским классом для всех описываемых страниц и форм приложения. Пример использования:
+The main goal of this library is to help with test automation of web applications. Существует практика автоматизации с использованием подхода [Page Objects](https://github.com/SeleniumHQ/selenium/wiki/PageObjects). Для поддержания и расширения данного подхода решение предлагает к использованию класс [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs), который может служить родительским классом для всех описываемых страниц и форм приложения. Пример использования:
 
 ```csharp
 public class SliderForm : Form 
@@ -299,9 +299,9 @@ public class SliderForm : Form
 
 ### **7. JSON FILE**
 
-Aquality Selenium использует для своей работы и предоставляет доступ к классу [JsonFile](../Aquality.Selenium/src/Aquality.Selenium/Utilities/JsonFile.cs).
-Данный класс предоставляет удобные методы для работы с JSON файлами вашего проекта.
-Например, если вы захотите хранить URL сайта с которым вы работаете как параметр конфигурации вы сможете считывать значения из JSON при помощи указанного класса:
+Aquality Selenium uses class [JsonFile](../Aquality.Selenium/src/Aquality.Selenium/Utilities/JsonFile.cs) and provides access to it.
+This class provides useful methods to work with JSON files from your project.
+For example, if you want to store web application URL which you are working with as a parameter in configuration, you can get its value from JSON like this:
 
 ```csharp
 var environment = new JsonFile("settings.json");

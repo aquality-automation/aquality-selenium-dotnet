@@ -17,7 +17,7 @@ Aquality Selenium является надстройкой над инструм�
     - <a href='#31-parallel-runs'>3.1. PARALLEL RUNS</a>
     - <a href='#32-browser-manager'>3.2. BROWSER MANAGER</a>
     - <a href='#33-browser-factory'>3.3. BROWSER FACTORY</a>
-    - <a href='#34-driver-capabilities'>3.4. DRIVER CAPABILITIES</a>
+    - <a href='#34-driver-options'>3.4. DRIVER OPTIONS</a>
     - <a href='#35-download-directory'>3.5. DOWNLOAD DIRECTORY</a>
     - <a href='#36-alerts'>3.6. ALERTS</a>
     - <a href='#37-screenshots'>3.7. SCREENSHOTS</a>
