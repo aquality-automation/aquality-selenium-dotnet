@@ -123,7 +123,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_ScrollIntoView()
         {
