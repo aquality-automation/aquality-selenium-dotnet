@@ -1,6 +1,6 @@
 # Aquality Selenium for .NET
 
-Aquality Selenium является надстройкой над инструментом работы с браузером посредством Selenium WebDriver. Работа с Selenium WebDriver требует определенных навыков и опыта. Aquality Selenium предлагает упрощенный, а главное, более безопасный и стабильный способ работы с Selenium WebDriver.
+Aquality Selenium is a wrapper over Selenium WebDriver tool that allows to automate work with web browsers. Selenium WebDriver requires some skill and experience. So, Aquality Selenium suggests simplified and most importantly safer and more stable way to work with Selenium WebDriver.
 
  - <a href="#1-platform-support">1. PLATFORM SUPPORT</a>
  - <a href='#2-configurations'>2. CONFIGURATIONS</a>
@@ -31,14 +31,15 @@ Aquality Selenium является надстройкой над инструм�
  - <a href='#7-json-file'>7. JSON FILE</a>
 
 ### 1. PLATFORM SUPPORT
-В настоящее время Aquality Selenium позволяет автоматизировать веб тесты для Chrome, Firefox, Safari, IExplorer и Edge. Также присутствуют возможности самостоятельно реализовать поддержку новых браузеров, которые поддерживаются Selenium (подробнее [здесь](https://www.seleniumhq.org/about/platforms.jsp)).
-При этом запуск тестов может выполняться на любой операционной системе с установленным на ней .NET Core SDK 2.1 и выше.
+
+At the moment Aquality Selenium allows to automate web tests for Chrome, Firefox, Safari, IExplorer and Edge. Also you can implement support of new browsers that Selenium supports (more details [here](https://www.seleniumhq.org/about/platforms.jsp)).
+Tests can be executed on any operating system with installed .NET Core SDK 2.1 and higher.
 
 ### 2. CONFIGURATIONS
 
-Aquality Selenium предоставляет пользователю гибкие возможности по конфигурации запусков путём редактирования конфигурационного файла [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json)
-Большинство настроек понятны без дополнительных объяснений, но основные моменты обозначены ниже в данном разделе.
-Также существует возможность использования Aquality Selenium реализовав собственные классы конфигурации.
+Aquality Selenium provides flexible configuration to run tests by editing [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file.
+Most of the settings are clear without further explanation but major points are highlighted below.
+There is a possibility to implement your own configuration.
 
 ### 2.1. SETTINGS
 
@@ -56,34 +57,36 @@ Aquality Selenium предоставляет пользователю гибки
 Для этого необходимо указать `jsonPath` к параметру в JSON и его значение. Например:
 `driverSettings.chrome.webDriverVersion: 77.0.3865.10`
 
-Settings файл содержит несколько секций, назначение которых описывается ниже.
+Settings file contains several sections the purpose of which is described below.
 
 #### 2.2. BROWSER
-`browserName` параметр определяет на каком браузере будет выполняться запуск. Например browser=chrome - означает, что запуск осуществиться в Google Chrome.
 
-`isRemote` параметр определят будет ли запуск выполняться на той же машине, где выполняется .NET процесс или использовать удалённый сервер, указанный в параметре `remoteConnectionUrl`.
+`browserName` parameter defines the web browser which will be used for test run. For example, `browserName: chrome` means that tests will be run on Google Chrome.
+
+`isRemote` parameter defines whether tests will be run on the same machine where .NET process is running or remote server will be using which is defined in parameter `remoteConnectionUrl`.
 
 #### 2.3. DRIVER SETTINGS
-`driverSettings` секция файла [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) предоставляет возможность устанавливать необходимые capabilities, options или start arguments для web driver.
 
-Для получения допустимых аргументов и опций обратитесь к официальным источникам от разработчиков браузеров. Например, для chrome: [run-chromium-with-flags](https://www.chromium.org/developers/how-tos/run-chromium-with-flags)
+Section `driverSettings` from [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) provides an ability to set up necessary capabilities, options and start arguments for web driver.
 
-Мы постарались [здесь](./IExplorer_Settings.md) описать особенности работы с IExplorer самостоятельно ввиду разрознености информации на этот счёт в интернете.
+Please use official sources from web browser developers to get list of available arguments. For example, for Chrome: [run-chromium-with-flags](https://www.chromium.org/developers/how-tos/run-chromium-with-flags)
+
+[Here](./IExplorer_Settings.md) we tried to described some points of work with IExplorer because of different information in the Internet.
 
 #### 2.4. TIMEOUTS
 
-[settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) содержит секцию `timeouts`, которая включает в себя набор параметров, связанных с различного рода таймаутами, используемыми в решении.
+[settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) contains `timeouts` section which includes a set of parameters related to different timeouts that are using in the library.
 
 Все параметры данной конфигурации используются для инициализации объекта класса [TimeoutConfiguration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/TimeoutConfiguration.cs), доступного впоследствии путем обращения `Configuration.Instance.TimeoutConfiguration`.
 
 Ниже приводится описание параметров из секции `timeouts` c их назначением:
 
-- `timeoutImplicit` = 0 секунд - значение неявного ожидания web driver'а [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
-- `timeoutCondition` = 15 секунд - время ожидания событий в решении. К событиям относятся ожидание элементов или их состояния
-- `timeoutScript` = 10 секунд - данное значение служит лимитом выполнения скриптов с использованием метода WebDriver **ExecuteAsyncScript**
-- `timeoutPageLoad` = 30 секунд - время ожидания загрузки страницы
-- `timeoutPollingInterval` = 300 миллисекунд - интервал опроса в при явных ожиданиях
-- `timeoutCommand` = 60 секунд - максимальное время ожидания выполнения каждой команды, отправляемой web driver'у 
+- `timeoutImplicit` = 0 seconds - значение неявного ожидания web driver'а [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
+- `timeoutCondition` = 15 seconds - время ожидания событий в решении. К событиям относятся ожидание элементов или их состояния
+- `timeoutScript` = 10 seconds - данное значение служит лимитом выполнения скриптов с использованием метода WebDriver **ExecuteAsyncScript**
+- `timeoutPageLoad` = 30 seconds - время ожидания загрузки страницы
+- `timeoutPollingInterval` = 300 milliseconds - интервал опроса в при явных ожиданиях
+- `timeoutCommand` = 60 seconds - максимальное время ожидания выполнения каждой команды, отправляемой web driver'у 
 
 В рамках решения все ожидания элементов выполняются при помощи Excplicit Wait. 
 Перед ожиданием элемента значение implicit wait будет установлено принудительно, независимо от того, что находится в конфигурации.
