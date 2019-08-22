@@ -40,7 +40,7 @@ Aquality Selenium предоставляет пользователю гибки
 Большинство настроек понятны без дополнительных объяснений, но основные моменты обозначены ниже в данном разделе.
 Также существует возможность использования Aquality Selenium реализовав собственные классы конфигурации.
 
-### 2.1. SETTINGS - [ToDo]
+### 2.1. SETTINGS
 
 Работа с решением подразумевает использование [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) или его измененных копий для запуска тестов.
 По умолчанию используется файл [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) хранящийся в dll библиотеки как Embedded Resource.
