@@ -301,7 +301,40 @@ namespace Aquality.Selenium.Browsers
         public T ExecuteScript<T>(string script, params object[] arguments)
         {
             return Driver.ExecuteJavaScript<T>(script, arguments);
-        }                
+        }
+        
+        /// <summary>
+        /// Executes JS script asynchronously from embedded resource file (*.js) and gets result value.
+        /// </summary>
+        /// <param name="embeddedResourcePath">Embedded resource path.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <returns>Script execution result.</returns>
+        public object ExecuteAsyncScriptFromFile(string embeddedResourcePath, params object[] arguments)
+        {
+            return ExecuteAsyncScript(embeddedResourcePath.GetScript(Assembly.GetCallingAssembly()), arguments);
+        }
+
+        /// <summary>
+        /// Executes predefined JS script and gets result value.
+        /// </summary>
+        /// <param name="scriptName">Name of desired JS script.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <returns>Script execution result.</returns>
+        public object ExecuteAsyncScript(JavaScript scriptName, params object[] arguments)
+        {
+            return ExecuteAsyncScript(scriptName.GetScript(), arguments);
+        }
+
+        /// <summary>
+        /// Executes JS script asynchronously and gets result value. 
+        /// </summary>
+        /// <param name="script">String representation of JS script.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <returns>Script execution result.</returns>
+        public object ExecuteAsyncScript(string script, params object[] arguments)
+        {
+            return Driver.ExecuteAsyncScript(script, arguments);
+        }
 
         /// <summary>
         /// Sets size of current window.
