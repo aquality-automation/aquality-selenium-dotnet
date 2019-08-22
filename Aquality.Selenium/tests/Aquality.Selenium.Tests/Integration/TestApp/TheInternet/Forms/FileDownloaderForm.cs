@@ -1,10 +1,9 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
-    internal class FileDownloaderForm : Form
+    internal class FileDownloaderForm : TheInternetForm
     {
         private const string LinkTemplate = "//a[contains(@href,'{0}')]";
 
@@ -13,6 +12,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         }
 
         public string FileName => "some-file.txt";
+
+        protected override string UrlPart => "download";
 
         public ILink GetDownloadLink(string fileName)
         {

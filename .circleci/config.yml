@@ -20,6 +20,3 @@ jobs:
       - store_artifacts:
           path: Aquality.Selenium/tests/Aquality.Selenium.Tests/Log/log.log
           destination: log
-          
-      - store_artifacts:
-          path: Aquality.Selenium/tests/Aquality.Selenium.Tests/Log/

@@ -16,7 +16,7 @@
         "profile.default_content_settings.popups": "0",
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
-        "download.default_directory": "/root/project/downloads"
+        "download.default_directory": "./downloads"
       },
       "startArguments": [
         "--no-sandbox",
@@ -31,7 +31,7 @@
       },
       "options": {
         "intl.accept_languages": "en",
-        "browser.download.dir": "/root/project/downloads",
+        "browser.download.dir": "./downloads",
         "browser.download.folderList": 2,
         "browser.helperApps.neverAsk.saveToDisk": "application/octet-stream, application/x-debian-package, application/x-www-form-urlencod, application/json, application/x-compressed, application/x-zip-compressed, application/zip, multipart/x-zip, text/plain, text/csv",
         "browser.helperApps.alwaysAsk.force": false,
