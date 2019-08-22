@@ -20,6 +20,7 @@
       },
       "startArguments": [
         "--no-sandbox",
+        "--headless",
         "--disable-dev-shm-usage"
       ]
     },
