@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             browser.Driver.SwitchTo().Window(tabs[1]);
             browser.GoTo(TheInternetPage.Download);
             downloaderForm.GetDownloadLink(fileName).JsActions.ClickAndWait();
-            Logger.Instance.Debug(browser.Driver.PageSource);
+            browser.Driver.GetScreenshot().SaveAsFile("../../../Log/screen1.png");
             browser.Driver.SwitchTo().Window(tabs[0]);
             bool condition() => FileUtil.IsFileDownloaded(filePath, lblFileContent) || file.Exists;
             try
@@ -52,6 +52,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             }
             catch (TimeoutException)
             {
+                browser.Driver.GetScreenshot().SaveAsFile("../../../Log/screen2.png");
                 Logger.Instance.Debug(browser.Driver.PageSource);
                 browser.Quit();
                 Logger.Instance.Debug(lblFileContent.GetElement().Text);
