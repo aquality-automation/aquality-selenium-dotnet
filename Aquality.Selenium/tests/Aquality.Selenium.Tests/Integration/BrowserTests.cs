@@ -214,7 +214,7 @@ namespace Aquality.Selenium.Tests.Integration
                 "/Users/username/Downloads",
                 "target//downloads",
                 "/home/circleci/repo/target/downloads",
-                "//root//project//downloads"
+                "/root/project/downloads"
             };
             var downloadDir = BrowserManager.Browser.DownloadDirectory;
             Assert.IsTrue(listOfDownloadDirs.Any(dir => downloadDir.ToLower().Contains(dir)));
