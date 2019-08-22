@@ -19,9 +19,7 @@
         "download.default_directory": "//root//project//downloads"
       },
       "startArguments": [
-        "--no-sandbox",
-        "--headless",
-        "--disable-dev-shm-usage"
+        "--no-sandbox"
       ]
     },
     "firefox": {
