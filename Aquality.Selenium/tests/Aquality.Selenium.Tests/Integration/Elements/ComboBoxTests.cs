@@ -1,6 +1,4 @@
-﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Integration.TestApp;
-using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
+﻿using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 
@@ -16,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         [SetUp]
         public void BeforeTest()
         {
-            BrowserManager.Browser.GoTo(TheInternetPage.Dropdown);
+            dropdownForm.Open();
         }
 
         [Test]
