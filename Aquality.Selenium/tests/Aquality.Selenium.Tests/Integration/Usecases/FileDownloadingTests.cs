@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements;
+using Aquality.Selenium.Logging;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using Aquality.Selenium.Waitings;
@@ -42,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             browser.Driver.SwitchTo().Window(tabs[1]);
             browser.GoTo(TheInternetPage.Download);
             downloaderForm.GetDownloadLink(fileName).JsActions.ClickAndWait();
-
+            Logger.Instance.Debug(browser.Driver.PageSource);
             browser.Driver.SwitchTo().Window(tabs[0]);
             bool condition() => FileUtil.IsFileDownloaded(filePath, lblFileContent) || file.Exists;
             try
@@ -51,8 +52,9 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             }
             catch (TimeoutException)
             {
+                Logger.Instance.Debug(browser.Driver.PageSource);
                 browser.Quit();
-                ConditionalWait.WaitForTrue(condition);
+                Logger.Instance.Debug(lblFileContent.GetElement().Text);
             }
         }
     }
