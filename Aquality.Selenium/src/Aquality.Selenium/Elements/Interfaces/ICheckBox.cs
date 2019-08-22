@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Gets CheckBox specific JavaScript actions.
         /// </summary>
-        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.CheckBoxJsActions"/></value>
+        /// <value>Instance of <see cref="CheckBoxJsActions"/></value>
         new CheckBoxJsActions JsActions { get; }
 
         /// <summary>

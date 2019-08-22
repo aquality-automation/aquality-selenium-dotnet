@@ -1,23 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
-    internal class InfiniteScrollForm : Form
+    internal class InfiniteScrollForm : TheInternetForm
     {
-        private static readonly By FormLocator = By.XPath("//h3[contains(.,'Infinite Scroll')]");
-        public IList<ILabel> LblExamples => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
-
-        public InfiniteScrollForm() : base(FormLocator, "Infinite Scroll")
+        public InfiniteScrollForm() : base(By.XPath("//h3[contains(.,'Infinite Scroll')]"), "Infinite Scroll")
         {
         }
 
-        public ILabel GetLastExample()
-        {
-            return LblExamples.Last();
-        }
+        protected override string UrlPart => "infinite_scroll";
+
+        public IList<ILabel> ExampleLabels => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
+
+        public ILabel LastExampleLabel => ExampleLabels.Last();
     }
 }

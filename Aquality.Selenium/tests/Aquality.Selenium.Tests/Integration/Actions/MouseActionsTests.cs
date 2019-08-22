@@ -9,39 +9,36 @@ namespace Aquality.Selenium.Tests.Integration.Actions
     internal class MouseActionsTests : UITest
     {
         [Test]
-        public void Should_BeAbleClick_WithMouseActions()
+        public void Should_BePossibleTo_Click()
         {
             var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).MouseActions.Click();
             Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
         [Test]
-        public void Should_BeAbleDoubleClick_WithMouseActions()
+        public void Should_BePossibleTo_DoubleClick()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.GetExampleLink(AvailableExample.AddRemoveElements).Click();
-
             var addRemoveElementsForm = new AddRemoveElementsForm();
-            addRemoveElementsForm.BtnAdd.MouseActions.DoubleClick();
-            var addedButtonsCount = addRemoveElementsForm.BtnsDelete.Count;
+            addRemoveElementsForm.Open();
+            addRemoveElementsForm.AddButton.MouseActions.DoubleClick();
+            var addedButtonsCount = addRemoveElementsForm.ListOfDeleteButtons.Count;
             Assert.AreEqual(2, addedButtonsCount, "2 elements should be added after double click");
         }
 
         [Test]
-        public void Should_BeAbleRightClick_WithMouseActions()
+        public void Should_BePossibleTo_RightClick()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.GetExampleLink(AvailableExample.ContextMenu).Click();
-
             var contextMenuForm = new ContextMenuForm();
-            contextMenuForm.LblHotSpot.MouseActions.RightClick();
-            Assert.DoesNotThrow(()=> BrowserManager.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
+            contextMenuForm.Open();
+            contextMenuForm.HotSpotLabel.MouseActions.RightClick();
+            Assert.DoesNotThrow(() => BrowserManager.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
         }
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BeAbleMoveMouse_WithMouseActions()
+        public void Should_BePossibleTo_MoveMouseToElement()
         {
             BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();

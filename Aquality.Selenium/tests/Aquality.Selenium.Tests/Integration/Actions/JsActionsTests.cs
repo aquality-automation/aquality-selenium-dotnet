@@ -12,25 +12,28 @@ namespace Aquality.Selenium.Tests.Integration.Actions
     internal class JsActionsTests : UITest
     {
         [Test]
-        public void Should_BeAbleClick_WithJsActions()
+        public void Should_BePossibleTo_Click()
         {
             var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.Click();
             Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
         [Test]
-        public void Should_BeAbleClickAndWait_WithJsActions()
-        {
+        public void Should_BePossibleTo_ClickAndWait()
+        {            
             var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ClickAndWait();
             Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
         [Test]
-        public void Should_BeAbleHighlight_WithJsActions()
+        public void Should_BePossibleTo_HighlightElement()
         {
             var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             var dropdownExample = welcomeForm.GetExampleLink(AvailableExample.Dropdown);
             dropdownExample.JsActions.HighlightElement(HighlightState.Highlight);
             var border = dropdownExample.GetCssValue("border");
@@ -39,7 +42,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BeAbleHover_WithJsActions()
+        public void Should_BePossibleTo_HoverMouse()
         {
             BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
@@ -52,7 +55,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         }
 
         [Test]
-        public void Should_BeAbleSetFocus_WithJsActions()
+        public void Should_BePossibleTo_SetFocus()
         {
             BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
@@ -68,12 +71,10 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BeAbleCheckIsElementOnScreen_WithJsActions()
+        public void Should_BePossibleTo_CheckIsElementOnScreen()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.SelectExample(AvailableExample.Hovers);
-
             var hoversForm = new HoversForm();
+            hoversForm.Open();
             Assert.Multiple(() =>
             {
                 Assert.IsFalse(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(),
@@ -84,84 +85,79 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         }
 
         [Test]
-        public void Should_BeAbleSetValue_WithJsActions()
+        public void Should_BePossibleTo_SetValue()
         {
-            const string text = "text";
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.SelectExample(AvailableExample.KeyPresses);
-
             var keyPressesForm = new KeyPressesForm();
-            keyPressesForm.TxtInput.JsActions.SetValue(text);
-            var actualText = keyPressesForm.TxtInput.Value;
+            keyPressesForm.Open();
+            var text = "text";
+            keyPressesForm.InputTextBox.JsActions.SetValue(text);
+            var actualText = keyPressesForm.InputTextBox.Value;
             Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via JS");
         }
 
         [Test]
-        public void Should_BeAbleGetText_WithJsActions()
+        public void Should_BePossibleTo_GetElementText()
         {
             var welcomeForm = new WelcomeForm();
-            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.LblSubTitle.JsActions.GetElementText(),
+            welcomeForm.Open();
+            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.SubTitleLabel.JsActions.GetElementText(),
                 $"Sub title should be {WelcomeForm.SubTitle}");
         }
 
         [Test]
-        public void Should_BeAbleGetLocator_WithJsActions()
+        public void Should_BePossibleTo_GetXPathLocator()
         {
-            const string expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
             var welcomeForm = new WelcomeForm();
-            var actualLocator = welcomeForm.LblSubTitle.JsActions.GetXPath();
+            welcomeForm.Open();
+            var actualLocator = welcomeForm.SubTitleLabel.JsActions.GetXPath();
+            var expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
             Assert.AreEqual(expectedLocator, actualLocator, $"Locator of sub title should be {expectedLocator}");
         }
 
         [Test]
-        public void Should_BeAbleGetCoordinates_WithJsActions()
+        public void Should_BePossibleTo_GetViewPortCoordinates()
         {
             var welcomeForm = new WelcomeForm();
-            var actualPoint = welcomeForm.LblSubTitle.JsActions.GetViewPortCoordinates();
+            welcomeForm.Open();
+            var actualPoint = welcomeForm.SubTitleLabel.JsActions.GetViewPortCoordinates();
             Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
         }
 
         [Test]
-        public void Should_BeAbleScrollIntoView_WithJsActions()
+        public void Should_BePossibleTo_ScrollIntoView()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
-
             var infiniteScrollForm = new InfiniteScrollForm();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.GetLastExample().JsActions.ScrollIntoView();
+            infiniteScrollForm.Open();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BeAbleScrollBy_WithJsActions()
+        public void Should_BePossibleTo_ScrollBy()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
-
             var infiniteScrollForm = new InfiniteScrollForm();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.GetLastExample().JsActions.ScrollBy(100000, 100000);
+            infiniteScrollForm.Open();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BeAbleToTheCenter_WithJsActions()
+        public void Should_BePossibleTo_ScrollToTheCenter()
         {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.SelectExample(AvailableExample.InfiniteScroll);
-
             var infiniteScrollForm = new InfiniteScrollForm();
-            var defaultCount = infiniteScrollForm.LblExamples.Count;
-            infiniteScrollForm.GetLastExample().JsActions.ScrollToTheCenter();
+            infiniteScrollForm.Open();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.LblExamples.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
                 "Some examples should be added after scroll");
         }
     }
