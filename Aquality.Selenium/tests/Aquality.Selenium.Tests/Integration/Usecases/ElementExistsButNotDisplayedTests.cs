@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
-    internal class ElementExistsButNotDisplayedTest : UITest
+    internal class ElementExistsButNotDisplayedTests : UITest
     {
         [SetUp]
         public void BeforeTest()

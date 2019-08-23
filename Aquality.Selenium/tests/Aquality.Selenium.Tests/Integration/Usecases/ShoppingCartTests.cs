@@ -7,7 +7,7 @@ using System;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
-    internal class ShoppingCartTest : UITest
+    internal class ShoppingCartTests : UITest
     {
         private static readonly int ExpectedNumdberOfProducts = 7;
         private static readonly int ExpectedQuantity = 2;
