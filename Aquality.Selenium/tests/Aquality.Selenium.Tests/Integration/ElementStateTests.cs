@@ -14,6 +14,7 @@ namespace Aquality.Selenium.Tests.Integration
             dynamicControlsForm.Open();
         }
 
+        [Ignore("there is a bug. #99")]
         [Test]
         public void Should_BePossibleTo_CheckEnabledElementState()
         {
@@ -23,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration
                 Assert.IsFalse(dynamicControlsForm.TxtTextInput.State.IsEnabled, "Text input should be disabled");
             });
         }
-
+        
         [Test]
         public void Should_BePossibleTo_CheckDisplayedElementState()
         {
