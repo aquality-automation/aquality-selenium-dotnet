@@ -82,7 +82,7 @@ All these parameters are using to initialize object of [TimeoutConfiguration](..
 The following are the parameters from `timeouts` section:
 
 - `timeoutImplicit` = 0 seconds - web driver implicit wait timeout [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
-- `timeoutCondition` = 15 seconds - время ожидания событий в решении. К событиям относятся ожидание элементов или их состояния
+- `timeoutCondition` = 15 seconds - events with desired conditions timeout. К событиям относятся ожидание элементов или их состояния
 - `timeoutScript` = 10 seconds - данное значение служит лимитом выполнения скриптов с использованием метода WebDriver **ExecuteAsyncScript**
 - `timeoutPageLoad` = 30 seconds - page load timeout
 - `timeoutPollingInterval` = 300 milliseconds - интервал опроса в при явных ожиданиях
@@ -287,7 +287,7 @@ public class SliderForm : Form
 
 Здесь Id = &quot;slider\_row&quot; устанавливает локатор, который будет использован при проверке открытия страницы/формы, используя свойство `IsDisplayed` класса [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs).
 
-Пример теста с использованием Page Objects здесь [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
+Example of test with Page Objects: [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
 
 ### **6. JAVASCRIPT EXECUTION**
 
