@@ -252,7 +252,7 @@ namespace Aquality.Selenium.Tests.Integration
             {
                 "//home//selenium//downloads",
                 "/Users/username/Downloads",
-                "target//downloads",
+                "./downloads",
                 "/home/circleci/repo/target/downloads"
             };
             var downloadDir = BrowserManager.Browser.DownloadDirectory;

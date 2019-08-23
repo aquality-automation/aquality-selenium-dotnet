@@ -60,6 +60,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 {
                     options.SetPreference(option.Key, (int) value);
                 }
+                else if (value is long)
+                {
+                    options.SetPreference(option.Key, (long)value);
+                }
                 else if(value is float)
                 {
                     options.SetPreference(option.Key, (float) value);
