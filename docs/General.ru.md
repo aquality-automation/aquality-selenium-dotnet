@@ -86,7 +86,7 @@ Settings файл содержит несколько секций, назнач
 - `timeoutCommand` = 60 секунд - максимальное время ожидания выполнения каждой команды, отправляемой web driver'у 
 
 В рамках решения все ожидания элементов выполняются при помощи Excplicit Wait. 
-Перед ожиданием элемента значение implicit wait будет установлено принудительно, независимо от того, что находится в конфигурации.
+Перед ожиданием элемента значение implicit wait будет установлено в ноль принудительно, независимо от того, что находится в конфигурации.
 Использование двух типов ожиданий не рекомендовано, так как может приводить к некорректному поведению.
 
 #### 2.5 RETRY POLICY
@@ -99,14 +99,15 @@ Settings файл содержит несколько секций, назнач
 [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException) и повторяет попытку снова. 
 
 #### 2.6. LOGGING
+
 Решение поддерживает логирование выполняемых операций (взаимодействие с браузером, элементами страницы). Пример логирования:
 
-2019-07-18 10:14:08 INFO  - Label &#39;First product&#39; :: Moving mouse to element
+`2019-07-18 10:14:08 INFO  - Label &#39;First product&#39; :: Moving mouse to element`
 
-Логирование поддерживается на языках
+Логирование поддерживается на языках:
 
-- [en](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/en.json) - английский
-- [ru](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/ru.json) - русский
+- [en](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/en.json) - Английский
+- [ru](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/ru.json) - Русский
 
 Значение языка логирования устанавливается в параметре [logger.language](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json).
 
@@ -212,7 +213,7 @@ BrowserManager.Browser.HandleAlert(AlertAction.Accept);
 Для получения снимков экрана класс Browser предоставляет метод 
 
 ```csharp
-BrowserManager.Browser.GetScreenshot();
+var screenshot = BrowserManager.Browser.GetScreenshot();
 ```
 
 Более подробный пример использования смотрите в тесте [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs)
@@ -242,7 +243,7 @@ var usernameTextBox = elementFactory.GetTextBox(By.Id("username"), "Username");
 Для получения списка элементов `ElementFactory` предоставляет метод `FindElements`, использование которого демонстрируется ниже:
 
 ```csharp
-var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath(checkboxLocator));
+var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
 ```
 
 С другими примерами работы с `ElementFactory` и элементами можно ознакомиться здесь [Element Tests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Elements).
@@ -255,7 +256,7 @@ var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath(checkboxLocator
 Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
 
 ```csharp
-ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
 ```
 
 При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.
@@ -282,7 +283,7 @@ public class SliderForm : Form
 }
 ```
 
-Здесь Id = &quot;slider\_row&quot; устанавливает локатор, который будет использован при проверке открытия страницы/формы, используя свойство `IsDisplayed` класса [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs).
+Здесь `Id = "slider_row"` устанавливает локатор, который будет использован при проверке открытия страницы/формы, используя свойство `IsDisplayed` класса [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs).
 
 Пример теста с использованием Page Objects здесь [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
 

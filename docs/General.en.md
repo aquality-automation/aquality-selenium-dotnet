@@ -82,15 +82,14 @@ All these parameters are using to initialize object of [TimeoutConfiguration](..
 The following are the parameters from `timeouts` section:
 
 - `timeoutImplicit` = 0 seconds - web driver implicit wait timeout [Selenium Implicit Wait](https://www.seleniumhq.org/docs/04_webdriver_advanced.jsp#implicit-waits)
-- `timeoutCondition` = 15 seconds - events with desired conditions timeout. К событиям относятся ожидание элементов или их состояния
-- `timeoutScript` = 10 seconds - данное значение служит лимитом выполнения скриптов с использованием метода WebDriver **ExecuteAsyncScript**
-- `timeoutPageLoad` = 30 seconds - page load timeout
-- `timeoutPollingInterval` = 300 milliseconds - интервал опроса в при явных ожиданиях
-- `timeoutCommand` = 60 seconds - максимальное время ожидания выполнения каждой команды, отправляемой web driver'у 
+- `timeoutCondition` = 15 seconds - events with desired conditions timeout. Events include waiting for elements or their state
+- `timeoutScript` = 10 seconds - it is a limit of scripts execution using WebDriver's method **ExecuteAsyncScript**
+- `timeoutPageLoad` = 30 seconds - web page load timeout
+- `timeoutPollingInterval` = 300 milliseconds - polling interval for explicit waits
+- `timeoutCommand` = 60 seconds - maximum timeout of each WebDriver command
 
-В рамках решения все ожидания элементов выполняются при помощи Excplicit Wait. 
-Перед ожиданием элемента значение implicit wait будет установлено принудительно, независимо от того, что находится в конфигурации.
-Использование двух типов ожиданий не рекомендовано, так как может приводить к некорректному поведению.
+As part of the solution, all elements waits are met using Excplicit Wait.
+The use of two wait types (implicit and explicit) is not recommended, as it can lead to incorrect behavior. So, the value of implicit wait will be set to zero forcibly before each explicit wait, regardless of what is in the configuration.
 
 #### 2.5 RETRY POLICY
 
@@ -102,16 +101,17 @@ The following are the parameters from `timeouts` section:
 [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException) и повторяет попытку снова. 
 
 #### 2.6. LOGGING
-Решение поддерживает логирование выполняемых операций (взаимодействие с браузером, элементами страницы). Пример логирования:
 
-2019-07-18 10:14:08 INFO  - Label &#39;First product&#39; :: Moving mouse to element
+The solution supports logging of operations (interaction with the browser, page elements). Logging Example:
 
-Логирование поддерживается на языках
+`2019-07-18 10:14:08 INFO  - Label &#39;First product&#39; :: Moving mouse to element`
 
-- [en](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/en.json) - английский
-- [ru](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/ru.json) - русский
+Supported languages:
 
-Значение языка логирования устанавливается в параметре [logger.language](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json).
+- [en](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/en.json) - English
+- [ru](../Aquality.Selenium/src/Aquality.Selenium/Resources/Localization/ru.json) - Russian
+
+The value of logging language is set in the [logger.language](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) parameter.
 
 #### 2.7. CLOUD USAGE
 
@@ -120,7 +120,7 @@ The following are the parameters from `timeouts` section:
 
 #### 2.8. ACTIONS HIGHLIGHTING
 
-`isElementHighlightEnabled` параметр отвечает за необходимость подсветки элементов веб страницы с которыми производится работа. Включение опции позволяет более явно наблюдать за действиями теста.
+`isElementHighlightEnabled` option is responsible for the need to highlight the elements of the web page with which the work is performed. Enabling the option allows you to more clearly observe the actions of the test.
 
 #### 2.9. ACCESS FROM THE CODE
 
@@ -133,7 +133,7 @@ var browserName = Configuration.Instance.BrowserProfile.BrowserName;
 
 ### **3. BROWSER**
 
-Класс Browser, являющийся своего рода фасадом для Selenium WebDriver и содержит методы работы с окном браузера и непосредственно с WebDriver (например, navigate, maximize window и т.д.). Написание скрипта начинается с создания экземпляра `Browser` - подробнее об этом ниже.
+The Browser class is a kind of facade for Selenium WebDriver which contains methods for working with browser window and directly with WebDriver (for example, navigate, maximize, etc.). Writing a test script starts by creating an instance of `Browser` - more on this below.
 
 #### 3.1. PARALLEL RUNS
 
@@ -215,7 +215,7 @@ BrowserManager.Browser.HandleAlert(AlertAction.Accept);
 Для получения снимков экрана класс Browser предоставляет метод 
 
 ```csharp
-BrowserManager.Browser.GetScreenshot();
+var screenshot = BrowserManager.Browser.GetScreenshot();
 ```
 
 Более подробный пример использования смотрите в тесте [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs)
@@ -242,13 +242,13 @@ var usernameTextBox = elementFactory.GetTextBox(By.Id("username"), "Username");
 
 #### 4.3. LIST OF ELEMENTS
 
-Для получения списка элементов `ElementFactory` предоставляет метод `FindElements`, использование которого демонстрируется ниже:
+`ElementFactory` provides method `FindElements` to get the list of desired elements, the usage of which is demonstrated below:
 
 ```csharp
-var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath(checkboxLocator));
+var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
 ```
 
-С другими примерами работы с `ElementFactory` и элементами можно ознакомиться здесь [Element Tests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Elements).
+You can find other examples with `ElementFactory` and elements in [Element Tests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Elements).
 
 
 #### 4.4. STATES OF ELEMENTS
@@ -258,7 +258,7 @@ var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath(checkboxLocator
 Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
 
 ```csharp
-ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
 ```
 
 При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.
@@ -274,7 +274,7 @@ var isDisplayed = UserNameTextBox.State.IsDisplayed;
 
 ### **5. FORMS**
 
-The main goal of this library is to help with test automation of web applications. Существует практика автоматизации с использованием подхода [Page Objects](https://github.com/SeleniumHQ/selenium/wiki/PageObjects). Для поддержания и расширения данного подхода решение предлагает к использованию класс [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs), который может служить родительским классом для всех описываемых страниц и форм приложения. Пример использования:
+The main goal of this library is to help with test automation of web applications. There is a popular practice using [Page Objects](https://github.com/SeleniumHQ/selenium/wiki/PageObjects) approach in test automation. To support and extend this approach solution provides [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs) class which can be used as a parent for all pages and forms of the application under test. Example of usage: 
 
 ```csharp
 public class SliderForm : Form 
@@ -285,17 +285,17 @@ public class SliderForm : Form
 }
 ```
 
-Здесь Id = &quot;slider\_row&quot; устанавливает локатор, который будет использован при проверке открытия страницы/формы, используя свойство `IsDisplayed` класса [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs).
+`Id = "slider_row"` is a locator which will be used when checking the opening of the page/form using `IsDisplayed` property from [From](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs) class.
 
 Example of test with Page Objects: [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
 
 ### **6. JAVASCRIPT EXECUTION**
 
-При необходимости выполнить какой либо JavaScript на открытой странице можно воспользоваться одним из методов `ExecuteScript` класса `Browser`.
-Решение содержит достаточное количество наиболее используемых скриптов при выполнении автоматизации тестирования. Список скриптов представлен перечислением JavaScript. Сами скрипты расположены в директории ресурсов [JavaScripts](../Aquality.Selenium/src/Aquality.Selenium/Resources/JavaScripts).
-Примеры использования метода имеются в классе [BrowserTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs).
+If you need to execute JavaScript on opened web page you can use one of `ExecuteScript` methods from `Browser` class.
+The solution contains a sufficient amount of most popular JS scripts which are using in test automation. The list of available scripts is represented by [JavaScript](../Aquality.Selenium/src/Aquality.Selenium/Browsers/JavaScript.cs) enum. The scripts are located in resource directory [JavaScripts](../Aquality.Selenium/src/Aquality.Selenium/Resources/JavaScripts).
+The examples of methods usages are defined in [BrowserTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs) class.
 
-Также существует перегрузка для передачи файла с JavaScript или непосредственно строки со скриптом.
+There are also an overridden methods to pass JavaScript directly from file or as string in `Browser` class.
 
 ### **7. JSON FILE**
 
