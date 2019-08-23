@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public static void DeleteFileIfExist(string filePath)
         {
             var file = new FileInfo(filePath);
-            if (file.Exists)
+            if (file.Exists && !Configuration.Instance.BrowserProfile.IsRemote)
             {
                 file.Delete();
             }

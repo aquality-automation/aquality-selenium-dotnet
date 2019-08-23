@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
+using Aquality.Selenium.Logging;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using Aquality.Selenium.Waitings;
 using NUnit.Framework;
@@ -23,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             FileDownloadHelper.DeleteFileIfExist(filePath);
 
             var lblFileContent = new ElementFactory().GetLabel(By.XPath("//pre"), "text file content");
-            Assert.False(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), "file should not exist before downloading");
+            Assert.False(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), $"file {filePath} should not exist before downloading");
 
             browser.ExecuteScriptFromFile("Resources.OpenUrlInNewWindow.js", downloaderForm.Url);
             var tabs = new List<string>(BrowserManager.Browser.Driver.WindowHandles);
@@ -33,14 +34,23 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             downloaderForm.GetDownloadLink(fileName).JsActions.ClickAndWait();
             browser.Driver.SwitchTo().Window(tabs[0]);
             bool condition() => FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent);
+            var message = $"file {filePath} was not downloaded";
             try
             {
-                ConditionalWait.WaitForTrue(condition);
+                ConditionalWait.WaitForTrue(condition, message: message);
             }
             catch (TimeoutException)
             {
-                browser.Quit();
-                ConditionalWait.WaitForTrue(condition);
+                if(browser.BrowserName == BrowserName.Safari)
+                {
+                    Logger.Instance.Warn("reloading Safari browser as a workaround");
+                    browser.Quit();
+                    ConditionalWait.WaitForTrue(condition, message: message);
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
     }
