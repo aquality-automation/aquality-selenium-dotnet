@@ -15,8 +15,7 @@ namespace Aquality.Selenium.Browsers
     /// Provides functionality to work with browser via Selenium WebDriver.  
     /// </summary>
     public class Browser
-    {
-        private readonly Logger logger = Logger.Instance;
+    {        
         private readonly IConfiguration configuration;
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
@@ -35,6 +34,8 @@ namespace Aquality.Selenium.Browsers
             PageLoadTimeout = configuration.TimeoutConfiguration.PageLoad;
             ScriptTimeout = configuration.TimeoutConfiguration.Script;
         }
+
+        private Logger Logger => Logger.Instance;
 
         /// <summary>
         /// Gets instance of Selenium WebDriver.
@@ -106,7 +107,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                logger.InfoLoc("loc.browser.getUrl");
+                Logger.InfoLoc("loc.browser.getUrl");
                 return Driver.Url;
             }
         }
@@ -116,7 +117,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Quit()
         {
-            logger.InfoLoc("loc.browser.driver.quit");
+            Logger.InfoLoc("loc.browser.driver.quit");
             Driver?.Quit();
         }
 
@@ -194,7 +195,7 @@ namespace Aquality.Selenium.Browsers
             }
             catch (NoAlertPresentException ex)
             {
-                logger.FatalLoc("loc.browser.alert.fail", ex);
+                Logger.FatalLoc("loc.browser.alert.fail", ex);
                 throw ex;
             }
         }
@@ -204,7 +205,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Maximize()
         {
-            logger.InfoLoc("loc.browser.maximize");
+            Logger.InfoLoc("loc.browser.maximize");
             Driver.Manage().Window.Maximize();
         }
 
