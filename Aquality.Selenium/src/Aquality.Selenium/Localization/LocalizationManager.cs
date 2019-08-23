@@ -32,7 +32,7 @@ namespace Aquality.Selenium.Localization
         /// <param name="messageKey">Key in resource file.</param>
         /// <param name="args">Arguments, which will be provided to template of localized message.</param>
         /// <returns>Localized message.</returns>
-        public string GetLocalizedMessage(string messageKey, params string [] args)
+        public string GetLocalizedMessage(string messageKey, params object[] args)
         {
             var jsonKey = $"$['{messageKey}']";
             if (localManager.IsValuePresent(jsonKey))

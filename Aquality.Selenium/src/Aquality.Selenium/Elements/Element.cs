@@ -70,48 +70,48 @@ namespace Aquality.Selenium.Elements
 
         public void Click()
         {
-            Logger.InfoLoc("loc.clicking");
+            LogElementAction("loc.clicking");
             JsActions.HighlightElement();
             DoWithRetry(() => GetElement().Click());
         }
 
         public void Focus()
         {
-            Logger.InfoLoc("loc.focusing");
+            LogElementAction("loc.focusing");
             JsActions.SetFocus();
         }
 
         public string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default)
         {
-            Logger.InfoLoc("loc.el.getattr", attr);
+            LogElementAction("loc.el.getattr", attr);
             JsActions.HighlightElement(highlightState);
             return DoWithRetry(() => GetElement().GetAttribute(attr));
         }
 
         public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default)
         {
-            Logger.InfoLoc("loc.el.cssvalue", propertyName);
+            LogElementAction("loc.el.cssvalue", propertyName);
             JsActions.HighlightElement(highlightState);
             return DoWithRetry(() => GetElement().GetCssValue(propertyName));
         }
 
         public string GetText(HighlightState highlightState = HighlightState.Default)
         {
-            Logger.InfoLoc("loc.get.text");
+            LogElementAction("loc.get.text");
             JsActions.HighlightElement(highlightState);
             return DoWithRetry(() => GetElement().Text);
         }
 
         public void SendKeys(string key)
         {
-            Logger.InfoLoc("loc.text.sending.keys", key);
+            LogElementAction("loc.text.sending.keys", key);
             DoWithRetry(() => GetElement().SendKeys(key));
         }
 
         public void SetInnerHtml(string value)
         {
             Click();
-            Logger.InfoLoc("loc.send.text", value);
+            LogElementAction("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
         }
         
@@ -128,6 +128,11 @@ namespace Aquality.Selenium.Elements
         protected T DoWithRetry<T>(Func<T> function)
         {
             return ElementActionRetrier.DoWithRetry(function);
+        }
+
+        protected internal void LogElementAction(string messageKey, params object[] args)
+        {
+            Logger.InfoLocElementAction(ElementType, Name, messageKey, args);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace Aquality.Selenium.Elements
         {
             get
             {
-                Logger.InfoLoc("loc.combobox.get.texts");
+                LogElementAction("loc.combobox.get.texts");
                 return DoWithRetry(() =>  new SelectElement(GetElement()).Options.Select(option => option.Text).ToList());
             }
         }
@@ -37,7 +36,7 @@ namespace Aquality.Selenium.Elements
         {
             get
             {
-                Logger.InfoLoc("loc.combobox.get.values");
+                LogElementAction("loc.combobox.get.values");
                 return DoWithRetry(() => new SelectElement(GetElement()).Options.Select(option => option.GetAttribute(Attributes.Value)).ToList());
             }
         }
@@ -46,7 +45,7 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByContainingText(string text)
         {
-            Logger.InfoLoc("loc.selecting.value");
+            LogElementAction("loc.selecting.value");
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
@@ -65,7 +64,7 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByContainingValue(string value)
         {
-            Logger.InfoLoc("loc.selecting.value");
+            LogElementAction("loc.selecting.value");
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
@@ -84,19 +83,19 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByIndex(int index)
         {
-            Logger.InfoLoc("loc.selecting.value");
+            LogElementAction("loc.selecting.value");
             DoWithRetry(() => new SelectElement(GetElement()).SelectByIndex(index));
         }
 
         public void SelectByText(string text)
         {
-            Logger.InfoLoc("loc.selecting.value");
+            LogElementAction("loc.selecting.value");
             DoWithRetry(() => new SelectElement(GetElement()).SelectByText(text));
         }
 
         public void SelectByValue(string value)
         {
-            Logger.InfoLoc("loc.selecting.value");
+            LogElementAction("loc.selecting.value");
             DoWithRetry(() => new SelectElement(GetElement()).SelectByValue(value));
         }
     }

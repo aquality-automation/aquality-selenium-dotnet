@@ -13,25 +13,25 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <summary>
         /// Gets JavaScript actions that can be performed with an element.
         /// </summary>
-        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.JsActions"/></value>
+        /// <value>Instance of <see cref="Actions.JsActions"/></value>
         JsActions JsActions { get; }
 
         /// <summary>
         /// Gets Mouse actions that can be performed with an element.
         /// </summary>
-        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Actions.MouseActions"/></value>
+        /// <value>Instance of <see cref="Actions.MouseActions"/></value>
         MouseActions MouseActions { get; }
 
         /// <summary>
         /// Gets element state.
         /// </summary>
-        /// <value>Instance of <see cref="Aquality.Selenium.Elements.Interfaces.IElementStateProvider"/></value>
+        /// <value>Instance of <see cref="IElementStateProvider"/></value>
         IElementStateProvider State { get; }
 
         /// <summary>
         /// Unique locator of element.
         /// </summary>
-        /// <value>Instance of <see cref="OpenQA.Selenium.By"/></value>
+        /// <value>Instance of <see cref="By"/></value>
         By Locator { get; }
 
         /// <summary>
@@ -41,18 +41,18 @@ namespace Aquality.Selenium.Elements.Interfaces
         string Name { get; }
 
         /// <summary>
-        /// Finds current element by specified <see cref="IElement.Locator"/>
+        /// Finds current element by specified <see cref="Locator"/>
         /// </summary>
-        /// <param name="timeout">Timeout to find element. Default: <see cref="Aquality.Selenium.Configurations.ITimeoutConfiguration.Condition"/></param>
-        /// <returns>Instance of <see cref="OpenQA.Selenium.Remote.RemoteWebElement"/> if found.</returns>
-        /// <exception cref="OpenQA.Selenium.NoSuchElementException">Thrown when no elements found.</exception>
+        /// <param name="timeout">Timeout to find element. Default: <see cref="Configurations.ITimeoutConfiguration.Condition"/></param>
+        /// <returns>Instance of <see cref="RemoteWebElement"/> if found.</returns>
+        /// <exception cref="NoSuchElementException">Thrown when no elements found.</exception>
         RemoteWebElement GetElement(TimeSpan? timeout = null);
 
         /// <summary>
         /// Gets element text.
         /// </summary>
         /// <param name="highlightState">Should the element be hightlighted or not. 
-        /// Default value is from configuration: <seealso cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
+        /// Default value is from configuration: <seealso cref="Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
         /// <returns>String representation of element text.</returns>
         string GetText(HighlightState highlightState = HighlightState.Default);
 
@@ -61,7 +61,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="attr">Name of attrbiute</param>
         /// <param name="highlightState">Should the element be hightlighted or not. 
-        /// Default value is from configuration: <seealso cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
+        /// Default value is from configuration: <seealso cref="Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
         /// <returns>Value of element attribute.</returns>
         string GetAttribute(string attr, HighlightState highlightState = HighlightState.Default);
 
@@ -70,7 +70,7 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="propertyName">Name of css property</param>
         /// <param name="highlightState">Should the element be hightlighted or not. 
-        /// Default value is from configuration: <seealso cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
+        /// Default value is from configuration: <seealso cref="Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
         /// <returns>Value of element attribute.</returns>
         string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default);
 

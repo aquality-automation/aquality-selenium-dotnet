@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Elements
         {
             get
             {
-                Logger.InfoLoc("loc.checkbox.get.state");
+                LogElementAction("loc.checkbox.get.state");
                 return GetElement().Selected;
             }
         }
@@ -45,7 +45,7 @@ namespace Aquality.Selenium.Elements
 
         private void SetState(bool state)
         {
-            Logger.InfoLoc("loc.setting.value", state.ToString());
+            LogElementAction("loc.setting.value", state);
             if (state != IsChecked)
             {
                 Click();

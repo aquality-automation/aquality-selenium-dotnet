@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -19,7 +18,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>True if checked and false otherwise.</returns>
         public bool GetState()
         {
-            Logger.InfoLoc("loc.checkbox.get.state");
+            LogElementAction("loc.checkbox.get.state");
             return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
         }
     }
