@@ -162,7 +162,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_ExecuteJavaScriptFromPredefinedFile()
         {
             var valueToSet = "username";
-            var authForm = new AuthenticationForm();
+            var authForm = new TestApp.TheInternet.Forms.AuthenticationForm();
             authForm.Open();
             BrowserManager.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTextBox.GetElement(), valueToSet);
             Assert.AreEqual(valueToSet, authForm.UserNameTextBox.Value);

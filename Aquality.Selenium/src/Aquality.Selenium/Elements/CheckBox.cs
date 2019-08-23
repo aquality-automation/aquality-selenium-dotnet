@@ -1,7 +1,6 @@
 ﻿using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Elements

@@ -49,8 +49,8 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(checkBox1.JsActions.GetState());
-                Assert.IsFalse(checkBox2.JsActions.GetState());
+                Assert.IsTrue(checkBox1.JsActions.IsChecked);
+                Assert.IsFalse(checkBox2.JsActions.IsChecked);
             });
         }
     }

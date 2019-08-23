@@ -14,9 +14,8 @@ namespace Aquality.Selenium.Elements.Interfaces
         new CheckBoxJsActions JsActions { get; }
 
         /// <summary>
-        /// Gets CheckBox state.
+        /// Gets CheckBox state: True if checked and false otherwise.
         /// </summary>
-        /// <value>True if checked and false otherwise.</value>
         bool IsChecked { get; }
 
         /// <summary>

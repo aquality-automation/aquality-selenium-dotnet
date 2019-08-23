@@ -13,13 +13,48 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
-        /// Gets state of CheckBox using .checked property of element.
+        /// Gets CheckBox state: True if checked and false otherwise.
         /// </summary>
-        /// <returns>True if checked and false otherwise.</returns>
-        public bool GetState()
+        public bool IsChecked
         {
-            LogElementAction("loc.checkbox.get.state");
-            return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
+            get
+            {
+                LogElementAction("loc.checkbox.get.state");
+                return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
+            }
+        }
+
+        /// <summary>
+        /// Performs check action on the element.
+        /// </summary>
+        public void Check()
+        {
+            SetState(true);
+        }
+
+        /// <summary>
+        /// Performs uncheck action on the element.
+        /// </summary>
+        public void Uncheck()
+        {
+            SetState(false);
+        }
+
+        /// <summary>
+        /// Performs toggle action on the element.
+        /// </summary>
+        public void Toggle()
+        {
+            SetState(!IsChecked);
+        }
+
+        private void SetState(bool state)
+        {
+            LogElementAction("loc.setting.value", state);
+            if (state != IsChecked)
+            {
+                Click();
+            }
         }
     }
 }
