@@ -103,7 +103,7 @@ As part of the solution, all elements waits are met using Explicit Wait. The use
 
 The solution supports logging of operations (interaction with the browser, page elements). Logging Example:
 
-`2019-07-18 10:14:08 INFO  - Label &#39;First product&#39; :: Moving mouse to element`
+`2019-07-18 10:14:08 INFO  - Label 'First product' :: Moving mouse to element`
 
 Supported languages:
 
