@@ -88,8 +88,7 @@ The following are the parameters from `timeouts` section:
 - `timeoutPollingInterval` = 300 milliseconds - polling interval for explicit waits
 - `timeoutCommand` = 60 seconds - maximum timeout of each WebDriver command
 
-As part of the solution, all elements waits are met using Excplicit Wait.
-The use of two wait types (implicit and explicit) is not recommended, as it can lead to incorrect behavior. So, the value of implicit wait will be set to zero forcibly before each explicit wait, regardless of what is in the configuration.
+As part of the solution, all elements waits are met using Explicit Wait. The use of two wait types (implicit and explicit) is not recommended, as it can lead to incorrect behavior. So, the value of implicit wait will be set to zero forcibly before each explicit wait, regardless of what is in the configuration.
 
 #### 2.5 RETRY POLICY
 
