@@ -31,6 +31,5 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
         {
             NextButton.ClickAndWait();
         }
-
     }
 }

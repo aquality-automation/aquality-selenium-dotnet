@@ -58,6 +58,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
     internal enum Gender
     {
+        Female = 0,
         Male = 1
     }
 }

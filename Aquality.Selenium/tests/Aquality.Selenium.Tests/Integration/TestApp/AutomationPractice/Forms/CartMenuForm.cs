@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public void OpenCartMenu()
         {
-            ProductsButton.MouseActions.MoveMouseToElement();
+            ProductsButton.MouseActions.MoveToElement();
         }
 
         public void ClickCheckoutButton()

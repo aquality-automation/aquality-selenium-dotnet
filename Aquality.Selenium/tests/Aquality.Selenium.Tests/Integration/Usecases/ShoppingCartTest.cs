@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         private static readonly int ExpectedNumdberOfProducts = 7;
         private static readonly int ExpectedQuantity = 2;
         private static readonly string FirstName = "John";
-        private static readonly Gender Gnder = Gender.Male;
+        private static readonly Gender Gender = Gender.Male;
         private static readonly int ExpectedNumberOfDays = 32;
         private static readonly int DayToSelect = 29;
         private static readonly string State = "California";
@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             authForm.ClickCreateAccountButton();
 
             var personalInfoForm = new YourPersonalInfoForm();
-            personalInfoForm.SelectGender(Gnder);
+            personalInfoForm.SelectGender(Gender);
             personalInfoForm.SetFirstName(FirstName);
             var actualNumberOfDays = personalInfoForm.GetNumberOfDays();
             Assert.AreEqual(ExpectedNumberOfDays, actualNumberOfDays, "Number of days from combobox is incorrect");

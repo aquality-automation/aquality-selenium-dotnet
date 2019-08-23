@@ -21,7 +21,6 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public void SetEmail(string email)
         {
-            EmailTextBox.Type(email);
             EmailTextBox.ClearAndType(email);
         }
     }
