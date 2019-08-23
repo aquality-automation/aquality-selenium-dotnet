@@ -3,9 +3,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using System.Linq;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Aquality.Selenium.Waitings
 {
@@ -24,11 +25,10 @@ namespace Aquality.Selenium.Waitings
         /// <param name="timeout">Condition timeout. Default value is <see cref="ITimeoutConfiguration.Condition"/></param>
         /// <param name="pollingInterval">Condition check interval. Default value is <see cref="ITimeoutConfiguration.PollingInterval"/></param>
         /// <param name="message">Part of error message in case of Timeout exception</param>
-        /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored.
-        /// Handles <see cref="StaleElementReferenceException"/> by default.</param>
+        /// <param name="exceptionsToIgnore">Possible exceptions that have to be ignored. Handles <see cref="StaleElementReferenceException"/> by default.</param>
         /// <returns>Condition result which is waiting for.</returns>
         /// <exception cref="WebDriverTimeoutException">Throws when timeout exceeded and condition not satisfied.</exception>
-        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null, params Type[] exceptionsToIgnore)
+        public static T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? timeout = null, TimeSpan? pollingInterval = null, string message = null, IList<Type> exceptionsToIgnore = null)
         {
             BrowserManager.Browser.ImplicitWaitTimeout = TimeSpan.Zero;
             var waitTimeout = ResolveConditionTimeout(timeout);
@@ -38,8 +38,8 @@ namespace Aquality.Selenium.Waitings
                 Message = message,
                 PollingInterval = checkInterval
             };
-            var ignoreExceptions = exceptionsToIgnore.Concat(new Type[] { typeof(StaleElementReferenceException) }).ToArray();
-            wait.IgnoreExceptionTypes(ignoreExceptions);
+            var ignoreExceptions = exceptionsToIgnore ?? new List<Type> { typeof(StaleElementReferenceException) };
+            wait.IgnoreExceptionTypes(ignoreExceptions.ToArray());
             var result = wait.Until(condition);
             BrowserManager.Browser.ImplicitWaitTimeout = Configuration.TimeoutConfiguration.Implicit;
             return result;
