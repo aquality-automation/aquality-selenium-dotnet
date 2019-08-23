@@ -23,8 +23,6 @@ namespace Aquality.Selenium.Elements.Actions
             this.elementType = elementType;
         }
 
-        private Logger Logger => Logger.Instance;
-
         private JsActions JsActions => new JsActions(element, elementType);
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            Logger.InfoLoc("loc.clicking");
+            LogElementAction("loc.clicking");
             JsActions.HighlightElement();
             ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).Click(element)));
         }
@@ -42,7 +40,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void DoubleClick()
         {
-            Logger.InfoLoc("loc.clicking.double");
+            LogElementAction("loc.clicking.double");
             ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).DoubleClick(element)));
         }
 
@@ -51,7 +49,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void RightClick()
         {
-            Logger.InfoLoc("loc.clicking.right");
+            LogElementAction("loc.clicking.right");
             ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).ContextClick(element)));
         }
 
@@ -60,7 +58,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void MoveMouseToElement()
         {
-            Logger.InfoLoc("loc.moving");
+            LogElementAction("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari
             ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element)));
         }
@@ -73,6 +71,11 @@ namespace Aquality.Selenium.Elements.Actions
         private void PerformAction(Func<RemoteWebElement, SeleniumActions> action)
         {
             action(element.GetElement()).Build().Perform();
+        }
+
+        protected internal void LogElementAction(string messageKey, params object[] args)
+        {
+            Logger.Instance.InfoLocElementAction(elementType, element.Name, messageKey, args);
         }
     }
 }

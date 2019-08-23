@@ -20,6 +20,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>List of options' texts</returns>
         public IList<string> GetTexts()
         {
+            LogElementAction("loc.combobox.get.texts.js");
             return ExecuteScript<IList<object>>(JavaScript.GetComboBoxTexts).Select(item => item.ToString()).ToList();
         }
 
@@ -29,6 +30,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Selected option text.</returns>
         public string GetSelectedText()
         {
+            LogElementAction("loc.combobox.get.text.js");
             return ExecuteScript<string>(JavaScript.GetComboBoxSelectedText);
         }
 
@@ -38,6 +40,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="text">Target option.</param>
         public void SelectValueByText(string text)
         {
+            LogElementAction("loc.combobox.select.by.text.js", text);
             ExecuteScript(JavaScript.SelectComboBoxValueByText, text);
         }
     }

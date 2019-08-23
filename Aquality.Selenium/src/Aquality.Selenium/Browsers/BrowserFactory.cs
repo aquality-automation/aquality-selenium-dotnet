@@ -3,7 +3,7 @@
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
-    /// Abstract representation of <see cref="Aquality.Selenium.Browsers.IBrowserFactory"/>.
+    /// Abstract representation of <see cref="IBrowserFactory"/>.
     /// </summary>
     public abstract class BrowserFactory : IBrowserFactory
     {

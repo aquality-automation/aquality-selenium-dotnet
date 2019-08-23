@@ -43,14 +43,14 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Click()
         {
-            Logger.InfoLoc("loc.clicking.js");
+            LogElementAction("loc.clicking.js");
             HighlightElement();
             ExecuteScript(JavaScript.ClickElement);
         }
 
         /// <summary>
         /// Highlights the element.
-        /// Default value is from configuration: <see cref="Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled">
+        /// Default value is from configuration: <see cref="IBrowserProfile.IsElementHighlightEnabled">
         /// </summary>
         public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {
@@ -65,7 +65,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollIntoView()
         {
-            Logger.InfoLoc("loc.scrolling.js");
+            LogElementAction("loc.scrolling.js");
             ExecuteScript(JavaScript.ScrollToElement, true);
         }
 
@@ -76,7 +76,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="y">Verticale coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            Logger.InfoLoc("loc.scrolling.js");
+            LogElementAction("loc.scrolling.js");
             ExecuteScript(JavaScript.ScrollBy, x, y);
         }
 
@@ -85,7 +85,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void ScrollToTheCenter()
         {
-            Logger.InfoLoc("loc.scrolling.center.js");
+            LogElementAction("loc.scrolling.center.js");
             ExecuteScript(JavaScript.ScrollToElementCenter);
         }
 
@@ -95,7 +95,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="value">Value to set</param>
         public void SetValue(string value)
         {
-            Logger.InfoLoc("loc.setting.value", value);
+            LogElementAction("loc.setting.value", value);
             ExecuteScript(JavaScript.SetValue, value);
         }
 
@@ -104,7 +104,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void SetFocus()
         {
-            Logger.InfoLoc("loc.focusing");
+            LogElementAction("loc.focusing");
             ExecuteScript(JavaScript.SetFocus);
         }
 
@@ -114,7 +114,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>True if element is on screen and false otherwise.</returns>
         public bool IsElementOnScreen()
         {
-            Logger.InfoLoc("loc.is.present.js");
+            LogElementAction("loc.is.present.js");
             return ExecuteScript<bool>(JavaScript.ElementIsOnScreen);
         }
 
@@ -124,7 +124,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Text from element</returns>
         public string GetElementText()
         {
-            Logger.InfoLoc("loc.get.text.js");
+            LogElementAction("loc.get.text.js");
             return ExecuteScript<string>(JavaScript.GetElementText);
         }
 
@@ -133,7 +133,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void HoverMouse()
         {
-            Logger.InfoLoc("loc.hover.js");
+            LogElementAction("loc.hover.js");
             ExecuteScript(JavaScript.MouseHover);
         }
 
@@ -143,7 +143,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>String representation of element's XPath locator.</returns>
         public string GetXPath()
         {
-            Logger.InfoLoc("loc.get.xpath.js");
+            LogElementAction("loc.get.xpath.js");
             return ExecuteScript<string>(JavaScript.GetElementXPath);
         }
 
@@ -165,6 +165,11 @@ namespace Aquality.Selenium.Elements.Actions
         protected void ExecuteScript(JavaScript scriptName, params object[] arguments)
         {
             Browser.ExecuteScript(scriptName, element.GetElement(), arguments);
+        }
+
+        protected internal void LogElementAction(string messageKey, params object[] args)
+        {
+            Logger.InfoLocElementAction(elementType, element.Name, messageKey, args);
         }
     }
 }

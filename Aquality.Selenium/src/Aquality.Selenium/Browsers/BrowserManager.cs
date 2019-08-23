@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Sets custom browser factory.
         /// </summary>
-        /// <param name="browserFactory">Custom implementation of <see cref="Aquality.Selenium.Browsers.IBrowserFactory"/></param>
+        /// <param name="browserFactory">Custom implementation of <see cref="IBrowserFactory"/></param>
         public static void SetFactory(IBrowserFactory browserFactory)
         {
             browserFactoryContainer.Value = browserFactory;

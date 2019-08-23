@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Elements
@@ -22,15 +21,15 @@ namespace Aquality.Selenium.Elements
 
         public void Type(string value, bool secret = false)
         {
-            Logger.InfoLoc("loc.text.typing", secret ? SecretMask : value);
+            LogElementAction("loc.text.typing", secret ? SecretMask : value);
             JsActions.HighlightElement();
             DoWithRetry(() => GetElement().SendKeys(value));
         }
 
         public void ClearAndType(string value, bool secret = false)
         {
-            Logger.InfoLoc("loc.text.clearing");
-            Logger.InfoLoc("loc.text.typing", secret ? SecretMask : value);
+            LogElementAction("loc.text.clearing");
+            LogElementAction("loc.text.typing", secret ? SecretMask : value);
             JsActions.HighlightElement();
             DoWithRetry(() =>
             {
