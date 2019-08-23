@@ -13,6 +13,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
         {
         }
 
+        public IButton NextButton => ElementFactory.GetButton(By.XPath("//a[contains(.,'Next')]"), "Next");
+
         public Point FormPointInViewPort => ElementFactory.GetLabel(Locator, Name).JsActions.GetViewPortCoordinates();
 
         public IButton GetAddToCartBtn(ElementState elementState)
@@ -23,6 +25,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
         public IList<Label> GetListElements(ElementState state, ElementsCount count)
         {
             return ElementFactory.FindElements<Label>(By.XPath("//ul[@id='blockbestsellers']//li"), state: state, expectedCount: count);
+        }
+
+        public void ClickNextButton()
+        {
+            NextButton.ClickAndWait();
         }
     }
 }

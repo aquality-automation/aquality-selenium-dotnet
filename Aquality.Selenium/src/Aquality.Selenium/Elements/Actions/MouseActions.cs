@@ -56,7 +56,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <summary>
         /// Moves mouse to the element.
         /// </summary>
-        public void MoveMouseToElement()
+        public void MoveToElement()
         {
             LogElementAction("loc.moving");
             JsActions.ScrollIntoView(); // TODO: check on Safari

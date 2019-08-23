@@ -38,14 +38,14 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 
         [Ignore("should be updated")]
         [Test]
-        public void Should_BePossibleTo_MoveMouseToElement()
+        public void Should_BePossibleTo_MoveToElement()
         {
             BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
             var product = new ProductForm();
-            product.GetLastProductView().MouseActions.MoveMouseToElement();
+            product.GetLastProductView().MouseActions.MoveToElement();
             var classAttribute = product.GetLastProductView().GetAttribute("class");
             Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown after move mouse");
         }
