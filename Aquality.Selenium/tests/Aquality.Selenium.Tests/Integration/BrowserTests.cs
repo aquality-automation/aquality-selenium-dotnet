@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
@@ -107,6 +108,43 @@ namespace Aquality.Selenium.Tests.Integration
             browser.WaitForPageToLoad();
             var currentUrl = browser.ExecuteScript<string>("return window.location.href");
             Assert.AreEqual(url, currentUrl);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_ExecuteAsyncJavaScript()
+        {
+            var url = new DynamicContentForm().Url;
+            var browser = BrowserManager.Browser;
+            browser.GoTo(url);
+            browser.WaitForPageToLoad();
+            var expectedDurationInSeconds = 1;
+            var operationDurationInSeconds = 1;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds));
+            stopwatch.Stop();
+            var durationSeconds = stopwatch.Elapsed.TotalSeconds;
+
+            Assert.True(durationSeconds < (expectedDurationInSeconds + operationDurationInSeconds) &&
+                    durationSeconds >= expectedDurationInSeconds);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_ExecuteAsyncJavaScript_WithScriptTimeoutException()
+        {
+            var url = new DynamicContentForm().Url;
+            var browser = BrowserManager.Browser;
+            browser.GoTo(url);
+            browser.WaitForPageToLoad();
+
+            var expectedDurationInSeconds = Configuration.Instance.TimeoutConfiguration.Script.TotalSeconds + 1;            
+            Assert.Throws<WebDriverTimeoutException>(() => browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
+        }
+
+        private string GetAsyncTimeoutJavaScript(double expectedDurationInSeconds)
+        {
+            return "window.setTimeout(arguments[arguments.length - 1], " + expectedDurationInSeconds * 1000 + ");";
         }
 
         [Test]
