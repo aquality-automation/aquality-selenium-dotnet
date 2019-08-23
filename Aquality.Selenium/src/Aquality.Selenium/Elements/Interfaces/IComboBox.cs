@@ -15,16 +15,22 @@ namespace Aquality.Selenium.Elements.Interfaces
         new ComboBoxJsActions JsActions { get; }
 
         /// <summary>
+        /// Gets value of selected option.
+        /// </summary>
+        /// <value>Value representation of selected option.</value>
+        string SelectedValue { get; }
+
+        /// <summary>
         /// Gets text of selected option.
         /// </summary>
         /// <value>Text representation of selected option.</value>
         string SelectedText { get; }
 
         /// <summary>
-        /// Gets text of selected option via JavaScript.
-        /// </summary>
-        /// <value>Text representation of selected option.</value>
-        string SelectedTextByJs { get; }
+        /// Gets list of text of available options.
+        /// </summary>    
+        /// <value>List of text of available options.</value>
+        IList<string> Texts { get; }
 
         /// <summary>
         /// Gets list of available values.

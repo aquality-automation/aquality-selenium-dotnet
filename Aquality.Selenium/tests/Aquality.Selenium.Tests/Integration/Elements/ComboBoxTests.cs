@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var values = comboBox.Values;
             var itemIndex = values.Count - 1;
             comboBox.SelectByIndex(itemIndex);
-            Assert.AreEqual(values[itemIndex], comboBox.SelectedText);
+            Assert.AreEqual(values[itemIndex], comboBox.SelectedValue);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var selectedText = comboBox.SelectedText;
             comboBox.SelectByText(Option2);
             ConditionalWait.WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
-            Assert.AreEqual(comboBox.Values[2], comboBox.SelectedTextByJs);
+            Assert.AreEqual(comboBox.Texts[2], comboBox.JsActions.GetSelectedText());
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var selectedText = comboBox.SelectedText;
             comboBox.SelectByValue("2");
             ConditionalWait.WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
-            Assert.AreEqual(comboBox.Values[2], comboBox.SelectedTextByJs);
+            Assert.AreEqual(comboBox.Texts[2], comboBox.JsActions.GetSelectedText());
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var comboBox = dropdownForm.ComboBox;
             comboBox.SelectByContainingText("1");
-            Assert.AreEqual(comboBox.Values[1], comboBox.SelectedText);
+            Assert.AreEqual(comboBox.Texts[1], comboBox.SelectedText);
         }
 
         [Test]
@@ -60,14 +60,14 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var comboBox = dropdownForm.ComboBox;
             comboBox.SelectByContainingValue("2");
-            Assert.AreEqual(comboBox.Values[2], comboBox.SelectedText);
+            Assert.AreEqual(comboBox.Values[2], comboBox.SelectedValue);
         }
 
         [Test]
         public void Should_BePossibleTo_GetValuesViaJsActions()
         {
             var comboBox = dropdownForm.ComboBox;
-            CollectionAssert.AreEqual(comboBox.Values, comboBox.JsActions.GetValues());
+            CollectionAssert.AreEqual(comboBox.Texts, comboBox.JsActions.GetTexts());
         }
 
         [Test]
