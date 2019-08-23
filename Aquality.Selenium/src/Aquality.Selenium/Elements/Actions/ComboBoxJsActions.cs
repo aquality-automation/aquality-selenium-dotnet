@@ -15,12 +15,12 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
-        /// Gets values from ComboBox.
+        /// Gets texts of options from ComboBox.
         /// </summary>
-        /// <returns>List of values</returns>
-        public IList<string> GetValues()
+        /// <returns>List of options' texts</returns>
+        public IList<string> GetTexts()
         {
-            return ExecuteScript<IList<object>>(JavaScript.GetComboBoxValues).Select(item => item.ToString()).ToList();
+            return ExecuteScript<IList<object>>(JavaScript.GetComboBoxTexts).Select(item => item.ToString()).ToList();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Selected option text.</returns>
         public string GetSelectedText()
         {
-            return ExecuteScript<string>(JavaScript.GetComboBoxText);
+            return ExecuteScript<string>(JavaScript.GetComboBoxSelectedText);
         }
 
         /// <summary>

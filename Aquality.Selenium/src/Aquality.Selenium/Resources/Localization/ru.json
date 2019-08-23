@@ -25,6 +25,7 @@
   "loc.clicking.right": "Клик правой кнопкой",
   "loc.combobox": "Комбобокс",
   "loc.combobox.select.by.text": "Выбор значения с текстом '{0}'",
+  "loc.combobox.get.texts": "Получение списка текстов опций",
   "loc.combobox.get.values": "Получение списка значений",
   "loc.el.getattr": "Получение аттрибута '{0}'",
   "loc.el.cssvalue": "Получение значения css '{0}'",
@@ -51,6 +52,6 @@
   "loc.waitinstate": "Ожидание присутствия элемента в состоянии {0} используя локатор: {1}",
   "loc.waitinvisible": "Ожидаем пока элемент исчезнет",
   "loc.waitnotexists": "Ожидаем исчезновения элемента из DOM в течении {0}",
-  "loc.no.elements.found.in.state": "Не удалось найти элементов по локатору '{0}' в {1} состоянии",  
+  "loc.no.elements.found.in.state": "Не удалось найти элементов по локатору '{0}' в {1} состоянии",
   "loc.elements.were.found.but.not.in.state": "Удалось найти элементы по локатору '{0}'. Но {1}"
 }

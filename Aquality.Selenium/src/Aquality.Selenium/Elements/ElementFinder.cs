@@ -71,16 +71,16 @@ namespace Aquality.Selenium.Elements
             {
                 ConditionalWait.WaitFor(driver =>
                 {
-                    var elements = driver.FindElements(locator).Where(desiredState.ElementStateCondition);
+                    var elements = driver.FindElements(locator);
                     resultElements.AddRange(elements);
-                    return elements.Any();
+                    return elements.Any(desiredState.ElementStateCondition);
                 }, timeout);
             }
             catch (WebDriverTimeoutException ex)
             {
                 HandleTimeoutException(ex, desiredState, locator, resultElements);
             }
-            return resultElements.AsReadOnly();
+            return resultElements.Where(desiredState.ElementStateCondition).ToList().AsReadOnly();
         }
 
         private void HandleTimeoutException(WebDriverTimeoutException ex, DesiredState desiredState, By locator, List<IWebElement> resultElements)

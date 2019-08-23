@@ -33,8 +33,8 @@
     <EmbeddedResource Include="Resources\JavaScripts\ClickElement.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ElementIsOnScreen.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetCheckBoxState.js" />
-    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxText.js" />
-    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxValues.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxSelectedText.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxTexts.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementByXPath.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementText.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementXPath.js" />

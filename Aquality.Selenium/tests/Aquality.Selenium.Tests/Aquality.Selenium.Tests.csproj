@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="Resources\GetCurrentUrl.js" />
+    <None Remove="Resources\OpenUrlInNewWindow.js" />
     <None Remove="Resources\TestJavaScript.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\OpenUrlInNewWindow.js" />
     <EmbeddedResource Include="Resources\GetCurrentUrl.js" />
     <EmbeddedResource Include="Resources\TestJavaScript.js" />
   </ItemGroup>
@@ -28,10 +30,10 @@
 
   <ItemGroup>
     <None Update="Resources\settings.local.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

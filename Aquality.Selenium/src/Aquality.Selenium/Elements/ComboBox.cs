@@ -22,18 +22,23 @@ namespace Aquality.Selenium.Elements
 
         public string SelectedText => DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.Text);
 
-        public string SelectedTextByJs => JsActions.GetSelectedText();
+        public string SelectedValue => DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.GetAttribute(Attributes.Value));
+
+        public IList<string> Texts
+        {
+            get
+            {
+                Logger.InfoLoc("loc.combobox.get.texts");
+                return DoWithRetry(() =>  new SelectElement(GetElement()).Options.Select(option => option.Text).ToList());
+            }
+        }
 
         public IList<string> Values
         {
             get
             {
                 Logger.InfoLoc("loc.combobox.get.values");
-                return DoWithRetry(() =>
-                {
-                    var options = new SelectElement(GetElement()).Options;
-                    return options.Select(option => string.IsNullOrEmpty(option.Text) ? option.GetAttribute(Attributes.Value) : option.Text).ToList();
-                });
+                return DoWithRetry(() => new SelectElement(GetElement()).Options.Select(option => option.GetAttribute(Attributes.Value)).ToList());
             }
         }
 
