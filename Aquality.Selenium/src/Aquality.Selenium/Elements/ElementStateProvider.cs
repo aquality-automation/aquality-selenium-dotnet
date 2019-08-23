@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Elements
             return IsElementInDesiredState(element => !IsElementEnabled(element), "NOT ENABLED", timeout);
         }
 
-        bool IsElementEnabled(IWebElement element)
+        private bool IsElementEnabled(IWebElement element)
         {
             return element.Enabled && !element.GetAttribute(Attributes.Class).Contains(PopularClassNames.Disabled);
         }
