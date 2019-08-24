@@ -203,17 +203,17 @@ var browser = BrowserManager.Browser;
 BrowserManager.Browser.HandleAlert(AlertAction.Accept);
 ```
 
-Больше примеров использования можно найти здесь [AlertTests.cs](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/AlertTests.cs).
+Больше примеров использования можно найти здесь [AlertTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/AlertTests.cs).
 
 #### 3.7. SCREENSHOTS
 
-Для получения снимков экрана класс Browser предоставляет метод 
+Для получения снимков экрана класс `Browser` предоставляет метод 
 
 ```csharp
 var screenshot = BrowserManager.Browser.GetScreenshot();
 ```
 
-Более подробный пример использования смотрите в тесте [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs)
+Более подробный пример использования смотрите в тесте [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs).
 
 ### **4. ELEMENTS**
 
@@ -221,7 +221,7 @@ var screenshot = BrowserManager.Browser.GetScreenshot();
 
 #### 4.1. ELEMENT FACTORY
 
-Решение включает класс [ElementFactory](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementFactory.cs), который отвечает за создание элемента необходимого типа. Ниже приводится пример получения ITextBox:
+Решение включает класс [ElementFactory](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementFactory.cs), который отвечает за создание элемента необходимого типа. Ниже приводится пример получения `ITextBox`:
 
 ```csharp
 var elementFactory = new ElementFactory();
@@ -250,15 +250,14 @@ var checkBoxes = elementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='ch
 
 При работе с элементами страницы в зависимости от задачи как правило ожидается либо только нахождение элемента который виден на странице (Displayed), либо который хотя бы присутствует в верстке (Exists in any state).
 
-Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
+Для получения и последующей работы с данными типами элементов методы `ElementFactory` имеют опциональный параметр `state`. Например,
 
 ```csharp
-var link = elementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = elementFactory.GetLink(By.Id("redirect"), "Link", state: ElementState.Displayed);
 ```
 
 При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.
-Данная функциональность реализуется посредством класса [ElementStateProvider](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementStateProvider.cs)
-Доступ к экземпляру этого класса можно получить посредством свойства `State` у элемента:
+Данная функциональность реализуется посредством класса [ElementStateProvider](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementStateProvider.cs). Доступ к экземпляру этого класса можно получить посредством свойства `State` у элемента:
 
 ```csharp
 UserNameTextBox.State.WaitForEnabled();

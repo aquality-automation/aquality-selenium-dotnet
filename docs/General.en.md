@@ -199,23 +199,23 @@ var browser = BrowserManager.Browser;
 
 #### 3.6. ALERTS
 
-Класс `Browser` предоставляет методы работы с Alerts:
+`Browser` class provides methods to work with Alerts:
 
 ```csharp
 BrowserManager.Browser.HandleAlert(AlertAction.Accept);
 ```
 
-Больше примеров использования можно найти здесь [AlertTests.cs](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/AlertTests.cs).
+You can find more examples in [AlertTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/AlertTests.cs).
 
 #### 3.7. SCREENSHOTS
 
-Для получения снимков экрана класс Browser предоставляет метод 
+`Browser` class has the method to get screenshot of web page:
 
 ```csharp
 var screenshot = BrowserManager.Browser.GetScreenshot();
 ```
 
-Более подробный пример использования смотрите в тесте [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs)
+For details please see the following test: [Should_BePossibleTo_TakeScreenshot](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/BrowserTests.cs).
 
 ### **4. ELEMENTS**
 
@@ -223,15 +223,14 @@ var screenshot = BrowserManager.Browser.GetScreenshot();
 
 #### 4.1. ELEMENT FACTORY
 
-Решение включает класс [ElementFactory](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementFactory.cs), который отвечает за создание элемента необходимого типа. Ниже приводится пример получения ITextBox:
+There is an [ElementFactory](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementFactory.cs) class in the library which is responsible for creating elements of desired type. Below is the example of getting `ITextBox` element:
 
 ```csharp
 var elementFactory = new ElementFactory();
 var usernameTextBox = elementFactory.GetTextBox(By.Id("username"), "Username");
 ```
 
-`ElementFactory` способна создавать объекты любых классов, реализующих интерфейс `IElement`.
-`ElementFactory` содержит ряд методов, которые возвращают реализации `IElement`, имеющиеся по умолчанию в решении (`IButton`, `ITextBox`, `ICheckBox` и т.д.). Обратите внимание, что работа с элементами ведется через интерфейсы, чтобы пользователь обращал внимание только на функциональность, но не на реализацию.
+Using `ElementFactory` you can create an instance of any class that implements `IElement` interface. There are a set of methods in `ElementFactory` which returns implementations of `IElement` that library has (`IButton`, `ITextBox`, `ICheckBox`, etc.). Please use interfaces as much as possible.
 
 #### 4.2. CUSTOM ELEMENTS
 
@@ -250,24 +249,22 @@ You can find other examples with `ElementFactory` and elements in [Element Tests
 
 #### 4.4. STATES OF ELEMENTS
 
-При работе с элементами страницы в зависимости от задачи как правило ожидается либо только нахождение элемента который виден на странице (Displayed), либо который хотя бы присутствует в верстке (Exists in any state).
+Depending on the task you may need to find only Displayed elements on the page or elements which at least exist in the source html (ExistsInAnyState). 
 
-Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
+To get such elements and work with them methods from `ElementFactory` have optional parameter `state`. For example:
 
 ```csharp
-var link = elementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = elementFactory.GetLink(By.Id("redirect"), "Link", state: ElementState.Displayed);
 ```
 
-При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.
-Данная функциональность реализуется посредством класса [ElementStateProvider](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementStateProvider.cs)
-Доступ к экземпляру этого класса можно получить посредством свойства `State` у элемента:
+The often situation during the work with elements is to check element state or waiting for desired element state. [ElementStateProvider](../Aquality.Selenium/src/Aquality.Selenium/Elements/ElementStateProvider.cs) class helps to do this. Element has `State` property which provides an access to the instance of this class:
 
 ```csharp
 UserNameTextBox.State.WaitForEnabled();
 var isDisplayed = UserNameTextBox.State.IsDisplayed;
 ```
 
-Больше примеров можно увидеть в классе [ElementStateTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/ElementStateTests.cs).
+You can get more examples in [ElementStateTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/ElementStateTests.cs) class.
 
 ### **5. FORMS**
 
