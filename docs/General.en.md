@@ -80,12 +80,13 @@ As part of the solution, all elements waits are met using Explicit Wait. The use
 
 #### 2.5 RETRY POLICY
 
-Секция `retry` файла [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) отвечает за конфигурацию количества попыток выполнения операций над элементом.
-Все операции над элементами (нажатия, ввод текста и т.п.) могут быть выполнены повторно в случае неудачи.
-Данная логика заложена в классе [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) посредством которого выполняются любые операции.
-Параметр `number` означает количество предпринимаемых попыток выполнить операцию прежде чем выбросить исключение.
-Параметр `pollingInterval` означает интервал между попытками в миллисекудах.
-[ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException) и повторяет попытку снова. 
+`retry` section from [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file is responsible for configuration the number of retries of actions on elements. All the actions such as clicking, typing, ect., can be performed repeatedly in case of exception. The [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) class which is used for any actions on elements is responsible for this logic. 
+
+The `number` parameter means the number of retries of action before exception is thrown. 
+
+The `pollingInterval` parameter means the interval in milliseconds between the retries.
+
+The [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) handles StaleElementReferenceException and InvalidElementStateException by default and does the retries. 
 
 #### 2.6. LOGGING
 

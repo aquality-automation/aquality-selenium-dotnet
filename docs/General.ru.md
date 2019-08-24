@@ -80,12 +80,13 @@ Settings файл содержит несколько секций, назнач
 
 #### 2.5 RETRY POLICY
 
-Секция `retry` файла [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) отвечает за конфигурацию количества попыток выполнения операций над элементом.
-Все операции над элементами (нажатия, ввод текста и т.п.) могут быть выполнены повторно в случае неудачи.
-Данная логика заложена в классе [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) посредством которого выполняются любые операции.
+Секция `retry` файла [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) отвечает за конфигурацию количества попыток выполнения операций над элементом. Все операции над элементами (нажатия, ввод текста и т.п.) могут быть выполнены повторно в случае неудачи. Данная логика заложена в классе [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) посредством которого выполняются любые операции.
+
 Параметр `number` означает количество предпринимаемых попыток выполнить операцию прежде чем выбросить исключение.
+
 Параметр `pollingInterval` означает интервал между попытками в миллисекудах.
-[ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException) и повторяет попытку снова. 
+
+[ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException и повторяет попытку снова. 
 
 #### 2.6. LOGGING
 
