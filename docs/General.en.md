@@ -37,25 +37,13 @@ Tests can be executed on any operating system with installed .NET Core SDK 2.1 a
 
 ### 2. CONFIGURATIONS
 
-Aquality Selenium provides flexible configuration to run tests by editing [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file.
-Most of the settings are clear without further explanation but major points are highlighted below.
-There is a possibility to implement your own configuration.
+Aquality Selenium provides flexible configuration to run tests by editing [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file. Most of the settings are clear without further explanation but major points are highlighted below. There is a possibility to implement your own configuration.
 
 ### 2.1. SETTINGS
 
-Работа с решением подразумевает использование [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) или его измененных копий для запуска тестов.
-По умолчанию используется файл [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) хранящийся в dll библиотеки как Embedded Resource.
-Вы вам необходимо изменить какие-либо настройки в данном файле, вам необходимо создать такой же файл в директории `Resources` вашего проекта, к которому подключена данная библиотека, и уже в нем изменять необходимые параметы.
-Также можно создать несколько копий `settings` файла для единовременного хранения нескольких конфигураций, отличающихся какими-либо параметрами.
-При этом создавать данные файлы необходимо в той же директории `Resources`. 
-Как правило это удобно, когда есть необходимость выполнять запуск тестов на различных операционных системах, машинах, браузерах и т.п.
-Например, в настоящее время команда разработчиков Aquality Selenium использует две конфигурации [settings.json](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Resources/settings.json) и [settings.local.json](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Resources/settings.local.json) для выполнения запусков в локальном docker Circle CI и на персональной инфраструктуре.
-Для того, чтобы удобно управлять тем, какой конфигурационный файл необходимо использовать можно установить переменную окружения с именем `profile` и присвоить ей желаемое значение (например, local).
-По умолчанию во время запусков используется файл с именем `settings.json`.
+The library uses [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file or its copies to store all necessary configurations for test runs. By default [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) from dll Embedded Resources is using. If you need to change some options from this file you have to create your own copy of this file in `Resource` folder in your project and change them in this copy. Also you can create several copies of this file with different settings and store in the same folder. The names of the copies should match the following pattern `settings.{profile}.json`. It is useful if you need to run tests on different operating systems, machines, browsers, etc. For example, the Aquality Selenium dev team has two configurations - [settings.json](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Resources/settings.json) and [settings.local.json](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Resources/settings.local.json) - to run tests in Circle CI docker container and on personal infrastructure. To change the settings you can set environment variable with name `profile` and value of desired settings (for example, `local`). By default file with name `settings.json` is using.
 
-Любой параметр [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) может быть также переопределен через переменную окружения.
-Для этого необходимо указать `jsonPath` к параметру в JSON и его значение. Например:
-`driverSettings.chrome.webDriverVersion: 77.0.3865.10`
+Any parameter from [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) also can be overridden through environment variables. You just need to set `jsonPath` to the desired parameter and its value in environment variable: `driverSettings.chrome.webDriverVersion: 77.0.3865.10`.
 
 Settings file contains several sections the purpose of which is described below.
 
@@ -134,11 +122,11 @@ The Browser class is a kind of facade for Selenium WebDriver which contains meth
 
 #### 3.1. PARALLEL RUNS
 
-Решение предполагает наличие единственного экземпляра класса `Browser` (содержит поле типа `RemoteWebDriver`) в рамках одного потока исполнения. Как правило тесты работают с одним экземпляром браузера и данный подход оптимален.
+The solution assumes the existence of only one instance of `Browser` class (has a property of `RemoteWebDriver` type) in the executing thread. Usually tests work with only one instance of browser and this approach is optimal.
 
-Если вы решаете задачу использования в рамках одного теста несколько браузеров, каждый браузер необходимо создавать в отдельном потоке. С примерами работы в многопоточном режиме можно ознакомиться здесь [BrowserConcurrencyTests.cs](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/BrowserConcurrencyTests.cs)
+If you are working on the task when more than one instance of browser per test is necessary, each browser has to be created in a separate thread. You can find an example of multi-threading usage here: [BrowserConcurrencyTests.cs](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/BrowserConcurrencyTests.cs).
 
-Если вы используете стандартные средства параллелизации, предоставляемые такими инструментами как NUnit, MSTest и т.п., для каждого потока будет автоматически создан свой экземпляр `Browser`.
+If you are using standard ways of multi-threading from such tools as NUnit, MSTest, etc., every new thread will work with its own instance of `Browser` class.
 
 #### 3.2. BROWSER MANAGER
 
@@ -219,7 +207,7 @@ For details please see the following test: [Should_BePossibleTo_TakeScreenshot](
 
 ### **4. ELEMENTS**
 
-Когда `Browser` инициализирован и осуществлен переход на требуемую страницу можно начинать работу с элементами этой страницы.
+When `Browser` is initialized and desired web page is opened you can start to work with its elements.
 
 #### 4.1. ELEMENT FACTORY
 
