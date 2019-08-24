@@ -86,7 +86,7 @@ Settings файл содержит несколько секций, назнач
 
 Параметр `pollingInterval` означает интервал между попытками в миллисекудах.
 
-[ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения StaleElementReferenceException и InvalidElementStateException и повторяет попытку снова. 
+[ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) автоматически отлавливает исключения `StaleElementReferenceException` и `InvalidElementStateException` и повторяет попытку снова. 
 
 #### 2.6. LOGGING
 
@@ -163,8 +163,7 @@ var browser = BrowserManager.Browser;
 В процессе создания `Browser` и в частности WebDriver используются реализации интерфейса `IDriverSettings`. Реализация включает свойство `DriverOptions`, которые впоследствии устанавливаются в WebDriver при его инициализации. 
 Если вы пользуетесь `BrowserFactory` по умолчанию, список options будет сформирован на основании информации в [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) файле.
 
-Пример с использованием пользовательских options представлен зедсь [Should_BePossibleToUse_CustomFactory](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs).
-
+Пример с использованием пользовательских options представлен здесь: [Should_BePossibleToUse_CustomFactory](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs).
 
 #### 3.5. DOWNLOAD DIRECTORY
 
@@ -179,11 +178,11 @@ var browser = BrowserManager.Browser;
 }
 ```
 
-Обратите внимание, что ключ `download.default_directory` отличается для разных браузеров. Изучить какие ключи актуальны для каких браузеров можно в соответствующих  классах:
+Обратите внимание, что ключ `download.default_directory` отличается для разных браузеров. Изучить какие ключи актуальны для каких браузеров можно в соответствующих классах:
 
-[ChromeSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/ChromeSettings.cs)
-
-[FirefoxSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/FirefoxSettings.cs)
+- [ChromeSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/ChromeSettings.cs)
+- [FirefoxSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/FirefoxSettings.cs)
+- [SafariSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/SafariSettings.cs)
 
 В настоящее время решение поддерживает загрузку файлов только в браузерах Chrome, Firefox, Safari.
 

@@ -86,7 +86,7 @@ The `number` parameter means the number of retries of action before exception is
 
 The `pollingInterval` parameter means the interval in milliseconds between the retries.
 
-The [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) handles StaleElementReferenceException and InvalidElementStateException by default and does the retries. 
+The [ElementActionRetrier](../Aquality.Selenium/src/Aquality.Selenium/Utilities/ElementActionRetrier.cs) handles `StaleElementReferenceException` and `InvalidElementStateException` by default and does the retries. 
 
 #### 2.6. LOGGING
 
@@ -131,46 +131,38 @@ If you are using standard ways of multi-threading from such tools as NUnit, MSTe
 
 #### 3.2. BROWSER MANAGER
 
-Существует несколько вариантов инициализации Browser. Основной способ базируется на использовании класса `BrowserManager` и его статического свойства `Browser`. Ниже рассматриваются варианты работы с `BrowserManager`.
+There are several ways how to initialize `Browser`. The main one is based on the usage of `BrowserManager` class which has static property `Browser`. Below are the options of `BrowserManager` usage.
 
-Если нам необходимо получить браузер с данными из конфигурационого settings файла то достаточно просто произвести вызов:
+If you need to get the browser with configuration from settings file you just have to do:
 
 ```csharp
 var browser = BrowserManager.Browser;
 ```
 
-Первый вызов `Browser` создаст необходимый экземпляр с WebDriver (откроется окно браузера, если только не задан headless режим). Все последующие обращения в рамках одного потока будут работать с созданным экземпляром.
+The first call of `Browser` creates the necessary instance with WebDriver (it opens web browser window, if it is not headless mode). All the following calls in the current thread will work with this instance.
 
 #### 3.3. BROWSER FACTORY
 
-Неявно для пользователя `BrowserManager` предоставляет `Browser` посредством обращения к фабрике браузеров. В решение существуют следующие реализации фабрик:
+`BrowserManager` uses browser factory to create an instance of `Browser`. There are two implementations of browser factory in the solution:
 
-- [LocalBrowserFactory](../Aquality.Selenium/src/Aquality.Selenium/Browsers/LocalBrowserFactory.cs) - для создания браузера в случае использования параметра `isRemote=false`
-- [RemoteBrowserFactory](../Aquality.Selenium/src/Aquality.Selenium/Browsers/RemoteBrowserFactory.cs) - для создания браузера в случае использования параметра `isRemote=true`
+- [LocalBrowserFactory](../Aquality.Selenium/src/Aquality.Selenium/Browsers/LocalBrowserFactory.cs) - for creating browser in case of `isRemote=false` parameter.
+- [RemoteBrowserFactory](../Aquality.Selenium/src/Aquality.Selenium/Browsers/RemoteBrowserFactory.cs) - for creating browser in case of `isRemote=true` parameter.
 
-Каждая реализация фабрики реализует интерфейс `IBrowserFactory` с единственным свойством `Browser`. Это предоставляет возможность реализовать свою фабрику.
-Чтобы `Browser` возвращала `Browser`, созданный вашей реализацией фабрики, необходимо до первого вызова `Browser` установить в `BrowserManager` свою реализацию фабрики, 
-используя метод `SetFactory(IBrowserFactory browserFactory)`. 
-Примеры использования собственной фабрики можно рассмотреть здесь [CustomBrowserFactoryTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs)
+Each factory implements `IBrowserFactory` interface which has only one property `Browser`. It allows you to create your own factory. If you want to use your own implementation of browser factory you have to set it in `BrowserManager` using method `SetFactory(IBrowserFactory browserFactory)` before the very first call of `Browser` property. The examples with custom factory can be found in [CustomBrowserFactoryTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs) class.
 
-Если по каким либо причинам вы решите отказаться от использования фабрик, у вас остается возможность создать экземпляр `Browser` самостоятельно и в дальнейшем установить его в `BrowserManager.Browser`. 
-Класс `Browser` содержит публичный конструктор со следующей сигнатурой `public Browser(RemoteWebDriver webDriver, IConfiguration configuration)`.
-При этом, для создания собсвенной реализации `IConfiguration`, вам по-прежнему доступно использование уже имеющиxся реализаций `IDriverSettings`, `ITimeoutConfiguration` и т.д.
+If you don't want to use factories you have an option to create an instance of `Browser` by yourself and set it as value of `BrowserManager.Browser` property. `Browser` class has a public constructor `public Browser(RemoteWebDriver webDriver, IConfiguration configuration)`. You can still use existing implementations of `IDriverSettings`, `ITimeoutConfiguration`, ect., during the creation of your own `IConfiguration`.
 
 #### 3.4. DRIVER OPTIONS
 
-В процессе создания `Browser` и в частности WebDriver используются реализации интерфейса `IDriverSettings`. Реализация включает свойство `DriverOptions`, которые впоследствии устанавливаются в WebDriver при его инициализации. 
-Если вы пользуетесь `BrowserFactory` по умолчанию, список options будет сформирован на основании информации в [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) файле.
+Implementation of `IDriverSettings` is using during the creation process of `Browser` and in particular WebDriver. `IDriverSettings` includes property `DriverOptions` which is set to WebDriver during its instantiating. If you use default `BrowserFactory`, the list of options will be created based on the information from [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file.
 
-Пример с использованием пользовательских options представлен зедсь [Should_BePossibleToUse_CustomFactory](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs).
-
+You can find the example with user options here: [Should_BePossibleToUse_CustomFactory](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomBrowserFactoryTests.cs).
 
 #### 3.5. DOWNLOAD DIRECTORY
 
-Не редким случаем является необходимость скачивать файлы в браузере и впоследствии производить с ними работу. Чтобы получить текущую директорию для загрузки можно воспользоваться свойством `DownloadDirectory` экземпляра `Browser`.
+It is often necessary to download files from browser and then perform some actions with them. To get the current download directory you can use property `DownloadDirectory` of `Browser` class.
 
-Для поддержания этой функциональности интерфейс `IDriverSettings` обязывает реализовать свойство `string DownloadDir { get; }`. Если вы используете одну из уже реализованных `BrowserFactory`, то директорию для загрузки файлов необходимо указать в файле [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json).
-Например: 
+To support this functionality `IDriverSettings` interface obliges to implement property `string DownloadDir { get; }`. You if use one of the existing `BrowserFactory` you can set download directory in [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file. For example:
 
 ```json
 {
@@ -178,13 +170,13 @@ var browser = BrowserManager.Browser;
 }
 ```
 
-Обратите внимание, что ключ `download.default_directory` отличается для разных браузеров. Изучить какие ключи актуальны для каких браузеров можно в соответствующих  классах:
+Please note that key `download.default_directory` is differ for different browser. You can get the name of this key in appropriate classes:
 
-[ChromeSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/ChromeSettings.cs)
+- [ChromeSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/ChromeSettings.cs)
+- [FirefoxSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/FirefoxSettings.cs)
+- [SafariSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/SafariSettings.cs)
 
-[FirefoxSettings.cs](../Aquality.Selenium/src/Aquality.Selenium/Configurations/WebDriverSettings/FirefoxSettings.cs)
-
-В настоящее время решение поддерживает загрузку файлов только в браузерах Chrome, Firefox, Safari.
+At the moment the library supports file downloading only in Chrome, Firefox, Safari browsers.
 
 #### 3.6. ALERTS
 
