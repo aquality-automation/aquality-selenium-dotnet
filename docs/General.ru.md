@@ -272,7 +272,7 @@ public class SliderForm : Form
 
 Здесь `Id = "slider_row"` устанавливает локатор, который будет использован при проверке открытия страницы/формы, используя свойство `IsDisplayed` класса [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs).
 
-Пример теста с использованием Page Objects здесь [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
+Пример теста с использованием Page Objects здесь [ShoppingCartTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTests.cs).
 
 ### **6. JAVASCRIPT EXECUTION**
 

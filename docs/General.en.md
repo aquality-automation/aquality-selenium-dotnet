@@ -262,7 +262,7 @@ public class SliderForm : Form
 
 `Id = "slider_row"` is a locator which will be used when checking the opening of the page/form using `IsDisplayed` property from [Form](../Aquality.Selenium/src/Aquality.Selenium/Forms/Form.cs) class.
 
-Example of test with Page Objects: [ShoppingCartTest](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTest.cs).
+Example of test with Page Objects: [ShoppingCartTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/ShoppingCartTests.cs).
 
 ### **6. JAVASCRIPT EXECUTION**
 
