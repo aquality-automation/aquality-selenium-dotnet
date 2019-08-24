@@ -120,12 +120,11 @@ Settings файл содержит несколько секций, назнач
 
 #### 2.9. ACCESS FROM THE CODE
 
-Доступ к данным из конфигурационного файла обеспечивается посредством обращения к методам экземпляра класса [Configuration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/Configuration.cs)
-Например:  
+Доступ к данным из конфигурационного файла обеспечивается посредством обращения к методам экземпляра класса [Configuration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/Configuration.cs). Например:  
 ```csharp
 var browserName = Configuration.Instance.BrowserProfile.BrowserName;
 ```
-вернёт значение параметра "browser" из settings файла.
+Данная конструкция вернёт значение параметра `browserName` из `settings.json` файла.
 
 ### **3. BROWSER**
 
@@ -241,7 +240,7 @@ var usernameTextBox = elementFactory.GetTextBox(By.Id("username"), "Username");
 Для получения списка элементов `ElementFactory` предоставляет метод `FindElements`, использование которого демонстрируется ниже:
 
 ```csharp
-var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
+var checkBoxes = elementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
 ```
 
 С другими примерами работы с `ElementFactory` и элементами можно ознакомиться здесь [Element Tests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Elements).
@@ -254,7 +253,7 @@ var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='ch
 Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
 
 ```csharp
-var link = ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = elementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
 ```
 
 При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.

@@ -114,7 +114,7 @@ The value of logging language is set in the [logger.language](../Aquality.Seleni
 
 #### 2.7. CLOUD USAGE
 
-To set up the run on the remote server with Selenium Grid (Selenoid, Zalenium) or on such platforms as BrowserStack, Saucelabs, etc., it is require to set correct value of URL for connection to the service in `remoteConnectionUrl` parameter in [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file. Also make sure that `isRemote` parameter has value **true**. For example, URL for BrowserStack can be the following [https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub](https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub).
+To set up the run on the remote server with Selenium Grid (Selenoid, Zalenium) or on such platforms as BrowserStack, Saucelabs, etc., it is required to set correct value of URL for connection to the service in `remoteConnectionUrl` parameter in [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file. Also make sure that `isRemote` parameter has value **true**. For example, URL for BrowserStack can be the following [https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub](https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub).
 
 #### 2.8. ACTIONS HIGHLIGHTING
 
@@ -122,12 +122,11 @@ To set up the run on the remote server with Selenium Grid (Selenoid, Zalenium) o
 
 #### 2.9. ACCESS FROM THE CODE
 
-Доступ к данным из конфигурационного файла обеспечивается посредством обращения к методам экземпляра класса [Configuration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/Configuration.cs)
-Например:  
+You can get an access to the settings using instance of [Configuration](../Aquality.Selenium/src/Aquality.Selenium/Configurations/Configuration.cs) class. For example:
 ```csharp
 var browserName = Configuration.Instance.BrowserProfile.BrowserName;
 ```
-вернёт значение параметра "browser" из settings файла.
+This construction returns value of `browserName` from `settings.json` file.
 
 ### **3. BROWSER**
 
@@ -243,7 +242,7 @@ The user is able to create his own element or extend the existing one. `ElementF
 `ElementFactory` provides method `FindElements` to get the list of desired elements, the usage of which is demonstrated below:
 
 ```csharp
-var checkBoxes = ElementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
+var checkBoxes = elementFactory.FindElements<ICheckBox>(By.XPath("//*[@class='checkbox']"));
 ```
 
 You can find other examples with `ElementFactory` and elements in [Element Tests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Elements).
@@ -256,7 +255,7 @@ You can find other examples with `ElementFactory` and elements in [Element Tests
 Для получения и последующей работы с данными типами элементов `ElementFactory` предоставляет перегруженные методы получения элементов. Например,
 
 ```csharp
-var link = ElementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
+var link = elementFactory.GetLink(By.Id("redirect"), "Link", ElementState.Displayed);
 ```
 
 При работе с элементами частой является ситуация проверки состояния элемента или ожидание желаемого состояния.
