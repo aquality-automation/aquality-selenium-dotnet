@@ -114,8 +114,7 @@ The value of logging language is set in the [logger.language](../Aquality.Seleni
 
 #### 2.7. CLOUD USAGE
 
-Для того, чтобы настроить запуск на удалённом сервере Selenium Grid (Selenoid, Zalenium) или на платформах вроде BrowserStack, Saucelabs и т.д., необходимо в конфигурационном файле [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) установить корректное значение URL для подключения к сервису в параметр `remoteConnectionUrl`, а также убедиться, что параметр `isRemote` равен **true**.
-Например, для BrowserStack параметр может иметь вид [https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub](https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub).
+To set up the run on the remote server with Selenium Grid (Selenoid, Zalenium) or on such platforms as BrowserStack, Saucelabs, etc., it is require to set correct value of URL for connection to the service in `remoteConnectionUrl` parameter in [settings.json](../Aquality.Selenium/src/Aquality.Selenium/Resources/settings.json) file. Also make sure that `isRemote` parameter has value **true**. For example, URL for BrowserStack can be the following [https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub](https://USERNAME:AUTOMATE_KEY@hub-cloud.browserstack.com/wd/hub).
 
 #### 2.8. ACTIONS HIGHLIGHTING
 
@@ -237,7 +236,7 @@ var usernameTextBox = elementFactory.GetTextBox(By.Id("username"), "Username");
 
 #### 4.2. CUSTOM ELEMENTS
 
-Пользователь имеет возможность создать свой элемент или расширить имеющийся по умолчанию. Для этих целей `ElementFactory` предоставляет метод `T GetCustomElement<T>`. Достаточно лишь реализовать `IElement` интерфейс или расширить имеющийся класс элемента. С примером расширения и последующего использования можно ознакомиться в классе [CustomElementTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomElementTests.cs).
+The user is able to create his own element or extend the existing one. `ElementFactory` provides method `T GetCustomElement<T>` for this purpose. You need just to implement `IElement` interface or extend the class of existing element. An example of extension and use can be found  in [CustomElementTests](../Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/Usecases/CustomElementTests.cs) class.
 
 #### 4.3. LIST OF ELEMENTS
 
