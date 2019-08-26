@@ -12,16 +12,15 @@ namespace Aquality.Selenium.Elements.Actions
         {
         }
 
+
         /// <summary>
-        /// Gets CheckBox state: True if checked and false otherwise.
+        /// Gets CheckBox state.
         /// </summary>
-        public bool IsChecked
+        /// <returns>True if checked and false otherwise</returns>
+        public bool IsChecked()
         {
-            get
-            {
-                LogElementAction("loc.checkbox.get.state");
-                return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
-            }
+            LogElementAction("loc.checkbox.get.state");
+            return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
         }
 
         /// <summary>
@@ -45,13 +44,13 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void Toggle()
         {
-            SetState(!IsChecked);
+            SetState(!IsChecked());
         }
 
         private void SetState(bool state)
         {
             LogElementAction("loc.setting.value", state);
-            if (state != IsChecked)
+            if (state != IsChecked())
             {
                 Click();
             }
