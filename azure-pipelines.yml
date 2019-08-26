@@ -9,7 +9,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
   
-container: autotests/dotnet-core-sdk-browsers:latest
+#container: autotests/dotnet-core-sdk-browsers:latest
 
 variables:
   buildConfiguration: 'Release'
