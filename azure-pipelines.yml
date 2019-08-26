@@ -21,3 +21,7 @@ steps:
 
 - script: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
   displayName: 'Run tests'
+  
+- task: PublishTestResults@2
+  testResultsFormat: 'NUnit'
+  testResultsFiles: '**/*.xml'
