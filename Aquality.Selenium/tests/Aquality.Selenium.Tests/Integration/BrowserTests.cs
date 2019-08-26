@@ -8,10 +8,8 @@ using Aquality.Selenium.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 
 namespace Aquality.Selenium.Tests.Integration
 {
@@ -81,7 +79,6 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreNotEqual(firstItem, firstItemAfterRefresh);
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_SetPageLoadTimeout()
         {
@@ -169,7 +166,6 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(valueToSet, authForm.UserNameTextBox.Value);
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_SetWindowSize()
         {
@@ -249,15 +245,8 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_GetDownloadDir()
         {
-            var listOfDownloadDirs = new List<string>
-            {
-                "//home//selenium//downloads",
-                "/Users/username/Downloads",
-                "./downloads",
-                "/home/circleci/repo/target/downloads"
-            };
             var downloadDir = BrowserManager.Browser.DownloadDirectory;
-            Assert.IsTrue(listOfDownloadDirs.Any(dir => downloadDir.ToLower().Contains(dir)));
+            Assert.IsTrue(downloadDir.ToLower().Contains("downloads", StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

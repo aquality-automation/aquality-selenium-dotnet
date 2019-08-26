@@ -1,6 +1,7 @@
 using Aquality.Selenium.Configurations;
 using NUnit.Framework;
 using System;
+using System.IO;
 
 namespace Aquality.Selenium.Tests.Unit
 {

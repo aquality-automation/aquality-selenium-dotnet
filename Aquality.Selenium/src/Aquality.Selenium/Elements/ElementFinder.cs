@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Elements
         {
             var desiredState = new DesiredState(elementStateCondition, "desired")
             {
-                IsCatchingTimeoutException = true,
+                IsCatchingTimeoutException = false,
                 IsThrowingNoSuchElementException = true
             };
             return FindElements(locator, desiredState, timeout).First();
@@ -72,6 +72,7 @@ namespace Aquality.Selenium.Elements
                 ConditionalWait.WaitFor(driver =>
                 {
                     var elements = driver.FindElements(locator);
+                    resultElements.Clear();
                     resultElements.AddRange(elements);
                     return elements.Any(desiredState.ElementStateCondition);
                 }, timeout);
@@ -103,7 +104,12 @@ namespace Aquality.Selenium.Elements
             }
             else
             {
-                throw new WebDriverTimeoutException($"{ex.Message}: {message}");
+                var combinedMessage = $"{ex.Message}: {message}";
+                if (desiredState.IsThrowingNoSuchElementException && !resultElements.Any())
+                {
+                    throw new NoSuchElementException(combinedMessage);                    
+                }
+                throw new WebDriverTimeoutException(combinedMessage);
             }
         }
 

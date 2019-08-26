@@ -36,7 +36,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.DoesNotThrow(() => BrowserManager.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_MoveToElement()
         {
