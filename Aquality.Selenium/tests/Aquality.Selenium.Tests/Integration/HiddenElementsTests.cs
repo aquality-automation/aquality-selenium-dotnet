@@ -36,9 +36,9 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
-        public void Should_BePossibleTo_CheckThatNotHiddenElementsNotDisplayed()
+        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed()
         {
-            var elements = sliderForm.GetListElements(ElementState.Displayed, ElementsCount.MoreThenZero);
+            var elements = sliderForm.GetListElements(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());

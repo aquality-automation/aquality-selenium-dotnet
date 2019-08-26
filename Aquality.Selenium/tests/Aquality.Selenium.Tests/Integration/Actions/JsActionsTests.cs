@@ -40,7 +40,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual("3px solid rgb(255, 0, 0)", border, "Element should be highlighted");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_HoverMouse()
         {
@@ -135,7 +134,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 "Some examples should be added after scroll");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_ScrollBy()
         {
@@ -148,7 +146,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 "Some examples should be added after scroll");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_ScrollToTheCenter()
         {

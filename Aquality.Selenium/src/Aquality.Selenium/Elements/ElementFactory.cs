@@ -71,6 +71,7 @@ namespace Aquality.Selenium.Elements
             switch (expectedCount)
             {
                 case ElementsCount.Zero:
+                    ConditionalWait.WaitFor(driver => !driver.FindElements(locator).Any());
                     break;
                 case ElementsCount.MoreThenZero:
                     ConditionalWait.WaitFor(driver => driver.FindElements(locator).Any());
@@ -78,8 +79,8 @@ namespace Aquality.Selenium.Elements
                 default:
                     throw new ArgumentOutOfRangeException($"No such expected value: {expectedCount}");
             }
-
-            var webElements = Browser.Driver.FindElements(locator);
+            
+            var webElements = ElementFinder.Instance.FindElements(locator, state, TimeSpan.Zero);
             IEnumerable<T> elements = webElements.Select((webElement, index) =>
             {
                 var elementIndex = index + 1;
