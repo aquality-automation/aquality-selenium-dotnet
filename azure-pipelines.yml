@@ -23,5 +23,6 @@ steps:
   displayName: 'Run tests'
   
 - task: PublishTestResults@2
-  testResultsFormat: 'NUnit'
-  testResultsFiles: '**/*.xml'
+  inputs:
+    testResultsFormat: 'NUnit'
+    testResultsFiles: '**/*.xml'
