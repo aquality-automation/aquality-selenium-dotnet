@@ -13,7 +13,11 @@ container: autotests/dotnet-core-sdk-browsers:latest
 
 variables:
   buildConfiguration: 'Release'
+  profile: 'local'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration) Aquality.Selenium/Aquality.Selenium.sln
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Build - $(buildConfiguration)'
+
+- script: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+  displayName: 'Run tests'
