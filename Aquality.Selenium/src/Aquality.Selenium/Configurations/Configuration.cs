@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Configurations
 
         private JsonFile GetSettings()
         {
-            var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("PROFILE");
+            var profileNameFromEnvironment = EnvironmentConfiguration.GetVariable("profile");
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
             Logger.Info($"Get settings from: {settingsProfile}");
 
