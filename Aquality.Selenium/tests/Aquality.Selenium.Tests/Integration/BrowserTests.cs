@@ -212,7 +212,9 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_GetBrowserName()
         {
-            var settingsFile = new JsonFile("settings.json");
+            var profileNameFromEnvironment = Environment.GetEnvironmentVariable("profile");
+            var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
+            var settingsFile = new JsonFile(settingsProfile);
             var browserName = (BrowserName)Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
             Assert.AreEqual(browserName, BrowserManager.Browser.BrowserName);
         }

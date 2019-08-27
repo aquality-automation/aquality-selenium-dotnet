@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Tests.Unit
         [TearDown]
         public void CleanUp()
         {
-            BrowserManager.Browser.Driver.Quit();
+            BrowserManager.Browser.Quit();
         }
     }
 }

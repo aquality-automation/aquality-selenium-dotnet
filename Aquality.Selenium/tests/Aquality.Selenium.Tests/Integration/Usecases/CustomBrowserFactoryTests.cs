@@ -61,7 +61,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             public IRetryConfiguration RetryConfiguration => new CustomRetryConfiguration();
 
             public ILoggerConfiguration LoggerConfiguration => new LoggerConfiguration();
-
         }
 
         private class CustomTimeoutConfiguration : ITimeoutConfiguration
