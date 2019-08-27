@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'linux-latest'
+  vmImage: 'ubuntu-latest'
   
 container: autotests/dotnet-core-sdk-browsers:latest
 
