@@ -22,11 +22,11 @@ steps:
     projects: Aquality.Selenium/Aquality.Selenium.sln
     arguments: --configuration $(buildConfiguration)
 
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'test'
-#    projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
-#    publishTestResults: true
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+    publishTestResults: true
 
 
 
