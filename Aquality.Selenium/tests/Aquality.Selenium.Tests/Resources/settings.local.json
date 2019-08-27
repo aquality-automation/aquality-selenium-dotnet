@@ -21,7 +21,7 @@
       "startArguments": []
     },
     "firefox": {
-      "webDriverVersion": "Latest",
+      "webDriverVersion": "0.24.0",
       "capabilities": {
         "enableVNC": true
       },
