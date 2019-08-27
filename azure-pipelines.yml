@@ -14,7 +14,6 @@ pool:
 variables:
   buildConfiguration: 'Release'
   profile: 'local'
-  driverSettings.chrome.webDriverVersion: '75.0.3770.140'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration) Aquality.Selenium/Aquality.Selenium.sln
