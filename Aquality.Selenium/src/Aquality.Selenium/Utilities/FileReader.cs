@@ -21,6 +21,7 @@ namespace Aquality.Selenium.Utilities
         {
             var assembly = resourceAssembly ?? Assembly.GetCallingAssembly();
             var resourcePath = $"{assembly.GetName().Name}.{embeddedResourcePath}";
+            string resultText = null;
             using (var stream = assembly.GetManifestResourceStream(resourcePath))
             {
                 if (stream == null)
@@ -28,12 +29,13 @@ namespace Aquality.Selenium.Utilities
                     throw new InvalidOperationException(
                         $"Assembly {assembly.FullName} doesn't contain EmbeddedResource at path {resourcePath}. Resource file cannot be loaded");
                 }
-
+                
                 using (var reader = new StreamReader(stream))
                 {
-                    return reader.ReadToEnd();
+                    resultText = reader.ReadToEnd();
                 }
             }
+            return resultText;
         }
 
         /// <summary>
@@ -64,10 +66,12 @@ namespace Aquality.Selenium.Utilities
         /// <returns>Text of the file.</returns>
         public static string GetTextFromFile(FileInfo fileInfo)
         {
+            string resultText = null;
             using (var reader = fileInfo.OpenText())
             {
-                return reader.ReadToEnd();
+                resultText = reader.ReadToEnd();
             }
+            return resultText;
         }
     }
 }
