@@ -11,6 +11,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 {
     internal class JsActionsTests : UITest
     {
+        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_Click()
         {
