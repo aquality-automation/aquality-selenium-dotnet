@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using NUnit.Framework;
 
-[assembly: LevelOfParallelism(1)]
+[assembly: LevelOfParallelism(10)]
 namespace Aquality.Selenium.Tests.Integration
 {
     [TestFixture]
