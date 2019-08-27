@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.Actions
 {
+    [Ignore("test")]
     internal class JsActionsTests : UITest
     {
         [Test]

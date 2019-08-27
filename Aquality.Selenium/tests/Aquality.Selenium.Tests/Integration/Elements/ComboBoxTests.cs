@@ -4,7 +4,6 @@ using NUnit.Framework;
 
 namespace Aquality.Selenium.Tests.Integration.Elements
 {
-    [TestFixture]
     internal class ComboBoxTests : UITest
     {
         private static readonly string Option2 = "Option 2";

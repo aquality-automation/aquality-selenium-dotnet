@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace Aquality.Selenium.Tests.Integration.Actions
 {
+    [Ignore("test")]
     internal class MouseActionsTests : UITest
     {
         [Test]

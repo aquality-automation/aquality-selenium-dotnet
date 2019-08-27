@@ -1,5 +1,5 @@
 {
-  "browserName": "firefox",
+  "browserName": "chrome",
   "isRemote": false,
   "remoteConnectionUrl": "http://qa-auto-nexus:4444/wd/hub",
   "isElementHighlightEnabled": true,
