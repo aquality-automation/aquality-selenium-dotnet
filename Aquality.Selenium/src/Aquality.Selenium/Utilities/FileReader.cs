@@ -21,7 +21,6 @@ namespace Aquality.Selenium.Utilities
         {
             var assembly = resourceAssembly ?? Assembly.GetCallingAssembly();
             var resourcePath = $"{assembly.GetName().Name}.{embeddedResourcePath}";
-            string resultText = null;
             using (var stream = assembly.GetManifestResourceStream(resourcePath))
             {
                 if (stream == null)
@@ -32,10 +31,9 @@ namespace Aquality.Selenium.Utilities
                 
                 using (var reader = new StreamReader(stream))
                 {
-                    resultText = reader.ReadToEnd();
+                    return reader.ReadToEnd();
                 }
             }
-            return resultText;
         }
 
         /// <summary>
@@ -66,12 +64,10 @@ namespace Aquality.Selenium.Utilities
         /// <returns>Text of the file.</returns>
         public static string GetTextFromFile(FileInfo fileInfo)
         {
-            string resultText = null;
             using (var reader = fileInfo.OpenText())
             {
-                resultText = reader.ReadToEnd();
+                return reader.ReadToEnd();
             }
-            return resultText;
         }
     }
 }
