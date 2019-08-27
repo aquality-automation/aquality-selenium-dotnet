@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Localization
             }
 
             Logger.Instance.Debug($"Cannot find localized message by key '{jsonKey}'");
-            return default;
+            return null;
         }
     }
 }
