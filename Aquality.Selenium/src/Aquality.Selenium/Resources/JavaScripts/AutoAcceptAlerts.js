@@ -6,4 +6,4 @@ window.alert = function (message) {
 };
 window.prompt = function (message) {
     return true;
-}
+};

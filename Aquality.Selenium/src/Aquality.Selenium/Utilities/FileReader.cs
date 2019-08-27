@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Utilities
                     throw new InvalidOperationException(
                         $"Assembly {assembly.FullName} doesn't contain EmbeddedResource at path {resourcePath}. Resource file cannot be loaded");
                 }
-                
+
                 using (var reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();
