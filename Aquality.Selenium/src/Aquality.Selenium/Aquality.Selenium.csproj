@@ -6,8 +6,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>1.0.0-beta</Version>
-    <Authors>Aquality Automation Committers</Authors>
-    <Company>aquality-automation</Company>
+    <Authors>aquality automation committers</Authors>
+    <Company>aquality automation</Company>
     <Description>Wrapper over Selenium WebDriver for .NET</Description>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
