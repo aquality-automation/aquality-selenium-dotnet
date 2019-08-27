@@ -65,31 +65,31 @@ namespace Aquality.Selenium.Elements
         }
 
         internal ReadOnlyCollection<IWebElement> FindElements(By locator, DesiredState desiredState, TimeSpan? timeout = null)
-        {            
+        {
+            var foundElements = new List<IWebElement>();
             var resultElements = new List<IWebElement>();
             try
             {
                 ConditionalWait.WaitFor(driver =>
                 {
-                    var elements = driver.FindElements(locator);
-                    resultElements.Clear();
-                    resultElements.AddRange(elements);
-                    return elements.Any(desiredState.ElementStateCondition);
+                    foundElements = driver.FindElements(locator).ToList();
+                    resultElements = foundElements.Where(desiredState.ElementStateCondition).ToList();
+                    return resultElements.Any();
                 }, timeout);
             }
             catch (WebDriverTimeoutException ex)
             {
-                HandleTimeoutException(ex, desiredState, locator, resultElements);
+                HandleTimeoutException(ex, desiredState, locator, foundElements);
             }
-            return resultElements.Where(desiredState.ElementStateCondition).ToList().AsReadOnly();
+            return resultElements.AsReadOnly();
         }
 
-        private void HandleTimeoutException(WebDriverTimeoutException ex, DesiredState desiredState, By locator, List<IWebElement> resultElements)
+        private void HandleTimeoutException(WebDriverTimeoutException ex, DesiredState desiredState, By locator, List<IWebElement> foundElements)
         {
             var message = LocalizationManager.Instance.GetLocalizedMessage("loc.no.elements.found.in.state", locator.ToString(), desiredState.StateName);
             if (desiredState.IsCatchingTimeoutException)
             {
-                if (!resultElements.Any())
+                if (!foundElements.Any())
                 {
                     if (desiredState.IsThrowingNoSuchElementException)
                     {
@@ -105,7 +105,7 @@ namespace Aquality.Selenium.Elements
             else
             {
                 var combinedMessage = $"{ex.Message}: {message}";
-                if (desiredState.IsThrowingNoSuchElementException && !resultElements.Any())
+                if (desiredState.IsThrowingNoSuchElementException && !foundElements.Any())
                 {
                     throw new NoSuchElementException(combinedMessage);                    
                 }
