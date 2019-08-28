@@ -19,9 +19,9 @@
         "download.default_directory": "./downloads"
       },
       "startArguments": [
-        "--no-sandbox",	
-        "--headless",	
-        "--disable-dev-shm-usage"	
+        "--no-sandbox",
+        "--headless",
+        "--disable-dev-shm-usage"
       ]
     },
     "firefox": {
