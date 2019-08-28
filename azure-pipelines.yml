@@ -30,10 +30,10 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    #projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
     projects: '**/*Tests*/*.csproj'
     arguments: --configuration $(buildConfiguration)
     publishTestResults: true
+  continueOnError: true
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
