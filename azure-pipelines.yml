@@ -46,5 +46,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(system.defaultworkingdirectory)'
-    ArtifactName: 'binaries'
+    ArtifactName: 'sources'
     publishLocation: 'Container'
