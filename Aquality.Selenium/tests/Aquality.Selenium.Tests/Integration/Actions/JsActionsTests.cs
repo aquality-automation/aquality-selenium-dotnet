@@ -68,7 +68,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual(expectedText, product.TxtQuantity.Value, $"One character should be removed from '{currentText}'");
         }
 
-        [Ignore("should be updated")]
         [Test]
         public void Should_BePossibleTo_CheckIsElementOnScreen()
         {

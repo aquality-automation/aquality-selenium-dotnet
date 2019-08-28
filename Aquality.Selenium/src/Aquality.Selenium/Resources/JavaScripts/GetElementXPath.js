@@ -1,4 +1,4 @@
-function WebElement_XPath(element) {
+function getXpath(element) {
     if (element.tagName === 'HTML') {
         return '/html';
     }
@@ -13,7 +13,7 @@ function WebElement_XPath(element) {
         var sibling = siblings[i];
         // Check sibling with our element if match then recursively call for its parent element.
         if (sibling === element) {
-            return WebElement_XPath(element.parentNode) + '/' + element.tagName + '[' + (position + 1) + ']';
+            return getXpath(element.parentNode) + '/' + element.tagName + '[' + (position + 1) + ']';
         }
         // if it is a sibling & element-node then only increments position.
         var type = sibling.nodeType;
@@ -21,5 +21,5 @@ function WebElement_XPath(element) {
             position++;
         }
     }
-};
-return WebElement_XPath(arguments[0]);
+}
+return getXpath(arguments[0]);

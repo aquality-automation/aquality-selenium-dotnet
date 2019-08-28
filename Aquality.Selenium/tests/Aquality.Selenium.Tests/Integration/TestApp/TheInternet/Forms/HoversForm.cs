@@ -17,14 +17,12 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         public ILabel GetHiddenElement(HoverExample example, ElementState state = ElementState.Displayed)
         {
-            var xpath = string.Format(HiddenElementTmpLoc, ((int)example).ToString());
-            return ElementFactory.GetLabel(By.XPath(xpath), $"Hidden element for {example} example", state);
+            return ElementFactory.GetLabel(By.XPath(string.Format(HiddenElementTmpLoc, (int)example)), $"Hidden element for {example} example", state);
         }
 
         public ILabel GetExample(HoverExample example)
         {
-            var xpath = string.Format(ExampleTmpLoc, ((int) example).ToString());
-            return ElementFactory.GetLabel(By.XPath(xpath), $"{example} example");
+            return ElementFactory.GetLabel(By.XPath(string.Format(ExampleTmpLoc, (int)example)), $"{example} example");
         }
     }
 
