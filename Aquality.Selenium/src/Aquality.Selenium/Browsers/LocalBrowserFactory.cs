@@ -8,10 +8,10 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using System;
 using System.IO;
-using System.Linq;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -61,12 +61,15 @@ namespace Aquality.Selenium.Browsers
 
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
         {
-            var driverPath = Path.Combine(Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator).First(), driverConfig.GetBinaryName());
-            if (!File.Exists(driverPath))
+            var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
+            var version = driverSettings.WebDriverVersion.Equals("Latest") ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
+            var url = UrlHelper.BuildUrl(architecture.Equals(Architecture.X32) ? driverConfig.GetUrl32() : driverConfig.GetUrl64(), version);
+            var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
+            if (!File.Exists(binaryPath))
             {
                 lock (webDriverDownloadingLock)
                 {
-                    new DriverManager().SetUpDriver(driverConfig, driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
+                    new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
                 }
             }
         }
