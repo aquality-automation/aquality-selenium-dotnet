@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Configurations.WebDriverSettings;
-using Aquality.Selenium.Waitings;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -21,6 +20,8 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class LocalBrowserFactory : BrowserFactory
     {
+        private static readonly object webDriverDownloadingLock = new object();
+
         public LocalBrowserFactory(IConfiguration configuration) : base(configuration)
         {
         }
@@ -58,15 +59,16 @@ namespace Aquality.Selenium.Browsers
             return new Browser(driver, Configuration);
         }
 
-        private void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
+        private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
         {
-            ConditionalWait.WaitForTrue(() =>
+            var driverPath = Path.Combine(Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator).First(), driverConfig.GetBinaryName());
+            if (!File.Exists(driverPath))
             {
-                var driverManager = new DriverManager();
-                driverManager.SetUpDriver(driverConfig, driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
-                var driverPath = Path.Combine(Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator).First(), driverConfig.GetBinaryName());
-                return File.Exists(driverPath);
-            }, message: $"Failed to download WebDriver executable from {driverConfig.GetName()} via WebDriverManager");            
+                lock (webDriverDownloadingLock)
+                {
+                    new DriverManager().SetUpDriver(driverConfig, driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
+                }
+            }
         }
     }
 }
