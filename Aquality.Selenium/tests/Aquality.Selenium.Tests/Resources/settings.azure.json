@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "Latest",
+      "webDriverVersion": "75.0.3770.140",
       "capabilities": {
         "enableVNC": true
       },
@@ -18,14 +18,11 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
-      "startArguments": [
-        "--no-sandbox",	
-        "--headless",	
-        "--disable-dev-shm-usage"	
-      ]
+      "startArguments": []
     },
     "firefox": {
-      "webDriverVersion": "Latest",
+      "webDriverVersion": "0.24.0",
+      "systemArchitecture": "X64",
       "capabilities": {
         "enableVNC": true
       },
