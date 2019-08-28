@@ -126,11 +126,14 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            infiniteScrollForm.ScrollIfSingleExamplePresent();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() =>
+                {
+                    infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }),
                 "Some examples should be added after scroll");
         }
 
@@ -139,11 +142,13 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            infiniteScrollForm.ScrollIfSingleExamplePresent();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
-            infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() => 
+                    {
+                        infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
+                        return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                    }),
                 "Some examples should be added after scroll");
         }
 
@@ -152,12 +157,14 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            infiniteScrollForm.ScrollIfSingleExamplePresent();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;            
 
-            infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
+                () => ConditionalWait.WaitForTrue(() =>
+                {
+                    infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }),
                 "Some examples should be added after scroll");
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 
@@ -17,13 +16,5 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public IList<ILabel> ExampleLabels => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
 
         public ILabel LastExampleLabel => ExampleLabels.Last();
-
-        public void ScrollIfSingleExamplePresent()
-        {
-            if(ExampleLabels.Count == 1)
-            {
-                BrowserManager.Browser.ScrollWindowBy(0, Size.Height);
-            }
-        }
     }
 }
