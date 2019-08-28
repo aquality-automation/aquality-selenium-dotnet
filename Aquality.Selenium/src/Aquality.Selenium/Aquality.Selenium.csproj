@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.4-beta</Version>
     <Authors>aquality automation committers</Authors>
     <Company>aquality automation</Company>
     <Description>Wrapper over Selenium WebDriver for .NET</Description>
