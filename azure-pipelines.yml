@@ -16,6 +16,18 @@ variables:
   profile: 'azure'
 
 steps:
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud analysis'
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'aqualityautomation'
+    projectKey: 'aquality-automation_aquality-selenium-dotnet'
+    projectName: 'aquality-selenium-dotnet'
+    projectVersion: '$(Build.BuildNumber)'
+    #extraProperties: |
+    # sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+    # sonar.exclusions=**/wwwroot/lib/**/*
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -28,7 +40,11 @@ steps:
     projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
     publishTestResults: true
 
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud code analysis'
 
+- task: SonarCloudPublish@1
+  displayName: 'Publish SonarCloud quality gate results'
 
 #- script: dotnet build --configuration $(buildConfiguration) Aquality.Selenium/Aquality.Selenium.sln
 #  displayName: 'Build - $(buildConfiguration)'
