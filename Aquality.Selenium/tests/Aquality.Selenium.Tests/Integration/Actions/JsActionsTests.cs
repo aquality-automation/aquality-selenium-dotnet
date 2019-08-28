@@ -11,7 +11,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 {
     internal class JsActionsTests : UITest
     {
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_Click()
         {
@@ -21,7 +20,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_ClickAndWait()
         {            
@@ -31,7 +29,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_HighlightElement()
         {
@@ -43,7 +40,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual("3px solid rgb(255, 0, 0)", border, "Element should be highlighted");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_HoverMouse()
         {
@@ -57,7 +53,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_SetFocus()
         {
@@ -87,7 +82,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             });
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_SetValue()
         {
@@ -99,7 +93,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via JS");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_GetElementText()
         {
@@ -109,7 +102,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 $"Sub title should be {WelcomeForm.SubTitle}");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_GetXPathLocator()
         {
@@ -120,7 +112,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.AreEqual(expectedLocator, actualLocator, $"Locator of sub title should be {expectedLocator}");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_GetViewPortCoordinates()
         {
@@ -130,7 +121,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_ScrollIntoView()
         {
@@ -143,7 +133,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 "Some examples should be added after scroll");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_ScrollBy()
         {
@@ -156,7 +145,6 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                 "Some examples should be added after scroll");
         }
 
-        [Ignore("test ignore")]
         [Test]
         public void Should_BePossibleTo_ScrollToTheCenter()
         {

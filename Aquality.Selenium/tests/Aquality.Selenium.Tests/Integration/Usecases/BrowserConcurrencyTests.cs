@@ -7,7 +7,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     internal class BrowserConcurrencyTests
     {
-        [Ignore("Need to fix")]
         [Test]
         public void Should_BePossibleTo_CreateDifferentBrowsersInDifferentThreads()
         {
