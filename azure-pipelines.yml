@@ -19,13 +19,12 @@ steps:
     projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
       sonar.coverage.exclusions=**/**
-      #sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)\opencover.xml"
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/opencover.xml
+    arguments: --configuration $(buildConfiguration)
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
