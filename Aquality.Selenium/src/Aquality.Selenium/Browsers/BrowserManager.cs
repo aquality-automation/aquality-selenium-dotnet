@@ -47,9 +47,8 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public static void SetDefaultFactory()
         {
-            IBrowserFactory browserFactory;
             IConfiguration configuration = Configuration.Instance;
-
+            IBrowserFactory browserFactory;
             if (configuration.BrowserProfile.IsRemote)
             {
                 browserFactory = new RemoteBrowserFactory(configuration);
