@@ -42,3 +42,9 @@ steps:
     projects: '**/*Tests*/*.csproj'
     arguments: --configuration $(buildConfiguration)
     publishTestResults: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'Aquality.Selenium/'
+    ArtifactName: 'binaries'
+    publishLocation: 'Container'
