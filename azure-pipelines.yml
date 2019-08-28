@@ -1,16 +1,9 @@
-# .NET Core
-# Build and test .NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - master
 
 pool:
   vmImage: 'windows-latest'
   
-#container: autotests/dotnet-core-sdk-browsers:latest
-
 variables:
   buildConfiguration: 'Release'
   profile: 'azure'
@@ -24,30 +17,28 @@ steps:
     projectKey: 'aquality-automation_aquality-selenium-dotnet'
     projectName: 'aquality-selenium-dotnet'
     projectVersion: '$(Build.BuildNumber)'
-    #extraProperties: |
-    # sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
-    # sonar.exclusions=**/wwwroot/lib/**/*
+    extraProperties: |
+      #sonar.coverage.exclusions=**/**
+      sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)\opencover.xml"
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: --configuration $(buildConfiguration)
-
-- task: SonarCloudAnalyze@1
-  displayName: 'Run SonarCloud code analysis'
-
-- task: SonarCloudPublish@1
-  displayName: 'Publish SonarCloud quality gate results'
+    arguments: --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/opencover.xml
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+    #projects: Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
+    projects: '**/*Tests*/*.csproj'
+    arguments: --configuration $(buildConfiguration)
     publishTestResults: true
 
-#- script: dotnet build --configuration $(buildConfiguration) Aquality.Selenium/Aquality.Selenium.sln
-#  displayName: 'Build - $(buildConfiguration)'
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud code analysis'
+  continueOnError: true
 
-#- script: dotnet test Aquality.Selenium/tests/Aquality.Selenium.Tests/Aquality.Selenium.Tests.csproj
-#  displayName: 'Run tests'
+- task: SonarCloudPublish@1
+  displayName: 'Publish SonarCloud quality gate results'
+  continueOnError: true
