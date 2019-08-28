@@ -8,8 +8,8 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public static class BrowserManager
     {
-        private static readonly ThreadLocal<Browser> browserContainer = new ThreadLocal<Browser>();
-        private static readonly ThreadLocal<IBrowserFactory> browserFactoryContainer = new ThreadLocal<IBrowserFactory>();
+        private static readonly ThreadLocal<Browser> BrowserContainer = new ThreadLocal<Browser>();
+        private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 
         /// <summary>
         /// Gets and sets thread-safe instance of browser.
@@ -19,26 +19,26 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                if (!browserContainer.IsValueCreated || browserContainer.Value.Driver.SessionId == null)
+                if (!BrowserContainer.IsValueCreated || BrowserContainer.Value.Driver.SessionId == null)
                 {
                     SetDefaultBrowser();
                 }
-                return browserContainer.Value;
+                return BrowserContainer.Value;
             }
             set
             {
-                browserContainer.Value = value;
+                BrowserContainer.Value = value;
             }
         }
 
         private static void SetDefaultBrowser()
         {
-            if (!browserFactoryContainer.IsValueCreated)
+            if (!BrowserFactoryContainer.IsValueCreated)
             {
                 SetDefaultFactory();
             }
 
-            Browser = browserFactoryContainer.Value.Browser;
+            Browser = BrowserFactoryContainer.Value.Browser;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="browserFactory">Custom implementation of <see cref="IBrowserFactory"/></param>
         public static void SetFactory(IBrowserFactory browserFactory)
         {
-            browserFactoryContainer.Value = browserFactory;
+            BrowserFactoryContainer.Value = browserFactory;
         }
     }
 }

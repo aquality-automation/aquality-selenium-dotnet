@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class LocalBrowserFactory : BrowserFactory
     {
-        private static readonly object webDriverDownloadingLock = new object();
+        private static readonly object WebDriverDownloadingLock = new object();
 
         public LocalBrowserFactory(IConfiguration configuration) : base(configuration)
         {
@@ -67,7 +67,7 @@ namespace Aquality.Selenium.Browsers
             var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
             if (!File.Exists(binaryPath) || !Environment.GetEnvironmentVariable("PATH").Contains(binaryPath))
             {
-                lock (webDriverDownloadingLock)
+                lock (WebDriverDownloadingLock)
                 {
                     new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
                 }
