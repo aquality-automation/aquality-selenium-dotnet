@@ -1,5 +1,3 @@
-[![NuGet](https://img.shields.io/nuget/v/Aquality.Selenium.svg)](https://www.nuget.org/packages/Aquality.Selenium)
-
 # Aquality Selenium for .NET
 
 ### Overview
