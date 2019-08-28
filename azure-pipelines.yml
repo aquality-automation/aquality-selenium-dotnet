@@ -21,6 +21,7 @@ steps:
       sonar.coverage.exclusions=**/**
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build solution'
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
@@ -35,6 +36,7 @@ steps:
   continueOnError: true
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run tests'
   inputs:
     command: 'test'
     projects: '**/*Tests*/*.csproj'
