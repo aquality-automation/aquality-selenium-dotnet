@@ -126,6 +126,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
+            infiniteScrollForm.ScrollIfSingleExamplePresent();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
             Assert.DoesNotThrow(
@@ -138,6 +139,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
+            infiniteScrollForm.ScrollIfSingleExamplePresent();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
             Assert.DoesNotThrow(
@@ -150,7 +152,9 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            infiniteScrollForm.ScrollIfSingleExamplePresent();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;            
+
             infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
             Assert.DoesNotThrow(
                 () => ConditionalWait.WaitForTrue(() => infiniteScrollForm.ExampleLabels.Count > defaultCount),
