@@ -45,6 +45,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'Aquality.Selenium/'
+    PathtoPublish: '$(system.defaultworkingdirectory)'
     ArtifactName: 'binaries'
     publishLocation: 'Container'
