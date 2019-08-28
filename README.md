@@ -1,4 +1,4 @@
-![NuGet](https://img.shields.io/nuget/v/Aquality.Selenium)
+[![NuGet](https://img.shields.io/nuget/v/Aquality.Selenium)](https://www.nuget.org/packages/Aquality.Selenium)
 
 # Aquality Selenium for .NET
 
