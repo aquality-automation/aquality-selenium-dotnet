@@ -18,22 +18,14 @@ steps:
     projectName: 'aquality-selenium-dotnet'
     projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
-      #sonar.coverage.exclusions=**/**
-      sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)\opencover.xml"
+      sonar.coverage.exclusions=**/**
+      #sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)\opencover.xml"
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
     arguments: --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/opencover.xml
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*Tests*/*.csproj'
-    arguments: --configuration $(buildConfiguration)
-    publishTestResults: true
-  continueOnError: true
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
@@ -42,3 +34,10 @@ steps:
 - task: SonarCloudPublish@1
   displayName: 'Publish SonarCloud quality gate results'
   continueOnError: true
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*Tests*/*.csproj'
+    arguments: --configuration $(buildConfiguration)
+    publishTestResults: true
