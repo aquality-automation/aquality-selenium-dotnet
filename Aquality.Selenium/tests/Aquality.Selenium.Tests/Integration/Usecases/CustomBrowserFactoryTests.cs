@@ -2,25 +2,26 @@
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Configurations.WebDriverSettings;
 using Aquality.Selenium.Localization;
+using Aquality.Selenium.Utilities;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     [TestFixture]
     internal class CustomBrowserFactoryTests
     {
+        private static readonly string OverriddenDownloadDir = "custom download dir";
+
         [Test]
         public void Should_BePossibleToUse_CustomBrowser()
         {
             var browserFactory = new CustomLocalBrowserFactory();
             BrowserManager.Browser = browserFactory.Browser;
-            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, new CustomChromeSettings().DownloadDir);
+            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, OverriddenDownloadDir);
         }
 
         [Test]
@@ -28,7 +29,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         {
             var browserFactory = new CustomLocalBrowserFactory();
             BrowserManager.SetFactory(browserFactory);
-            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, new CustomChromeSettings().DownloadDir);
+            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, OverriddenDownloadDir);
         }
 
         [TearDown]
@@ -44,8 +45,8 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
                 get
                 {
-                    new DriverManager().SetUpDriver(new ChromeConfig());
                     var configuration = new CustomConfiguration();
+                    new DriverManager().SetUpDriver(new ChromeConfig(), configuration.BrowserProfile.DriverSettings.WebDriverVersion);
                     var chromeDriver = new ChromeDriver((ChromeOptions)configuration.BrowserProfile.DriverSettings.DriverOptions);
                     return new Browser(chromeDriver, configuration);
                 }
@@ -61,7 +62,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             public IRetryConfiguration RetryConfiguration => new CustomRetryConfiguration();
 
             public ILoggerConfiguration LoggerConfiguration => new LoggerConfiguration();
-
         }
 
         private class CustomTimeoutConfiguration : ITimeoutConfiguration
@@ -101,28 +101,23 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
             public bool IsElementHighlightEnabled => false;
 
-            public IDriverSettings DriverSettings => new CustomChromeSettings();
+            public IDriverSettings DriverSettings => new CustomChromeSettings(GetSettingsFile());
+
+            private JsonFile GetSettingsFile()
+            {
+                var profileNameFromEnvironment = Environment.GetEnvironmentVariable("profile");
+                var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
+                return new JsonFile(settingsProfile);
+            }
         }
 
-        private class CustomChromeSettings : IDriverSettings
+        private class CustomChromeSettings : ChromeSettings
         {
-            public string WebDriverVersion => "Latest";
-
-            public Architecture SystemArchitecture => Architecture.Auto;
-
-            public DriverOptions DriverOptions
+            public CustomChromeSettings(JsonFile settingsFile) : base(settingsFile)
             {
-                get
-                {
-                    var options = new ChromeOptions();
-                    options.AddArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-                    return options;
-                }
             }
 
-            public string DownloadDir => "custom download dir";
-
-            public string DownloadDirCapabilityKey => "key";
+            public override string DownloadDir => OverriddenDownloadDir;
         }
     }    
 }

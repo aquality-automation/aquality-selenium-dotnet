@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Utilities
             return jsonFile.IsValuePresent(jsonPath) ? jsonFile.GetValueList<T>(jsonPath) : new List<T>();
         }
 
-        public static T GetValueOrDefault<T>(this JsonFile jsonFile, string jsonPath, T defaultValue = default)
+        public static T GetValueOrDefault<T>(this JsonFile jsonFile, string jsonPath, T defaultValue = default(T))
         {
             return jsonFile.IsValuePresent(jsonPath) ? jsonFile.GetValue<T>(jsonPath) : defaultValue;
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Aquality.Selenium.Utilities
 {
@@ -12,6 +14,15 @@ namespace Aquality.Selenium.Utilities
         /// </summary>
         /// <param name="key">Environment variable key.</param>
         /// <returns>Value of environment variable.</returns>
-        public static string GetVariable(string key) => Environment.GetEnvironmentVariable(key);
+        public static string GetVariable(string key)
+        {
+            var variables = new List<string>
+            {
+                Environment.GetEnvironmentVariable(key),
+                Environment.GetEnvironmentVariable(key.ToLower()),
+                Environment.GetEnvironmentVariable(key.ToUpper())
+            };
+            return variables.FirstOrDefault(variable => variable != null);
+        }
     }
 }

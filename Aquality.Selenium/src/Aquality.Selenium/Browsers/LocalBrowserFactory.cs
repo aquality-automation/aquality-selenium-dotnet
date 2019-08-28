@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Configurations.WebDriverSettings;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -6,8 +7,11 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using System;
+using System.IO;
 using WebDriverManager;
+using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -16,6 +20,8 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class LocalBrowserFactory : BrowserFactory
     {
+        private static readonly object WebDriverDownloadingLock = new object();
+
         public LocalBrowserFactory(IConfiguration configuration) : base(configuration)
         {
         }
@@ -26,20 +32,19 @@ namespace Aquality.Selenium.Browsers
         {
             var browserName = Configuration.BrowserProfile.BrowserName;
             var driverSettings = Configuration.BrowserProfile.DriverSettings;
-            var driverManager = new DriverManager();
             RemoteWebDriver driver;
             switch (browserName)
             {
                 case BrowserName.Chrome:
-                    driverManager.SetUpDriver(new ChromeConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
+                    SetUpDriver(new ChromeConfig(), driverSettings);                    
                     driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Firefox:
-                    driverManager.SetUpDriver(new FirefoxConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
+                    SetUpDriver(new FirefoxConfig(), driverSettings);
                     driver = new FirefoxDriver((FirefoxOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.IExplorer:
-                    driverManager.SetUpDriver(new InternetExplorerConfig(), driverSettings.WebDriverVersion, driverSettings.SystemArchitecture);
+                    SetUpDriver(new InternetExplorerConfig(), driverSettings);
                     driver = new InternetExplorerDriver((InternetExplorerOptions)driverSettings.DriverOptions);
                     break;
                 case BrowserName.Edge:
@@ -52,6 +57,21 @@ namespace Aquality.Selenium.Browsers
                     throw new ArgumentOutOfRangeException($"Browser {browserName} is not supported.");
             }
             return new Browser(driver, Configuration);
+        }
+
+        private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
+        {
+            var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
+            var version = driverSettings.WebDriverVersion.Equals("Latest") ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
+            var url = UrlHelper.BuildUrl(architecture.Equals(Architecture.X32) ? driverConfig.GetUrl32() : driverConfig.GetUrl64(), version);
+            var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
+            if (!File.Exists(binaryPath) || !Environment.GetEnvironmentVariable("PATH").Contains(binaryPath))
+            {
+                lock (WebDriverDownloadingLock)
+                {
+                    new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
+                }
+            }
         }
     }
 }

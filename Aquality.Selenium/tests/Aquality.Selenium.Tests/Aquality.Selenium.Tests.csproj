@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\settings.azure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\settings.local.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

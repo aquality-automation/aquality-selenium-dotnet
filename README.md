@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/aquality-automation/aquality-automation/_apis/build/status/aquality-automation.aquality-selenium-dotnet?branchName=master)](https://dev.azure.com/aquality-automation/aquality-automation/_build/latest?definitionId=1&branchName=master)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=aquality-automation_aquality-selenium-dotnet&metric=alert_status)](https://sonarcloud.io/dashboard?id=aquality-automation_aquality-selenium-dotnet)
 [![NuGet](https://img.shields.io/nuget/v/Aquality.Selenium)](https://www.nuget.org/packages/Aquality.Selenium)
 
 # Aquality Selenium for .NET

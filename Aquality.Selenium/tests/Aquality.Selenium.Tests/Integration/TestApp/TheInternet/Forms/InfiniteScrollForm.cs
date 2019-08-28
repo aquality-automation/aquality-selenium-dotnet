@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
     internal class InfiniteScrollForm : TheInternetForm
     {
-        public InfiniteScrollForm() : base(By.XPath("//h3[contains(.,'Infinite Scroll')]"), "Infinite Scroll")
+        public InfiniteScrollForm() : base(By.XPath("//div[@id='content' and .//h3[contains(.,'Infinite Scroll')]]"), "Infinite Scroll")
         {
         }
 
