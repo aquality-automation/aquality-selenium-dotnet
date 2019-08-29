@@ -53,7 +53,8 @@ steps:
   inputs:
     command: 'pack'
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    arguments: -c $(buildConfiguration) --no-build -o $(Build.ArtifactStagingDirectory)
+    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) --no-build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: NuGetCommand@2
   displayName: 'Push NuGet package'
