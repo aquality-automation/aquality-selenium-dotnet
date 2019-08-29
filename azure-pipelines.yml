@@ -21,11 +21,11 @@ steps:
       sonar.coverage.exclusions=**/**
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build solution'
+  displayName: 'Build solution - $(buildConfiguration) v: $(GitVersion.NuGetVersion)'
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: -c $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
+    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
