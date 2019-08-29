@@ -47,16 +47,14 @@ steps:
     projects: '**/*Tests*/*.csproj'
     arguments: -c $(buildConfiguration) --no-build
     publishTestResults: true
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: DotNetCoreCLI@2
   displayName: 'Create NuGet package'
   inputs:
     command: 'pack'
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    arguments: -c $(buildConfiguration) --no-build
-    # -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
-  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: NuGetCommand@2
   displayName: 'Push NuGet package'
