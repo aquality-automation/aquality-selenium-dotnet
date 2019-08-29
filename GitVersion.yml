@@ -1,3 +1,4 @@
+next-version: 1.0
 mode: Mainline
 increment: Inherit
 branches: {}
