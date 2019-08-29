@@ -8,6 +8,7 @@
     <Authors>aquality automation committers</Authors>
     <Company>aquality automation</Company>
     <Description>Wrapper over Selenium WebDriver for .NET</Description>
+    <PackageDescription>Wrapper over Selenium WebDriver for .NET</PackageDescription>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
