@@ -32,7 +32,7 @@ steps:
 #    projects: Aquality.Selenium/Aquality.Selenium.sln
 #    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
 
-- script: dotnet build Aquality.Selenium/Aquality.Selenium.sln -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
+- script: dotnet build Aquality.Selenium/Aquality.Selenium.sln -c $(buildConfiguration) /p:Version=$(GitVersion.MajorMinorPatch)
   displayName: 'Build solution - $(buildConfiguration)'
 
 #- task: SonarCloudAnalyze@1
