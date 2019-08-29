@@ -10,6 +10,7 @@ variables:
 
 steps:
 - task: GitVersion@5
+  displayName: 'Run GitVersion'
   inputs:
     runtime: 'core'
 
@@ -25,7 +26,7 @@ steps:
       sonar.coverage.exclusions=**/**
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build solution - $(buildConfiguration) v: $(GitVersion.NuGetVersion)'
+  displayName: 'Build solution - $(buildConfiguration)'
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
@@ -52,9 +53,10 @@ steps:
   inputs:
     command: 'pack'
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    arguments: -c $(buildConfiguration) --no-build -o '$(build.artifactStagingDirectory)'
+    arguments: -c $(buildConfiguration) --no-build -o $(build.artifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
   inputs:
     PathtoPublish: '$(system.defaultworkingdirectory)'
     ArtifactName: 'sources'
