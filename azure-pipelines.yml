@@ -14,53 +14,39 @@ steps:
   inputs:
     runtime: 'core'
 
-#- task: SonarCloudPrepare@1
-#  displayName: 'Prepare SonarCloud analysis'
-#  inputs:
-#    SonarCloud: 'SonarCloud'
-#    organization: 'aqualityautomation'
-#    projectKey: 'aquality-automation_aquality-selenium-dotnet'
-#    projectName: 'aquality-selenium-dotnet'
-#    projectVersion: '$(Build.BuildNumber)'
-#    extraProperties: |
-#      sonar.coverage.exclusions=**/**
-
-#- task: DotNetCoreCLI@2
-#  displayName: 'Build solution - $(buildConfiguration)'
-#  inputs:
-#    command: 'build'
-#    projects: Aquality.Selenium/Aquality.Selenium.sln
-#    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud analysis'
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'aqualityautomation'
+    projectKey: 'aquality-automation_aquality-selenium-dotnet'
+    projectName: 'aquality-selenium-dotnet'
+    projectVersion: '$(Build.BuildNumber)'
+    extraProperties: |
+      sonar.coverage.exclusions=**/**
 
 - script: dotnet build Aquality.Selenium/Aquality.Selenium.sln -c $(buildConfiguration)
   displayName: 'Build solution - $(buildConfiguration)'
 
-#- task: SonarCloudAnalyze@1
-#  displayName: 'Run SonarCloud code analysis'
-#  continueOnError: true
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud code analysis'
+  continueOnError: true
 
-#- task: SonarCloudPublish@1
-#  displayName: 'Publish SonarCloud quality gate results'
-#  continueOnError: true
+- task: SonarCloudPublish@1
+  displayName: 'Publish SonarCloud quality gate results'
+  continueOnError: true
 
-#- task: DotNetCoreCLI@2
-#  displayName: 'Run tests'
-#  inputs:
-#    command: 'test'
-#    projects: '**/*Tests*/*.csproj'
-#    arguments: -c $(buildConfiguration) --no-build
-#    publishTestResults: true
+- task: DotNetCoreCLI@2
+  displayName: 'Run tests'
+  inputs:
+    command: 'test'
+    projects: '**/*Tests*/*.csproj'
+    arguments: -c $(buildConfiguration) --no-build
+    publishTestResults: true
 
-- script: dotnet pack Aquality.Selenium\src\Aquality.Selenium\Aquality.Selenium.csproj -c $(buildConfiguration) --no-build -p:Version=$(GitVersion.MajorMinorPatch) -o $(Build.ArtifactStagingDirectory)
+- script: dotnet pack Aquality.Selenium\src\Aquality.Selenium\Aquality.Selenium.csproj -c $(buildConfiguration) --no-build -p:Version=$(GitVersion.NuGetVersion) -o $(Build.ArtifactStagingDirectory)
   displayName: 'Create NuGet package'
-
-#- task: DotNetCoreCLI@2
-#  displayName: 'Create NuGet package'
-#  inputs:
-#    command: 'pack'
-#    projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-#    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
-  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: NuGetCommand@2
   displayName: 'Push NuGet package'
