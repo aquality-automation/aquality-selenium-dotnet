@@ -53,7 +53,7 @@ steps:
   inputs:
     command: 'pack'
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    arguments: -c $(buildConfiguration) --no-build -o $(build.artifactStagingDirectory)
+    arguments: -c $(buildConfiguration) --no-build -o $(Build.ArtifactStagingDirectory)
 
 - task: NuGetCommand@2
   displayName: 'Push NuGet package'
@@ -64,9 +64,14 @@ steps:
     publishFeedCredentials: 'NuGet'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-#- task: PublishBuildArtifacts@1
-#  displayName: 'Publish build artifacts'
-#  inputs:
-#    PathtoPublish: '$(system.defaultworkingdirectory)'
-#    ArtifactName: 'sources'
-#    publishLocation: 'Container'
+- task: GitHubRelease@0
+  displayName: 'Create tag on GitHub'
+  inputs:
+    gitHubConnection: 'GitHub'
+    repositoryName: 'aquality-automation/aquality-selenium-dotnet'
+    action: 'create'
+    tag: 'v$(GitVersion.NuGetVersion)'
+    title: 'v$(GitVersion.NuGetVersion)'
+    tagSource: 'auto'
+    isPreRelease: contains(variables['GitVersion.NuGetVersion'], '-')
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
