@@ -5,6 +5,8 @@ using System;
 
 namespace Aquality.Selenium.Tests.Unit
 {
+    [TestFixture]
+    [Parallelizable(ParallelScope.All)]
     internal class BrowserManagerTests
     {
         [Test]

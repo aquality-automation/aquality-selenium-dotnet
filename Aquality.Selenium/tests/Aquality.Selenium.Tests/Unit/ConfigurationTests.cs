@@ -4,7 +4,7 @@ using System;
 
 namespace Aquality.Selenium.Tests.Unit
 {
-    [Parallelizable(ParallelScope.All)]
+    [TestFixture]
     internal class ConfigurationTests
     {
         [Test]

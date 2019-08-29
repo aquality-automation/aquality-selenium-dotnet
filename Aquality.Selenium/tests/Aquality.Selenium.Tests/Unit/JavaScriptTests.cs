@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace Aquality.Selenium.Tests.Unit
 {
+    [TestFixture]
     [Parallelizable(ParallelScope.All)]
     internal class JavaScriptTests
     {

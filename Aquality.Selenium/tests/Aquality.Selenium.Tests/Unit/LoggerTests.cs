@@ -7,7 +7,6 @@ using NUnit.Framework;
 namespace Aquality.Selenium.Tests.Unit
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.All)]
     internal class LoggerTests
     {
         private const string AddTargetLogFile = "AddTargetTestLog.log";
