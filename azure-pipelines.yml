@@ -55,9 +55,18 @@ steps:
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
     arguments: -c $(buildConfiguration) --no-build -o $(build.artifactStagingDirectory)
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish build artifacts'
+- task: NuGetCommand@2
+  displayName: 'Push NuGet package'
   inputs:
-    PathtoPublish: '$(system.defaultworkingdirectory)'
-    ArtifactName: 'sources'
-    publishLocation: 'Container'
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.nupkg;!$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publish build artifacts'
+#  inputs:
+#    PathtoPublish: '$(system.defaultworkingdirectory)'
+#    ArtifactName: 'sources'
+#    publishLocation: 'Container'
