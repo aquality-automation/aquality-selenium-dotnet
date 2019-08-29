@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: -c $(buildConfiguration)
+    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
@@ -54,7 +54,8 @@ steps:
   inputs:
     command: 'pack'
     projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    arguments: -c $(buildConfiguration) --no-build -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
+    arguments: -c $(buildConfiguration) --no-build
+    # -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
   #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: NuGetCommand@2
