@@ -1,13 +1,11 @@
-﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
+﻿using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
-    [TestFixture]
-    internal class CustomElementTests
+    internal class CustomElementTests : UITest
     {        
         [Test]
         public void ShouldBe_PossibleTo_CreateCustomTextBox()
@@ -20,12 +18,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             userNameTxb.Type("wrong");
             userNameCustomTxb.Type("right");
             Assert.AreEqual(userNameTxb.Value, userNameCustomTxb.Text);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            BrowserManager.Browser.Quit();
         }
 
         private class CustomTextBox : TextBox

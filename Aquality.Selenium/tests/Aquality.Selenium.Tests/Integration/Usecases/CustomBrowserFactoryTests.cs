@@ -12,6 +12,7 @@ using WebDriverManager.DriverConfigs.Impl;
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All)]
     internal class CustomBrowserFactoryTests
     {
         private static readonly string OverriddenDownloadDir = "custom download dir";
