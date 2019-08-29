@@ -49,20 +49,16 @@ steps:
     publishTestResults: true
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
+- script: dotnet pack ./Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj -c $(buildConfiguration) --no-build -o '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Create NuGet package'
+
 #- task: DotNetCoreCLI@2
 #  displayName: 'Create NuGet package'
 #  inputs:
 #    command: 'pack'
 #    projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-#    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
-#  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-- task: NuGetCommand@2
-  displayName: 'Create NuGet package'
-  inputs:
-    command: 'pack'
-    packagesToPack: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
-    versioningScheme: 'off'
+#    arguments: --no-bu-c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:Version=$(GitVersion.NuGetVersion)
+  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: NuGetCommand@2
   displayName: 'Push NuGet package'
