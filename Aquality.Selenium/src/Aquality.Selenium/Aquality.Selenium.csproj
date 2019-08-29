@@ -14,6 +14,7 @@
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Copyright 2019 Aquality Automation</Copyright>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
