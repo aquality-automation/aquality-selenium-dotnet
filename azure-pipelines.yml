@@ -9,6 +9,10 @@ variables:
   profile: 'azure'
 
 steps:
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+
 - task: SonarCloudPrepare@1
   displayName: 'Prepare SonarCloud analysis'
   inputs:
