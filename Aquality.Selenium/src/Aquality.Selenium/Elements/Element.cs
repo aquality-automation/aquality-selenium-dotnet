@@ -51,8 +51,8 @@ namespace Aquality.Selenium.Elements
             }
             catch (NoSuchElementException ex)
             {
-                Logger.Debug($"Page source:{Environment.NewLine}{Browser.Driver.PageSource}");
-                throw ex;
+                Logger.Debug($"Page source:{Environment.NewLine}{Browser.Driver.PageSource}", ex);
+                throw;
             }
         }
 
