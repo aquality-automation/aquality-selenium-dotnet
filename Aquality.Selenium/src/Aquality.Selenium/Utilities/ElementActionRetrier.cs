@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Utilities
     /// <summary>
     /// Retries an action or function when <see cref="StaleElementReferenceException"/> or <see cref="InvalidElementStateException"/> occures.
     /// </summary>
-    internal sealed class ElementActionRetrier
+    internal static class ElementActionRetrier
     {
         /// <summary>
         /// Retries the action when <see cref="StaleElementReferenceException"/> or <see cref="InvalidElementStateException"/> occures.

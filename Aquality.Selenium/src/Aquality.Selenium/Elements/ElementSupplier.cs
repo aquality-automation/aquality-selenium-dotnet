@@ -11,5 +11,5 @@ namespace Aquality.Selenium.Elements
     /// <param name="name">Element name</param>
     /// <param name="state">Element state</param>
     /// <returns>Element instance of type T</returns>
-    public delegate T ElementSupplier<T>(By locator, string name, ElementState state) where T : IElement;
+    public delegate T ElementSupplier<out T>(By locator, string name, ElementState state) where T : IElement;
 }

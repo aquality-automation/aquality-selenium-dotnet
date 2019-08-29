@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Configurations
 
         private int GetIntFromSettings(string name)
         {
-            return settingsFile.GetValue<int>($".retry.{name}");;
+            return settingsFile.GetValue<int>($".retry.{name}");
         }
 
         public int Number { get; }

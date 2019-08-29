@@ -61,14 +61,14 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected void SetCapabilities(DriverOptions options, Action<string, object> addCapabilityMethod = null)
         {
-            foreach(var capability in BrowserCapabilities)
+            foreach (var capability in BrowserCapabilities)
             {
                 try
                 {
                     var defaultAddCapabilityMethod = addCapabilityMethod ?? options.AddAdditionalCapability;
                     defaultAddCapabilityMethod(capability.Key, capability.Value);
                 } 
-                catch(ArgumentException exception)
+                catch (ArgumentException exception)
                 {
                     if(exception.Message.StartsWith("There is already an option"))
                     {
@@ -76,7 +76,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                     }
                     else
                     {
-                        throw exception;
+                        throw;
                     }
                 }
             }
