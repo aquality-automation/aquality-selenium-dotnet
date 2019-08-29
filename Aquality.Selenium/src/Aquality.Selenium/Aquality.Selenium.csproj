@@ -5,7 +5,6 @@
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.4-beta</Version>
     <Authors>aquality automation committers</Authors>
     <Company>aquality automation</Company>
     <Description>Wrapper over Selenium WebDriver for .NET</Description>
@@ -15,6 +14,7 @@
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Copyright 2019 Aquality Automation</Copyright>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
