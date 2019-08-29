@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)
+    arguments: -c $(buildConfiguration) /p:Version=$(GitVersion.NuGetVersion)
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
