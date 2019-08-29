@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'build'
     projects: Aquality.Selenium/Aquality.Selenium.sln
-    arguments: --configuration $(buildConfiguration)
+    arguments: -c $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud code analysis'
@@ -40,8 +40,15 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*Tests*/*.csproj'
-    arguments: --configuration $(buildConfiguration)
+    arguments: -c $(buildConfiguration) --no-build
     publishTestResults: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create NuGet package v$(GitVersion.NuGetVersion)'
+  inputs:
+    command: 'pack'
+    projects: Aquality.Selenium/src/Aquality.Selenium/Aquality.Selenium.csproj
+    arguments: -c $(buildConfiguration) --no-build -o '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
