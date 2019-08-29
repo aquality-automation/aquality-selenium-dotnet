@@ -16,7 +16,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 
 ### Quick start
 
-1. To start work with this package, simply add the nuget dependency Aquality.Selenium to your project (only pre-release version is available at the moment).
+1. To start work with this package, simply add the nuget dependency Aquality.Selenium to your project.
 
 2. Create instance of Browser in your test method:
 ```csharp
