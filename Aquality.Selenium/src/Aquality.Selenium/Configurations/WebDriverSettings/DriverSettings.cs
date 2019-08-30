@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public DriverSettings(JsonFile settingsFile)
+        protected DriverSettings(JsonFile settingsFile)
         {
             SettingsFile = settingsFile;
         }
