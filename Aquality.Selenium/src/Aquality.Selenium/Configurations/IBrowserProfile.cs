@@ -12,31 +12,27 @@ namespace Aquality.Selenium.Configurations
         /// <summary>
         /// Gets name of target browser.
         /// </summary>
-        /// <value>Name of browser.</value>
         BrowserName BrowserName { get; }
 
         /// <summary>
-        /// Is remote browser or not.
+        /// Is remote browser or not: true if remote browser and false if local.
         /// </summary>
-        /// <value>True if remote browser and false if local.</value>
         bool IsRemote { get; }
 
         /// <summary>
         /// Gets remote connection URI is case of remote browser.
         /// </summary>
-        /// <value>URI for remote connection.</value>
         Uri RemoteConnectionUrl { get; }
 
         /// <summary>
-        /// Is element hightlight enabled or not.
+        /// Is element hightlight enabled or not: true if element highlight is enabled and false otherwise
         /// </summary>
-        /// <value>True if element highlight is enabled and false otherwise.</value>
         bool IsElementHighlightEnabled { get; }
 
         /// <summary>
         /// Gets driver settings for target browser.
         /// </summary>
-        /// <value>Instance of driver settings.</value>
+        /// <exception cref="InvalidOperationException">Thrown when there is no assigned behaviour for retrieving DriverSettings for target browser.</exception>
         IDriverSettings DriverSettings { get; }
     }
 }
