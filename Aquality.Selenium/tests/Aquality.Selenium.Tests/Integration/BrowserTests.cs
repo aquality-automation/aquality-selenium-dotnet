@@ -83,7 +83,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetPageLoadTimeout()
         {
             var browser = BrowserManager.Browser;
-            browser.PageLoadTimeout = TimeSpan.FromSeconds(1);
+            browser.SetPageLoadTimeout(TimeSpan.FromSeconds(1));
             Assert.Throws<WebDriverTimeoutException>(() => browser.GoTo("https://github.com/aquality-automation"));
         }
 
@@ -227,7 +227,7 @@ namespace Aquality.Selenium.Tests.Integration
             var browser = BrowserManager.Browser;
             browser.GoTo(new WelcomeForm().Url);
             var waitTime = TimeSpan.FromSeconds(5);
-            browser.ImplicitWaitTimeout = waitTime;
+            browser.SetImplicitWaitTimeout(waitTime);
 
             var stopwatch = Stopwatch.StartNew();
             var elapsedTime = TimeSpan.Zero;

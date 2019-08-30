@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public DriverSettings(JsonFile settingsFile)
+        protected DriverSettings(JsonFile settingsFile)
         {
             SettingsFile = settingsFile;
         }
@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                     return pathInConfiguration.Contains(".") ? Path.GetFullPath(pathInConfiguration) : pathInConfiguration;
                 }
 
-                throw new InvalidDataException($"failed to find {DownloadDirCapabilityKey} option in settings profile for {BrowserName}");
+                throw new InvalidOperationException($"Failed to find {DownloadDirCapabilityKey} option in settings profile for {BrowserName}");
             }
         }
 

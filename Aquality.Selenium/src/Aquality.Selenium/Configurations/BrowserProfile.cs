@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
         }
 
-        public BrowserName BrowserName => (BrowserName) Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
+        public BrowserName BrowserName => (BrowserName)Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
 
         public bool IsElementHighlightEnabled => settingsFile.GetValue<bool>(".isElementHighlightEnabled");
 
@@ -46,7 +46,7 @@ namespace Aquality.Selenium.Configurations
                     case BrowserName.Safari:
                         return new SafariSettings(settingsFile);
                     default:
-                        throw new ArgumentOutOfRangeException($"There is no assigned behaviour for retrieving driver driversettings for browser {BrowserName}");
+                        throw new InvalidOperationException($"There is no assigned behaviour for retrieving DriverSettings for browser {BrowserName}");
                 }
             }
         }

@@ -30,9 +30,9 @@ namespace Aquality.Selenium.Browsers
             this.configuration = configuration;
             Driver = webDriver;
             BrowserName = configuration.BrowserProfile.BrowserName;
-            ImplicitWaitTimeout = configuration.TimeoutConfiguration.Implicit;
-            PageLoadTimeout = configuration.TimeoutConfiguration.PageLoad;
-            ScriptTimeout = configuration.TimeoutConfiguration.Script;
+            SetImplicitWaitTimeout(configuration.TimeoutConfiguration.Implicit);
+            SetPageLoadTimeout(configuration.TimeoutConfiguration.PageLoad);
+            SetScriptTimeout(configuration.TimeoutConfiguration.Script);
         }
 
         private Logger Logger => Logger.Instance;
@@ -53,15 +53,13 @@ namespace Aquality.Selenium.Browsers
         /// Sets Selenium WebDriver ImplicitWait timeout. 
         /// Default value: <see cref="ITimeoutConfiguration.Implicit"/>.
         /// </summary>
-        public TimeSpan ImplicitWaitTimeout
+        /// <param name="timeout">Desired Implicit wait timeout.</param>
+        public void SetImplicitWaitTimeout(TimeSpan timeout)
         {
-            set
+            if (!timeout.Equals(implicitWaitTimeout))
             {
-                if (!value.Equals(implicitWaitTimeout))
-                {
-                    Driver.Manage().Timeouts().ImplicitWait = value;
-                    implicitWaitTimeout = value;
-                }
+                Driver.Manage().Timeouts().ImplicitWait = timeout;
+                implicitWaitTimeout = timeout;
             }
         }
 
@@ -70,15 +68,13 @@ namespace Aquality.Selenium.Browsers
         /// Default value: <see cref="ITimeoutConfiguration.PageLoad"/>.
         /// Ignored for Safari cause of https://github.com/SeleniumHQ/selenium-google-code-issue-archive/issues/687.
         /// </summary>
-        public TimeSpan PageLoadTimeout
+        /// <param name="timeout">Desired page load timeout.</param>
+        public void SetPageLoadTimeout(TimeSpan timeout)
         {
-            set
+            if (!configuration.BrowserProfile.BrowserName.Equals(BrowserName.Safari))
             {
-                if (!configuration.BrowserProfile.BrowserName.Equals(BrowserName.Safari))
-                {
-                    Driver.Manage().Timeouts().PageLoad = value;
-                    pageLoadTimeout = value;
-                }
+                Driver.Manage().Timeouts().PageLoad = timeout;
+                pageLoadTimeout = timeout;
             }
         }
 
@@ -86,12 +82,10 @@ namespace Aquality.Selenium.Browsers
         /// Sets Selenium WebDriver AsynchronousJavaScript timeout. 
         /// Default value: <see cref="ITimeoutConfiguration.Script"/>.
         /// </summary>
-        public TimeSpan ScriptTimeout
+        /// <param name="timeout">Desired AsynchronousJavaScript timeout.</param>
+        public void SetScriptTimeout(TimeSpan timeout)
         {
-            set
-            {
-                Driver.Manage().Timeouts().AsynchronousJavaScript = value;
-            }
+            Driver.Manage().Timeouts().AsynchronousJavaScript = timeout;
         }
 
         /// <summary>
