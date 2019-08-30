@@ -46,9 +46,9 @@ browser.Quit();
 ```
 
 ### Documentation
-To get more details please look at documentation:
-- [In English](./docs/General.en.md)
-- [In Russian](./docs/General.ru.md)
+To get more details please look at wiki:
+- [In English](https://github.com/aquality-automation/aquality-selenium-dotnet/wiki/Overview-(English))
+- [In Russian](https://github.com/aquality-automation/aquality-selenium-dotnet/wiki/Overview-(Russian))
 
 ### License
 Library's source code is made available under the [Apache 2.0 license](https://github.com/aquality-automation/aquality-selenium-dotnet/blob/master/LICENSE).
