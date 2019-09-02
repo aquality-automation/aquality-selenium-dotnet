@@ -12,28 +12,37 @@ namespace Aquality.Selenium.Forms
     public abstract class Form
     {
         /// <summary>
+        /// Constructor with parameters.
+        /// </summary>
+        /// <param name="locator">Unique locator of the form.</param>
+        /// <param name="name">Name of the form.</param>
+        protected Form(By locator, string name)
+        {
+            Locator = locator;
+            Name = name;
+        }
+
+        /// <summary>
+        /// Locator of specified form.
+        /// </summary>
+        public By Locator { get; }
+
+        /// <summary>
+        /// Name of specified form.
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
         /// Instance of logger <see cref="Logging.Logger">
         /// </summary>
         /// <value>Logger instance.</value>
         protected Logger Logger => Logger.Instance;
 
         /// <summary>
-        /// Locator for specified form
-        /// </summary>
-        protected readonly By Locator;
-
-        /// <summary>
-        /// Name of specified form
-        /// </summary>
-        protected readonly string Name;
-
-        /// <summary>
         /// Element factory <see cref="IElementFactory">
         /// </summary>
         /// <value>Element factory.</value>
-        protected IElementFactory ElementFactory => new ElementFactory();
-
-        private ILabel FormLabel => ElementFactory.GetLabel(Locator, Name);
+        protected IElementFactory ElementFactory => new ElementFactory();               
 
         /// <summary>
         /// Return form state for form locator
@@ -47,16 +56,7 @@ namespace Aquality.Selenium.Forms
         /// </summary>
         public Size Size => FormLabel.GetElement().Size;
 
-        /// <summary>
-        /// Constructor with parameters
-        /// </summary>
-        /// <param name="locator">Unique locator of the form.</param>
-        /// <param name="name">Name of the form.</param>
-        protected Form(By locator, string name)
-        {
-            Locator = locator;
-            Name = name;
-        }
+        private ILabel FormLabel => ElementFactory.GetLabel(Locator, Name);
 
         /// <summary>
         /// Scroll form without scrolling entire page
