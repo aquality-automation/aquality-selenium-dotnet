@@ -111,12 +111,11 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ExecuteAsyncJavaScript()
         {
-            var url = new DynamicContentForm().Url;
             var browser = BrowserManager.Browser;
-            browser.GoTo(url);
+            new DynamicContentForm().Open();
             browser.WaitForPageToLoad();
-            var expectedDurationInSeconds = 1;
-            var operationDurationInSeconds = 1;
+            const int expectedDurationInSeconds = 1;
+            const int operationDurationInSeconds = 1;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -223,7 +222,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetImplicitWait()
         {
             var browser = BrowserManager.Browser;
-            browser.GoTo(new WelcomeForm().Url);
+            new WelcomeForm().Open();
             var waitTime = TimeSpan.FromSeconds(5);
             browser.SetImplicitWaitTimeout(waitTime);
 
@@ -239,8 +238,8 @@ namespace Aquality.Selenium.Tests.Integration
             }
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(elapsedTime < waitTime + TimeSpan.FromSeconds(2));
-                Assert.IsTrue(elapsedTime >= waitTime);
+                Assert.Less(elapsedTime, waitTime + TimeSpan.FromSeconds(2), "Elapsed time should be less than implicit timeout + 2 sec(accuracy)");
+                Assert.GreaterOrEqual(elapsedTime, waitTime, "Elapsed time should be greater or equal than implicit timeout");
             });
         }
 
