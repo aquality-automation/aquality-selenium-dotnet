@@ -108,7 +108,6 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(url, currentUrl);
         }
 
-        [Ignore("Need to be fixed")]
         [Test]
         public void Should_BePossibleTo_ExecuteAsyncJavaScript()
         {
@@ -220,7 +219,6 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(browserName, BrowserManager.Browser.BrowserName);
         }
 
-        [Ignore("Need to fix on Azure")]
         [Test]
         public void Should_BePossibleTo_SetImplicitWait()
         {
