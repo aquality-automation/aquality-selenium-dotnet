@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
@@ -16,5 +18,13 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public IList<ILabel> ExampleLabels => ElementFactory.FindElements(By.XPath("//div[contains(@class,'jscroll-added')]"), ElementFactory.GetLabel);
 
         public ILabel LastExampleLabel => ExampleLabels.Last();
+
+        public ILabel Footer => ElementFactory.GetLabel(By.Id("page-footer"), "Footer");
+
+        public void WaitForPageToLoad()
+        {
+            var examplesCount = ExampleLabels.Count;
+            ConditionalWait.WaitFor(() => examplesCount < ExampleLabels.Count, Configuration.Instance.TimeoutConfiguration.Script);
+        }
     }
 }

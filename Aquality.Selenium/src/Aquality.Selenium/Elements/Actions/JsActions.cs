@@ -71,9 +71,10 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Scrolling element by coordinates.
+        /// Element have to contains inner scroll bar.
         /// </summary>
         /// <param name="x">Horizontal coordinate</param>
-        /// <param name="y">Verticale coordinate</param>
+        /// <param name="y">Vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
             LogElementAction("loc.scrolling.js");
@@ -82,6 +83,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Scrolling to the center of element.
+        /// Upper bound of element will be in the center of the page after scrolling
         /// </summary>
         public void ScrollToTheCenter()
         {
