@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public void WaitForPageToLoad()
         {
             var examplesCount = ExampleLabels.Count;
-            ConditionalWait.WaitFor(() => examplesCount < ExampleLabels.Count, Configuration.Instance.TimeoutConfiguration.Script);
+            ConditionalWait.WaitFor(() => examplesCount != ExampleLabels.Count, Configuration.Instance.TimeoutConfiguration.Script);
         }
     }
 }

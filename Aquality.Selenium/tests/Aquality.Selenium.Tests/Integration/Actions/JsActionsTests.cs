@@ -158,17 +158,16 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_ScrollToTheCenter()
         {
-            const int accuracy = 5;
-            var infiniteScrollForm = new InfiniteScrollForm();
-            infiniteScrollForm.Open();
-            infiniteScrollForm.WaitForPageToLoad();
-            infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
+            const int accuracy = 1;
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
+            welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ScrollToTheCenter();
 
-            var currentY = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
-                infiniteScrollForm.LastExampleLabel.GetElement()).ToString();
             var windowSize = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetWindowSize.js").ToString();
+            var currentY = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
+                welcomeForm.GetExampleLink(AvailableExample.Dropdown).GetElement()).ToString();
             var coordinateRelatingWindowCenter = double.Parse(windowSize) / 2 - double.Parse(currentY);
-            Assert.IsTrue(Math.Abs(coordinateRelatingWindowCenter) < accuracy, "Upper bound of element should be in the center of the page");
+            Assert.LessOrEqual(Math.Abs(coordinateRelatingWindowCenter), accuracy, "Upper bound of element should be in the center of the page");
         }
 
         [Test]
