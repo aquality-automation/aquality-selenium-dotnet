@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -161,17 +162,24 @@ namespace Aquality.Selenium.Elements.Actions
 
         protected T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
         {
-            return Browser.ExecuteScript<T>(scriptName, element.GetElement(), arguments);
+            return Browser.ExecuteScript<T>(scriptName, ResolveArguments(arguments));
         }
 
         protected void ExecuteScript(JavaScript scriptName, params object[] arguments)
         {
-            Browser.ExecuteScript(scriptName, element.GetElement(), arguments);
+            Browser.ExecuteScript(scriptName, ResolveArguments(arguments));
         }
 
         protected internal void LogElementAction(string messageKey, params object[] args)
         {
             Logger.InfoLocElementAction(elementType, element.Name, messageKey, args);
+        }
+
+        private object[] ResolveArguments(params object[] arguments)
+        {
+            var args = new ArrayList { element.GetElement() };
+            args.AddRange(arguments);
+            return args.ToArray();
         }
     }
 }
