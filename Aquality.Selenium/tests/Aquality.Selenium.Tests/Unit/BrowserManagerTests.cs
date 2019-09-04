@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Tests.Unit
             Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
         }
 
-        [Ignore("Not all browsers are supported")]
+        [Ignore("Not all browsers are supported in Azure CICD pipeline")]
         [TestCase(BrowserName.IExplorer)]
         [TestCase(BrowserName.Firefox)]
         [TestCase(BrowserName.Chrome)]
