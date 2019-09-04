@@ -123,8 +123,11 @@ namespace Aquality.Selenium.Tests.Integration
             stopwatch.Stop();
             var durationSeconds = stopwatch.Elapsed.TotalSeconds;
 
-            Assert.True(durationSeconds < (expectedDurationInSeconds + operationDurationInSeconds) &&
-                    durationSeconds >= expectedDurationInSeconds);
+            Assert.Multiple(() =>
+            {
+                Assert.Less(durationSeconds, (expectedDurationInSeconds + operationDurationInSeconds), "Elapsed time should be less than (js + operation) duration");
+                Assert.GreaterOrEqual(durationSeconds, expectedDurationInSeconds, "Elapsed time should be greater or equal than js duration");
+            });
         }
 
         [Test]
