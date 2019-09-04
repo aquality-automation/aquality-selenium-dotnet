@@ -56,25 +56,24 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_OpenNewBrowserAfterQuit()
         {
-            var url = new WelcomeForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
-            browser.Quit();
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
+            BrowserManager.Browser.Quit();
 
-            Assert.AreNotEqual(url, BrowserManager.Browser.CurrentUrl);
+            Assert.AreNotEqual(welcomeForm.Url, BrowserManager.Browser.CurrentUrl);
         }
 
         [Test]
         public void Should_BePossibleTo_RefreshPage()
         {
-            var url = new DynamicContentForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
             var dynamicContentForm = new DynamicContentForm();
+            dynamicContentForm.Open();
             var firstItem = dynamicContentForm.GetContentItem(1).GetText();
 
+            var browser = BrowserManager.Browser;
             browser.Refresh();
             browser.WaitForPageToLoad();
+
             var firstItemAfterRefresh = dynamicContentForm.GetContentItem(1).GetText();
             Assert.AreNotEqual(firstItem, firstItemAfterRefresh);
         }
@@ -90,36 +89,30 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_TakeScreenshot()
         {
-            var url = new DynamicContentForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
-            browser.WaitForPageToLoad();
-            Assert.IsTrue(browser.GetScreenshot().Length > 0);
+            new DynamicContentForm().Open();
+            Assert.IsTrue(BrowserManager.Browser.GetScreenshot().Length > 0);
         }
 
         [Test]
         public void Should_BePossibleTo_ExecuteJavaScript()
         {
-            var url = new DynamicContentForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
-            browser.WaitForPageToLoad();
-            var currentUrl = browser.ExecuteScript<string>("return window.location.href");
-            Assert.AreEqual(url, currentUrl);
+            var dynamicContentForm = new DynamicContentForm();
+            dynamicContentForm.Open();
+            var currentUrl = BrowserManager.Browser.ExecuteScript<string>("return window.location.href");
+            Assert.AreEqual(dynamicContentForm.Url, currentUrl);
         }
 
         [Test]
         public void Should_BePossibleTo_ExecuteAsyncJavaScript()
         {
-            var browser = BrowserManager.Browser;
-            new DynamicContentForm().Open();
-            browser.WaitForPageToLoad();
             const int expectedDurationInSeconds = 1;
             const int operationDurationInSeconds = 1;
 
+            new DynamicContentForm().Open();
+
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds));
+            BrowserManager.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds));
             stopwatch.Stop();
             var durationSeconds = stopwatch.Elapsed.TotalSeconds;
 
@@ -133,29 +126,23 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ExecuteAsyncJavaScript_WithScriptTimeoutException()
         {
-            var url = new DynamicContentForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
-            browser.WaitForPageToLoad();
-
+            new DynamicContentForm().Open();
             var expectedDurationInSeconds = Configuration.Instance.TimeoutConfiguration.Script.TotalSeconds + 1;            
-            Assert.Throws<WebDriverTimeoutException>(() => browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
+            Assert.Throws<WebDriverTimeoutException>(() => BrowserManager.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
         }
 
         private string GetAsyncTimeoutJavaScript(double expectedDurationInSeconds)
         {
-            return "window.setTimeout(arguments[arguments.length - 1], " + expectedDurationInSeconds * 1000 + ");";
+            return $"window.setTimeout(arguments[arguments.length - 1], {expectedDurationInSeconds * 1000});";
         }
 
         [Test]
         public void Should_BePossibleTo_ExecuteJavaScriptFromFile()
         {
-            var url = new DynamicContentForm().Url;
-            var browser = BrowserManager.Browser;
-            browser.GoTo(url);
-            browser.WaitForPageToLoad();
-            var currentUrl = browser.ExecuteScriptFromFile<string>("Resources.GetCurrentUrl.js");
-            Assert.AreEqual(url, currentUrl);
+            var dynamicContentForm = new DynamicContentForm();
+            dynamicContentForm.Open();
+            var currentUrl = BrowserManager.Browser.ExecuteScriptFromFile<string>("Resources.GetCurrentUrl.js");
+            Assert.AreEqual(dynamicContentForm.Url, currentUrl);
         }
 
         [Test]
