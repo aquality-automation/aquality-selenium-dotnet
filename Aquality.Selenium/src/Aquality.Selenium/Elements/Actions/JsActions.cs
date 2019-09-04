@@ -72,8 +72,8 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Scrolling element by coordinates.
-        /// Element have to contains inner scroll bar.
         /// </summary>
+        /// <remarks>Element have to contains inner scroll bar.</remarks>
         /// <param name="x">Horizontal coordinate</param>
         /// <param name="y">Vertical coordinate</param>
         public void ScrollBy(int x, int y)
