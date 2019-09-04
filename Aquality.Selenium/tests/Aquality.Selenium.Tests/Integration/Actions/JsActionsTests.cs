@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
@@ -22,7 +26,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
 
         [Test]
         public void Should_BePossibleTo_ClickAndWait()
-        {            
+        {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ClickAndWait();
@@ -75,7 +79,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             hoversForm.Open();
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(),
+                Assert.IsFalse(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
                     $"Hidden element for {HoverExample.First} should be invisible.");
                 Assert.IsTrue(hoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
                     $"Element for {HoverExample.First} should be visible.");
@@ -87,7 +91,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var keyPressesForm = new KeyPressesForm();
             keyPressesForm.Open();
-            var text = "text";
+            const string text = "text";
             keyPressesForm.InputTextBox.JsActions.SetValue(text);
             var actualText = keyPressesForm.InputTextBox.Value;
             Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via JS");
@@ -108,7 +112,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var actualLocator = welcomeForm.SubTitleLabel.JsActions.GetXPath();
-            var expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
+            const string expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
             Assert.AreEqual(expectedLocator, actualLocator, $"Locator of sub title should be {expectedLocator}");
         }
 
@@ -126,48 +130,59 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
+            infiniteScrollForm.WaitForPageToLoad();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
-            infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
             Assert.DoesNotThrow(
                 () => ConditionalWait.WaitForTrue(() =>
                 {
                     infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;
-                }),
-                "Some examples should be added after scroll");
+                }), "Some examples should be added after scroll");
         }
 
-        [Ignore("Need to fix on Azure")]
         [Test]
         public void Should_BePossibleTo_ScrollBy()
         {
-            var infiniteScrollForm = new InfiniteScrollForm();
-            infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
-            Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() => 
-                    {
-                        infiniteScrollForm.LastExampleLabel.JsActions.ScrollBy(100000, 100000);
-                        return infiniteScrollForm.ExampleLabels.Count > defaultCount;
-                    }),
-                "Some examples should be added after scroll");
+            var point = new Point(50, 40);
+            var homeDemoSiteForm = new HomeDemoSiteForm();
+            homeDemoSiteForm.Open();
+            homeDemoSiteForm.FirstScrollableExample.JsActions.ScrollBy(point.X, point.Y);
+            var currentCoordinates = BrowserManager.Browser
+                .ExecuteScriptFromFile<IList<object>>("Resources.GetScrollCoordinates.js",
+                    homeDemoSiteForm.FirstScrollableExample.GetElement()).Select(item => int.Parse(item.ToString()))
+                .ToList();
+            var actualPoint = new Point(currentCoordinates[0], currentCoordinates[1]);
+            Assert.AreEqual(point, actualPoint, $"Current coordinates should be '{point}'");
         }
 
-        [Ignore("Need to fix on Azure")]
         [Test]
         public void Should_BePossibleTo_ScrollToTheCenter()
         {
+            const int accuracy = 1;
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
+            welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ScrollToTheCenter();
+
+            var windowSize = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetWindowSize.js").ToString();
+            var currentY = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
+                welcomeForm.GetExampleLink(AvailableExample.Dropdown).GetElement()).ToString();
+            var coordinateRelatingWindowCenter = double.Parse(windowSize) / 2 - double.Parse(currentY);
+            Assert.LessOrEqual(Math.Abs(coordinateRelatingWindowCenter), accuracy, "Upper bound of element should be in the center of the page");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_ScrollToTheCenter_CheckUI()
+        {
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
-            var defaultCount = infiniteScrollForm.ExampleLabels.Count;            
-
+            infiniteScrollForm.WaitForPageToLoad();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
                 () => ConditionalWait.WaitForTrue(() =>
                 {
-                    infiniteScrollForm.LastExampleLabel.JsActions.ScrollToTheCenter();
+                    infiniteScrollForm.Footer.JsActions.ScrollToTheCenter();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;
-                }),
-                "Some examples should be added after scroll");
+                }), "Some examples should be added after scroll");
         }
     }
 }
