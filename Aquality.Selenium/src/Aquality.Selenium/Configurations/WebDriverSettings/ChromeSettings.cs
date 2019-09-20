@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 

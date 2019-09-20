@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations.WebDriverSettings;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Utilities;
 using System;
 
 namespace Aquality.Selenium.Configurations

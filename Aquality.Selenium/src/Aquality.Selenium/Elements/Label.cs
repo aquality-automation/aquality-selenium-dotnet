@@ -1,4 +1,5 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Localization;
 using OpenQA.Selenium;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Localization;
 
 namespace Aquality.Selenium.Logging

@@ -1,44 +1,56 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Applications;
+using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
+using Aquality.Selenium.Elements;
+using Aquality.Selenium.Elements.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Logging;
 
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
     /// Controls browser instance creation.
     /// </summary>
-    public static class BrowserManager
+    public class BrowserManager : ApplicationManager<BrowserManager, Browser>
     {
-        private static readonly ThreadLocal<Browser> BrowserContainer = new ThreadLocal<Browser>();
         private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 
         /// <summary>
         /// Gets and sets thread-safe instance of browser.
         /// </summary>
         /// <value>Instance of desired browser.</value>
-        public static Browser Browser
+        public static Browser Browser => GetApplication(StartBrowserFunction, () => RegisterServices(services => Browser));
+
+        private static Func<IServiceProvider, Browser> StartBrowserFunction
         {
             get
             {
-                if (!BrowserContainer.IsValueCreated || BrowserContainer.Value.Driver.SessionId == null)
+                if (!BrowserFactoryContainer.IsValueCreated)
                 {
-                    SetDefaultBrowser();
+                    SetDefaultFactory();
                 }
-                return BrowserContainer.Value;
-            }
-            set
-            {
-                BrowserContainer.Value = value;
+
+                return services => BrowserFactoryContainer.Value.Browser;
             }
         }
 
-        private static void SetDefaultBrowser()
+        private static IServiceCollection RegisterServices(Func<IServiceProvider, Browser> browserSupplier)
         {
-            if (!BrowserFactoryContainer.IsValueCreated)
-            {
-                SetDefaultFactory();
-            }
-
-            Browser = BrowserFactoryContainer.Value.Browser;
+            var services = new ServiceCollection();
+            var startup = new Startup();
+            var settingsFile = startup.GetSettings();
+            startup.ConfigureServices(services, browserSupplier, settingsFile);
+            services.AddTransient<IElementFactory, ElementFactory>();
+            services.AddTransient<CoreElementFactory, ElementFactory>();
+            var browserProfile = new BrowserProfile(settingsFile);
+            services.AddSingleton(browserProfile.DriverSettings);
+            services.AddSingleton<IBrowserProfile>(browserProfile);
+            services.AddSingleton(new LocalizationManager(new LoggerConfiguration(settingsFile), Logger.Instance));
+            return services;
         }
 
         /// <summary>
@@ -47,7 +59,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public static void SetDefaultFactory()
         {
-            IConfiguration configuration = Configuration.Instance;
+            /*IConfiguration configuration = Configuration.Instance;
             IBrowserFactory browserFactory;
             if (configuration.BrowserProfile.IsRemote)
             {
@@ -57,7 +69,7 @@ namespace Aquality.Selenium.Browsers
             {
                 browserFactory = new LocalBrowserFactory(configuration);
             }
-            SetFactory(browserFactory);
+            SetFactory(browserFactory);*/
         }
 
         /// <summary>

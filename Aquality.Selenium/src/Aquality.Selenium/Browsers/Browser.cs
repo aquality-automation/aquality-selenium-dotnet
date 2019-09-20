@@ -1,4 +1,6 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Localization;
 using Aquality.Selenium.Logging;
 using Aquality.Selenium.Waitings;
@@ -14,7 +16,7 @@ namespace Aquality.Selenium.Browsers
     /// <summary>
     /// Provides functionality to work with browser via Selenium WebDriver.  
     /// </summary>
-    public class Browser
+    public class Browser : IApplication
     {        
         private readonly IConfiguration configuration;
         private TimeSpan implicitWaitTimeout;

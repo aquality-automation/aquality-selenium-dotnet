@@ -1,23 +1,34 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Core.Elements.Interfaces;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Waitings;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using CoreFactory = Aquality.Selenium.Core.Elements.ElementFactory;
+using IElement = Aquality.Selenium.Core.Elements.Interfaces.IElement;
+using IElementFactory = Aquality.Selenium.Elements.Interfaces.IElementFactory;
+
 
 namespace Aquality.Selenium.Elements
 {
     /// <summary>
     /// Factory that creates elements.
     /// </summary>
-    public class ElementFactory : IElementFactory
+    public class ElementFactory : CoreFactory, IElementFactory
     {
         private static readonly string ByXpathIdentifier = "By.XPath";        
 
         private Browser Browser => BrowserManager.Browser;
+
+        public ElementFactory(ConditionalWait conditionalWait, IElementFinder elementFinder, LocalizationManager localizationManager) 
+            : base(conditionalWait, elementFinder, localizationManager)
+        {
+        }
 
         public IButton GetButton(By locator, string name, ElementState state = ElementState.Displayed)
         {
@@ -87,34 +98,6 @@ namespace Aquality.Selenium.Elements
                 return elementSupplier(GenerateXpathLocator(locator, webElement, elementIndex), $"element {elementIndex}", state);
             });
             return elements.ToList();
-        }
-
-        private By GenerateXpathLocator(By baseLocator, IWebElement webElement, int elementIndex)
-        {
-            var strBaseLocator = baseLocator.ToString();
-            var elementLocator = strBaseLocator.Contains(ByXpathIdentifier)
-                    ? $"({strBaseLocator.Split(':')[1].Trim()})[{elementIndex}]"
-                    : Browser.ExecuteScript<string>(JavaScript.GetElementXPath, webElement);
-            return By.XPath(elementLocator);
-        }
-
-        private ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier) where T : IElement
-        {
-            if (supplier != null)
-            {
-                return supplier;
-            }
-            else
-            {
-                var type = typeof(T);
-                var elementType = type.IsInterface ? GetElementTypesMap()[type] : type;
-                var elementCntr = elementType.GetConstructor(
-                        BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.CreateInstance | BindingFlags.Instance,
-                        null,
-                        new[] { typeof(By), typeof(string), typeof(ElementState) },
-                        null);
-                return (locator, name, state) => (T)elementCntr.Invoke(new object[] { locator, name, state });
-            }
         }
 
         /// <summary>
