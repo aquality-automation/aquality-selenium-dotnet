@@ -72,7 +72,7 @@ namespace Aquality.Selenium.Utilities
 
         private static FileInfo GetResourceFile(string fileName)
         {
-            return new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourcesFolder, fileName));
+            return new FileInfo(Path.Combine(AppContext.BaseDirectory, ResourcesFolder, fileName));
         }
     }
 }
