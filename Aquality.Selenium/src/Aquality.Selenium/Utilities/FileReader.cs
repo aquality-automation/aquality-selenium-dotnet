@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Utilities
         /// <returns>Text of the file.</returns>
         public static string GetTextFromResource(string fileName)
         {
-            return GetTextFromFile(new FileInfo(Path.Combine(ResourcesFolder, fileName)));
+            return GetTextFromFile(GetResourceFile(fileName));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Aquality.Selenium.Utilities
         /// <returns>True if exists and false otherwise</returns>
         public static bool IsResourceFileExist(string fileName)
         {
-            var fileInfo = new FileInfo(Path.Combine(ResourcesFolder, fileName));
+            var fileInfo = GetResourceFile(fileName);
             return fileInfo.Exists;
         }
 
@@ -68,6 +68,11 @@ namespace Aquality.Selenium.Utilities
             {
                 return reader.ReadToEnd();
             }
+        }
+
+        private static FileInfo GetResourceFile(string fileName)
+        {
+            return new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourcesFolder, fileName));
         }
     }
 }
