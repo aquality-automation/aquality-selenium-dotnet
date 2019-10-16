@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;

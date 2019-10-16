@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Aquality.Selenium.Core.Elements;
+using OpenQA.Selenium;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 
 namespace Aquality.Selenium.Elements.Interfaces

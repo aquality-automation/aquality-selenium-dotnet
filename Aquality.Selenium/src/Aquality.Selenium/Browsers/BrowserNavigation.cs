@@ -1,4 +1,4 @@
-﻿using Aquality.Selenium.Logging;
+﻿using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
@@ -17,14 +17,14 @@ namespace Aquality.Selenium.Browsers
             this.driver = driver;
         }
 
-        private Logger Logger => Logger.Instance;
+        private LocalizationLogger Logger => BrowserManager.GetRequiredService<LocalizationLogger>();
 
         /// <summary>
         /// Navigates back.
         /// </summary>
         public void Back()
         {
-            Logger.InfoLoc("loc.browser.back");
+            Logger.Info("loc.browser.back");
             driver.Navigate().Back();
         }
 
@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Forward()
         {
-            Logger.InfoLoc("loc.browser.forward");
+            Logger.Info("loc.browser.forward");
             driver.Navigate().Forward();
         }
 
@@ -62,13 +62,13 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Refresh()
         {
-            Logger.InfoLoc("loc.browser.refresh");
+            Logger.Info("loc.browser.refresh");
             driver.Navigate().Refresh();
         }
 
         private void InfoLocNavigate(string url)
         {
-            Logger.InfoLoc("loc.browser.navigate", url);
+            Logger.Info("loc.browser.navigate", url);
         }
     }
 }

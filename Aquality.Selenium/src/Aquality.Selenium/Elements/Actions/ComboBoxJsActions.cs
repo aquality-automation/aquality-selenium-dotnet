@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Elements.Interfaces;
 
 namespace Aquality.Selenium.Elements.Actions
@@ -10,7 +12,8 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class ComboBoxJsActions : JsActions
     {
-        public ComboBoxJsActions(IElement element, string elementType) : base(element, elementType)
+        public ComboBoxJsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile) 
+            : base(element, elementType, logger, browserProfile)
         {
         }
 

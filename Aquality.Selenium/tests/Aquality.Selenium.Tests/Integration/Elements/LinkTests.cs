@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
-using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using System;
 
@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 
         private void WaitForRedirect()
         {
-            ConditionalWait.WaitFor(() => BrowserManager.Browser.CurrentUrl.Equals(new StatusCodesForm().Url, StringComparison.OrdinalIgnoreCase));
+            BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => BrowserManager.Browser.CurrentUrl.Equals(new StatusCodesForm().Url, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

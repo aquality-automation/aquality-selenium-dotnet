@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Core.Utilities;
+using Aquality.Selenium.Core.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public ChromeSettings(JsonFile settingsFile) : base(settingsFile)
+        public ChromeSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 
@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         private void SetChromePrefs(ChromeOptions options)
         {
-            foreach(var option in BrowserOptions)
+            foreach (var option in BrowserOptions)
             {
                 var value = option.Key == DownloadDirCapabilityKey ? DownloadDir : option.Value;
                 options.AddUserProfilePreference(option.Key, value);                

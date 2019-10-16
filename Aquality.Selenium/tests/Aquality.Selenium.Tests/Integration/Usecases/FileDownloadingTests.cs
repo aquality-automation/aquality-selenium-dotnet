@@ -1,8 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
-using Aquality.Selenium.Logging;
+using Aquality.Selenium.Core.Waitings;
+using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
-using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -23,7 +22,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             FileDownloadHelper.CreateDownloadDirectoryIfNotExist();
             FileDownloadHelper.DeleteFileIfExist(filePath);
 
-            var lblFileContent = new ElementFactory().GetLabel(By.XPath("//pre"), "text file content");
+            var lblFileContent = BrowserManager.GetRequiredService<IElementFactory>().GetLabel(By.XPath("//pre"), "text file content");
             Assert.False(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), $"file {filePath} should not exist before downloading");
 
             browser.ExecuteScriptFromFile("Resources.OpenUrlInNewWindow.js", downloaderForm.Url);
@@ -37,15 +36,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var message = $"file {filePath} was not downloaded";
             try
             {
-                ConditionalWait.WaitForTrue(condition, message: message);
+                BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(condition, message: message);
             }
             catch (TimeoutException)
             {
                 if(browser.BrowserName == BrowserName.Safari)
                 {
-                    Logger.Instance.Warn("reloading Safari browser as a workaround");
                     browser.Quit();
-                    ConditionalWait.WaitForTrue(condition, message: message);
+                    BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(condition, message: message);
                 }
                 else
                 {

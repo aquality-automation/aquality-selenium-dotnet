@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Configurations;
 using Aquality.Selenium.Core.Utilities;
-using Aquality.Selenium.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        protected DriverSettings(JsonFile settingsFile)
+        protected DriverSettings(ISettingsFile settingsFile)
         {
             SettingsFile = settingsFile;
         }
@@ -30,9 +30,9 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
 
-        protected IList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
+        protected IList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments").ToList();
 
-        protected JsonFile SettingsFile { get; }
+        protected ISettingsFile SettingsFile { get; }
 
         protected abstract BrowserName BrowserName { get; }
 

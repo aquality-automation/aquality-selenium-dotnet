@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using NUnit.Framework;

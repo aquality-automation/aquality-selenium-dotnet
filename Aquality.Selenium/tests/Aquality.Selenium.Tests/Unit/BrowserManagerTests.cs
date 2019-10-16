@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Tests.Unit
         [TestCase("a")]
         public void Should_BeAbleGetBrowser_WithStartArguments(string startArguments)
         {
-            var currentBrowser = Configuration.Instance.BrowserProfile.BrowserName;
+            var currentBrowser = BrowserManager.GetRequiredService<IBrowserProfile>().BrowserName;
             Environment.SetEnvironmentVariable("isRemote", "false");
             Environment.SetEnvironmentVariable($"driverSettings.{currentBrowser.ToString().ToLowerInvariant()}.startArguments", startArguments);
             Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());

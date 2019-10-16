@@ -1,15 +1,15 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using TheInternetAuthenticationForm = Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms.AuthenticationForm;
-using Aquality.Selenium.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Utilities;
 
 namespace Aquality.Selenium.Tests.Integration
 {
@@ -127,7 +127,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_ExecuteAsyncJavaScript_WithScriptTimeoutException()
         {
             new DynamicContentForm().Open();
-            var expectedDurationInSeconds = Configuration.Instance.TimeoutConfiguration.Script.TotalSeconds + 1;            
+            var expectedDurationInSeconds = BrowserManager.GetRequiredService<ITimeoutConfiguration>().Script.TotalSeconds + 1;            
             Assert.Throws<WebDriverTimeoutException>(() => BrowserManager.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
         }
 
@@ -203,7 +203,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var profileNameFromEnvironment = Environment.GetEnvironmentVariable("profile");
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
-            var settingsFile = new JsonFile(settingsProfile);
+            var settingsFile = new JsonSettingsFile(settingsProfile);
             var browserName = (BrowserName)Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
             Assert.AreEqual(browserName, BrowserManager.Browser.BrowserName);
         }

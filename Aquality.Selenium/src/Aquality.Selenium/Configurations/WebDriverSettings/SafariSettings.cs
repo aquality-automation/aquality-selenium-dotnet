@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Core.Utilities;
+using Aquality.Selenium.Core.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Safari;
 
@@ -11,10 +11,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class SafariSettings : DriverSettings
     {
         /// <summary>
-        /// Instantiates class using JSON file with general settings.
+        /// Instantiates class using file with general settings.
         /// </summary>
-        /// <param name="settingsFile">JSON settings file.</param>
-        public SafariSettings(JsonFile settingsFile) : base(settingsFile)
+        /// <param name="settingsFile">Settings file.</param>
+        public SafariSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 

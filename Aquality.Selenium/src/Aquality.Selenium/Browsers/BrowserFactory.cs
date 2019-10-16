@@ -1,4 +1,4 @@
-﻿using Aquality.Selenium.Configurations;
+﻿using System;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -7,12 +7,12 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public abstract class BrowserFactory : IBrowserFactory
     {
-        protected BrowserFactory(IConfiguration configuration)
+        protected BrowserFactory(IServiceProvider serviceProvider)
         {
-            Configuration = configuration;
+            ServiceProvider = serviceProvider;
         }
 
-        protected IConfiguration Configuration { get; }
+        protected IServiceProvider ServiceProvider { get; }
 
         public abstract Browser Browser { get; }
     }

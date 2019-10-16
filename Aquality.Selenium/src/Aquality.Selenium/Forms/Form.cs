@@ -1,8 +1,8 @@
-﻿using Aquality.Selenium.Elements;
-using Aquality.Selenium.Elements.Interfaces;
+﻿using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
-using Aquality.Selenium.Logging;
 using System.Drawing;
+using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Localization;
 
 namespace Aquality.Selenium.Forms
 {
@@ -36,13 +36,13 @@ namespace Aquality.Selenium.Forms
         /// Instance of logger <see cref="Logging.Logger">
         /// </summary>
         /// <value>Logger instance.</value>
-        protected Logger Logger => Logger.Instance;
+        protected LocalizationLogger Logger => BrowserManager.GetRequiredService<LocalizationLogger>();
 
         /// <summary>
         /// Element factory <see cref="IElementFactory">
         /// </summary>
         /// <value>Element factory.</value>
-        protected IElementFactory ElementFactory => new ElementFactory();               
+        protected IElementFactory ElementFactory => BrowserManager.GetRequiredService<IElementFactory>();
 
         /// <summary>
         /// Return form state for form locator

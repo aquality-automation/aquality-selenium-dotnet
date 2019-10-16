@@ -1,13 +1,15 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Configurations.WebDriverSettings;
-using Aquality.Selenium.Localization;
-using Aquality.Selenium.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using Microsoft.Extensions.DependencyInjection;
+using WebDriverManager.DriverConfigs;
+using WebDriverManager.Helpers;
+using System.IO;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
@@ -15,22 +17,24 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
     [Parallelizable(ParallelScope.All)]
     internal class CustomBrowserFactoryTests
     {
-        private static readonly string OverriddenDownloadDir = "custom download dir";
+        const string url = "https://www.google.com/";
 
         [Test]
-        public void Should_BePossibleToUse_CustomBrowser()
+        public void Should_BePossibleToUse_BrowserFromCustomFactory()
         {
             var browserFactory = new CustomLocalBrowserFactory();
             BrowserManager.Browser = browserFactory.Browser;
-            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, OverriddenDownloadDir);
+            BrowserManager.Browser.GoTo(url);
+            Assert.AreEqual(url, BrowserManager.Browser.CurrentUrl);
         }
 
         [Test]
         public void Should_BePossibleToUse_CustomFactory()
         {
             var browserFactory = new CustomLocalBrowserFactory();
-            BrowserManager.SetFactory(browserFactory);
-            Assert.AreEqual(BrowserManager.Browser.DownloadDirectory, OverriddenDownloadDir);
+            BrowserManager.ApplicationFactory = browserFactory;
+            BrowserManager.Browser.GoTo(url);
+            Assert.AreEqual(url, BrowserManager.Browser.CurrentUrl);
         }
 
         [TearDown]
@@ -40,85 +44,39 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             BrowserManager.SetDefaultFactory();
         }
 
-        private class CustomLocalBrowserFactory : IBrowserFactory
+        public class CustomLocalBrowserFactory : BrowserFactory
         {
-            public Browser Browser
+            private static readonly object WebDriverDownloadingLock = new object();
+
+            public CustomLocalBrowserFactory() : base(BrowserManager.ServiceProvider)
             {
-                get
+            }
+
+            public override Browser Browser => CreateBrowser();
+
+            private Browser CreateBrowser()
+            {
+                var browserProfile = ServiceProvider.GetRequiredService<IBrowserProfile>();
+                var driverSettings = browserProfile.DriverSettings;
+                SetUpDriver(new ChromeConfig(), driverSettings);
+                var driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
+                return new Browser(driver, ServiceProvider);
+            }
+
+            private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
+            {
+                var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
+                var version = driverSettings.WebDriverVersion.Equals("Latest") ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
+                var url = UrlHelper.BuildUrl(architecture.Equals(Architecture.X32) ? driverConfig.GetUrl32() : driverConfig.GetUrl64(), version);
+                var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
+                if (!File.Exists(binaryPath) || !Environment.GetEnvironmentVariable("PATH").Contains(binaryPath))
                 {
-                    var configuration = new CustomConfiguration();
-                    new DriverManager().SetUpDriver(new ChromeConfig(), configuration.BrowserProfile.DriverSettings.WebDriverVersion);
-                    var chromeDriver = new ChromeDriver((ChromeOptions)configuration.BrowserProfile.DriverSettings.DriverOptions);
-                    return new Browser(chromeDriver, configuration);
+                    lock (WebDriverDownloadingLock)
+                    {
+                        new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
+                    }
                 }
             }
         }
-
-        private class CustomConfiguration : IConfiguration
-        {
-            public IBrowserProfile BrowserProfile => new CustomBrowserProfile();
-
-            public ITimeoutConfiguration TimeoutConfiguration => new CustomTimeoutConfiguration();
-
-            public IRetryConfiguration RetryConfiguration => new CustomRetryConfiguration();
-
-            public ILoggerConfiguration LoggerConfiguration => new LoggerConfiguration();
-        }
-
-        private class CustomTimeoutConfiguration : ITimeoutConfiguration
-        {
-            public TimeSpan Implicit => TimeSpan.FromSeconds(10);
-
-            public TimeSpan Script => TimeSpan.FromSeconds(5);
-
-            public TimeSpan PageLoad => TimeSpan.FromSeconds(15);
-
-            public TimeSpan Condition => TimeSpan.FromSeconds(15);
-
-            public TimeSpan PollingInterval => TimeSpan.FromMilliseconds(100);
-
-            public TimeSpan Command => TimeSpan.FromSeconds(30);
-        }
-
-        private class LoggerConfiguration : ILoggerConfiguration
-        {
-            public SupportedLanguage Language => SupportedLanguage.EN;
-        }
-
-        private class CustomRetryConfiguration : IRetryConfiguration
-        {
-            public int Number => 1;
-
-            public TimeSpan PollingInterval => TimeSpan.FromMilliseconds(200);
-        }
-
-        private class CustomBrowserProfile : IBrowserProfile
-        {
-            public BrowserName BrowserName => BrowserName.Chrome;
-
-            public bool IsRemote => false;
-
-            public Uri RemoteConnectionUrl => new Uri(string.Empty);
-
-            public bool IsElementHighlightEnabled => false;
-
-            public IDriverSettings DriverSettings => new CustomChromeSettings(GetSettingsFile());
-
-            private JsonFile GetSettingsFile()
-            {
-                var profileNameFromEnvironment = Environment.GetEnvironmentVariable("profile");
-                var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
-                return new JsonFile(settingsProfile);
-            }
-        }
-
-        private class CustomChromeSettings : ChromeSettings
-        {
-            public CustomChromeSettings(JsonFile settingsFile) : base(settingsFile)
-            {
-            }
-
-            public override string DownloadDir => OverriddenDownloadDir;
-        }
-    }    
+    }
 }

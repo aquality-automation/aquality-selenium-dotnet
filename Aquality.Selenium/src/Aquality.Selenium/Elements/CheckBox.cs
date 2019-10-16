@@ -1,6 +1,6 @@
-﻿using Aquality.Selenium.Elements.Actions;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Elements
@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.checkbox");
+        protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.checkbox");
 
         public bool IsChecked
         {
@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Elements
             }
         }
 
-        public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType);
+        public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType, LocalizationLogger, BrowserProfile);
         
         public void Check()
         {

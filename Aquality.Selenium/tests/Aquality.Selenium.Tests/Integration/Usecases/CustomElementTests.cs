@@ -1,4 +1,5 @@
-﻿using Aquality.Selenium.Elements;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -26,7 +27,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
             }
 
-            public string Text => Value;
+            public new string Text => Value;
         }
     }    
 }

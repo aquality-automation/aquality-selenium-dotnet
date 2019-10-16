@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 using System.IO;
 
@@ -18,14 +18,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             }
             catch (WebDriverException exception)
             {
-                Logger.Instance.Warn(exception.Message);
+                BrowserManager.GetRequiredService<Logger>().Warn(exception.Message);
                 return false;
             }
         }
 
         public static void CreateDownloadDirectoryIfNotExist()
         {
-            var browserProfile = Configuration.Instance.BrowserProfile;
+            var browserProfile = BrowserManager.GetRequiredService<IBrowserProfile>();
             var downloadDir = browserProfile.DriverSettings.DownloadDir;
             if (!Directory.Exists(downloadDir) && !browserProfile.IsRemote)
             {
@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public static void DeleteFileIfExist(string filePath)
         {
             var file = new FileInfo(filePath);
-            if (file.Exists && !Configuration.Instance.BrowserProfile.IsRemote)
+            if (file.Exists && !BrowserManager.GetRequiredService<IBrowserProfile>().IsRemote)
             {
                 file.Delete();
             }

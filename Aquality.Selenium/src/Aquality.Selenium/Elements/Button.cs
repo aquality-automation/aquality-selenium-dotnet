@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
 using OpenQA.Selenium;
+using ElementState = Aquality.Selenium.Core.Elements.ElementState;
 
 namespace Aquality.Selenium.Elements
 {
@@ -13,6 +13,6 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.button");
+        protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.button");
     }
 }

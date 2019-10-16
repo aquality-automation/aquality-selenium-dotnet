@@ -1,5 +1,5 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Elements
@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.text.field");
+        protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.text.field");
 
         public string Value => GetAttribute(Attributes.Value);
 
