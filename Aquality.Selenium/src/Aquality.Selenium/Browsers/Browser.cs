@@ -249,6 +249,18 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Executes JS script from embedded resource file (*.js) and gets result value.
+        /// </summary>
+        /// <param name="embeddedResourcePath">Embedded resource path.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <typeparam name="T">Type of return value.</typeparam>
+        /// <returns>Script execution result.</returns>
+        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
+        {
+            return ExecuteScript<T>(embeddedResourcePath.GetScript(Assembly.GetCallingAssembly()), arguments);
+        }
+
+        /// <summary>
         /// Executes predefined JS script.
         /// </summary>
         /// <param name="scriptName">Name of desired JS script.</param>
@@ -266,18 +278,6 @@ namespace Aquality.Selenium.Browsers
         public void ExecuteScript(string script, params object[] arguments)
         {
             Driver.ExecuteJavaScript(script, arguments);
-        }
-
-        /// <summary>
-        /// Executes JS script from embedded resource file (*.js) and gets result value.
-        /// </summary>
-        /// <param name="embeddedResourcePath">Embedded resource path.</param>
-        /// <param name="arguments">Script arguments.</param>
-        /// <typeparam name="T">Type of return value.</typeparam>
-        /// <returns>Script execution result.</returns>
-        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
-        {
-            return ExecuteScript<T>(embeddedResourcePath.GetScript(Assembly.GetCallingAssembly()), arguments);
         }
 
         /// <summary>

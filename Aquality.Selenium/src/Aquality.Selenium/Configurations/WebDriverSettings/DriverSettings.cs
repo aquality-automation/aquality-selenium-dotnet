@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
 
-        protected IList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments").ToList();
+        protected IReadOnlyList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
 
         protected ISettingsFile SettingsFile { get; }
 
