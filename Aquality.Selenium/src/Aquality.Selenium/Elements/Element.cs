@@ -2,15 +2,16 @@
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using Aquality.Selenium.Core.Elements;
-using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Core.Applications;
-using CoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Waitings;
+using CoreElement = Aquality.Selenium.Core.Elements.Element;
+using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
+using CoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
+using CoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
 
 namespace Aquality.Selenium.Elements
 {
@@ -22,6 +23,8 @@ namespace Aquality.Selenium.Elements
         protected Element(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
+
+        public override CoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
 
         protected IBrowserProfile BrowserProfile => BrowserManager.GetRequiredService<IBrowserProfile>();
 
