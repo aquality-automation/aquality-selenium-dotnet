@@ -32,7 +32,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleToUse_CustomFactory()
         {
             var browserFactory = new CustomLocalBrowserFactory();
-            BrowserManager.ApplicationFactory = browserFactory;
+            BrowserManager.BrowserFactory = browserFactory;
             BrowserManager.Browser.GoTo(url);
             Assert.AreEqual(url, BrowserManager.Browser.CurrentUrl);
         }

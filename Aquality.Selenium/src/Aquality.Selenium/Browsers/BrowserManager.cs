@@ -37,7 +37,7 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private static Func<IServiceProvider, Browser> StartBrowserFunction => services => ApplicationFactory.Browser;
+        private static Func<IServiceProvider, Browser> StartBrowserFunction => services => BrowserFactory.Browser;
 
         public static IServiceProvider ServiceProvider
         {
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Factory for application creation.
         /// </summary>
-        public static IBrowserFactory ApplicationFactory
+        public static IBrowserFactory BrowserFactory
         {
             get
             {
@@ -82,7 +82,7 @@ namespace Aquality.Selenium.Browsers
             services.AddSingleton<CoreTimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settingsFile));
             services.AddSingleton<IBrowserProfile>(serviceProvider => new BrowserProfile(settingsFile));
             services.AddSingleton(serviceProvider => new LocalizationManager(serviceProvider.GetRequiredService<ILoggerConfiguration>(), serviceProvider.GetRequiredService<Logger>(), Assembly.GetExecutingAssembly()));
-            services.AddTransient(serviceProvider => ApplicationFactory);
+            services.AddTransient(serviceProvider => BrowserFactory);
             return services;
         }
         
@@ -103,7 +103,7 @@ namespace Aquality.Selenium.Browsers
                 applicationFactory = new LocalBrowserFactory(ServiceProvider);
             }
 
-            ApplicationFactory = applicationFactory;
+            BrowserFactory = applicationFactory;
         }
 
         /// <summary>
