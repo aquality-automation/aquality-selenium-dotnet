@@ -1,14 +1,24 @@
-﻿using Aquality.Selenium.Configurations;
+﻿using Aquality.Selenium.Elements;
+using Aquality.Selenium.Elements.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Logging;
+using System.Reflection;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Configurations;
+using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
+using CoreTimeoutConfiguration = Aquality.Selenium.Core.Configurations.ITimeoutConfiguration;
+using ILoggerConfiguration = Aquality.Selenium.Core.Configurations.ILoggerConfiguration;
 
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
     /// Controls browser instance creation.
     /// </summary>
-    public static class BrowserManager
+    public class BrowserManager : ApplicationManager<BrowserManager, Browser>
     {
-        private static readonly ThreadLocal<Browser> BrowserContainer = new ThreadLocal<Browser>();
         private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 
         /// <summary>
@@ -19,54 +29,92 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                if (!BrowserContainer.IsValueCreated || BrowserContainer.Value.Driver.SessionId == null)
-                {
-                    SetDefaultBrowser();
-                }
-                return BrowserContainer.Value;
+                return GetApplication(StartBrowserFunction, () => RegisterServices(services => Browser));
             }
             set
             {
-                BrowserContainer.Value = value;
+                SetApplication(value);
             }
         }
 
-        private static void SetDefaultBrowser()
+        private static Func<IServiceProvider, Browser> StartBrowserFunction => services => BrowserFactory.Browser;
+
+        public static IServiceProvider ServiceProvider
         {
-            if (!BrowserFactoryContainer.IsValueCreated)
+            get
             {
-                SetDefaultFactory();
+                return GetServiceProvider(services => Browser, () => RegisterServices(services => Browser));
             }
-
-            Browser = BrowserFactoryContainer.Value.Browser;
+            set
+            {
+                SetServiceProvider(value);
+            }
         }
 
+        /// <summary>
+        /// Factory for application creation.
+        /// </summary>
+        public static IBrowserFactory BrowserFactory
+        {
+            get
+            {
+                if (!BrowserFactoryContainer.IsValueCreated)
+                {
+                    SetDefaultFactory();
+                }
+                return BrowserFactoryContainer.Value;
+            }
+            set
+            {
+                BrowserFactoryContainer.Value = value;
+            }
+        }
+
+        private static IServiceCollection RegisterServices(Func<IServiceProvider, Browser> browserSupplier)
+        {
+            var services = new ServiceCollection();
+            var startup = new Startup();
+            var settingsFile = startup.GetSettings();
+            startup.ConfigureServices(services, browserSupplier, settingsFile);
+            services.AddTransient<IElementFactory, ElementFactory>();
+            services.AddTransient<CoreElementFactory, ElementFactory>();
+            services.AddSingleton<ITimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settingsFile));
+            services.AddSingleton<CoreTimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settingsFile));
+            services.AddSingleton<IBrowserProfile>(serviceProvider => new BrowserProfile(settingsFile));
+            services.AddSingleton(serviceProvider => new LocalizationManager(serviceProvider.GetRequiredService<ILoggerConfiguration>(), serviceProvider.GetRequiredService<Logger>(), Assembly.GetExecutingAssembly()));
+            services.AddTransient(serviceProvider => BrowserFactory);
+            return services;
+        }
+        
         /// <summary>
         /// Sets default factory responsible for browser creation.
         /// RemoteBrowserFactory if value set in configuration and LocalBrowserFactory otherwise.
         /// </summary>
         public static void SetDefaultFactory()
         {
-            IConfiguration configuration = Configuration.Instance;
-            IBrowserFactory browserFactory;
-            if (configuration.BrowserProfile.IsRemote)
+            var appProfile = GetRequiredService<IBrowserProfile>();
+            IBrowserFactory applicationFactory;
+            if (appProfile.IsRemote)
             {
-                browserFactory = new RemoteBrowserFactory(configuration);
+                applicationFactory = new RemoteBrowserFactory(ServiceProvider);
             }
             else
             {
-                browserFactory = new LocalBrowserFactory(configuration);
+                applicationFactory = new LocalBrowserFactory(ServiceProvider);
             }
-            SetFactory(browserFactory);
+
+            BrowserFactory = applicationFactory;
         }
 
         /// <summary>
-        /// Sets custom browser factory.
+        /// Resolves required service from <see cref="ServiceProvider"/>
         /// </summary>
-        /// <param name="browserFactory">Custom implementation of <see cref="IBrowserFactory"/></param>
-        public static void SetFactory(IBrowserFactory browserFactory)
+        /// <typeparam name="T">type of required service</typeparam>
+        /// <exception cref="InvalidOperationException">Thrown if there is no service of the required type.</exception> 
+        /// <returns></returns>
+        public static T GetRequiredService<T>()
         {
-            BrowserFactoryContainer.Value = browserFactory;
+            return ServiceProvider.GetRequiredService<T>();
         }
     }
 }

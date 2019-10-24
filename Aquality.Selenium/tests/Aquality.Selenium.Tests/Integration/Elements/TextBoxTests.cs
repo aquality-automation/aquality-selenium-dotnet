@@ -1,6 +1,7 @@
-﻿using Aquality.Selenium.Elements;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Waitings;
+using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
-using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -50,7 +51,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.Submit();
-            Assert.IsTrue(ConditionalWait.WaitFor(() => passwordTxb.Value.Equals("", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => passwordTxb.Value.Equals("", StringComparison.OrdinalIgnoreCase)));
         }
 
         [Test]

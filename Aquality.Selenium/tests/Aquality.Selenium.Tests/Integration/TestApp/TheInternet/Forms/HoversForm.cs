@@ -1,4 +1,4 @@
-﻿using Aquality.Selenium.Elements;
+﻿using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 

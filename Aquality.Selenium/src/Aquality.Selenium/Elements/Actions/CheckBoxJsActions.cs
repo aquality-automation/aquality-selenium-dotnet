@@ -1,4 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Elements.Interfaces;
 
 namespace Aquality.Selenium.Elements.Actions
@@ -8,10 +10,10 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class CheckBoxJsActions : JsActions
     {
-        public CheckBoxJsActions(IElement element, string elementType) : base(element, elementType)
+        public CheckBoxJsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile) 
+            : base(element, elementType, logger, browserProfile)
         {
         }
-
 
         /// <summary>
         /// Gets CheckBox state.

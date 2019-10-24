@@ -1,8 +1,9 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements;
+using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Core.Waitings;
+using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
-using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -13,7 +14,6 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
     {
         private readonly SliderForm sliderForm = new SliderForm();
         private readonly By fakeElement = By.XPath("//fake");
-        private readonly ElementFactory elementFactory = new ElementFactory();
         private readonly TimeSpan smallTimeout = TimeSpan.FromSeconds(1);
 
         [SetUp]
@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_WaitForElement_WhichExistsButNotDisplayed()
         {
             var button = new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState);
-            Assert.IsTrue(ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
+            Assert.IsTrue(BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
         }
 
         [Test]
@@ -38,12 +38,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void Should_ThrowNoSuchElementException_WhenElementNotFound_ButExpectedToBeDisplayed()
         {
+            var elementFactory = BrowserManager.GetRequiredService<IElementFactory>();
             Assert.Throws<NoSuchElementException>(() => elementFactory.GetButton(fakeElement, "Fake", ElementState.Displayed).GetElement(smallTimeout));
         }
 
         [Test]
         public void Should_ThrowNoSuchElementException_WhenElementNotFound_ButExpectedToExist()
         {
+            var elementFactory = BrowserManager.GetRequiredService<IElementFactory>();
             Assert.Throws<NoSuchElementException>(() => elementFactory.GetButton(fakeElement, "Fake", ElementState.ExistsInAnyState).GetElement(smallTimeout));
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 
@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public EdgeSettings(JsonFile settingsFile) : base(settingsFile)
+        public EdgeSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 

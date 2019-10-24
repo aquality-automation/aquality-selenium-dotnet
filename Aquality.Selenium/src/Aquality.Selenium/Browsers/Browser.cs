@@ -1,41 +1,47 @@
 ﻿using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Localization;
-using Aquality.Selenium.Logging;
-using Aquality.Selenium.Waitings;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Extensions;
-using System;
 using System.Drawing;
 using System.Reflection;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Aquality.Selenium.Core.Waitings;
 
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
     /// Provides functionality to work with browser via Selenium WebDriver.  
     /// </summary>
-    public class Browser
+    public class Browser : IApplication
     {        
-        private readonly IConfiguration configuration;
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
+        private readonly IBrowserProfile browserProfile;
+        private readonly ConditionalWait conditionalWait;
 
         /// <summary>
         /// Instantiate browser.
         /// </summary>
         /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
-        /// <param name="configuration">Configuration.</param>
-        public Browser(RemoteWebDriver webDriver, IConfiguration configuration)
+        public Browser(RemoteWebDriver webDriver, IServiceProvider serviceProvider)
         {
-            this.configuration = configuration;
             Driver = webDriver;
-            BrowserName = configuration.BrowserProfile.BrowserName;
-            SetImplicitWaitTimeout(configuration.TimeoutConfiguration.Implicit);
-            SetPageLoadTimeout(configuration.TimeoutConfiguration.PageLoad);
-            SetScriptTimeout(configuration.TimeoutConfiguration.Script);
+            Logger = serviceProvider.GetRequiredService<LocalizationLogger>();
+            LocalizationManager = serviceProvider.GetRequiredService<LocalizationManager>();
+            browserProfile = serviceProvider.GetRequiredService<IBrowserProfile>();
+            conditionalWait = serviceProvider.GetRequiredService<ConditionalWait>();
+            var timeoutConfiguration = serviceProvider.GetRequiredService<ITimeoutConfiguration>();
+            SetImplicitWaitTimeout(timeoutConfiguration.Implicit);
+            SetPageLoadTimeout(timeoutConfiguration.PageLoad);
+            SetScriptTimeout(timeoutConfiguration.Script);
         }
 
-        private Logger Logger => Logger.Instance;
+        private LocalizationLogger Logger { get; }
+
+        private LocalizationManager LocalizationManager { get; }
 
         /// <summary>
         /// Gets instance of Selenium WebDriver.
@@ -47,7 +53,7 @@ namespace Aquality.Selenium.Browsers
         /// Gets name of desired browser from configuration.
         /// </summary>
         /// <value>Name of browser.</value>
-        public BrowserName BrowserName { get; }
+        public BrowserName BrowserName => browserProfile.BrowserName;
 
         /// <summary>
         /// Sets Selenium WebDriver ImplicitWait timeout. 
@@ -71,7 +77,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="timeout">Desired page load timeout.</param>
         public void SetPageLoadTimeout(TimeSpan timeout)
         {
-            if (!configuration.BrowserProfile.BrowserName.Equals(BrowserName.Safari))
+            if (!BrowserName.Equals(BrowserName.Safari))
             {
                 Driver.Manage().Timeouts().PageLoad = timeout;
                 pageLoadTimeout = timeout;
@@ -91,7 +97,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Gets browser configured download directory.
         /// </summary>
-        public string DownloadDirectory => configuration.BrowserProfile.DriverSettings.DownloadDir;
+        public string DownloadDirectory => browserProfile.DriverSettings.DownloadDir;
 
         /// <summary>
         /// Gets URL of currently opened page in web browser.
@@ -101,7 +107,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                Logger.InfoLoc("loc.browser.getUrl");
+                Logger.Info("loc.browser.getUrl");
                 return Driver.Url;
             }
         }
@@ -111,7 +117,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Quit()
         {
-            Logger.InfoLoc("loc.browser.driver.quit");
+            Logger.Info("loc.browser.driver.quit");
             Driver?.Quit();
         }
 
@@ -189,7 +195,7 @@ namespace Aquality.Selenium.Browsers
             }
             catch (NoAlertPresentException ex)
             {
-                Logger.FatalLoc("loc.browser.alert.fail", ex);
+                Logger.Fatal("loc.browser.alert.fail", ex);
                 throw;
             }
         }
@@ -199,7 +205,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void Maximize()
         {
-            Logger.InfoLoc("loc.browser.maximize");
+            Logger.Info("loc.browser.maximize");
             Driver.Manage().Window.Maximize();
         }
 
@@ -209,8 +215,8 @@ namespace Aquality.Selenium.Browsers
         /// <exception cref="TimeoutException">Throws when timeout exceeded and page is not loaded.</exception>
         public void WaitForPageToLoad()
         {
-            var errorMessage = LocalizationManager.Instance.GetLocalizedMessage("loc.browser.page.timeout");
-            ConditionalWait.WaitForTrue(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
+            var errorMessage = LocalizationManager.GetLocalizedMessage("loc.browser.page.timeout");
+            conditionalWait.WaitForTrue(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
         }
 
         /// <summary>
@@ -243,6 +249,18 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Executes JS script from embedded resource file (*.js) and gets result value.
+        /// </summary>
+        /// <param name="embeddedResourcePath">Embedded resource path.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <typeparam name="T">Type of return value.</typeparam>
+        /// <returns>Script execution result.</returns>
+        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
+        {
+            return ExecuteScript<T>(embeddedResourcePath.GetScript(Assembly.GetCallingAssembly()), arguments);
+        }
+
+        /// <summary>
         /// Executes predefined JS script.
         /// </summary>
         /// <param name="scriptName">Name of desired JS script.</param>
@@ -260,18 +278,6 @@ namespace Aquality.Selenium.Browsers
         public void ExecuteScript(string script, params object[] arguments)
         {
             Driver.ExecuteJavaScript(script, arguments);
-        }
-
-        /// <summary>
-        /// Executes JS script from embedded resource file (*.js) and gets result value.
-        /// </summary>
-        /// <param name="embeddedResourcePath">Embedded resource path.</param>
-        /// <param name="arguments">Script arguments.</param>
-        /// <typeparam name="T">Type of return value.</typeparam>
-        /// <returns>Script execution result.</returns>
-        public T ExecuteScriptFromFile<T>(string embeddedResourcePath, params object[] arguments)
-        {
-            return ExecuteScript<T>(embeddedResourcePath.GetScript(Assembly.GetCallingAssembly()), arguments);
         }
 
         /// <summary>

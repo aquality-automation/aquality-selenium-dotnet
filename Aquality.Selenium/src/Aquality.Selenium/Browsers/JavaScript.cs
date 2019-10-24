@@ -1,4 +1,4 @@
-﻿using Aquality.Selenium.Utilities;
+﻿using Aquality.Selenium.Core.Utilities;
 using System.Reflection;
 
 namespace Aquality.Selenium.Browsers

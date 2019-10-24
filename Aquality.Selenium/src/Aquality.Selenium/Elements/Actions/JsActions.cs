@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Logging;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -17,18 +17,19 @@ namespace Aquality.Selenium.Elements.Actions
     {
         private readonly IElement element;
         private readonly string elementType;
+        private readonly IBrowserProfile browserProfile;
 
-        public JsActions(IElement element, string elementType)
+        public JsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile)
         {
             this.element = element;
             this.elementType = elementType;
+            this.browserProfile = browserProfile;
+            Logger = logger;
         }
-
-        private IConfiguration Configuration => Configurations.Configuration.Instance;
 
         private Browser Browser => BrowserManager.Browser;
 
-        protected Logger Logger => Logger.Instance;
+        protected LocalizationLogger Logger { get; }
 
         /// <summary>
         /// Perfroms click on element and waits for page is loaded.
@@ -55,7 +56,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// </summary>
         public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {
-            if (Configuration.BrowserProfile.IsElementHighlightEnabled || highlightState.Equals(HighlightState.Highlight))
+            if (browserProfile.IsElementHighlightEnabled || highlightState.Equals(HighlightState.Highlight))
             {
                 ExecuteScript(JavaScript.BorderElement);
             }
@@ -172,7 +173,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         protected internal void LogElementAction(string messageKey, params object[] args)
         {
-            Logger.InfoLocElementAction(elementType, element.Name, messageKey, args);
+            Logger.InfoElementAction(elementType, element.Name, messageKey, args);
         }
 
         private object[] ResolveArguments(params object[] arguments)

@@ -1,60 +1,54 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
+﻿using OpenQA.Selenium;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Logging;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Utilities;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Waitings;
+using CoreElement = Aquality.Selenium.Core.Elements.Element;
+using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
+using CoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
+using CoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
 
 namespace Aquality.Selenium.Elements
 {
     /// <summary>
     /// Defines base class for any UI element.
     /// </summary>
-    public abstract class Element : IElement
+    public abstract class Element : CoreElement, IElement
     {
-        private readonly ElementState elementState;
-
-        protected Element(By locator, string name, ElementState state)
+        protected Element(By locator, string name, ElementState state) : base(locator, name, state)
         {
-            Locator = locator;
-            Name = name;
-            elementState = state;
         }
 
-        public By Locator { get; }
+        public override CoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
 
-        public string Name { get; }
+        protected IBrowserProfile BrowserProfile => BrowserManager.GetRequiredService<IBrowserProfile>();
 
-        protected abstract string ElementType { get; }
+        public JsActions JsActions => new JsActions(this, ElementType, LocalizationLogger, BrowserProfile);
 
-        public JsActions JsActions => new JsActions(this, ElementType);
+        public MouseActions MouseActions => new MouseActions(this, ElementType, LocalizationLogger, ActionRetrier);
 
-        public MouseActions MouseActions => new MouseActions(this, ElementType);
+        private Browser Browser => (Browser)Application;
 
-        public IElementStateProvider State => new ElementStateProvider(Locator);
+        protected override IApplication Application => BrowserManager.Browser;
 
-        protected Logger Logger => Logger.Instance;
+        protected override ElementActionRetrier ActionRetrier => BrowserManager.GetRequiredService<ElementActionRetrier>();
 
-        private Browser Browser => BrowserManager.Browser;
+        protected override CoreElementFactory Factory => CustomFactory;
 
-        private IElementFinder Finder => ElementFinder.Instance;
+        protected virtual IElementFactory CustomFactory => BrowserManager.GetRequiredService<IElementFactory>();
 
-        private IElementFactory ElementFactory => new ElementFactory();
+        protected override CoreElementFinder Finder => BrowserManager.GetRequiredService<CoreElementFinder>();
 
-        public RemoteWebElement GetElement(TimeSpan? timeout = null)
-        {
-            try
-            {
-                return (RemoteWebElement)Finder.FindElement(Locator, elementState, timeout);
-            }
-            catch (NoSuchElementException ex)
-            {
-                Logger.Debug($"Page source:{Environment.NewLine}{Browser.Driver.PageSource}", ex);
-                throw;
-            }
-        }
+        protected override LocalizationLogger LocalizationLogger => BrowserManager.GetRequiredService<LocalizationLogger>();
+
+        protected LocalizationManager LocalizationManager => BrowserManager.GetRequiredService<LocalizationManager>();
+
+        protected override ConditionalWait ConditionalWait => BrowserManager.GetRequiredService<ConditionalWait>();
 
         public void ClickAndWait()
         {
@@ -68,7 +62,7 @@ namespace Aquality.Selenium.Elements
             Click();
         }
 
-        public void Click()
+        public new void Click()
         {
             LogElementAction("loc.clicking");
             JsActions.HighlightElement();
@@ -101,38 +95,12 @@ namespace Aquality.Selenium.Elements
             JsActions.HighlightElement(highlightState);
             return DoWithRetry(() => GetElement().Text);
         }
-
-        public void SendKeys(string key)
-        {
-            LogElementAction("loc.text.sending.keys", key);
-            DoWithRetry(() => GetElement().SendKeys(key));
-        }
-
+        
         public void SetInnerHtml(string value)
         {
             Click();
             LogElementAction("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
-        }
-        
-        public T FindChildElement<T>(By childLocator, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) where T : IElement
-        {
-            return ElementFactory.FindChildElement(this, childLocator, supplier, state);
-        }
-
-        protected void DoWithRetry(Action action)
-        {
-            ElementActionRetrier.DoWithRetry(action);
-        }
-
-        protected T DoWithRetry<T>(Func<T> function)
-        {
-            return ElementActionRetrier.DoWithRetry(function);
-        }
-
-        protected internal void LogElementAction(string messageKey, params object[] args)
-        {
-            Logger.InfoLocElementAction(ElementType, Name, messageKey, args);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations.WebDriverSettings;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Configurations;
 using System;
 
 namespace Aquality.Selenium.Configurations
@@ -10,13 +10,13 @@ namespace Aquality.Selenium.Configurations
     /// </summary>
     public class BrowserProfile : IBrowserProfile
     {
-        private readonly JsonFile settingsFile;
+        private readonly ISettingsFile settingsFile;
 
         /// <summary>
         /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
-        public BrowserProfile(JsonFile settingsFile)
+        public BrowserProfile(ISettingsFile settingsFile)
         {
             this.settingsFile = settingsFile;
         }

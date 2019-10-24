@@ -1,6 +1,6 @@
-﻿using Aquality.Selenium.Elements.Actions;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.combobox");
+        protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.combobox");
 
         public string SelectedText => DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.Text);
 
@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Elements
             }
         }
 
-        public new ComboBoxJsActions JsActions => new ComboBoxJsActions(this, ElementType);
+        public new ComboBoxJsActions JsActions => new ComboBoxJsActions(this, ElementType, LocalizationLogger, BrowserProfile);
 
         public void SelectByContainingText(string text)
         {

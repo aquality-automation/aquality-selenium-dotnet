@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
@@ -13,10 +14,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class FirefoxSettings : DriverSettings
     {
         /// <summary>
-        /// Instantiates class using JSON file with general settings.
+        /// Instantiates class using file with general settings.
         /// </summary>
-        /// <param name="settingsFile">JSON settings file.</param>
-        public FirefoxSettings(JsonFile settingsFile) : base(settingsFile)
+        /// <param name="settingsFile">Settings file.</param>
+        public FirefoxSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 
@@ -48,15 +49,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             foreach (var option in BrowserOptions)
             {
                 var value = option.Key == DownloadDirCapabilityKey ? DownloadDir : option.Value;
-                if(option.Key == DownloadDirCapabilityKey)
+                if (option.Key == DownloadDirCapabilityKey)
                 {
                     options.SetPreference(option.Key, DownloadDir);
                 }
-                else if(value is bool)
+                else if (value is bool)
                 {
                     options.SetPreference(option.Key, (bool) value);
                 }
-                else if(value is int)
+                else if (value is int)
                 {
                     options.SetPreference(option.Key, (int) value);
                 }
@@ -64,7 +65,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 {
                     options.SetPreference(option.Key, (long)value);
                 }
-                else if(value is float)
+                else if (value is float)
                 {
                     options.SetPreference(option.Key, (float) value);
                 }

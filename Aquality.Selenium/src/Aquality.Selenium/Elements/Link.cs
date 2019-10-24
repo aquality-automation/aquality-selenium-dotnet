@@ -1,5 +1,5 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Localization;
+﻿using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Elements
@@ -13,7 +13,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        protected override string ElementType => LocalizationManager.Instance.GetLocalizedMessage("loc.link");
+        protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.link");
 
         public string Href => GetAttribute("href");
     }

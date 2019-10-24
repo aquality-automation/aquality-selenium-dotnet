@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
-using Aquality.Selenium.Waitings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -133,7 +134,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             infiniteScrollForm.WaitForPageToLoad();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() =>
+                () => BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(() =>
                 {
                     infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;
@@ -178,7 +179,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             infiniteScrollForm.WaitForPageToLoad();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
-                () => ConditionalWait.WaitForTrue(() =>
+                () => BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(() =>
                 {
                     infiniteScrollForm.Footer.JsActions.ScrollToTheCenter();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;

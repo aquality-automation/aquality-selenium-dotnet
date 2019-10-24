@@ -3,9 +3,10 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
 using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Logging;
-using Aquality.Selenium.Utilities;
 using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Utilities;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Configurations;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -16,14 +17,18 @@ namespace Aquality.Selenium.Elements.Actions
     {
         private readonly IElement element;
         private readonly string elementType;
+        private readonly LocalizationLogger logger;
+        private readonly ElementActionRetrier elementActionsRetrier;
 
-        public MouseActions(IElement element, string elementType)
+        public MouseActions(IElement element, string elementType, LocalizationLogger logger, ElementActionRetrier elementActionsRetrier)
         {
             this.element = element;
             this.elementType = elementType;
+            this.logger = logger;
+            this.elementActionsRetrier = elementActionsRetrier;
         }
 
-        private JsActions JsActions => new JsActions(element, elementType);
+        private JsActions JsActions => new JsActions(element, elementType, logger, BrowserManager.GetRequiredService<IBrowserProfile>());
 
         /// <summary>
         /// Performs click on element.
@@ -32,7 +37,7 @@ namespace Aquality.Selenium.Elements.Actions
         {
             LogElementAction("loc.clicking");
             JsActions.HighlightElement();
-            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).Click(element)));
+            elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).Click(element)));
         }
 
         /// <summary>
@@ -41,7 +46,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void DoubleClick()
         {
             LogElementAction("loc.clicking.double");
-            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).DoubleClick(element)));
+            elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).DoubleClick(element)));
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace Aquality.Selenium.Elements.Actions
         public void RightClick()
         {
             LogElementAction("loc.clicking.right");
-            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).ContextClick(element)));
+            elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).ContextClick(element)));
         }
 
         /// <summary>
@@ -59,8 +64,8 @@ namespace Aquality.Selenium.Elements.Actions
         public void MoveToElement()
         {
             LogElementAction("loc.moving");
-            JsActions.ScrollIntoView(); // TODO: check on Safari
-            ElementActionRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element)));
+            JsActions.ScrollIntoView();
+            elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element)));
         }
 
         private SeleniumActions MoveToElement(IWebElement element)
@@ -75,7 +80,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         protected internal void LogElementAction(string messageKey, params object[] args)
         {
-            Logger.Instance.InfoLocElementAction(elementType, element.Name, messageKey, args);
+            logger.InfoElementAction(elementType, element.Name, messageKey, args);
         }
     }
 }

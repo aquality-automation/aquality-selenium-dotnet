@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Utilities;
+using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
@@ -14,10 +15,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class InternetExplorerSettings : DriverSettings
     {
         /// <summary>
-        /// Instantiates class using JSON file with general settings.
+        /// Instantiates class using file with general settings.
         /// </summary>
-        /// <param name="settingsFile">JSON settings file.</param>
-        public InternetExplorerSettings(JsonFile settingsFile) : base(settingsFile)
+        /// <param name="settingsFile">Settings file.</param>
+        public InternetExplorerSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 
