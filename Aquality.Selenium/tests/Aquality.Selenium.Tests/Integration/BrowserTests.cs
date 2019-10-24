@@ -228,7 +228,7 @@ namespace Aquality.Selenium.Tests.Integration
             }
             Assert.Multiple(() =>
             {
-                Assert.Less(elapsedTime, waitTime + TimeSpan.FromSeconds(2), "Elapsed time should be less than implicit timeout + 2 sec(accuracy)");
+                Assert.Less(elapsedTime, waitTime.Add(TimeSpan.FromSeconds(2)), "Elapsed time should be less than implicit timeout + 2 sec(accuracy)");
                 Assert.GreaterOrEqual(elapsedTime, waitTime, "Elapsed time should be greater or equal than implicit timeout");
             });
         }
