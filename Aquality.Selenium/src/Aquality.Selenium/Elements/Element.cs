@@ -28,9 +28,9 @@ namespace Aquality.Selenium.Elements
 
         protected IBrowserProfile BrowserProfile => BrowserManager.GetRequiredService<IBrowserProfile>();
 
-        public JsActions JsActions => new JsActions(this, ElementType, LocalizationLogger, BrowserProfile);
+        public JsActions JsActions => new JsActions(this, ElementType, LocalizedLogger, BrowserProfile);
 
-        public MouseActions MouseActions => new MouseActions(this, ElementType, LocalizationLogger, ActionRetrier);
+        public MouseActions MouseActions => new MouseActions(this, ElementType, LocalizedLogger, ActionRetrier);
 
         private Browser Browser => (Browser)Application;
 
@@ -44,9 +44,9 @@ namespace Aquality.Selenium.Elements
 
         protected override CoreElementFinder Finder => BrowserManager.GetRequiredService<CoreElementFinder>();
 
-        protected override LocalizationLogger LocalizationLogger => BrowserManager.GetRequiredService<LocalizationLogger>();
+        protected override ILocalizedLogger LocalizedLogger => BrowserManager.GetRequiredService<ILocalizedLogger>();
 
-        protected LocalizationManager LocalizationManager => BrowserManager.GetRequiredService<LocalizationManager>();
+        protected ILocalizationManager LocalizationManager => BrowserManager.GetRequiredService<ILocalizationManager>();
 
         protected override ConditionalWait ConditionalWait => BrowserManager.GetRequiredService<ConditionalWait>();
 

@@ -17,10 +17,10 @@ namespace Aquality.Selenium.Elements.Actions
     {
         private readonly IElement element;
         private readonly string elementType;
-        private readonly LocalizationLogger logger;
+        private readonly ILocalizedLogger logger;
         private readonly ElementActionRetrier elementActionsRetrier;
 
-        public MouseActions(IElement element, string elementType, LocalizationLogger logger, ElementActionRetrier elementActionsRetrier)
+        public MouseActions(IElement element, string elementType, ILocalizedLogger logger, ElementActionRetrier elementActionsRetrier)
         {
             this.element = element;
             this.elementType = elementType;

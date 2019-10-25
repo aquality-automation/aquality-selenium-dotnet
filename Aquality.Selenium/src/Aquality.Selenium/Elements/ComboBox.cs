@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Elements
             }
         }
 
-        public new ComboBoxJsActions JsActions => new ComboBoxJsActions(this, ElementType, LocalizationLogger, BrowserProfile);
+        public new ComboBoxJsActions JsActions => new ComboBoxJsActions(this, ElementType, LocalizedLogger, BrowserProfile);
 
         public void SelectByContainingText(string text)
         {

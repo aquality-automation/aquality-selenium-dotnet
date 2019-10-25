@@ -29,8 +29,8 @@ namespace Aquality.Selenium.Browsers
         public Browser(RemoteWebDriver webDriver, IServiceProvider serviceProvider)
         {
             Driver = webDriver;
-            Logger = serviceProvider.GetRequiredService<LocalizationLogger>();
-            LocalizationManager = serviceProvider.GetRequiredService<LocalizationManager>();
+            Logger = serviceProvider.GetRequiredService<ILocalizedLogger>();
+            LocalizationManager = serviceProvider.GetRequiredService<ILocalizationManager>();
             browserProfile = serviceProvider.GetRequiredService<IBrowserProfile>();
             conditionalWait = serviceProvider.GetRequiredService<ConditionalWait>();
             var timeoutConfiguration = serviceProvider.GetRequiredService<ITimeoutConfiguration>();
@@ -39,9 +39,9 @@ namespace Aquality.Selenium.Browsers
             SetScriptTimeout(timeoutConfiguration.Script);
         }
 
-        private LocalizationLogger Logger { get; }
+        private ILocalizedLogger Logger { get; }
 
-        private LocalizationManager LocalizationManager { get; }
+        private ILocalizationManager LocalizationManager { get; }
 
         /// <summary>
         /// Gets instance of Selenium WebDriver.

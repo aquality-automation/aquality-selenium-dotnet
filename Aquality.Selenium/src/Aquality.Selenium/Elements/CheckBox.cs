@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Elements
             }
         }
 
-        public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType, LocalizationLogger, BrowserProfile);
+        public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType, LocalizedLogger, BrowserProfile);
         
         public void Check()
         {

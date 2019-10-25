@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class CheckBoxJsActions : JsActions
     {
-        public CheckBoxJsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile) 
+        public CheckBoxJsActions(IElement element, string elementType, ILocalizedLogger logger, IBrowserProfile browserProfile) 
             : base(element, elementType, logger, browserProfile)
         {
         }
