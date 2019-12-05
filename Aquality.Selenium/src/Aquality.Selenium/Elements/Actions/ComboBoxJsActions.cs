@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Elements.Actions
     /// </summary>
     public class ComboBoxJsActions : JsActions
     {
-        public ComboBoxJsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile) 
+        public ComboBoxJsActions(IElement element, string elementType, ILocalizedLogger logger, IBrowserProfile browserProfile) 
             : base(element, elementType, logger, browserProfile)
         {
         }

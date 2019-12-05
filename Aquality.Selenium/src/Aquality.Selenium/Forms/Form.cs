@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Forms
         /// Instance of logger <see cref="Logging.Logger">
         /// </summary>
         /// <value>Logger instance.</value>
-        protected LocalizationLogger Logger => BrowserManager.GetRequiredService<LocalizationLogger>();
+        protected ILocalizedLogger Logger => BrowserManager.GetRequiredService<ILocalizedLogger>();
 
         /// <summary>
         /// Element factory <see cref="IElementFactory">

@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Browsers
     /// <summary>
     /// Controls browser instance creation.
     /// </summary>
-    public class BrowserManager : ApplicationManager<BrowserManager, Browser>
+    public class BrowserManager : ApplicationManager<Browser>
     {
         private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 

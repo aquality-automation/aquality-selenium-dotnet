@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Elements.Actions
         private readonly string elementType;
         private readonly IBrowserProfile browserProfile;
 
-        public JsActions(IElement element, string elementType, LocalizationLogger logger, IBrowserProfile browserProfile)
+        public JsActions(IElement element, string elementType, ILocalizedLogger logger, IBrowserProfile browserProfile)
         {
             this.element = element;
             this.elementType = elementType;
@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         private Browser Browser => BrowserManager.Browser;
 
-        protected LocalizationLogger Logger { get; }
+        protected ILocalizedLogger Logger { get; }
 
         /// <summary>
         /// Perfroms click on element and waits for page is loaded.
