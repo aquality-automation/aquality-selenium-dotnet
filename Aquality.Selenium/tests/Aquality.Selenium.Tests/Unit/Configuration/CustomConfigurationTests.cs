@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Aquality.Selenium.Tests.Unit.Configuration
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.None)]
+    [Parallelizable(ParallelScope.All)]
     internal class CustomConfigurationTests
     {
         private const string SpecialLoggerLanguage = "SpecialLoggerLanguage";

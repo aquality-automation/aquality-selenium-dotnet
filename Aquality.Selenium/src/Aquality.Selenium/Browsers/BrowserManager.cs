@@ -20,12 +20,7 @@ namespace Aquality.Selenium.Browsers
         /// <value>Instance of desired browser.</value>
         public static Browser Browser
         {
-            get
-            {
-                return GetApplication(StartBrowserFunction,
-                    () => BrowserStartupContainer.Value.ConfigureServices(new ServiceCollection(),
-                        services => Browser));
-            }
+            get => GetApplication(StartBrowserFunction, ConfigureServices);
             set => SetApplication(value);
         }
 
@@ -33,12 +28,7 @@ namespace Aquality.Selenium.Browsers
 
         public static IServiceProvider ServiceProvider
         {
-            get
-            {
-                return GetServiceProvider(services => Browser,
-                    () => BrowserStartupContainer.Value.ConfigureServices(new ServiceCollection(),
-                        services => Browser));
-            }
+            get => GetServiceProvider(services => Browser, ConfigureServices);
             set => SetServiceProvider(value);
         }
 
@@ -49,8 +39,9 @@ namespace Aquality.Selenium.Browsers
         public static void SetStartup(Startup startup)
         {
             if (startup != null)
-            {   
+            {
                 BrowserStartupContainer.Value = (BrowserStartup) startup;
+                SetServiceProvider(ConfigureServices().BuildServiceProvider());
             }
         }
 
@@ -100,6 +91,11 @@ namespace Aquality.Selenium.Browsers
         public static T GetRequiredService<T>()
         {
             return ServiceProvider.GetRequiredService<T>();
+        }
+
+        private static IServiceCollection ConfigureServices()
+        {
+            return BrowserStartupContainer.Value.ConfigureServices(new ServiceCollection(), services => Browser);
         }
     }
 }
