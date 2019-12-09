@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Aquality.Selenium.Tests.Unit.Configuration
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.All)]
+    [Parallelizable(ParallelScope.None)]
     internal class CustomConfigurationTests
     {
         private const string SpecialLoggerLanguage = "SpecialLoggerLanguage";
@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Unit.Configuration
         [Test]
         public void Should_BeAbleOverrideDependencies_AndGetCustomService()
         {
-            Assert.AreEqual(SpecialLoggerLanguage,BrowserManager.GetRequiredService<ILoggerConfiguration>().Language, "Configuration value should be overriden.");
+            Assert.AreEqual(SpecialLoggerLanguage, BrowserManager.GetRequiredService<ILoggerConfiguration>().Language, "Configuration value should be overriden.");
         }
 
         [Test]

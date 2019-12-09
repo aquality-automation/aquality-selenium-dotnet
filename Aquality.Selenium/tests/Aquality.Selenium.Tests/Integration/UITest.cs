@@ -8,12 +8,6 @@ namespace Aquality.Selenium.Tests.Integration
     [Parallelizable(ParallelScope.All)]
     internal class UITest
     {
-        [SetUp]
-        public void SetUp()
-        {
-            BrowserManager.SetStartup(new BrowserStartup());
-        }
-
         [TearDown]
         public void CleanUp()
         {
