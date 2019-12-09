@@ -7,7 +7,13 @@ namespace Aquality.Selenium.Tests.Integration
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
     internal class UITest
-    {       
+    {
+        [SetUp]
+        public void SetUp()
+        {
+            BrowserManager.SetStartup(new BrowserStartup());
+        }
+
         [TearDown]
         public void CleanUp()
         {
