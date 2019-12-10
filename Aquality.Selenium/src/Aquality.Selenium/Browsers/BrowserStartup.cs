@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Browsers
             services.AddSingleton<CoreTimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settings));
             services.AddSingleton<IBrowserProfile>(serviceProvider => new BrowserProfile(settings));
             services.AddSingleton(serviceProvider => new LocalizationManager(serviceProvider.GetRequiredService<ILoggerConfiguration>(), serviceProvider.GetRequiredService<Logger>(), Assembly.GetExecutingAssembly()));
-            services.AddTransient(serviceProvider => typeof(BrowserFactory));
+            services.AddTransient(serviceProvider => BrowserManager.BrowserFactory);
             return services;
         }
     }
