@@ -85,7 +85,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Resolves required service from <see cref="ServiceProvider"/>
         /// </summary>
-        /// <typeparam name="T">type of required service</typeparam>
+        /// <typeparam name="T">type of required service.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if there is no service of the required type.</exception> 
         /// <returns></returns>
         public static T GetRequiredService<T>()
