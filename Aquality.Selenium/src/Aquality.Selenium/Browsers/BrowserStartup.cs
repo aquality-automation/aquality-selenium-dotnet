@@ -31,7 +31,6 @@ namespace Aquality.Selenium.Browsers
             services.AddSingleton(serviceProvider => new LocalizationManager(serviceProvider.GetRequiredService<ILoggerConfiguration>(), serviceProvider.GetRequiredService<Logger>(), Assembly.GetExecutingAssembly()));
             services.AddTransient(serviceProvider => typeof(BrowserFactory));
             return services;
-            
         }
     }
 }
