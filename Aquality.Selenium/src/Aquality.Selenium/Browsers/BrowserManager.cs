@@ -35,12 +35,12 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Method which allow user to override or add custom services.
         /// </summary>
-        /// <param name="startup"><see cref="Startup"/>> object with custom or overriden services.</param>
-        public static void SetStartup(Startup startup)
+        /// <param name="startup"><see cref="BrowserStartup"/>> object with custom or overriden services.</param>
+        public static void SetStartup(BrowserStartup startup)
         {
             if (startup != null)
             {
-                BrowserStartupContainer.Value = (BrowserStartup) startup;
+                BrowserStartupContainer.Value = startup;
                 SetServiceProvider(ConfigureServices().BuildServiceProvider());
             }
         }
