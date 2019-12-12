@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Tests.Integration
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
     internal class UITest
-    {       
+    {
         [TearDown]
         public void CleanUp()
         {

@@ -1,16 +1,8 @@
-﻿using Aquality.Selenium.Elements;
-using Aquality.Selenium.Elements.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
-using Aquality.Selenium.Core.Localization;
-using Aquality.Selenium.Core.Logging;
-using System.Reflection;
 using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Configurations;
-using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
-using CoreTimeoutConfiguration = Aquality.Selenium.Core.Configurations.ITimeoutConfiguration;
-using ILoggerConfiguration = Aquality.Selenium.Core.Configurations.ILoggerConfiguration;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -19,6 +11,7 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class BrowserManager : ApplicationManager<Browser>
     {
+        private static readonly ThreadLocal<BrowserStartup> BrowserStartupContainer = new ThreadLocal<BrowserStartup>(() => new BrowserStartup());
         private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
 
         /// <summary>
@@ -27,27 +20,28 @@ namespace Aquality.Selenium.Browsers
         /// <value>Instance of desired browser.</value>
         public static Browser Browser
         {
-            get
-            {
-                return GetApplication(StartBrowserFunction, () => RegisterServices(services => Browser));
-            }
-            set
-            {
-                SetApplication(value);
-            }
+            get => GetApplication(StartBrowserFunction, ConfigureServices);
+            set => SetApplication(value);
         }
 
         private static Func<IServiceProvider, Browser> StartBrowserFunction => services => BrowserFactory.Browser;
 
         public static IServiceProvider ServiceProvider
         {
-            get
+            get => GetServiceProvider(services => Browser, ConfigureServices);
+            set => SetServiceProvider(value);
+        }
+
+        /// <summary>
+        /// Method which allow user to override or add custom services.
+        /// </summary>
+        /// <param name="startup"><see cref="BrowserStartup"/>> object with custom or overriden services.</param>
+        public static void SetStartup(BrowserStartup startup)
+        {
+            if (startup != null)
             {
-                return GetServiceProvider(services => Browser, () => RegisterServices(services => Browser));
-            }
-            set
-            {
-                SetServiceProvider(value);
+                BrowserStartupContainer.Value = startup;
+                SetServiceProvider(ConfigureServices().BuildServiceProvider());
             }
         }
 
@@ -62,30 +56,12 @@ namespace Aquality.Selenium.Browsers
                 {
                     SetDefaultFactory();
                 }
+
                 return BrowserFactoryContainer.Value;
             }
-            set
-            {
-                BrowserFactoryContainer.Value = value;
-            }
+            set => BrowserFactoryContainer.Value = value;
         }
 
-        private static IServiceCollection RegisterServices(Func<IServiceProvider, Browser> browserSupplier)
-        {
-            var services = new ServiceCollection();
-            var startup = new Startup();
-            var settingsFile = startup.GetSettings();
-            startup.ConfigureServices(services, browserSupplier, settingsFile);
-            services.AddTransient<IElementFactory, ElementFactory>();
-            services.AddTransient<CoreElementFactory, ElementFactory>();
-            services.AddSingleton<ITimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settingsFile));
-            services.AddSingleton<CoreTimeoutConfiguration>(serviceProvider => new TimeoutConfiguration(settingsFile));
-            services.AddSingleton<IBrowserProfile>(serviceProvider => new BrowserProfile(settingsFile));
-            services.AddSingleton(serviceProvider => new LocalizationManager(serviceProvider.GetRequiredService<ILoggerConfiguration>(), serviceProvider.GetRequiredService<Logger>(), Assembly.GetExecutingAssembly()));
-            services.AddTransient(serviceProvider => BrowserFactory);
-            return services;
-        }
-        
         /// <summary>
         /// Sets default factory responsible for browser creation.
         /// RemoteBrowserFactory if value set in configuration and LocalBrowserFactory otherwise.
@@ -109,12 +85,17 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Resolves required service from <see cref="ServiceProvider"/>
         /// </summary>
-        /// <typeparam name="T">type of required service</typeparam>
+        /// <typeparam name="T">type of required service.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if there is no service of the required type.</exception> 
         /// <returns></returns>
         public static T GetRequiredService<T>()
         {
             return ServiceProvider.GetRequiredService<T>();
+        }
+
+        private static IServiceCollection ConfigureServices()
+        {
+            return BrowserStartupContainer.Value.ConfigureServices(new ServiceCollection(), services => Browser);
         }
     }
 }
