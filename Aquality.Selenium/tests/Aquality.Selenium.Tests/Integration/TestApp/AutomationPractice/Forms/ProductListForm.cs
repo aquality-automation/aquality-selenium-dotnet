@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public void NavigateToLastProduct()
         {
-            BrowserManager.Browser.GoTo(GetLastProduct().Href);
+            AqualityServices.Browser.GoTo(GetLastProduct().Href);
         }
 
         public ILink GetLastProduct()
@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
         {
             var products = ProductContainerLabels;
             var productToAdd = products[random.Next(products.Count)];
-            BrowserManager.Browser.ExecuteScript(JavaScript.ScrollToElement, productToAdd.GetElement());
+            AqualityServices.Browser.ExecuteScript(JavaScript.ScrollToElement, productToAdd.GetElement());
             productToAdd.MouseActions.MoveToElement();
             GetAddCardButton(productToAdd).JsActions.Click();
         }

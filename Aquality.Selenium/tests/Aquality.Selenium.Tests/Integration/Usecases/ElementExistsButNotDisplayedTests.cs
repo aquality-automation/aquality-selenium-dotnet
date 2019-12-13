@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
@@ -19,14 +18,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [SetUp]
         public void BeforeTest()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
         }
 
         [Test]
         public void Should_BePossibleTo_WaitForElement_WhichExistsButNotDisplayed()
         {
             var button = new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState);
-            Assert.IsTrue(BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
+            Assert.IsTrue(AqualityServices.ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
         }
 
         [Test]
@@ -38,14 +37,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void Should_ThrowNoSuchElementException_WhenElementNotFound_ButExpectedToBeDisplayed()
         {
-            var elementFactory = BrowserManager.GetRequiredService<IElementFactory>();
+            var elementFactory = AqualityServices.Get<IElementFactory>();
             Assert.Throws<NoSuchElementException>(() => elementFactory.GetButton(fakeElement, "Fake", ElementState.Displayed).GetElement(smallTimeout));
         }
 
         [Test]
         public void Should_ThrowNoSuchElementException_WhenElementNotFound_ButExpectedToExist()
         {
-            var elementFactory = BrowserManager.GetRequiredService<IElementFactory>();
+            var elementFactory = AqualityServices.Get<IElementFactory>();
             Assert.Throws<NoSuchElementException>(() => elementFactory.GetButton(fakeElement, "Fake", ElementState.ExistsInAnyState).GetElement(smallTimeout));
         }
     }

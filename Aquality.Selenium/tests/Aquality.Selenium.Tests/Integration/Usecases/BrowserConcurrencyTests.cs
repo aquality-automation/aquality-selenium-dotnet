@@ -14,15 +14,15 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
                 var checkBoxesForm = new CheckBoxesForm();
                 checkBoxesForm.Open();
-                Assert.AreEqual(checkBoxesForm.Url, BrowserManager.Browser.CurrentUrl);
-                BrowserManager.Browser.Quit();
+                Assert.AreEqual(checkBoxesForm.Url, AqualityServices.Browser.CurrentUrl);
+                AqualityServices.Browser.Quit();
             });
             var thread02 = new Thread(() =>
             {
                 var authForm = new AuthenticationForm();
                 authForm.Open();
-                Assert.AreEqual(authForm.Url, BrowserManager.Browser.CurrentUrl);
-                BrowserManager.Browser.Quit();
+                Assert.AreEqual(authForm.Url, AqualityServices.Browser.CurrentUrl);
+                AqualityServices.Browser.Quit();
             });
 
             thread01.Start();

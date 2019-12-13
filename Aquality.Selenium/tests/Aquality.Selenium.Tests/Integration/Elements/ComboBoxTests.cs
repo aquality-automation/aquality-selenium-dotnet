@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 
@@ -33,7 +32,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var comboBox = dropdownForm.ComboBox;
             var selectedText = comboBox.SelectedText;
             comboBox.SelectByText(Option2);
-            BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
+            AqualityServices.ConditionalWait.WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
             Assert.AreEqual(comboBox.Texts[2], comboBox.JsActions.GetSelectedText());
         }
 
@@ -43,7 +42,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var comboBox = dropdownForm.ComboBox;
             var selectedText = comboBox.SelectedText;
             comboBox.SelectByValue("2");
-            BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
+            AqualityServices.ConditionalWait.WaitFor(() => !selectedText.Equals(comboBox.SelectedText));
             Assert.AreEqual(comboBox.Texts[2], comboBox.JsActions.GetSelectedText());
         }
 

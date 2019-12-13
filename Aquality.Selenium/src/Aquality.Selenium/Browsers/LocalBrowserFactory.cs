@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Configurations.WebDriverSettings;
-using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -23,7 +22,7 @@ namespace Aquality.Selenium.Browsers
     {
         private static readonly object WebDriverDownloadingLock = new object();
 
-        public LocalBrowserFactory(IServiceProvider serviceProvider) : base(serviceProvider)
+        public LocalBrowserFactory() : base()
         {
         }
 
@@ -31,7 +30,7 @@ namespace Aquality.Selenium.Browsers
 
         private Browser CreateBrowser()
         {
-            var browserProfile = ServiceProvider.GetRequiredService<IBrowserProfile>();
+            var browserProfile = AqualityServices.Get<IBrowserProfile>();
             var browserName = browserProfile.BrowserName;
             var driverSettings = browserProfile.DriverSettings;
             RemoteWebDriver driver;
@@ -58,7 +57,7 @@ namespace Aquality.Selenium.Browsers
                 default:
                     throw new ArgumentOutOfRangeException($"Browser {browserName} is not supported.");
             }
-            return new Browser(driver, ServiceProvider);
+            return new Browser(driver);
         }
 
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)

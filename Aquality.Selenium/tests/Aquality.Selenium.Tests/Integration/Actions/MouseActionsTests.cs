@@ -33,13 +33,13 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var contextMenuForm = new ContextMenuForm();
             contextMenuForm.Open();
             contextMenuForm.HotSpotLabel.MouseActions.RightClick();
-            Assert.DoesNotThrow(() => BrowserManager.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
+            Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
         }
 
         [Test]
         public void Should_BePossibleTo_MoveToElement()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 

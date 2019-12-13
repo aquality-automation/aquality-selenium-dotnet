@@ -23,32 +23,32 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleToUse_BrowserFromCustomFactory()
         {
             var browserFactory = new CustomLocalBrowserFactory();
-            BrowserManager.Browser = browserFactory.Browser;
-            BrowserManager.Browser.GoTo(url);
-            Assert.AreEqual(url, BrowserManager.Browser.CurrentUrl);
+            AqualityServices.Browser = browserFactory.Browser;
+            AqualityServices.Browser.GoTo(url);
+            Assert.AreEqual(url, AqualityServices.Browser.CurrentUrl);
         }
 
         [Test]
         public void Should_BePossibleToUse_CustomFactory()
         {
             var browserFactory = new CustomLocalBrowserFactory();
-            BrowserManager.BrowserFactory = browserFactory;
-            BrowserManager.Browser.GoTo(url);
-            Assert.AreEqual(url, BrowserManager.Browser.CurrentUrl);
+            AqualityServices.BrowserFactory = browserFactory;
+            AqualityServices.Browser.GoTo(url);
+            Assert.AreEqual(url, AqualityServices.Browser.CurrentUrl);
         }
 
         [TearDown]
         public void TearDown()
         {
-            BrowserManager.Browser.Quit();
-            BrowserManager.SetDefaultFactory();
+            AqualityServices.Browser.Quit();
+            AqualityServices.SetDefaultFactory();
         }
 
         public class CustomLocalBrowserFactory : BrowserFactory
         {
             private static readonly object WebDriverDownloadingLock = new object();
 
-            public CustomLocalBrowserFactory() : base(BrowserManager.ServiceProvider)
+            public CustomLocalBrowserFactory() : base()
             {
             }
 
@@ -56,11 +56,11 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
             private Browser CreateBrowser()
             {
-                var browserProfile = ServiceProvider.GetRequiredService<IBrowserProfile>();
+                var browserProfile = AqualityServices.Get<IBrowserProfile>();
                 var driverSettings = browserProfile.DriverSettings;
                 SetUpDriver(new ChromeConfig(), driverSettings);
                 var driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
-                return new Browser(driver, ServiceProvider);
+                return new Browser(driver);
             }
 
             private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)

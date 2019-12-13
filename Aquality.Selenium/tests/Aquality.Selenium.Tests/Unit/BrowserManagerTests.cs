@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Tests.Unit
         [Test]
         public void Should_BeAbleGetBrowser()
         {
-            Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
+            Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
         }
 
         [TestCase(null)]
@@ -20,10 +20,10 @@ namespace Aquality.Selenium.Tests.Unit
         [TestCase("a")]
         public void Should_BeAbleGetBrowser_WithStartArguments(string startArguments)
         {
-            var currentBrowser = BrowserManager.GetRequiredService<IBrowserProfile>().BrowserName;
+            var currentBrowser = AqualityServices.Get<IBrowserProfile>().BrowserName;
             Environment.SetEnvironmentVariable("isRemote", "false");
             Environment.SetEnvironmentVariable($"driverSettings.{currentBrowser.ToString().ToLowerInvariant()}.startArguments", startArguments);
-            Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
+            Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
         }
 
         [Ignore("Not all browsers are supported in Azure CICD pipeline")]
@@ -35,14 +35,14 @@ namespace Aquality.Selenium.Tests.Unit
         {
             Environment.SetEnvironmentVariable("browserName", browserName.ToString());
             Environment.SetEnvironmentVariable("isRemote", "false");
-            Assert.DoesNotThrow(() => BrowserManager.Browser.WaitForPageToLoad());
-            Assert.AreEqual(BrowserManager.Browser.BrowserName, browserName);
+            Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
+            Assert.AreEqual(AqualityServices.Browser.BrowserName, browserName);
         }
 
         [TearDown]
         public void CleanUp()
         {
-            BrowserManager.Browser.Quit();
+            AqualityServices.Browser.Quit();
         }
     }
 }

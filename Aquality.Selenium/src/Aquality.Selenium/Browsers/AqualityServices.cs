@@ -1,18 +1,36 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
-using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Logging;
+using Aquality.Selenium.Core.Waitings;
 
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
     /// Controls browser instance creation.
     /// </summary>
-    public class BrowserManager : ApplicationManager<Browser>
+    public class AqualityServices : AqualityServices<Browser>
     {
         private static readonly ThreadLocal<BrowserStartup> BrowserStartupContainer = new ThreadLocal<BrowserStartup>(() => new BrowserStartup());
         private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
+
+        /// <summary>
+        /// Check if browser already started.
+        /// </summary>
+        /// <value>true if browser started and false otherwise.</value>
+        public static bool IsBrowserStarted => IsApplicationStarted();
+
+        /// <summary>
+        /// Gets registered instance of Logger
+        /// </summary>
+        public static Logger Logger => Get<Logger>();
+
+        /// <summary>
+        /// Gets ConditionalWait object
+        /// </summary>
+        public static ConditionalWait ConditionalWait => Get<ConditionalWait>();
 
         /// <summary>
         /// Gets and sets thread-safe instance of browser.
@@ -25,12 +43,6 @@ namespace Aquality.Selenium.Browsers
         }
 
         private static Func<IServiceProvider, Browser> StartBrowserFunction => services => BrowserFactory.Browser;
-
-        public static IServiceProvider ServiceProvider
-        {
-            get => GetServiceProvider(services => Browser, ConfigureServices);
-            set => SetServiceProvider(value);
-        }
 
         /// <summary>
         /// Method which allow user to override or add custom services.
@@ -68,15 +80,15 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public static void SetDefaultFactory()
         {
-            var appProfile = GetRequiredService<IBrowserProfile>();
+            var appProfile = Get<IBrowserProfile>();
             IBrowserFactory applicationFactory;
             if (appProfile.IsRemote)
             {
-                applicationFactory = new RemoteBrowserFactory(ServiceProvider);
+                applicationFactory = new RemoteBrowserFactory();
             }
             else
             {
-                applicationFactory = new LocalBrowserFactory(ServiceProvider);
+                applicationFactory = new LocalBrowserFactory();
             }
 
             BrowserFactory = applicationFactory;
@@ -88,10 +100,12 @@ namespace Aquality.Selenium.Browsers
         /// <typeparam name="T">type of required service.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if there is no service of the required type.</exception> 
         /// <returns></returns>
-        public static T GetRequiredService<T>()
+        public static T Get<T>()
         {
             return ServiceProvider.GetRequiredService<T>();
         }
+
+        private static IServiceProvider ServiceProvider => GetServiceProvider(services => Browser, ConfigureServices);
 
         private static IServiceCollection ConfigureServices()
         {

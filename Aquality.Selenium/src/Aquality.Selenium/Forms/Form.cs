@@ -36,13 +36,13 @@ namespace Aquality.Selenium.Forms
         /// Instance of logger <see cref="Logging.Logger">
         /// </summary>
         /// <value>Logger instance.</value>
-        protected ILocalizedLogger Logger => BrowserManager.GetRequiredService<ILocalizedLogger>();
+        protected ILocalizedLogger Logger => AqualityServices.Get<ILocalizedLogger>();
 
         /// <summary>
         /// Element factory <see cref="IElementFactory">
         /// </summary>
         /// <value>Element factory.</value>
-        protected IElementFactory ElementFactory => BrowserManager.GetRequiredService<IElementFactory>();
+        protected IElementFactory ElementFactory => AqualityServices.Get<IElementFactory>();
 
         /// <summary>
         /// Return form state for form locator

@@ -27,7 +27,7 @@ namespace Aquality.Selenium.Elements.Actions
             Logger = logger;
         }
 
-        private Browser Browser => BrowserManager.Browser;
+        private Browser Browser => AqualityServices.Browser;
 
         protected ILocalizedLogger Logger { get; }
 

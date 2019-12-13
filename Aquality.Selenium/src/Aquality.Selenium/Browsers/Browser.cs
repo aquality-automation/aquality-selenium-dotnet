@@ -7,7 +7,6 @@ using OpenQA.Selenium.Support.Extensions;
 using System.Drawing;
 using System.Reflection;
 using System;
-using Microsoft.Extensions.DependencyInjection;
 using Aquality.Selenium.Core.Waitings;
 
 namespace Aquality.Selenium.Browsers
@@ -26,14 +25,14 @@ namespace Aquality.Selenium.Browsers
         /// Instantiate browser.
         /// </summary>
         /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
-        public Browser(RemoteWebDriver webDriver, IServiceProvider serviceProvider)
+        public Browser(RemoteWebDriver webDriver)
         {
             Driver = webDriver;
-            Logger = serviceProvider.GetRequiredService<ILocalizedLogger>();
-            LocalizationManager = serviceProvider.GetRequiredService<ILocalizationManager>();
-            browserProfile = serviceProvider.GetRequiredService<IBrowserProfile>();
-            conditionalWait = serviceProvider.GetRequiredService<ConditionalWait>();
-            var timeoutConfiguration = serviceProvider.GetRequiredService<ITimeoutConfiguration>();
+            Logger = AqualityServices.Get<ILocalizedLogger>();
+            LocalizationManager = AqualityServices.Get<ILocalizationManager>();
+            browserProfile = AqualityServices.Get<IBrowserProfile>();
+            conditionalWait = AqualityServices.ConditionalWait;
+            var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
             SetImplicitWaitTimeout(timeoutConfiguration.Implicit);
             SetPageLoadTimeout(timeoutConfiguration.PageLoad);
             SetScriptTimeout(timeoutConfiguration.Script);
