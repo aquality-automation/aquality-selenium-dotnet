@@ -2,17 +2,43 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using NUnit.Framework;
 using System;
+using Aquality.Selenium.Core.Logging;
 
 namespace Aquality.Selenium.Tests.Unit
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
-    internal class BrowserManagerTests
+    internal class AqualityServicesTests
     {
         [Test]
         public void Should_BeAbleGetBrowser()
         {
             Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
+        }
+
+        [Test]
+        public void Should_BeAbleCheck_IsBrowserNotStarted()
+        {
+            Assert.IsFalse(AqualityServices.IsBrowserStarted, "Browser is not started");
+        }
+
+        [Test]
+        public void Should_BeAbleCheck_IsBrowserStarted()
+        {
+            AqualityServices.Browser.WaitForPageToLoad();
+            Assert.IsTrue(AqualityServices.IsBrowserStarted, "Browser is started");
+        }
+
+        [Test]
+        public void Should_BeAbleToGet_Logger()
+        {
+            Assert.DoesNotThrow(() => AqualityServices.Logger.Info("message"), "Logger should not be null");
+        }
+
+        [Test]
+        public void Should_BeAbleToGet_ConditionalWait()
+        {
+            Assert.DoesNotThrow(() => AqualityServices.ConditionalWait.WaitForTrue(() => true), "ConditionalWait should not be null");
         }
 
         [TestCase(null)]
