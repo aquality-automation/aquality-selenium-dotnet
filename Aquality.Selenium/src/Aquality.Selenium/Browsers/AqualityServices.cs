@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Core.Waitings;
 
@@ -23,9 +24,14 @@ namespace Aquality.Selenium.Browsers
         public static bool IsBrowserStarted => IsApplicationStarted();
 
         /// <summary>
-        /// Gets registered instance of Logger
+        /// Gets registered instance of logger
         /// </summary>
         public static Logger Logger => Get<Logger>();
+
+        /// <summary>
+        /// Gets registered instance of localized logger
+        /// </summary>
+        public static ILocalizedLogger LocalizedLogger => Get<ILocalizedLogger>();
 
         /// <summary>
         /// Gets ConditionalWait object

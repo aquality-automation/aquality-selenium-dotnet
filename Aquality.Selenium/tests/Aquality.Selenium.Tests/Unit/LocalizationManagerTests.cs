@@ -18,12 +18,12 @@ namespace Aquality.Selenium.Tests.Unit
         private static ILocalizedLogger LocalizedLogger => AqualityServices.Get<ILocalizedLogger>();
         private static ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
+        [Parallelizable(ParallelScope.None)]
         [TestCase(LogLevel.Info)]
         [TestCase(LogLevel.Debug)]
         [TestCase(LogLevel.Error)]
         [TestCase(LogLevel.Fatal)]
         [TestCase(LogLevel.Warn)]
-        [Parallelizable(ParallelScope.None)]
         public void Should_BeAble_LogLocalizedMessage(LogLevel logLevel)
         {
             switch (logLevel)

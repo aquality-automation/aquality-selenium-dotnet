@@ -2,7 +2,6 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using NUnit.Framework;
 using System;
-using Aquality.Selenium.Core.Logging;
 
 namespace Aquality.Selenium.Tests.Unit
 {
@@ -39,6 +38,18 @@ namespace Aquality.Selenium.Tests.Unit
         public void Should_BeAbleToGet_ConditionalWait()
         {
             Assert.DoesNotThrow(() => AqualityServices.ConditionalWait.WaitForTrue(() => true), "ConditionalWait should not be null");
+        }
+
+        [Test]
+        public void Should_BeAbleToGet_LocalizedLogger()
+        {
+            Assert.DoesNotThrow(() => AqualityServices.LocalizedLogger.Info("test"), "LocalizedLogger should not be null");
+        }
+
+        [Test]
+        public void Should_BeAbleToGet_ServiceProvider()
+        {
+            Assert.DoesNotThrow(() => AqualityServices.Get<IServiceProvider>(), "ServiceProvider should not be null");
         }
 
         [TestCase(null)]
