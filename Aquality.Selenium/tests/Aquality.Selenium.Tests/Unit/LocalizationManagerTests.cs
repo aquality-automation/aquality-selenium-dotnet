@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Unit
         private const string LogPath = "../../../Log/log.log";
         private const string TestUrl = "test";
         private const string NavigationKey = "loc.browser.navigate";
-        private static ILocalizedLogger LocalizedLogger => AqualityServices.Get<ILocalizedLogger>();
+        private static ILocalizedLogger LocalizedLogger => AqualityServices.LocalizedLogger;
         private static ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
         [Parallelizable(ParallelScope.None)]

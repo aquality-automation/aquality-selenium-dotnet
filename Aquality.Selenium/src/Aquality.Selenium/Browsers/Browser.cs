@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Browsers
         public Browser(RemoteWebDriver webDriver)
         {
             Driver = webDriver;
-            Logger = AqualityServices.Get<ILocalizedLogger>();
+            Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
             conditionalWait = AqualityServices.ConditionalWait;

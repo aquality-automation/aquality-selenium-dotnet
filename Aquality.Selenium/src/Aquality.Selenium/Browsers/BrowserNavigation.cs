@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Browsers
             this.driver = driver;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.Get<ILocalizedLogger>();
+        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
         /// <summary>
         /// Navigates back.
