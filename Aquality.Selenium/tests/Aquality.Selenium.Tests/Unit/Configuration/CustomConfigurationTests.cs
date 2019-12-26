@@ -18,31 +18,31 @@ namespace Aquality.Selenium.Tests.Unit.Configuration
         [SetUp]
         public static void Before()
         {
-            BrowserManager.SetStartup(new CustomStartup());
+            AqualityServices.SetStartup(new CustomStartup());
         }
 
         [Test]
         public void Should_BeAbleOverrideDependencies_AndGetCustomService()
         {
-            Assert.AreEqual(SpecialLoggerLanguage, BrowserManager.GetRequiredService<ILoggerConfiguration>().Language, "Configuration value should be overriden.");
+            Assert.AreEqual(SpecialLoggerLanguage, AqualityServices.Get<ILoggerConfiguration>().Language, "Configuration value should be overriden.");
         }
 
         [Test]
         public void Should_BeAbleAdd_CustomService()
         {
-            Assert.AreEqual(SpecialCustomValue, BrowserManager.GetRequiredService<ICustomService>().CustomValue, "Custom service should have value");
+            Assert.AreEqual(SpecialCustomValue, AqualityServices.Get<ICustomService>().CustomValue, "Custom service should have value");
         }
 
         [Test]
         public void Should_BeAbleGet_DefaultService()
         {
-            Assert.AreEqual(DefaultCommandTimeout, BrowserManager.GetRequiredService<ITimeoutConfiguration>().Command, "Default service value should have default value");
+            Assert.AreEqual(DefaultCommandTimeout, AqualityServices.Get<ITimeoutConfiguration>().Command, "Default service value should have default value");
         }
 
         [TearDown]
         public static void After()
         {
-            BrowserManager.SetStartup(new BrowserStartup());
+            AqualityServices.SetStartup(new BrowserStartup());
         }
 
         private class CustomLoggerConfiguration : ILoggerConfiguration

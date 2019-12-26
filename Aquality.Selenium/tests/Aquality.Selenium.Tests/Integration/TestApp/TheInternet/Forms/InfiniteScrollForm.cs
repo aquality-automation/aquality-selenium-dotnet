@@ -2,7 +2,6 @@
 using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 
@@ -25,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public void WaitForPageToLoad()
         {
             var examplesCount = ExampleLabels.Count;
-            BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => examplesCount != ExampleLabels.Count, BrowserManager.GetRequiredService<ITimeoutConfiguration>().Script);
+            AqualityServices.ConditionalWait.WaitFor(() => examplesCount != ExampleLabels.Count, AqualityServices.Get<ITimeoutConfiguration>().Script);
         }
     }
 }

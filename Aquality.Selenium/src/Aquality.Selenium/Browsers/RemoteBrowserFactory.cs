@@ -1,7 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
-using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium.Remote;
-using System;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -10,7 +8,7 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class RemoteBrowserFactory : BrowserFactory
     {
-        public RemoteBrowserFactory(IServiceProvider serviceProvider) : base(serviceProvider)
+        public RemoteBrowserFactory() : base()
         {
         }
 
@@ -18,11 +16,11 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                var browserProfile = ServiceProvider.GetRequiredService<IBrowserProfile>();
+                var browserProfile = AqualityServices.Get<IBrowserProfile>();
                 var capabilities = browserProfile.DriverSettings.DriverOptions.ToCapabilities();
-                var timeoutConfiguration = ServiceProvider.GetRequiredService<ITimeoutConfiguration>();
+                var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
                 var driver = new RemoteWebDriver(browserProfile.RemoteConnectionUrl, capabilities, timeoutConfiguration.Command);
-                return new Browser(driver, ServiceProvider);
+                return new Browser(driver);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void BeforeTest()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
         }
 
         [Test]

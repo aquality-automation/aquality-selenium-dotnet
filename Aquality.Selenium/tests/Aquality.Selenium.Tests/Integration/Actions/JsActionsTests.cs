@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
@@ -48,7 +47,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_HoverMouse()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
@@ -61,7 +60,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_SetFocus()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
@@ -134,7 +133,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             infiniteScrollForm.WaitForPageToLoad();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
-                () => BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(() =>
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
                 {
                     infiniteScrollForm.LastExampleLabel.JsActions.ScrollIntoView();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;
@@ -148,7 +147,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var homeDemoSiteForm = new HomeDemoSiteForm();
             homeDemoSiteForm.Open();
             homeDemoSiteForm.FirstScrollableExample.JsActions.ScrollBy(point.X, point.Y);
-            var currentCoordinates = BrowserManager.Browser
+            var currentCoordinates = AqualityServices.Browser
                 .ExecuteScriptFromFile<IList<object>>("Resources.GetScrollCoordinates.js",
                     homeDemoSiteForm.FirstScrollableExample.GetElement()).Select(item => int.Parse(item.ToString()))
                 .ToList();
@@ -164,8 +163,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ScrollToTheCenter();
 
-            var windowSize = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetWindowSize.js").ToString();
-            var currentY = BrowserManager.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
+            var windowSize = AqualityServices.Browser.ExecuteScriptFromFile<object>("Resources.GetWindowSize.js").ToString();
+            var currentY = AqualityServices.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
                 welcomeForm.GetExampleLink(AvailableExample.Dropdown).GetElement()).ToString();
             var coordinateRelatingWindowCenter = double.Parse(windowSize) / 2 - double.Parse(currentY);
             Assert.LessOrEqual(Math.Abs(coordinateRelatingWindowCenter), accuracy, "Upper bound of element should be in the center of the page");
@@ -179,7 +178,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             infiniteScrollForm.WaitForPageToLoad();
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
-                () => BrowserManager.GetRequiredService<ConditionalWait>().WaitForTrue(() =>
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
                 {
                     infiniteScrollForm.Footer.JsActions.ScrollToTheCenter();
                     return infiniteScrollForm.ExampleLabels.Count > defaultCount;

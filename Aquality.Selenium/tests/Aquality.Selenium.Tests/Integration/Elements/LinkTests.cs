@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using System;
@@ -22,21 +21,21 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var link = redirectorForm.RedirectLink;
             link.Click();
             WaitForRedirect();
-            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), BrowserManager.Browser.CurrentUrl.ToLower());
+            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), AqualityServices.Browser.CurrentUrl.ToLower());
         }
 
         [Test]
         public void Should_BePossibleTo_GetHref()
         {
             var link = redirectorForm.RedirectLink;
-            BrowserManager.Browser.GoTo(link.Href);
+            AqualityServices.Browser.GoTo(link.Href);
             WaitForRedirect();
-            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), BrowserManager.Browser.CurrentUrl.ToLower());
+            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), AqualityServices.Browser.CurrentUrl.ToLower());
         }
 
         private void WaitForRedirect()
         {
-            BrowserManager.GetRequiredService<ConditionalWait>().WaitFor(() => BrowserManager.Browser.CurrentUrl.Equals(new StatusCodesForm().Url, StringComparison.OrdinalIgnoreCase));
+            AqualityServices.ConditionalWait.WaitFor(() => AqualityServices.Browser.CurrentUrl.Equals(new StatusCodesForm().Url, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

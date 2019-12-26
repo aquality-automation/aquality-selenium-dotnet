@@ -18,8 +18,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         public void Open()
         {
-            BrowserManager.Browser.GoTo(Url);
-            BrowserManager.Browser.WaitForPageToLoad();
+            AqualityServices.Browser.GoTo(Url);
+            AqualityServices.Browser.WaitForPageToLoad();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Elements.Actions
             this.elementActionsRetrier = elementActionsRetrier;
         }
 
-        private JsActions JsActions => new JsActions(element, elementType, logger, BrowserManager.GetRequiredService<IBrowserProfile>());
+        private JsActions JsActions => new JsActions(element, elementType, logger, AqualityServices.Get<IBrowserProfile>());
 
         /// <summary>
         /// Performs click on element.
@@ -65,12 +65,12 @@ namespace Aquality.Selenium.Elements.Actions
         {
             LogElementAction("loc.moving");
             JsActions.ScrollIntoView();
-            elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element)));
+            elementActionsRetrier.DoWithRetry(() => PerformAction(MoveToElement));
         }
 
         private SeleniumActions MoveToElement(IWebElement element)
         {
-            return new SeleniumActions(BrowserManager.Browser.Driver).MoveToElement(element);
+            return new SeleniumActions(AqualityServices.Browser.Driver).MoveToElement(element);
         }
 
         private void PerformAction(Func<RemoteWebElement, SeleniumActions> action)

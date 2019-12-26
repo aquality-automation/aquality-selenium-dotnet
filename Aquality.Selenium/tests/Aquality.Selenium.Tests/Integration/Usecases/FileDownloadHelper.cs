@@ -13,19 +13,19 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         {
             try
             {
-                BrowserManager.Browser.GoTo($"file://{filePath}");
+                AqualityServices.Browser.GoTo($"file://{filePath}");
                 return lblFileContent.State.IsDisplayed;
             }
             catch (WebDriverException exception)
             {
-                BrowserManager.GetRequiredService<Logger>().Warn(exception.Message);
+                AqualityServices.Get<Logger>().Warn(exception.Message);
                 return false;
             }
         }
 
         public static void CreateDownloadDirectoryIfNotExist()
         {
-            var browserProfile = BrowserManager.GetRequiredService<IBrowserProfile>();
+            var browserProfile = AqualityServices.Get<IBrowserProfile>();
             var downloadDir = browserProfile.DriverSettings.DownloadDir;
             if (!Directory.Exists(downloadDir) && !browserProfile.IsRemote)
             {
@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public static void DeleteFileIfExist(string filePath)
         {
             var file = new FileInfo(filePath);
-            if (file.Exists && !BrowserManager.GetRequiredService<IBrowserProfile>().IsRemote)
+            if (file.Exists && !AqualityServices.Get<IBrowserProfile>().IsRemote)
             {
                 file.Delete();
             }
@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
         public static string GetTargetFilePath(string fileName)
         {
-            var downloadDirectory = BrowserManager.Browser.DownloadDirectory;
+            var downloadDirectory = AqualityServices.Browser.DownloadDirectory;
 
             // below is workaround for case when local FS is different from remote (e.g. local machine runs on Windows but remote runs on Linux)
             if (downloadDirectory.Contains("/") && !downloadDirectory.EndsWith("/"))

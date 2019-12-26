@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Tests.Integration
         [TearDown]
         public void CleanUp()
         {
-            BrowserManager.Browser.Quit();
+            AqualityServices.Browser.Quit();
         }
     }
 }

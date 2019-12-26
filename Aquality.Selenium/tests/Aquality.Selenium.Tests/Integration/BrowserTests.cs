@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_StartBrowserAndNavigate()
         {
             var url = new WelcomeForm().Url;
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.GoTo(url);
             Assert.AreEqual(browser.CurrentUrl, url);
         }
@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_GetWebDriverInstance()
         {
             var url = new WelcomeForm().Url;
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.Driver.Navigate().GoToUrl(url);
             Assert.AreEqual(browser.Driver.Url, url);
         }
@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Tests.Integration
             var firstNavigationUrl = new WelcomeForm().Url;
             var secondNavigationUrl = new CheckBoxesForm().Url;
 
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.GoTo(firstNavigationUrl);
             Assert.AreEqual(browser.CurrentUrl, firstNavigationUrl);
 
@@ -58,9 +58,9 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            BrowserManager.Browser.Quit();
+            AqualityServices.Browser.Quit();
 
-            Assert.AreNotEqual(welcomeForm.Url, BrowserManager.Browser.CurrentUrl);
+            Assert.AreNotEqual(welcomeForm.Url, AqualityServices.Browser.CurrentUrl);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Aquality.Selenium.Tests.Integration
             dynamicContentForm.Open();
             var firstItem = dynamicContentForm.GetContentItem(1).GetText();
 
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.Refresh();
             browser.WaitForPageToLoad();
 
@@ -81,7 +81,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_SetPageLoadTimeout()
         {
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.SetPageLoadTimeout(TimeSpan.FromSeconds(1));
             Assert.Throws<WebDriverTimeoutException>(() => browser.GoTo("https://github.com/aquality-automation"));
         }
@@ -90,7 +90,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_TakeScreenshot()
         {
             new DynamicContentForm().Open();
-            Assert.IsTrue(BrowserManager.Browser.GetScreenshot().Length > 0);
+            Assert.IsTrue(AqualityServices.Browser.GetScreenshot().Length > 0);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var dynamicContentForm = new DynamicContentForm();
             dynamicContentForm.Open();
-            var currentUrl = BrowserManager.Browser.ExecuteScript<string>("return window.location.href");
+            var currentUrl = AqualityServices.Browser.ExecuteScript<string>("return window.location.href");
             Assert.AreEqual(dynamicContentForm.Url, currentUrl);
         }
 
@@ -112,7 +112,7 @@ namespace Aquality.Selenium.Tests.Integration
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            BrowserManager.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds));
+            AqualityServices.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds));
             stopwatch.Stop();
             var durationSeconds = stopwatch.Elapsed.TotalSeconds;
 
@@ -127,8 +127,8 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_ExecuteAsyncJavaScript_WithScriptTimeoutException()
         {
             new DynamicContentForm().Open();
-            var expectedDurationInSeconds = BrowserManager.GetRequiredService<ITimeoutConfiguration>().Script.TotalSeconds + 1;            
-            Assert.Throws<WebDriverTimeoutException>(() => BrowserManager.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
+            var expectedDurationInSeconds = AqualityServices.Get<ITimeoutConfiguration>().Script.TotalSeconds + 1;            
+            Assert.Throws<WebDriverTimeoutException>(() => AqualityServices.Browser.ExecuteAsyncScript(GetAsyncTimeoutJavaScript(expectedDurationInSeconds)));
         }
 
         private string GetAsyncTimeoutJavaScript(double expectedDurationInSeconds)
@@ -141,7 +141,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var dynamicContentForm = new DynamicContentForm();
             dynamicContentForm.Open();
-            var currentUrl = BrowserManager.Browser.ExecuteScriptFromFile<string>("Resources.GetCurrentUrl.js");
+            var currentUrl = AqualityServices.Browser.ExecuteScriptFromFile<string>("Resources.GetCurrentUrl.js");
             Assert.AreEqual(dynamicContentForm.Url, currentUrl);
         }
 
@@ -151,7 +151,7 @@ namespace Aquality.Selenium.Tests.Integration
             var valueToSet = "username";
             var authForm = new TheInternetAuthenticationForm();
             authForm.Open();
-            BrowserManager.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTextBox.GetElement(), valueToSet);
+            AqualityServices.Browser.ExecuteScript(JavaScript.SetValue, authForm.UserNameTextBox.GetElement(), valueToSet);
             Assert.AreEqual(valueToSet, authForm.UserNameTextBox.Value);
         }
 
@@ -159,7 +159,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetWindowSize()
         {
             var defaultSize = new Size(1024, 768);
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             var initialSize = browser.Driver.Manage().Window.Size;
 
             var testSize = new Size(600, 600);
@@ -189,7 +189,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ScrollWindowBy()
         {
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             browser.GoTo(Constants.UrlAutomationPractice);
             var sliderForm = new SliderForm();
             var initialY = sliderForm.FormPointInViewPort.Y;
@@ -205,13 +205,13 @@ namespace Aquality.Selenium.Tests.Integration
             var settingsProfile = profileNameFromEnvironment == null ? "settings.json" : $"settings.{profileNameFromEnvironment}.json";
             var settingsFile = new JsonSettingsFile(settingsProfile);
             var browserName = (BrowserName)Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
-            Assert.AreEqual(browserName, BrowserManager.Browser.BrowserName);
+            Assert.AreEqual(browserName, AqualityServices.Browser.BrowserName);
         }
 
         [Test]
         public void Should_BePossibleTo_SetImplicitWait()
         {
-            var browser = BrowserManager.Browser;
+            var browser = AqualityServices.Browser;
             new WelcomeForm().Open();
             var waitTime = TimeSpan.FromSeconds(5);
             browser.SetImplicitWaitTimeout(waitTime);
@@ -237,7 +237,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_GetDownloadDir()
         {
-            var downloadDir = BrowserManager.Browser.DownloadDirectory;
+            var downloadDir = AqualityServices.Browser.DownloadDirectory;
             Assert.IsTrue(downloadDir.ToLower().Contains("downloads", StringComparison.InvariantCultureIgnoreCase));
         }
     }

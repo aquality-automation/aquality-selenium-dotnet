@@ -22,8 +22,8 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [SetUp]
         public void BeforeTest()
         {
-            BrowserManager.Browser.GoTo(Constants.UrlAutomationPractice);
-            BrowserManager.Browser.Maximize();
+            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            AqualityServices.Browser.Maximize();
         }
 
         [Test]

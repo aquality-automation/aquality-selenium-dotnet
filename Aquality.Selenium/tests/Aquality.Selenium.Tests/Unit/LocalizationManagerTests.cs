@@ -15,15 +15,15 @@ namespace Aquality.Selenium.Tests.Unit
         private const string LogPath = "../../../Log/log.log";
         private const string TestUrl = "test";
         private const string NavigationKey = "loc.browser.navigate";
-        private static ILocalizedLogger LocalizedLogger => BrowserManager.GetRequiredService<ILocalizedLogger>();
-        private static ILocalizationManager LocalizationManager => BrowserManager.GetRequiredService<ILocalizationManager>();
+        private static ILocalizedLogger LocalizedLogger => AqualityServices.LocalizedLogger;
+        private static ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
+        [Parallelizable(ParallelScope.None)]
         [TestCase(LogLevel.Info)]
         [TestCase(LogLevel.Debug)]
         [TestCase(LogLevel.Error)]
         [TestCase(LogLevel.Fatal)]
         [TestCase(LogLevel.Warn)]
-        [Parallelizable(ParallelScope.None)]
         public void Should_BeAble_LogLocalizedMessage(LogLevel logLevel)
         {
             switch (logLevel)

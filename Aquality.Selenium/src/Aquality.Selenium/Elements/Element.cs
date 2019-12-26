@@ -26,7 +26,7 @@ namespace Aquality.Selenium.Elements
 
         public override CoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
 
-        protected IBrowserProfile BrowserProfile => BrowserManager.GetRequiredService<IBrowserProfile>();
+        protected IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
 
         public JsActions JsActions => new JsActions(this, ElementType, LocalizedLogger, BrowserProfile);
 
@@ -34,21 +34,21 @@ namespace Aquality.Selenium.Elements
 
         private Browser Browser => (Browser)Application;
 
-        protected override IApplication Application => BrowserManager.Browser;
+        protected override IApplication Application => AqualityServices.Browser;
 
-        protected override ElementActionRetrier ActionRetrier => BrowserManager.GetRequiredService<ElementActionRetrier>();
+        protected override ElementActionRetrier ActionRetrier => AqualityServices.Get<ElementActionRetrier>();
 
         protected override CoreElementFactory Factory => CustomFactory;
 
-        protected virtual IElementFactory CustomFactory => BrowserManager.GetRequiredService<IElementFactory>();
+        protected virtual IElementFactory CustomFactory => AqualityServices.Get<IElementFactory>();
 
-        protected override CoreElementFinder Finder => BrowserManager.GetRequiredService<CoreElementFinder>();
+        protected override CoreElementFinder Finder => AqualityServices.Get<CoreElementFinder>();
 
-        protected override ILocalizedLogger LocalizedLogger => BrowserManager.GetRequiredService<ILocalizedLogger>();
+        protected override ILocalizedLogger LocalizedLogger => AqualityServices.LocalizedLogger;
 
-        protected ILocalizationManager LocalizationManager => BrowserManager.GetRequiredService<ILocalizationManager>();
+        protected ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
-        protected override ConditionalWait ConditionalWait => BrowserManager.GetRequiredService<ConditionalWait>();
+        protected override ConditionalWait ConditionalWait => AqualityServices.ConditionalWait;
 
         public void ClickAndWait()
         {
