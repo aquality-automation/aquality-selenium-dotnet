@@ -20,7 +20,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 
 2. Create instance of Browser in your test method:
 ```csharp
-var browser = BrowserManager.Browser;
+var browser = AqualityServices.Browser;
 ```
 
 3. Use Browser's methods directly for general actions, such as navigation, window resize, scrolling and alerts handling:
@@ -32,7 +32,11 @@ browser.WaitForPageToLoad();
 
 4. Use ElementFactory class's methods to get an instance of each element:
 ```csharp
-var emailTextBox = new ElementFactory().GetTextBox(By.Id("email_create"), "Email");
+var emailTextBox = AqualityServices.Get<IElementFactory>().GetTextBox(By.Id("email_create"), "Email");
+```
+Or you can inherit a class from Form class and use existing ElementFactory:
+```csharp
+private ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("SubmitCreate"), "Submit Create");
 ```
 
 5. Call element's methods to perform action with element: 
