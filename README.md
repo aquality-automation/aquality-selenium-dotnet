@@ -36,7 +36,7 @@ var emailTextBox = AqualityServices.Get<IElementFactory>().GetTextBox(By.Id("ema
 ```
 Or you can inherit a class from Form class and use existing ElementFactory:
 ```csharp
-private ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("SubmitCreate"), "Submit Create");
+private ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("email_create"), "Email");
 ```
 
 5. Call element's methods to perform action with element: 
