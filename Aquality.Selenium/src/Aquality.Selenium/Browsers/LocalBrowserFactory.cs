@@ -31,32 +31,39 @@ namespace Aquality.Selenium.Browsers
         private Browser CreateBrowser()
         {
             var browserProfile = AqualityServices.Get<IBrowserProfile>();
+            var commandTimeout = AqualityServices.Get<ITimeoutConfiguration>().Command;
             var browserName = browserProfile.BrowserName;
             var driverSettings = browserProfile.DriverSettings;
             RemoteWebDriver driver;
             switch (browserName)
             {
                 case BrowserName.Chrome:
-                    SetUpDriver(new ChromeConfig(), driverSettings);                    
-                    driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
+                    SetUpDriver(new ChromeConfig(), driverSettings);
+                    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(),
+                        (ChromeOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.Firefox:
                     SetUpDriver(new FirefoxConfig(), driverSettings);
-                    driver = new FirefoxDriver((FirefoxOptions)driverSettings.DriverOptions);
+                    driver = new FirefoxDriver(FirefoxDriverService.CreateDefaultService(),
+                        (FirefoxOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.IExplorer:
                     SetUpDriver(new InternetExplorerConfig(), driverSettings);
-                    driver = new InternetExplorerDriver((InternetExplorerOptions)driverSettings.DriverOptions);
+                    driver = new InternetExplorerDriver(InternetExplorerDriverService.CreateDefaultService(),
+                        (InternetExplorerOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.Edge:
-                    driver = new EdgeDriver((EdgeOptions)driverSettings.DriverOptions);
+                    driver = new EdgeDriver(EdgeDriverService.CreateDefaultService(),
+                        (EdgeOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.Safari:
-                    driver = new SafariDriver((SafariOptions)driverSettings.DriverOptions);
+                    driver = new SafariDriver(SafariDriverService.CreateDefaultService(),
+                        (SafariOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"Browser {browserName} is not supported.");
             }
+
             return new Browser(driver);
         }
 
