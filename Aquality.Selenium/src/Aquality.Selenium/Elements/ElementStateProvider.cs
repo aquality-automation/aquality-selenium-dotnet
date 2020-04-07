@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Elements
 {
     public class ElementStateProvider : CoreElementStateProvider
     {
-        public ElementStateProvider(By elementLocator, ConditionalWait conditionalWait, IElementFinder elementFinder) 
+        public ElementStateProvider(By elementLocator, IConditionalWait conditionalWait, IElementFinder elementFinder) 
             : base(elementLocator, conditionalWait, elementFinder)
         {
         }

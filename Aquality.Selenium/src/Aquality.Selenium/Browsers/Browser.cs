@@ -112,6 +112,11 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Checkes whether current SessionId is null or not.
+        /// </summary>
+        public bool IsStarted => Driver?.SessionId != null;
+
+        /// <summary>
         /// Quit web browser.
         /// </summary>
         public void Quit()

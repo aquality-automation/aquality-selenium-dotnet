@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
     internal class ProductForm : Form
     {
         private static readonly By ProductsLocator = By.Id("product");
-        public IList<ILabel> LblsProductView => ElementFactory.FindElements(By.XPath("//li[contains(@id,'thumbnail_')]//a"), ElementFactory.GetLabel);
+        public IList<ILabel> LblsProductView => ElementFactory.FindElements<ILabel>(By.XPath("//li[contains(@id,'thumbnail_')]//a"));
         public ITextBox TxtQuantity => ElementFactory.GetTextBox(By.Id("quantity_wanted"), "Quantity");
         
         public ProductForm() : base(ProductsLocator, "Product")
