@@ -44,8 +44,9 @@ namespace Aquality.Selenium.Browsers
                     break;
                 case BrowserName.Firefox:
                     SetUpDriver(new FirefoxConfig(), driverSettings);
-                    driver = new FirefoxDriver(FirefoxDriverService.CreateDefaultService(),
-                        (FirefoxOptions) driverSettings.DriverOptions, commandTimeout);
+                    FirefoxDriverService geckoService = FirefoxDriverService.CreateDefaultService();
+                    geckoService.Host = "::1";
+                    driver = new FirefoxDriver(geckoService, (FirefoxOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.IExplorer:
                     SetUpDriver(new InternetExplorerConfig(), driverSettings);
