@@ -36,7 +36,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Gets ConditionalWait object
         /// </summary>
-        public static ConditionalWait ConditionalWait => Get<ConditionalWait>();
+        public static IConditionalWait ConditionalWait => Get<IConditionalWait>();
 
         /// <summary>
         /// Gets and sets thread-safe instance of browser.

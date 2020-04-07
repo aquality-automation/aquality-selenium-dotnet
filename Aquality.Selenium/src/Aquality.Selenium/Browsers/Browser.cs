@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Browsers
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
         private readonly IBrowserProfile browserProfile;
-        private readonly ConditionalWait conditionalWait;
+        private readonly IConditionalWait conditionalWait;
 
         /// <summary>
         /// Instantiate browser.
@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Browsers
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
-            conditionalWait = AqualityServices.ConditionalWait;
+            conditionalWait = AqualityServices.Get<IConditionalWait>();
             var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
             SetImplicitWaitTimeout(timeoutConfiguration.Implicit);
             SetPageLoadTimeout(timeoutConfiguration.PageLoad);
