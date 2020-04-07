@@ -17,7 +17,7 @@ namespace Aquality.Selenium.Elements
     /// </summary>
     public class ElementFactory : CoreFactory, IElementFactory
     {
-        public ElementFactory(ConditionalWait conditionalWait, IElementFinder elementFinder, ILocalizationManager localizationManager) 
+        public ElementFactory(IConditionalWait conditionalWait, IElementFinder elementFinder, ILocalizationManager localizationManager) 
             : base(conditionalWait, elementFinder, localizationManager)
         {
         }

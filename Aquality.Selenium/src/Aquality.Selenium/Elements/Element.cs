@@ -37,7 +37,7 @@ namespace Aquality.Selenium.Elements
 
         protected override IApplication Application => AqualityServices.Browser;
 
-        protected override IElementActionRetrier ActionRetrier => AqualityServices.Get<ElementActionRetrier>();
+        protected override IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
 
         protected override ICoreElementFactory Factory => CustomFactory;
 
