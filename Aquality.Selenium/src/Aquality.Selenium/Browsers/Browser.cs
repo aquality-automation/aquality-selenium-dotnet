@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Browsers
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
-            conditionalWait = AqualityServices.Get<IConditionalWait>();
+            conditionalWait = AqualityServices.ConditionalWait;
             var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
             SetImplicitWaitTimeout(timeoutConfiguration.Implicit);
             SetPageLoadTimeout(timeoutConfiguration.PageLoad);
