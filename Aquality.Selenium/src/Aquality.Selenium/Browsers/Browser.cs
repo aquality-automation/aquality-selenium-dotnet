@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Browsers
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
         private readonly IBrowserProfile browserProfile;
-        private readonly ConditionalWait conditionalWait;
+        private readonly IConditionalWait conditionalWait;
 
         /// <summary>
         /// Instantiate browser.
@@ -110,6 +110,11 @@ namespace Aquality.Selenium.Browsers
                 return Driver.Url;
             }
         }
+
+        /// <summary>
+        /// Checkes whether current SessionId is null or not.
+        /// </summary>
+        public bool IsStarted => Driver?.SessionId != null;
 
         /// <summary>
         /// Quit web browser.

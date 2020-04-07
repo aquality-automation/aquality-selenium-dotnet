@@ -18,9 +18,9 @@ namespace Aquality.Selenium.Elements.Actions
         private readonly IElement element;
         private readonly string elementType;
         private readonly ILocalizedLogger logger;
-        private readonly ElementActionRetrier elementActionsRetrier;
+        private readonly IElementActionRetrier elementActionsRetrier;
 
-        public MouseActions(IElement element, string elementType, ILocalizedLogger logger, ElementActionRetrier elementActionsRetrier)
+        public MouseActions(IElement element, string elementType, ILocalizedLogger logger, IElementActionRetrier elementActionsRetrier)
         {
             this.element = element;
             this.elementType = elementType;

@@ -9,9 +9,10 @@ using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Waitings;
 using CoreElement = Aquality.Selenium.Core.Elements.Element;
-using CoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
-using CoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
-using CoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
+using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
+using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
+using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
+using Aquality.Selenium.Core.Configurations;
 
 namespace Aquality.Selenium.Elements
 {
@@ -24,7 +25,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        public override CoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
+        public override ICoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
 
         protected IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
 
@@ -36,19 +37,21 @@ namespace Aquality.Selenium.Elements
 
         protected override IApplication Application => AqualityServices.Browser;
 
-        protected override ElementActionRetrier ActionRetrier => AqualityServices.Get<ElementActionRetrier>();
+        protected override IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
 
-        protected override CoreElementFactory Factory => CustomFactory;
+        protected override ICoreElementFactory Factory => CustomFactory;
 
         protected virtual IElementFactory CustomFactory => AqualityServices.Get<IElementFactory>();
 
-        protected override CoreElementFinder Finder => AqualityServices.Get<CoreElementFinder>();
+        protected override ICoreElementFinder Finder => AqualityServices.Get<ICoreElementFinder>();
+
+        protected override IElementCacheConfiguration CacheConfiguration => AqualityServices.Get<IElementCacheConfiguration>();
 
         protected override ILocalizedLogger LocalizedLogger => AqualityServices.LocalizedLogger;
 
         protected ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
-        protected override ConditionalWait ConditionalWait => AqualityServices.ConditionalWait;
+        protected override IConditionalWait ConditionalWait => AqualityServices.ConditionalWait;
 
         public void ClickAndWait()
         {
