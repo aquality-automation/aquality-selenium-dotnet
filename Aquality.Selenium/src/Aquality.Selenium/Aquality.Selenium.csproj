@@ -18,10 +18,6 @@
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Aquality.Selenium.xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
