@@ -34,6 +34,17 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
+        public void Should_BePossibleTo_OpenUrlInNewTab()
+        {
+            var url = new WelcomeForm().Url;
+            var browser = AqualityServices.Browser;
+            browser.OpenUrlInNewTab(url);
+            browser.TabNavigation().SwitchToNewTab();
+            Assert.AreEqual(2, browser.TabNavigation().GetTabNames().Count);
+            Assert.AreEqual(browser.Driver.Url, url);
+        }
+
+        [Test]
         public void Should_BePossibleTo_NavigateBackAndForward()
         {
             var firstNavigationUrl = new WelcomeForm().Url;

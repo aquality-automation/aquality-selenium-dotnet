@@ -31,7 +31,9 @@ namespace Aquality.Selenium.Browsers
         SetFocus,
         SetInnerHTML,
         SetValue,
-        GetViewPortCoordinates
+        GetViewPortCoordinates,
+        OpenNewTab,
+        OpenInNewTab
     }
 
     /// <summary>

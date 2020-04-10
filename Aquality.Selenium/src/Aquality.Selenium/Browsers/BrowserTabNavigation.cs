@@ -38,7 +38,7 @@ namespace Aquality.Selenium.Browsers
         public void OpenNewTab(bool switchToNew = false)
         {
             Logger.Info("loc.browser.tab.open.new");
-            driver.ExecuteScript("window.open();");
+            AqualityServices.Browser.ExecuteScript(JavaScript.OpenNewTab);
             if (switchToNew)
             {
                 SwitchToNewTab();

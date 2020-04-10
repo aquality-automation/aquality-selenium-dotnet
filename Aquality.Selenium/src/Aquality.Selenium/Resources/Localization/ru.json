@@ -56,6 +56,7 @@
   "loc.waitinvisible": "Ожидаем пока элемент исчезнет",
   "loc.waitnotexists": "Ожидаем исчезновения элемента из DOM в течении {0}",
   "loc.no.elements.found.in.state": "Не удалось найти элементов по локатору '{0}' в {1} состоянии",
+  "loc.elements.were.found.but.not.in.state": "Удалось найти элементы по локатору '{0}'. Но {1}",
   "loc.browser.switch.to.tab.name": "Переключение на новую вкладку по имени '{0}'",
   "loc.browser.switch.to.tab.index": "Переключение на новую вкладку по индексу '{0}'",
   "loc.browser.switch.to.new.tab": "Переключение на новую вкладку",

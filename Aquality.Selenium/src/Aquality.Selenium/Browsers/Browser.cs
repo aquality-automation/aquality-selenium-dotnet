@@ -135,6 +135,15 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Navigates to desired url in new tab.
+        /// </summary>
+        /// <param name="url">String representation of URL.</param>
+        public void OpenUrlInNewTab(string url)
+        {
+            ExecuteScript(JavaScript.OpenInNewTab, url);
+        }
+
+        /// <summary>
         /// Navigates back.
         /// </summary>
         public void GoBack()
