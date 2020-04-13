@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Tests.Integration
             var url = new WelcomeForm().Url;
             var browser = AqualityServices.Browser;
             browser.Tabs().OpenInNewTab(url);
-            browser.Tabs().SwitchToNewTab();
+            browser.Tabs().SwitchToTab();
             Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
             Assert.AreEqual(browser.Driver.Url, url);
         }
@@ -75,7 +75,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(2, () =>
             {
-                AqualityServices.Browser.Tabs().SwitchToNewTab();
+                AqualityServices.Browser.Tabs().SwitchToTab();
             });
         }
 
@@ -84,7 +84,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(1, () =>
             {
-                AqualityServices.Browser.Tabs().SwitchToNewTab(true);
+                AqualityServices.Browser.Tabs().SwitchToTab(true);
             });
         }
 

@@ -34,10 +34,10 @@ namespace Aquality.Selenium.Browsers
         void SwitchToTab(int index, bool closeCurrent = false);
 
         /// <summary>
-        /// Switches to new tab.
+        /// Switches to tab.
         /// </summary>
         /// <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
-        void SwitchToNewTab(bool closeCurrent = false);
+        void SwitchToTab(bool closeCurrent = false);
 
         /// <summary>
         /// Closes curent tab.
