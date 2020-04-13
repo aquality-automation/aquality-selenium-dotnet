@@ -47,7 +47,7 @@ namespace Aquality.Selenium.Browsers
             AqualityServices.Browser.ExecuteScript(JavaScript.OpenNewTab);
             if (switchToNew)
             {
-                SwitchToTab();
+                SwitchToLastTab();
             }
         }
 
@@ -56,7 +56,7 @@ namespace Aquality.Selenium.Browsers
             AqualityServices.Browser.ExecuteScript(JavaScript.OpenInNewTab, url);
         }
 
-        public void SwitchToTab(bool closeCurrent = false)
+        public void SwitchToLastTab(bool closeCurrent = false)
         {
             Logger.Info("loc.browser.switch.to.new.tab");
             CloseAndSwitch(TabHandles.Last(), closeCurrent);
