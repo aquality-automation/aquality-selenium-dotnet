@@ -18,6 +18,10 @@
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>Aquality.Selenium.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
@@ -60,7 +64,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aquality.Selenium.Core" Version="0.3.9" />
-    <PackageReference Include="NLog" Version="4.6.6" />
+    <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="WebDriverManager" Version="2.9.1" />
