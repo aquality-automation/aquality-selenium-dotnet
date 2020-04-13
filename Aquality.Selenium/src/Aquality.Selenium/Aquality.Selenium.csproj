@@ -19,8 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\JavaScripts\OpenInNewTab.js" />
-    <None Remove="Resources\JavaScripts\OpenNewTab.js" />
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
     <None Remove="Resources\settings.json" />

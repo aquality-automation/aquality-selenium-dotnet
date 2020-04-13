@@ -23,19 +23,19 @@ namespace Aquality.Selenium.Browsers
             driver.Close();
         }
 
-        public string GetTabName()
+        public string GetTabHandle()
         {
-            Logger.Info("loc.browser.get.tab.name");
+            Logger.Info("loc.browser.get.tab.handle");
             return driver.CurrentWindowHandle;
         }
 
-        public IList<string> GetTabNames()
+        public IList<string> GetTabHandles()
         {
-            Logger.Info("loc.browser.get.tab.names");
+            Logger.Info("loc.browser.get.tab.handles");
             return driver.WindowHandles;
         }
 
-        public void OpenNewTab(bool switchToNew = false)
+        public void OpenNewTab(bool switchToNew = true)
         {
             Logger.Info("loc.browser.tab.open.new");
             AqualityServices.Browser.ExecuteScript(JavaScript.OpenNewTab);
@@ -48,20 +48,20 @@ namespace Aquality.Selenium.Browsers
         public void SwitchToNewTab(bool closeCurrent = false)
         {
             Logger.Info("loc.browser.switch.to.new.tab");
-            var newTab = GetTabNames().Last();
+            var newTab = GetTabHandles().Last();
             CloseAndSwitch(newTab, closeCurrent);
         }
 
-        public void SwitchToTab(string name, bool closeCurrent = false)
+        public void SwitchToTab(string handle, bool closeCurrent = false)
         {
-            Logger.Info("loc.browser.switch.to.tab.name", name);
-            CloseAndSwitch(name, closeCurrent);
+            Logger.Info("loc.browser.switch.to.tab.handle", handle);
+            CloseAndSwitch(handle, closeCurrent);
         }
 
         public void SwitchToTab(int index, bool closeCurrent = false)
         {
             Logger.Info("loc.browser.switch.to.tab.index", index);
-            var names = GetTabNames();
+            var names = GetTabHandles();
             if (index >= names.Count || index < 0)
             {
                 throw new IndexOutOfRangeException($"Index of browser tab '{index}' you provided is out of range {0}..{names.Count}");

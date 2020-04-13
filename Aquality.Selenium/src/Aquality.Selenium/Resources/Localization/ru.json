@@ -57,11 +57,11 @@
   "loc.waitnotexists": "Ожидаем исчезновения элемента из DOM в течении {0}",
   "loc.no.elements.found.in.state": "Не удалось найти элементов по локатору '{0}' в {1} состоянии",
   "loc.elements.were.found.but.not.in.state": "Удалось найти элементы по локатору '{0}'. Но {1}",
-  "loc.browser.switch.to.tab.name": "Переключение на новую вкладку по имени '{0}'",
+  "loc.browser.switch.to.tab.handle": "Переключение на новую вкладку по дескриптору '{0}'",
   "loc.browser.switch.to.tab.index": "Переключение на новую вкладку по индексу '{0}'",
   "loc.browser.switch.to.new.tab": "Переключение на новую вкладку",
-  "loc.browser.get.tab.names": "Получение списка имен открытых вкладок",
-  "loc.browser.get.tab.name": "Получение имени текущей вкладки",
+  "loc.browser.get.tab.handles": "Получение списка дескрипторов открытых вкладок",
+  "loc.browser.get.tab.handle": "Получение дескриптора текущей вкладки",
   "loc.browser.tab.open.new": "Открытие новой вкладки",
   "loc.browser.tab.close": "Закрытие вкладки"
 }

@@ -17,36 +17,36 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
-        public void Should_BePossibleTo_GetTabName()
+        public void Should_BePossibleTo_HandleTab()
         {
             var browser = AqualityServices.Browser;
-            var tabName = browser.TabNavigation().GetTabName();
-            Assert.IsNotEmpty(tabName, "Tab name should not be empty");
+            var tabHandle = browser.Tabs().GetTabHandle();
+            Assert.IsNotEmpty(tabHandle, "Tab name should not be empty");
         }
 
         [Test]
-        public void Should_BePossibleTo_GetTabNames()
+        public void Should_BePossibleTo_GetTabHandles()
         {
             var browser = AqualityServices.Browser;
-            var tabNames = browser.TabNavigation().GetTabNames();
-            Assert.AreEqual(1, tabNames.Count, "Tab number should be correct");
-            Assert.IsNotEmpty(tabNames.First(), "Tab name should not be empty");
+            var tabHandles = browser.Tabs().GetTabHandles();
+            Assert.AreEqual(1, tabHandles.Count, "Tab number should be correct");
+            Assert.IsNotEmpty(tabHandles.First(), "Tab handle should not be empty");
         }
 
         [Test]
         public void Should_BePossibleTo_OpenNewTab()
         {
             var browser = AqualityServices.Browser;
-            var tabName = browser.TabNavigation().GetTabName();
+            var tabHandle = browser.Tabs().GetTabHandle();
 
-            browser.TabNavigation().OpenNewTab();
-            var newTabName = browser.TabNavigation().GetTabName();
-            Assert.AreEqual(2, browser.TabNavigation().GetTabNames().Count, "New tab should be opened");
-            Assert.AreNotEqual(tabName, newTabName, "Browser should be switched to new tab");
+            browser.Tabs().OpenNewTab();
+            var newTabHandle = browser.Tabs().GetTabHandle();
+            Assert.AreEqual(2, browser.Tabs().GetTabHandles().Count, "New tab should be opened");
+            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
 
-            browser.TabNavigation().OpenNewTab(false);
-            Assert.AreEqual(3, browser.TabNavigation().GetTabNames().Count, "New tab should be opened");
-            Assert.AreEqual(newTabName, browser.TabNavigation().GetTabName(), "Browser should not be switched to new tab");
+            browser.Tabs().OpenNewTab(false);
+            Assert.AreEqual(3, browser.Tabs().GetTabHandles().Count, "New tab should be opened");
+            Assert.AreEqual(newTabHandle, browser.Tabs().GetTabHandle(), "Browser should not be switched to new tab");
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = AqualityServices.Browser;
             WelcomeForm.ClickElementalSelenium();
-            Assert.AreEqual(2, browser.TabNavigation().GetTabNames().Count, "New tab should be opened");
-            browser.TabNavigation().CloseTab();
-            Assert.AreEqual(1, browser.TabNavigation().GetTabNames().Count, "New tab should be closed");
+            Assert.AreEqual(2, browser.Tabs().GetTabHandles().Count, "New tab should be opened");
+            browser.Tabs().CloseTab();
+            Assert.AreEqual(1, browser.Tabs().GetTabHandles().Count, "New tab should be closed");
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(2, () =>
             {
-                AqualityServices.Browser.TabNavigation().SwitchToNewTab();
+                AqualityServices.Browser.Tabs().SwitchToNewTab();
             });
         }
 
@@ -73,31 +73,31 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(1, () =>
             {
-                AqualityServices.Browser.TabNavigation().SwitchToNewTab(true);
+                AqualityServices.Browser.Tabs().SwitchToNewTab(true);
             });
         }
 
         [Test]
-        public void Should_BePossibleTo_SwitchToNewTabByName()
+        public void Should_BePossibleTo_SwitchToNewTabByHandle()
         {
             CheckSwitchingBy(3, () =>
             {
                 var browser = AqualityServices.Browser;
-                var newTab = browser.TabNavigation().GetTabNames().Last();
-                browser.TabNavigation().OpenNewTab(false);
-                browser.TabNavigation().SwitchToTab(newTab);
+                var tabHandle = browser.Tabs().GetTabHandles().Last();
+                browser.Tabs().OpenNewTab(false);
+                browser.Tabs().SwitchToTab(tabHandle);
             });
         }
 
         [Test]
-        public void Should_BePossibleTo_SwitchToNewTabByName_AndClose()
+        public void Should_BePossibleTo_SwitchToNewTabByHandle_AndClose()
         {
             CheckSwitchingBy(2, () =>
             {
                 var browser = AqualityServices.Browser;
-                var newTab = browser.TabNavigation().GetTabNames().Last();
-                browser.TabNavigation().OpenNewTab(false);
-                browser.TabNavigation().SwitchToTab(newTab, true);
+                var tabHandle = browser.Tabs().GetTabHandles().Last();
+                browser.Tabs().OpenNewTab(false);
+                browser.Tabs().SwitchToTab(tabHandle, true);
             });
         }
 
@@ -106,8 +106,8 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(3, () =>
             {
-                AqualityServices.Browser.TabNavigation().OpenNewTab(false);
-                AqualityServices.Browser.TabNavigation().SwitchToTab(1);
+                AqualityServices.Browser.Tabs().OpenNewTab(false);
+                AqualityServices.Browser.Tabs().SwitchToTab(1);
             });
         }
 
@@ -116,37 +116,37 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckSwitchingBy(2, () =>
             {
-                AqualityServices.Browser.TabNavigation().OpenNewTab(false);
-                AqualityServices.Browser.TabNavigation().SwitchToTab(1, true);
+                AqualityServices.Browser.Tabs().OpenNewTab(false);
+                AqualityServices.Browser.Tabs().SwitchToTab(1, true);
             });
         }
 
         [Test]
         public void Should_BeThrow_IfSwitchToNewTab_ByIncorrectIndex()
         {
-            Assert.Throws(typeof(IndexOutOfRangeException), () => { AqualityServices.Browser.TabNavigation().SwitchToTab(10, true); });
+            Assert.Throws(typeof(IndexOutOfRangeException), () => { AqualityServices.Browser.Tabs().SwitchToTab(10, true); });
         }
 
         private void CheckSwitchingBy(int expectedTabCount, Action switchMethod)
         {
             var browser = AqualityServices.Browser;
-            var tabName = browser.TabNavigation().GetTabName();
+            var tabHandle = browser.Tabs().GetTabHandle();
             WelcomeForm.ClickElementalSelenium();
-            var newTab = browser.TabNavigation().GetTabNames().Last();
+            var newTabHandle = browser.Tabs().GetTabHandles().Last();
             switchMethod.Invoke();
-            Assert.AreEqual(newTab, browser.TabNavigation().GetTabName(), "Browser should be switched by name to correct tab");
-            Assert.AreEqual(expectedTabCount, browser.TabNavigation().GetTabNames().Count, "Number of tabs should be correct");
+            Assert.AreEqual(newTabHandle, browser.Tabs().GetTabHandle(), "Browser should be switched to correct tab");
+            Assert.AreEqual(expectedTabCount, browser.Tabs().GetTabHandles().Count, "Number of tabs should be correct");
         }
 
         private void CheckSwitching(int expectedTabCount, Action switchMethod)
         {
             var browser = AqualityServices.Browser;
-            var tabName = browser.TabNavigation().GetTabName();
+            var tabHandle = browser.Tabs().GetTabHandle();
             WelcomeForm.ClickElementalSelenium();
             switchMethod.Invoke();
-            var newTab = browser.TabNavigation().GetTabName();
-            Assert.AreNotEqual(tabName, newTab, "Browser should be switched to new tab");
-            Assert.AreEqual(expectedTabCount, browser.TabNavigation().GetTabNames().Count, "Number of tabs should be correct");
+            var newTabHandle = browser.Tabs().GetTabHandle();
+            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
+            Assert.AreEqual(expectedTabCount, browser.Tabs().GetTabHandles().Count, "Number of tabs should be correct");
         }
     }
 }

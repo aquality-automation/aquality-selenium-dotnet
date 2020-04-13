@@ -138,7 +138,7 @@ namespace Aquality.Selenium.Browsers
         /// Navigates to desired url in new tab.
         /// </summary>
         /// <param name="url">String representation of URL.</param>
-        public void OpenUrlInNewTab(string url)
+        public void OpenInNewTab(string url)
         {
             ExecuteScript(JavaScript.OpenInNewTab, url);
         }
@@ -186,7 +186,7 @@ namespace Aquality.Selenium.Browsers
         /// Provide interface to manage of browser tabs.
         /// </summary>
         /// <returns>instance of IBrowserTabNavigation.</returns>
-        public IBrowserTabNavigation TabNavigation()
+        public IBrowserTabNavigation Tabs()
         {
             return new BrowserTabNavigation(Driver);
         }

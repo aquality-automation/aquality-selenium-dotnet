@@ -38,9 +38,9 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var url = new WelcomeForm().Url;
             var browser = AqualityServices.Browser;
-            browser.OpenUrlInNewTab(url);
-            browser.TabNavigation().SwitchToNewTab();
-            Assert.AreEqual(2, browser.TabNavigation().GetTabNames().Count);
+            browser.OpenInNewTab(url);
+            browser.Tabs().SwitchToNewTab();
+            Assert.AreEqual(2, browser.Tabs().GetTabHandles().Count);
             Assert.AreEqual(browser.Driver.Url, url);
         }
 
