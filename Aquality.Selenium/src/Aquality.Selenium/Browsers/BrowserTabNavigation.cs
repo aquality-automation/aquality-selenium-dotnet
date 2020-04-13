@@ -17,22 +17,28 @@ namespace Aquality.Selenium.Browsers
 
         private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
+        public string CurrentTabHandle
+        {
+            get
+            {
+                Logger.Info("loc.browser.get.tab.handle");
+                return driver.CurrentWindowHandle;
+            }
+        }
+
+        public IList<string> TabHandles
+        {
+            get
+            {
+                Logger.Info("loc.browser.get.tab.handles");
+                return driver.WindowHandles;
+            }
+        }
+
         public void CloseTab()
         {
             Logger.Info("loc.browser.tab.close");
             driver.Close();
-        }
-
-        public string GetTabHandle()
-        {
-            Logger.Info("loc.browser.get.tab.handle");
-            return driver.CurrentWindowHandle;
-        }
-
-        public IList<string> GetTabHandles()
-        {
-            Logger.Info("loc.browser.get.tab.handles");
-            return driver.WindowHandles;
         }
 
         public void OpenNewTab(bool switchToNew = true)
@@ -45,11 +51,15 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
+        public void OpenInNewTab(string url)
+        {
+            AqualityServices.Browser.ExecuteScript(JavaScript.OpenInNewTab, url);
+        }
+
         public void SwitchToNewTab(bool closeCurrent = false)
         {
             Logger.Info("loc.browser.switch.to.new.tab");
-            var newTab = GetTabHandles().Last();
-            CloseAndSwitch(newTab, closeCurrent);
+            CloseAndSwitch(TabHandles.Last(), closeCurrent);
         }
 
         public void SwitchToTab(string handle, bool closeCurrent = false)
@@ -61,10 +71,11 @@ namespace Aquality.Selenium.Browsers
         public void SwitchToTab(int index, bool closeCurrent = false)
         {
             Logger.Info("loc.browser.switch.to.tab.index", index);
-            var names = GetTabHandles();
-            if (index >= names.Count || index < 0)
+            var names = TabHandles;
+            if (index < 0 || names.Count <= index)
             {
-                throw new IndexOutOfRangeException($"Index of browser tab '{index}' you provided is out of range {0}..{names.Count}");
+                throw new IndexOutOfRangeException(
+                    $"Index of browser tab '{index}' you provided is out of range {0}..{names.Count}");
             }
 
             var newTab = names.ElementAt(index);

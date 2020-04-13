@@ -8,6 +8,18 @@ namespace Aquality.Selenium.Browsers
     public interface IBrowserTabNavigation
     {
         /// <summary>
+        /// Gets current tab handle.
+        /// </summary>
+        /// <returns>Current tab handle.</returns>
+        string CurrentTabHandle { get; }
+
+        /// <summary>
+        /// Gets opened tab handles.
+        /// </summary>
+        /// <returns>List of tab handles.</returns>
+        IList<string> TabHandles { get; }
+
+        /// <summary>
         /// Switches to tab.
         /// </summary>
         /// <param name="name">Tab handle.</param>
@@ -28,18 +40,6 @@ namespace Aquality.Selenium.Browsers
         void SwitchToNewTab(bool closeCurrent = false);
 
         /// <summary>
-        /// Gets opened tab handles.
-        /// </summary>
-        /// <returns>List of tab handles.</returns>
-        IList<string> GetTabHandles();
-
-        /// <summary>
-        /// Gets current tab handle.
-        /// </summary>
-        /// <returns>Tab handle.</returns>
-        string GetTabHandle();
-
-        /// <summary>
         /// Closes curent tab.
         /// </summary>
         void CloseTab();
@@ -49,5 +49,11 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
         void OpenNewTab(bool switchToNew = true);
+
+        /// <summary>
+        /// Navigates to desired url in new tab.
+        /// </summary>
+        /// <param name="url">String representation of URL.</param>
+        void OpenInNewTab(string url);
     }
 }
