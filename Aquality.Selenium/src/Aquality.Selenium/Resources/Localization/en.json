@@ -57,5 +57,12 @@
   "loc.waitinvisible": "Wait until element is not visible",
   "loc.waitnotexists": "Wait until element does not exist in DOM during {0} seconds",
   "loc.no.elements.found.in.state": "No elements with locator '{0}' found in {1} state",
-  "loc.elements.were.found.but.not.in.state": "Elements were found by locator '{0}'. But {1}"
+  "loc.elements.were.found.but.not.in.state": "Elements were found by locator '{0}'. But {1}",
+  "loc.browser.switch.to.tab.handle": "Switching to tab by handle '{0}'",
+  "loc.browser.switch.to.tab.index": "Switching to tab by index '{0}'",
+  "loc.browser.switch.to.new.tab": "Switching to new tab",
+  "loc.browser.get.tab.handles": "Getting tab handles",
+  "loc.browser.get.tab.handle": "Getting current tab handle",
+  "loc.browser.tab.open.new": "Opening new tab",
+  "loc.browser.tab.close": "Closing tab"
 }

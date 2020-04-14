@@ -174,6 +174,15 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Provide interface to manage of browser tabs.
+        /// </summary>
+        /// <returns>instance of IBrowserTabNavigation.</returns>
+        public IBrowserTabNavigation Tabs()
+        {
+            return new BrowserTabNavigation(Driver);
+        }
+
+        /// <summary>
         /// Handles alert.
         /// </summary>
         /// <param name="alertAction">Action which should be done with appeared alert.</param>

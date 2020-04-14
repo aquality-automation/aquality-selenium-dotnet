@@ -47,6 +47,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\GetViewPortCoordinates.js" />
     <EmbeddedResource Include="Resources\JavaScripts\IsPageLoaded.js" />
     <EmbeddedResource Include="Resources\JavaScripts\MouseHover.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\OpenInNewTab.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ScrollBy.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ScrollToBottom.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ScrollToElement.js" />
@@ -56,6 +57,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\SelectComboBoxValueByText.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetFocus.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetInnerHTML.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\OpenNewTab.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
     <EmbeddedResource Include="Resources\Localization\en.json" />
     <EmbeddedResource Include="Resources\Localization\ru.json" />
