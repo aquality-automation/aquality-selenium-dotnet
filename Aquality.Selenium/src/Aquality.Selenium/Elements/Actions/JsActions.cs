@@ -6,6 +6,7 @@ using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Elements.Interfaces;
 
 namespace Aquality.Selenium.Elements.Actions
@@ -28,6 +29,8 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         private Browser Browser => AqualityServices.Browser;
+
+        private IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
 
         protected ILocalizedLogger Logger { get; }
 
@@ -157,18 +160,20 @@ namespace Aquality.Selenium.Elements.Actions
         /// <returns>Point object.</returns>
         public Point GetViewPortCoordinates()
         {
-            var coordinates = ExecuteScript<IList<object>>(JavaScript.GetViewPortCoordinates).Select(item => double.Parse(item.ToString())).ToArray();
+            var coordinates = ExecuteScript<IList<object>>(JavaScript.GetViewPortCoordinates)
+                .Select(item => double.Parse(item.ToString()))
+                .ToArray();
             return new Point((int)Math.Round(coordinates[0]), (int)Math.Round(coordinates[1]));
         }
 
         protected T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
         {
-            return Browser.ExecuteScript<T>(scriptName, ResolveArguments(arguments));
+            return ActionRetrier.DoWithRetry(() => Browser.ExecuteScript<T>(scriptName, ResolveArguments(arguments)));
         }
 
         protected void ExecuteScript(JavaScript scriptName, params object[] arguments)
         {
-            Browser.ExecuteScript(scriptName, ResolveArguments(arguments));
+            ActionRetrier.DoWithRetry(() => Browser.ExecuteScript(scriptName, ResolveArguments(arguments)));
         }
 
         protected internal void LogElementAction(string messageKey, params object[] args)
