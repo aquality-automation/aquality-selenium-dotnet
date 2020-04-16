@@ -70,6 +70,8 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: '_aquality-automation.aquality-selenium-dotnet'
-    publishLocation: 'Container'
+    #PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    #ArtifactName: '_aquality-automation.aquality-selenium-dotnet'
+    #publishLocation: 'Container'
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifactName: '_aquality-automation.aquality-selenium-dotnet'
