@@ -48,14 +48,14 @@ steps:
   displayName: 'Create NuGet package'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-- task: NuGetCommand@2
-  displayName: 'Push NuGet package'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.nupkg;!$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet'
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#- task: NuGetCommand@2
+#  displayName: 'Push NuGet package'
+#  inputs:
+#    command: 'push'
+#    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.nupkg;!$(Build.ArtifactStagingDirectory)/**/Aquality.Selenium*.symbols.nupkg'
+#    nuGetFeedType: 'external'
+#    publishFeedCredentials: 'NuGet'
+#  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: GitHubRelease@0
   displayName: 'Create tag on GitHub'
@@ -67,3 +67,9 @@ steps:
     tagSource: 'manual'
     isPreRelease: contains(variables['GitVersion.NuGetVersion'], '-')
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'nuget package'
+    publishLocation: 'Container'
