@@ -46,6 +46,7 @@ namespace Aquality.Selenium.Browsers
         {
             get => GetApplication(StartBrowserFunction, ConfigureServices);
             set => SetApplication(value);
+
         }
 
         private static Func<IServiceProvider, Browser> StartBrowserFunction => services => BrowserFactory.Browser;
