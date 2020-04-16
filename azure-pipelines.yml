@@ -71,5 +71,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'nuget package'
+    ArtifactName: '_aquality-automation.aquality-selenium-dotnet'
     publishLocation: 'Container'
