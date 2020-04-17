@@ -12,8 +12,6 @@ namespace Aquality.Selenium.Tests.Unit
         [Test]
         public void Should_BeAbleGetBrowser()
         {
-            Assert.Fail(); // TODO: check pipeline
-
             Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
         }
 
