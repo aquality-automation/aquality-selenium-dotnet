@@ -70,8 +70,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    #PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    #ArtifactName: '_aquality-automation.aquality-selenium-dotnet'
-    #publishLocation: 'Container'
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: '_aquality-automation.aquality-selenium-dotnet'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
