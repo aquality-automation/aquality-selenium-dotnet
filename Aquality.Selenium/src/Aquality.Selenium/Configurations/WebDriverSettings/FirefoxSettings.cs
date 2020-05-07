@@ -40,6 +40,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
                 SetFirefoxPrefs(options);
                 SetFirefoxArguments(options);
+                SetPageLoadStratergy(options);
                 return options;
             }
         }

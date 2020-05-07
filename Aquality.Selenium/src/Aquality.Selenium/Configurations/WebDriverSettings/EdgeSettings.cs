@@ -28,6 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 var options = new EdgeOptions();
                 SetCapabilities(options);
                 SetOptionsByPropertyNames(options);
+                SetPageLoadStratergy(options);
                 return options;
             }
         }

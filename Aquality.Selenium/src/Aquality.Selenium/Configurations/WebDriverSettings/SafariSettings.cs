@@ -27,6 +27,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 var options = new SafariOptions();
                 SetCapabilities(options);
                 SetOptionsByPropertyNames(options);
+                SetPageLoadStratergy(options);
                 return options;
             }
         }
