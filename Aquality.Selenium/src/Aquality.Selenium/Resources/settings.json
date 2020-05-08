@@ -18,7 +18,8 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "//home//selenium//downloads"
       },
-      "startArguments": []
+      "startArguments": [],
+      "pageLoadStrategy": "Normal"
     },
     "firefox": {
       "webDriverVersion": "Latest",

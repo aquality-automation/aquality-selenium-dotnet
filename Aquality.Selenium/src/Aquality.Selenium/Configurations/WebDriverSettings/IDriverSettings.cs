@@ -24,6 +24,11 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         DriverOptions DriverOptions { get; }
 
         /// <summary>
+        /// WebDriver page load strategy.
+        /// </summary>
+        PageLoadStrategy PageLoadStrategy { get; }
+
+        /// <summary>
         /// Gets download directory for web driver.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when browser settings do not contain capability key.</exception>

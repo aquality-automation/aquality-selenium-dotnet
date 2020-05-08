@@ -24,27 +24,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             SettingsFile = settingsFile;
         }
 
-        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
-
-        protected IDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.capabilities");
-
-        protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
-
-        protected IReadOnlyList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
-
         protected ISettingsFile SettingsFile { get; }
 
-        protected abstract BrowserName BrowserName { get; }
+        public string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", "Latest");
 
-        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>();
-
-        public abstract string DownloadDirCapabilityKey { get; }
+        public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", Architecture.Auto).ToEnum<Architecture>();
 
         public abstract DriverOptions DriverOptions { get; }
 
-        public string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", defaultValue: "Latest");
-
-        public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", "Auto").ToEnum<Architecture>();
+        public PageLoadStrategy PageLoadStrategy => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.pageLoadStrategy", PageLoadStrategy.Normal).ToEnum<PageLoadStrategy>();
 
         public virtual string DownloadDir
         {
@@ -58,6 +46,25 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
                 throw new InvalidOperationException($"Failed to find {DownloadDirCapabilityKey} option in settings profile for {BrowserName}");
             }
+        }
+
+        public abstract string DownloadDirCapabilityKey { get; }
+
+        protected IDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.capabilities");
+
+        protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
+
+        protected IReadOnlyList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
+
+        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";        
+
+        protected abstract BrowserName BrowserName { get; }
+
+        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>();
+
+        protected void SetPageLoadStratergy(DriverOptions options)
+        {
+            options.PageLoadStrategy = PageLoadStrategy;
         }
 
         protected void SetCapabilities(DriverOptions options, Action<string, object> addCapabilityMethod = null)
