@@ -154,6 +154,12 @@
             Refreshes current page.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.Tabs">
+            <summary>
+            Provide interface to manage of browser tabs.
+            </summary>
+            <returns>instance of IBrowserTabNavigation.</returns>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.HandleAlert(Aquality.Selenium.Browsers.AlertAction,System.String)">
             <summary>
             Handles alert.
@@ -323,6 +329,60 @@
             </summary>
             <value>Instance of desired Browser.</value>
         </member>
+        <member name="T:Aquality.Selenium.Browsers.IBrowserTabNavigation">
+            <summary>
+            Provides functionality to work with browser tab navigation.  
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.IBrowserTabNavigation.CurrentTabHandle">
+            <summary>
+            Gets current tab handle.
+            </summary>
+            <returns>Current tab handle.</returns>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.IBrowserTabNavigation.TabHandles">
+            <summary>
+            Gets opened tab handles.
+            </summary>
+            <returns>List of tab handles.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToTab(System.String,System.Boolean)">
+            <summary>
+            Switches to tab.
+            </summary>
+            <param name="name">Tab handle.</param>
+            <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToTab(System.Int32,System.Boolean)">
+            <summary>
+            Switches to tab.
+            </summary>
+            <param name="index">Tab index.</param>
+            <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToLastTab(System.Boolean)">
+            <summary>
+            Switches to the last tab.
+            </summary>
+            <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.CloseTab">
+            <summary>
+            Closes curent tab.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTab(System.Boolean)">
+            <summary>
+            Opens new tab.
+            </summary>
+            <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.String)">
+            <summary>
+            Navigates to desired url in new tab.
+            </summary>
+            <param name="url">String representation of URL.</param>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.JavaScript">
             <summary>
             Predefined JS scripts.
@@ -480,6 +540,11 @@
         <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.DriverOptions">
             <summary>
             Gets desired options for web driver.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.PageLoadStrategy">
+            <summary>
+            WebDriver page load strategy.
             </summary>
         </member>
         <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.DownloadDir">

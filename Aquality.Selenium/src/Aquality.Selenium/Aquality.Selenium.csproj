@@ -65,7 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="0.3.9" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="1.0.0" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
