@@ -8,7 +8,12 @@
     "chrome": {
       "webDriverVersion": "Latest",
       "capabilities": {
-        "enableVNC": true
+        "enableVNC": true,
+        "loggingPrefs": {
+          "driver": "INFO",
+          "server": "OFF",
+          "browser": "FINE"
+        }
       },
       "options": {
         "intl.accept_languages": "en",

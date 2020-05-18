@@ -39,18 +39,18 @@ namespace Aquality.Selenium.Browsers
             {
                 case BrowserName.Chrome:
                     SetUpDriver(new ChromeConfig(), driverSettings);
-                    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(),
+                    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), 
                         (ChromeOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.Firefox:
                     SetUpDriver(new FirefoxConfig(), driverSettings);
-                    FirefoxDriverService geckoService = FirefoxDriverService.CreateDefaultService();
+                    var geckoService = FirefoxDriverService.CreateDefaultService();
                     geckoService.Host = "::1";
                     driver = new FirefoxDriver(geckoService, (FirefoxOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.IExplorer:
                     SetUpDriver(new InternetExplorerConfig(), driverSettings);
-                    driver = new InternetExplorerDriver(InternetExplorerDriverService.CreateDefaultService(),
+                    driver = new InternetExplorerDriver(InternetExplorerDriverService.CreateDefaultService(), 
                         (InternetExplorerOptions) driverSettings.DriverOptions, commandTimeout);
                     break;
                 case BrowserName.Edge:
