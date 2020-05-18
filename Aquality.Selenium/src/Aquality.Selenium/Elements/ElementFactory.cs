@@ -80,7 +80,14 @@ namespace Aquality.Selenium.Elements
                 };
             }
         }
-
+               
+        /// <summary>
+        /// Generates xpath locator for target element
+        /// </summary>
+        /// <param name="baseLocator">locator of parent element</param>
+        /// <param name="webElement">target element</param>
+        /// <param name="elementIndex">index of target element</param>
+        /// <returns>target element's locator</returns>
         protected override By GenerateXpathLocator(By baseLocator, IWebElement webElement, int elementIndex)
         {
             return baseLocator.ToString().StartsWith("By.XPath")
