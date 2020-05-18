@@ -45,5 +45,17 @@ namespace Aquality.Selenium.Tests.Integration
                 Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
             });
         }
+
+        [Test]
+        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed_WhenFoundByNonXPathLocator()
+        {
+            var elements = sliderForm.GetListElementsByNonXPath(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(elements.Any());
+                Assert.IsTrue(elements.Any(element => element.State.IsExist));
+                Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
+            });
+        }
     }
 }

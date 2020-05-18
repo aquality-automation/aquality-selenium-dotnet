@@ -1,9 +1,11 @@
-﻿using Aquality.Selenium.Core.Elements;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Core.Elements.Interfaces;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 using System;
 using System.Collections.Generic;
 using CoreFactory = Aquality.Selenium.Core.Elements.ElementFactory;
@@ -77,6 +79,14 @@ namespace Aquality.Selenium.Elements
                     { typeof(ITextBox), typeof(TextBox) }
                 };
             }
+        }
+
+        protected override By GenerateXpathLocator(By baseLocator, IWebElement webElement, int elementIndex)
+        {
+            return baseLocator.ToString().StartsWith("By.XPath")
+                ? base.GenerateXpathLocator(baseLocator, webElement, elementIndex)
+                : By.XPath(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
+                    JavaScript.GetElementXPath.GetScript(), webElement), message: "XPath generation failed"));
         }
     }
 }
