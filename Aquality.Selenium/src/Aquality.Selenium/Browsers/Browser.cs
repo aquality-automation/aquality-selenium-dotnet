@@ -249,7 +249,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="logKind">Type of logs <see cref="LogType"/></param>
         /// <returns>ReadOnlyCollection of log entries.</returns>
         /// <remark>
-        /// Does not work on current version of Selenium WebDriver <see cref="https://github.com/SeleniumHQ/selenium/issues/7323"/>
+        /// Does not work on current version of Selenium WebDriver. Issue: https://github.com/SeleniumHQ/selenium/issues/7323
         /// </remark>
         public ReadOnlyCollection<LogEntry> GetLogs(string logKind)
         {
