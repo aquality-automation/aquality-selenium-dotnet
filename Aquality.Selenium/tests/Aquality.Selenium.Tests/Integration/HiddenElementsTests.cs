@@ -1,16 +1,26 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Aquality.Selenium.Tests.Integration
 {
     internal class HiddenElementsTests : UITest
     {
-        private readonly SliderForm sliderForm = new SliderForm();
+        private static readonly SliderForm sliderForm = new SliderForm();
+
+        private static readonly Func<ElementState, ElementsCount, IList<Label>>[] ElementListProviders
+            = new Func<ElementState, ElementsCount, IList<Label>>[]
+            {
+                (state, count) => sliderForm.GetListElements(state, count),
+                (state, count) => sliderForm.GetListElementsByNonXPath(state, count),
+                (state, count) => sliderForm.GetListElementsByDottedXPath(state, count)
+            };
 
         [SetUp]
         public void BeforeTest()
@@ -25,9 +35,10 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
-        public void Should_BePossibleTo_CheckThatHiddenElementsExist()
+        public void Should_BePossibleTo_CheckThatHiddenElementsExist(
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
         {
-            var elements = sliderForm.GetListElements(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
+            var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
@@ -36,24 +47,13 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
-        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed()
+        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed(
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
         {
-            var elements = sliderForm.GetListElements(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
+            var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
-                Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
-            });
-        }
-
-        [Test]
-        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed_WhenFoundByNonXPathLocator()
-        {
-            var elements = sliderForm.GetListElementsByNonXPath(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
-            Assert.Multiple(() =>
-            {
-                Assert.IsTrue(elements.Any());
-                Assert.IsTrue(elements.Any(element => element.State.IsExist));
                 Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
             });
         }

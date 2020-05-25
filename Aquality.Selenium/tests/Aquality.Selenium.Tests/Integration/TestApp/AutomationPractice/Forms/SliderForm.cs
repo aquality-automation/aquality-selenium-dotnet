@@ -33,6 +33,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
             return ElementFactory.FindElements<Label>(By.Id("blockbestsellers"), state: state, expectedCount: count);
         }
 
+        public IList<Label> GetListElementsByDottedXPath(ElementState state, ElementsCount count)
+        {
+            return ElementFactory.FindElements<Label>(By.XPath("//ul[@id='blockbestsellers']//li[not(@style='display:none')]"), state: state, expectedCount: count);
+        }
+
         public void ClickNextButton()
         {
             NextButton.ClickAndWait();
