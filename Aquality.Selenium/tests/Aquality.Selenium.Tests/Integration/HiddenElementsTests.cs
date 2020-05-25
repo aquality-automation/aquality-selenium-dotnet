@@ -18,7 +18,10 @@ namespace Aquality.Selenium.Tests.Integration
             = new Func<ElementState, ElementsCount, IList<Label>>[]
             {
                 (state, count) => productsForm.GetListElements(state, count),
-                (state, count) => productsForm.GetListElementsByNonXPath(state, count),
+                (state, count) => productsForm.GetListElementsById(state, count),
+                (state, count) => productsForm.GetListElementsByName(state, count),
+                (state, count) => productsForm.GetListElementsByClassName(state, count),
+                (state, count) => productsForm.GetListElementsByCss(state, count),
                 (state, count) => productsForm.GetListElementsByDottedXPath(state, count),
                 (state, count) => productsForm.GetChildElementsByDottedXPath(state, count),
                 (state, count) => new List<Label> { productsForm.GetChildElementByNonXPath(state) }
