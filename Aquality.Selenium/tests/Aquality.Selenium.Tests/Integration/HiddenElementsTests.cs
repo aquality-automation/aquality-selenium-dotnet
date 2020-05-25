@@ -12,14 +12,16 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class HiddenElementsTests : UITest
     {
-        private static readonly SliderForm sliderForm = new SliderForm();
+        private static readonly ProductTabContentForm productsForm = new ProductTabContentForm();
 
         private static readonly Func<ElementState, ElementsCount, IList<Label>>[] ElementListProviders
             = new Func<ElementState, ElementsCount, IList<Label>>[]
             {
-                (state, count) => sliderForm.GetListElements(state, count),
-                (state, count) => sliderForm.GetListElementsByNonXPath(state, count),
-                (state, count) => sliderForm.GetListElementsByDottedXPath(state, count)
+                (state, count) => productsForm.GetListElements(state, count),
+                (state, count) => productsForm.GetListElementsByNonXPath(state, count),
+                (state, count) => productsForm.GetListElementsByDottedXPath(state, count),
+                (state, count) => productsForm.GetChildElementsByDottedXPath(state, count),
+                (state, count) => new List<Label> { productsForm.GetChildElementByNonXPath(state) }
             };
 
         [SetUp]
@@ -31,7 +33,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementExists()
         {
-            Assert.IsTrue(sliderForm.GetAddToCartBtn(ElementState.ExistsInAnyState).State.IsExist);
+            Assert.IsTrue(new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState).State.IsExist);
         }
 
         [Test]
