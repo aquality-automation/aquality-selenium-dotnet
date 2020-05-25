@@ -62,10 +62,10 @@ namespace Aquality.Selenium.Browsers
             CloseAndSwitch(TabHandles.Last(), closeCurrent);
         }
 
-        public void SwitchToTab(string handle, bool closeCurrent = false)
+        public void SwitchToTab(string tabHandle, bool closeCurrent = false)
         {
-            Logger.Info("loc.browser.switch.to.tab.handle", handle);
-            CloseAndSwitch(handle, closeCurrent);
+            Logger.Info("loc.browser.switch.to.tab.handle", tabHandle);
+            CloseAndSwitch(tabHandle, closeCurrent);
         }
 
         public void SwitchToTab(int index, bool closeCurrent = false)

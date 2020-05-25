@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Switches to tab.
         /// </summary>
-        /// <param name="name">Tab handle.</param>
+        /// <param name="tabHandle">Tab handle.</param>
         /// <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
         void SwitchToTab(string tabHandle, bool closeCurrent = false);
 

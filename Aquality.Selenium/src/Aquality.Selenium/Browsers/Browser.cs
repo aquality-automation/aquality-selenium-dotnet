@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Reflection;
 using System;
 using Aquality.Selenium.Core.Waitings;
+using System.Collections.ObjectModel;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -18,6 +19,7 @@ namespace Aquality.Selenium.Browsers
     {        
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
+
         private readonly IBrowserProfile browserProfile;
         private readonly IConditionalWait conditionalWait;
 
@@ -239,6 +241,19 @@ namespace Aquality.Selenium.Browsers
         public byte[] GetScreenshot()
         {
             return Driver.GetScreenshot().AsByteArray;
+        }
+
+        /// <summary>
+        /// Gets logs from WebDriver.
+        /// </summary>
+        /// <param name="logKind">Type of logs <see cref="LogType"/></param>
+        /// <returns>ReadOnlyCollection of log entries.</returns>
+        /// <remark>
+        /// Does not work on current version of Selenium WebDriver. Issue: https://github.com/SeleniumHQ/selenium/issues/7323
+        /// </remark>
+        public ReadOnlyCollection<LogEntry> GetLogs(string logKind)
+        {
+            return Driver.Manage().Logs.GetLog(logKind);
         }
 
         /// <summary>
