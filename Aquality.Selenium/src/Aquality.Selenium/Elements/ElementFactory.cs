@@ -116,13 +116,14 @@ namespace Aquality.Selenium.Elements
             return LocatorToXPathTemplateMap.Keys.Any(locType => locator.ToString().StartsWith(locType))
                 || base.IsLocatorSupportedForXPathExtraction(locator);
         }
-
+        
         /// <summary>
-        /// Resolves element supplier or return itself if it is not null
+        /// Extracts XPath from passed locator.
+        /// Current implementation works only with ByXPath.class and ByTagName locator types,
+        /// but you can implement your own for the specific WebDriver type.
         /// </summary>
-        /// <typeparam name="T">type of target element</typeparam>
-        /// <param name="supplier">target element supplier</param>
-        /// <returns>non-null element supplier</returns>
+        /// <param name="locator">locator to get xpath from.</param>
+        /// <returns>extracted XPath.</returns>
         protected override string ExtractXPathFromLocator(By locator)
         {
             var locatorString = locator.ToString();
