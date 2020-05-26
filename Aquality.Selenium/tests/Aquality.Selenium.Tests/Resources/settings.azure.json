@@ -52,6 +52,30 @@
       "options": {},
       "startArguments": []
     },
+    "edge": {
+      "webDriverVersion": "82.0.458.0",
+      "systemArchitecture": "X64",
+      "capabilities": {
+      },
+      "options": {
+      },
+      "startArguments": []
+    },
+    "edgechromium": {
+      "webDriverVersion": "82.0.458.0",
+      "capabilities": {
+        "enableVNC": true
+      },
+      "options": {
+        "intl.accept_languages": "en",
+        "safebrowsing.enabled": "true",
+        "profile.default_content_settings.popups": "0",
+        "disable-popup-blocking": "true",
+        "download.prompt_for_download": "false",
+        "download.default_directory": "./downloads"
+      },
+      "startArguments": []
+    },
     "safari": {
       "options": {
         "safari.options.dataDir": "/Users/username/Downloads"

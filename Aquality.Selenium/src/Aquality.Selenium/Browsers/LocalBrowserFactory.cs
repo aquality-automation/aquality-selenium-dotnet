@@ -14,6 +14,9 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
+using EdgeChromiumOptions = Microsoft.Edge.SeleniumTools.EdgeOptions;
+using EdgeChromiumService = Microsoft.Edge.SeleniumTools.EdgeDriverService;
+using EdgeChromiumDriver = Microsoft.Edge.SeleniumTools.EdgeDriver;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -59,6 +62,11 @@ namespace Aquality.Selenium.Browsers
                     driver = GetDriver<EdgeDriver>(EdgeDriverService.CreateDefaultService(),
                         (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
                     break;
+                case BrowserName.EdgeChromium:
+                    SetUpDriver(new EdgeConfig(), driverSettings);
+                    driver = GetDriver<EdgeChromiumDriver>(EdgeChromiumService.CreateChromiumService(),
+                        (EdgeChromiumOptions)driverSettings.DriverOptions, commandTimeout);
+                    break;
                 case BrowserName.Safari:
                     driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
                         (SafariOptions)driverSettings.DriverOptions, commandTimeout);
@@ -72,7 +80,7 @@ namespace Aquality.Selenium.Browsers
 
         private RemoteWebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : RemoteWebDriver
         {
-            return AqualityServices.Get<IActionRetrier>().DoWithRetry(() => 
+            return AqualityServices.Get<IActionRetrier>().DoWithRetry(() =>
                 (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout));
         }
 
