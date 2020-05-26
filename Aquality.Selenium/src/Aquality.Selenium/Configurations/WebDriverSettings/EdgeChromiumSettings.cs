@@ -31,15 +31,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 {
                     UseChromium = true
                 };
-                SetChromePrefs(options);
+                SetEdgeChromiumPrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
-                SetChromeArguments(options);
+                SetEdgeChromiumArguments(options);
                 SetPageLoadStratergy(options);
                 return options;
             }
         }
 
-        private void SetChromePrefs(EdgeOptions options)
+        private void SetEdgeChromiumPrefs(EdgeOptions options)
         {
             foreach (var option in BrowserOptions)
             {
@@ -48,7 +48,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private void SetChromeArguments(EdgeOptions options)
+        private void SetEdgeChromiumArguments(EdgeOptions options)
         {
             options.AddArguments(BrowserStartArguments);
         }
