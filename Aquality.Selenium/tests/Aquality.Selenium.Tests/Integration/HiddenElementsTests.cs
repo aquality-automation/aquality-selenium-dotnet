@@ -1,16 +1,31 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Elements;
 using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Aquality.Selenium.Tests.Integration
 {
     internal class HiddenElementsTests : UITest
     {
-        private readonly SliderForm sliderForm = new SliderForm();
+        private static readonly ProductTabContentForm productsForm = new ProductTabContentForm();
+
+        private static readonly Func<ElementState, ElementsCount, IList<Label>>[] ElementListProviders
+            = new Func<ElementState, ElementsCount, IList<Label>>[]
+            {
+                (state, count) => productsForm.GetListElements(state, count),
+                (state, count) => productsForm.GetListElementsById(state, count),
+                (state, count) => productsForm.GetListElementsByName(state, count),
+                (state, count) => productsForm.GetListElementsByClassName(state, count),
+                (state, count) => productsForm.GetListElementsByCss(state, count),
+                (state, count) => productsForm.GetListElementsByDottedXPath(state, count),
+                (state, count) => productsForm.GetChildElementsByDottedXPath(state, count),
+                (state, count) => new List<Label> { productsForm.GetChildElementByNonXPath(state) }
+            };
 
         [SetUp]
         public void BeforeTest()
@@ -21,13 +36,14 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementExists()
         {
-            Assert.IsTrue(sliderForm.GetAddToCartBtn(ElementState.ExistsInAnyState).State.IsExist);
+            Assert.IsTrue(new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState).State.IsExist);
         }
 
         [Test]
-        public void Should_BePossibleTo_CheckThatHiddenElementsExist()
+        public void Should_BePossibleTo_CheckThatHiddenElementsExist(
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
         {
-            var elements = sliderForm.GetListElements(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
+            var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
@@ -36,9 +52,10 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
-        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed()
+        public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed(
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
         {
-            var elements = sliderForm.GetListElements(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
+            var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
