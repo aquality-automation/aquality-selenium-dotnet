@@ -59,7 +59,6 @@
       "startArguments": []
     },
     "edge": {
-      "webDriverVersion": "Latest",
       "systemArchitecture": "X32",
       "capabilities": {
       },
