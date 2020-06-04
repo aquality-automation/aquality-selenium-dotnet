@@ -45,7 +45,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public Label GetChildElementByNonXPath(ElementState state)
         {
-            return FindChildElement<Label>(BestSellersById, state: state);
+            return FormElement.FindChildElement<Label>(BestSellersById, state: state);
         }
 
         public IList<Label> GetListElementsByDottedXPath(ElementState state, ElementsCount count)
@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public IList<Label> GetChildElementsByDottedXPath(ElementState state, ElementsCount count)
         {
-            return FindChildElements<Label>(DottedXPath, state: state, expectedCount: count);
+            return FormElement.FindChildElements<Label>(DottedXPath, state: state, expectedCount: count);
         }
     }
 }
