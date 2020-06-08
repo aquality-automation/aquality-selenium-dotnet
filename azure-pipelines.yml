@@ -28,6 +28,8 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: 'Build solution'
+      env: 
+        MSBUILDSINGLELOADCONTEXT: 1  # https://github.com/SpecFlowOSS/SpecFlow/issues/1912
       inputs:
         command: 'build'
         projects: Aquality.Selenium/Aquality.Selenium.sln

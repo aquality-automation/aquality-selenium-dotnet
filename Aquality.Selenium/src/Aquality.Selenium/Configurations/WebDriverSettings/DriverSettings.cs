@@ -50,9 +50,9 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         public abstract string DownloadDirCapabilityKey { get; }
 
-        protected IDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.capabilities");
+        protected IReadOnlyDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.capabilities");
 
-        protected IDictionary<string, object> BrowserOptions => SettingsFile.GetValueOrNew<Dictionary<string, object>>($"{DriverSettingsPath}.options");
+        protected IReadOnlyDictionary<string, object> BrowserOptions => SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.options");
 
         protected IReadOnlyList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
 
