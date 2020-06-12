@@ -66,9 +66,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.1" />
-    <PackageReference Include="NLog" Version="4.7.0" />
-    <PackageReference Include="Selenium.Support" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Aquality.Selenium.Core" Version="1.1.1" />
     <PackageReference Include="WebDriverManager" Version="2.9.1" />
   </ItemGroup>
