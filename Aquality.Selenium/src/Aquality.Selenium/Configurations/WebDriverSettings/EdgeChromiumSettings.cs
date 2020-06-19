@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class EdgeChromiumSettings : DriverSettings
     {
         /// <summary>
-        /// Instantiates class using JSON file with general settings.
+        /// Instantiates class using JSON file with general settings
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
         public EdgeChromiumSettings(ISettingsFile settingsFile) : base(settingsFile)
