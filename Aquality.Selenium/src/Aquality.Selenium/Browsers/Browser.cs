@@ -383,6 +383,7 @@ namespace Aquality.Selenium.Browsers
     {
         Chrome,
         Edge,
+        EdgeChromium,
         Firefox,
         IExplorer,
         Safari

@@ -45,6 +45,8 @@ namespace Aquality.Selenium.Configurations
                         return new InternetExplorerSettings(settingsFile);
                     case BrowserName.Safari:
                         return new SafariSettings(settingsFile);
+                    case BrowserName.EdgeChromium:
+                        return new EdgeChromiumSettings(settingsFile);
                     default:
                         throw new InvalidOperationException($"There is no assigned behaviour for retrieving DriverSettings for browser {BrowserName}");
                 }

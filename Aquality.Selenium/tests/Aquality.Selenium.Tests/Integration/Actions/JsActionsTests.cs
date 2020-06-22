@@ -149,7 +149,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             homeDemoSiteForm.FirstScrollableExample.JsActions.ScrollBy(point.X, point.Y);
             var currentCoordinates = AqualityServices.Browser
                 .ExecuteScriptFromFile<IList<object>>("Resources.GetScrollCoordinates.js",
-                    homeDemoSiteForm.FirstScrollableExample.GetElement()).Select(item => int.Parse(item.ToString()))
+                    homeDemoSiteForm.FirstScrollableExample.GetElement()).
+                    Select(item => (int)Math.Round(double.Parse(item.ToString())))
                 .ToList();
             var actualPoint = new Point(currentCoordinates[0], currentCoordinates[1]);
             Assert.AreEqual(point, actualPoint, $"Current coordinates should be '{point}'");

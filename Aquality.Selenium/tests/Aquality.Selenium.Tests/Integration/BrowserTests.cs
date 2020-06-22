@@ -195,7 +195,7 @@ namespace Aquality.Selenium.Tests.Integration
             var initialY = sliderForm.FormPointInViewPort.Y;
             var formHeight = sliderForm.Size.Height;
             browser.ScrollWindowBy(0, formHeight);
-            Assert.AreEqual(formHeight, initialY - sliderForm.FormPointInViewPort.Y);
+            Assert.LessOrEqual(Math.Abs(formHeight - (initialY - sliderForm.FormPointInViewPort.Y)), 1, "Window should be scrolled.");
         }
 
         [Test]
