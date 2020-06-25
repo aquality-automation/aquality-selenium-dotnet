@@ -30,21 +30,26 @@ namespace Aquality.Selenium.Browsers
             {
                 LocalizedLogger.Info("loc.browser.grid");
                 var capabilities = BrowserProfile.DriverSettings.DriverOptions.ToCapabilities();
-                var driver = ActionRetrier.DoWithRetry(() => 
-                {
-                    try
-                    {
-                        return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
-                    }
-                    catch (Exception e)
-                    {
-                        LocalizedLogger.Fatal("loc.browser.grid.fail", e);
-                        throw;
-                    }                    
-                }, new[] { typeof(WebDriverException) });
+                var driver = GetDriver(capabilities);
                 LogBrowserIsReady(BrowserProfile.BrowserName);
                 return new Browser(driver);
             }
+        }
+
+        private RemoteWebDriver GetDriver(ICapabilities capabilities)
+        {
+            return ActionRetrier.DoWithRetry(() =>
+            {
+                try
+                {
+                    return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
+                }
+                catch (Exception e)
+                {
+                    LocalizedLogger.Fatal("loc.browser.grid.fail", e);
+                    throw;
+                }
+            }, new[] { typeof(WebDriverException) });
         }
     }
 }
