@@ -19,16 +19,36 @@ namespace Aquality.Selenium.Elements
 
         protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.combobox");
 
-        public string SelectedText => DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.Text);
+        public string SelectedText
+        {
+            get
+            {
+                LogElementAction("loc.combobox.getting.selected.text");
+                var text = DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.Text);
+                LogElementAction("loc.combobox.selected.text", text);
+                return text;
+            }
+        }
 
-        public string SelectedValue => DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.GetAttribute(Attributes.Value));
+        public string SelectedValue
+        {
+            get
+            {
+                LogElementAction("loc.combobox.getting.selected.value");
+                var value = DoWithRetry(() => new SelectElement(GetElement()).SelectedOption.GetAttribute(Attributes.Value));
+                LogElementAction("loc.combobox.selected.value", value);
+                return value;
+            }
+        }
 
         public IList<string> Texts
         {
             get
             {
                 LogElementAction("loc.combobox.get.texts");
-                return DoWithRetry(() =>  new SelectElement(GetElement()).Options.Select(option => option.Text).ToList());
+                var values = DoWithRetry(() =>  new SelectElement(GetElement()).Options.Select(option => option.Text).ToList());
+                LogElementAction("loc.combobox.texts", string.Join(", ", values.Select(value => $"'{value}'")));
+                return values;
             }
         }
 
@@ -37,7 +57,9 @@ namespace Aquality.Selenium.Elements
             get
             {
                 LogElementAction("loc.combobox.get.values");
-                return DoWithRetry(() => new SelectElement(GetElement()).Options.Select(option => option.GetAttribute(Attributes.Value)).ToList());
+                var values = DoWithRetry(() => new SelectElement(GetElement()).Options.Select(option => option.GetAttribute(Attributes.Value)).ToList());
+                LogElementAction("loc.combobox.values", string.Join(", ", values.Select(value => $"'{value}'")));
+                return values;
             }
         }
 

@@ -8,22 +8,13 @@ namespace Aquality.Selenium.Elements
     /// <summary>
     /// Defines CheckBox UI element.
     /// </summary>
-    public class CheckBox : Element, ICheckBox
+    public class CheckBox : CheckableElement, ICheckBox
     {
         protected internal CheckBox(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
 
         protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.checkbox");
-
-        public bool IsChecked
-        {
-            get
-            {
-                LogElementAction("loc.checkbox.get.state");
-                return GetElement().Selected;
-            }
-        }
 
         public new CheckBoxJsActions JsActions => new CheckBoxJsActions(this, ElementType, LocalizedLogger, BrowserProfile);
         
@@ -39,13 +30,13 @@ namespace Aquality.Selenium.Elements
 
         public void Toggle()
         {
-            SetState(!IsChecked);
+            SetState(!State);
         }
 
         private void SetState(bool state)
         {
             LogElementAction("loc.setting.value", state);
-            if (state != IsChecked)
+            if (state != State)
             {
                 Click();
             }

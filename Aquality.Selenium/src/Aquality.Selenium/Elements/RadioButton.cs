@@ -7,14 +7,12 @@ namespace Aquality.Selenium.Elements
     /// <summary>
     /// Defines RadioButton UI element.
     /// </summary>
-    public class RadioButton : Element, IRadioButton
+    public class RadioButton : CheckableElement, IRadioButton
     {
         protected internal RadioButton(By locator, string name, ElementState state) : base(locator, name, state)
         {
         }
 
         protected override string ElementType => LocalizationManager.GetLocalizedMessage("loc.radio");
-
-        public bool IsChecked => GetElement().Selected;
     }
 }

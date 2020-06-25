@@ -40,11 +40,13 @@ namespace Aquality.Selenium.Elements
 
         public void Submit()
         {
+            LogElementAction("loc.text.submitting");
             DoWithRetry(() => GetElement().Submit());
         }
 
         public new void Focus()
         {
+            LogElementAction("loc.focusing");
             DoWithRetry(() => GetElement().SendKeys(string.Empty));
         }
     }

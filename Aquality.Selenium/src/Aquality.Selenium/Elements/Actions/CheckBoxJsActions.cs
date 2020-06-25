@@ -22,7 +22,9 @@ namespace Aquality.Selenium.Elements.Actions
         public bool IsChecked()
         {
             LogElementAction("loc.checkbox.get.state");
-            return ExecuteScript<bool>(JavaScript.GetCheckBoxState);
+            var state = ExecuteScript<bool>(JavaScript.GetCheckBoxState);
+            LogElementAction("loc.checkbox.state", state);
+            return state;
         }
 
         /// <summary>
