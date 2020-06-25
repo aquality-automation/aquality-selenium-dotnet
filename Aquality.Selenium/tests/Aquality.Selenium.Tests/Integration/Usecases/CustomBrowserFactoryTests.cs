@@ -48,7 +48,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         {
             private static readonly object WebDriverDownloadingLock = new object();
 
-            public CustomLocalBrowserFactory() : base()
+            public CustomLocalBrowserFactory() : base(AqualityServices.LocalizedLogger)
             {
             }
 

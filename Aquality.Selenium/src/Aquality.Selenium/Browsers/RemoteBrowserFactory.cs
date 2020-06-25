@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
@@ -11,31 +12,37 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class RemoteBrowserFactory : BrowserFactory
     {
-        public RemoteBrowserFactory() : base()
+        public RemoteBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger) 
+            : base(localizedLogger)
         {
+            ActionRetrier = actionRetrier;
+            BrowserProfile = browserProfile;
+            TimeoutConfiguration = timeoutConfiguration;
         }
+
+        private IActionRetrier ActionRetrier { get; }
+        private IBrowserProfile BrowserProfile { get; }
+        private ITimeoutConfiguration TimeoutConfiguration { get; }
 
         public override Browser Browser
         {
             get
             {
-                AqualityServices.LocalizedLogger.Info("loc.browser.grid");
-                var browserProfile = AqualityServices.Get<IBrowserProfile>();
-                var capabilities = browserProfile.DriverSettings.DriverOptions.ToCapabilities();
-                var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
-                var driver = AqualityServices.Get<IActionRetrier>().DoWithRetry(() => 
+                LocalizedLogger.Info("loc.browser.grid");
+                var capabilities = BrowserProfile.DriverSettings.DriverOptions.ToCapabilities();
+                var driver = ActionRetrier.DoWithRetry(() => 
                 {
                     try
                     {
-                        return new RemoteWebDriver(browserProfile.RemoteConnectionUrl, capabilities, timeoutConfiguration.Command);
+                        return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
                     }
                     catch (Exception e)
                     {
-                        AqualityServices.LocalizedLogger.Fatal("loc.browser.grid.fail", e);
+                        LocalizedLogger.Fatal("loc.browser.grid.fail", e);
                         throw;
                     }                    
                 }, new[] { typeof(WebDriverException) });
-                LogBrowserIsReady(browserProfile.BrowserName);
+                LogBrowserIsReady(BrowserProfile.BrowserName);
                 return new Browser(driver);
             }
         }

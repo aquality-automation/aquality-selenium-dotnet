@@ -17,6 +17,7 @@ using WebDriverManager.Helpers;
 using EdgeChromiumOptions = Microsoft.Edge.SeleniumTools.EdgeOptions;
 using EdgeChromiumService = Microsoft.Edge.SeleniumTools.EdgeDriverService;
 using EdgeChromiumDriver = Microsoft.Edge.SeleniumTools.EdgeDriver;
+using Aquality.Selenium.Core.Localization;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -27,18 +28,25 @@ namespace Aquality.Selenium.Browsers
     {
         private static readonly object WebDriverDownloadingLock = new object();
 
-        public LocalBrowserFactory() : base()
+        public LocalBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger)
+            : base(localizedLogger)
         {
+            ActionRetrier = actionRetrier;
+            BrowserProfile = browserProfile;
+            TimeoutConfiguration = timeoutConfiguration;
         }
+
+        private IActionRetrier ActionRetrier { get; }
+        private IBrowserProfile BrowserProfile { get; }
+        private ITimeoutConfiguration TimeoutConfiguration { get; }
 
         public override Browser Browser => CreateBrowser();
 
         private Browser CreateBrowser()
         {
-            var browserProfile = AqualityServices.Get<IBrowserProfile>();
-            var commandTimeout = AqualityServices.Get<ITimeoutConfiguration>().Command;
-            var browserName = browserProfile.BrowserName;
-            var driverSettings = browserProfile.DriverSettings;
+            var commandTimeout = TimeoutConfiguration.Command;
+            var browserName = BrowserProfile.BrowserName;
+            var driverSettings = BrowserProfile.DriverSettings;
             RemoteWebDriver driver;
             switch (browserName)
             {
@@ -72,7 +80,7 @@ namespace Aquality.Selenium.Browsers
                         (SafariOptions)driverSettings.DriverOptions, commandTimeout);
                     break;
                 default:
-                    throw LoggedWrongBrowserNameException;
+                    throw new ArgumentOutOfRangeException($"Browser [{browserName}] is not supported.");
             }
 
             LogBrowserIsReady(browserName);
@@ -81,8 +89,8 @@ namespace Aquality.Selenium.Browsers
 
         private RemoteWebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : RemoteWebDriver
         {
-            return AqualityServices.Get<IActionRetrier>().DoWithRetry(() =>
-                (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout));
+            return ActionRetrier.DoWithRetry(() =>
+                (T) Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout));
         }
 
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)

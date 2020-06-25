@@ -9,7 +9,6 @@
   "loc.browser.grid": "Setting webdriver from selenium grid hub",
   "loc.browser.grid.fail": "Driver setting  from Selenium Grid hub was failed",
   "loc.browser.maximize": "Maximizing browser window",
-  "loc.browser.name.wrong": "Browser name is wrong.",
   "loc.browser.navigate": "Navigate to url - '{0}'",
   "loc.browser.page.timeout": "Page loading timed out",
   "loc.browser.ready": "Browser '{0}' ready...",

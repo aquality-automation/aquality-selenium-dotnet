@@ -9,7 +9,6 @@
   "loc.browser.grid": "Установка драйвера браузера из Selenium Grid хаба",
   "loc.browser.grid.fail": "Ошибка при получении драйвера из Selenium Grid хаба",
   "loc.browser.maximize": "Открытие браузера на всё окно",
-  "loc.browser.name.wrong": "Неверное имя браузера.",
   "loc.browser.navigate": "Переход на страницу - '{0}'",
   "loc.browser.page.timeout": "Таймаут загрузки страницы",
   "loc.browser.ready": "Браузер '{0}' готов...",
