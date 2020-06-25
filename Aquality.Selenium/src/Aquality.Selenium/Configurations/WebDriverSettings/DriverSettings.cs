@@ -15,6 +15,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     /// </summary>
     public abstract class DriverSettings : IDriverSettings
     {
+        private IReadOnlyDictionary<string, object> options;
+        private IReadOnlyDictionary<string, object> capabilities;
+        private IReadOnlyList<string> startArguments;
+
         /// <summary>
         /// Instantiates class using JSON file with general settings.
         /// </summary>
@@ -50,11 +54,58 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         public abstract string DownloadDirCapabilityKey { get; }
 
-        protected IReadOnlyDictionary<string, object> BrowserCapabilities => SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.capabilities");
+        protected IReadOnlyDictionary<string, object> BrowserCapabilities
+        {
+            get
+            {
+                if (capabilities == null)
+                {
+                    capabilities = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.{nameof(capabilities)}");
+                    if (capabilities.Any())
+                    {
+                        AqualityServices.LocalizedLogger.Debug("loc.browser.capabilities",
+                            args: string.Join(",", capabilities.Select(cap => $"{Environment.NewLine}{cap.Key}: {cap.Value}")));
+                    }
+                }
+                
+                return capabilities;
+            }
+        }
 
-        protected IReadOnlyDictionary<string, object> BrowserOptions => SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.options");
+        protected IReadOnlyDictionary<string, object> BrowserOptions
+        {
+            get
+            {
+                if (options == null)
+                {
+                    options = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.{nameof(options)}"); 
+                    if (options.Any())
+                    {
+                        AqualityServices.LocalizedLogger.Debug("loc.browser.options",
+                            args: string.Join(",", options.Select(opt => $"{Environment.NewLine}{opt.Key}: {opt.Value}")));
+                    }
+                }                
+                
+                return options;
+            }
+        }
 
-        protected IReadOnlyList<string> BrowserStartArguments => SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.startArguments");
+        protected IReadOnlyList<string> BrowserStartArguments
+        {
+            get
+            {
+                if (startArguments == null)
+                {
+                    startArguments = SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.{nameof(startArguments)}");
+
+                    if (startArguments.Any())
+                    {
+                        AqualityServices.LocalizedLogger.Debug("loc.browser.arguments", args: string.Join(" ", startArguments));
+                    }
+                }
+                return startArguments;
+            }
+        }
 
         private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";        
 

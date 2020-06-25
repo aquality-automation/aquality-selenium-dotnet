@@ -48,6 +48,8 @@ namespace Aquality.Selenium.Tests.Unit.Configuration
         private class CustomLoggerConfiguration : ILoggerConfiguration
         {
             public string Language { get; } = SpecialLoggerLanguage;
+
+            public bool LogPageSource => true;
         }
 
         private interface ICustomService

@@ -13,6 +13,8 @@ using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementF
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
 using Aquality.Selenium.Core.Configurations;
+using System.Reflection;
+using System.Linq;
 
 namespace Aquality.Selenium.Elements
 {
@@ -25,7 +27,7 @@ namespace Aquality.Selenium.Elements
         {
         }
 
-        public override ICoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder);
+        public override ICoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder, LogElementState);
 
         protected IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
 
@@ -49,7 +51,7 @@ namespace Aquality.Selenium.Elements
 
         protected override ILocalizedLogger LocalizedLogger => AqualityServices.LocalizedLogger;
 
-        protected ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
+        protected override ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
         protected override IConditionalWait ConditionalWait => AqualityServices.ConditionalWait;
 
@@ -82,21 +84,27 @@ namespace Aquality.Selenium.Elements
         {
             LogElementAction("loc.el.getattr", attr);
             JsActions.HighlightElement(highlightState);
-            return DoWithRetry(() => GetElement().GetAttribute(attr));
+            var value = DoWithRetry(() => GetElement().GetAttribute(attr));
+            LogElementAction("loc.el.attr.value", attr, value);
+            return value;
         }
 
         public string GetCssValue(string propertyName, HighlightState highlightState = HighlightState.Default)
         {
             LogElementAction("loc.el.cssvalue", propertyName);
             JsActions.HighlightElement(highlightState);
-            return DoWithRetry(() => GetElement().GetCssValue(propertyName));
+            var value = DoWithRetry(() => GetElement().GetCssValue(propertyName));
+            LogElementAction("loc.el.attr.value", propertyName, value);
+            return value;
         }
 
         public string GetText(HighlightState highlightState = HighlightState.Default)
         {
             LogElementAction("loc.get.text");
             JsActions.HighlightElement(highlightState);
-            return DoWithRetry(() => GetElement().Text);
+            var value = DoWithRetry(() => GetElement().Text);
+            LogElementAction("loc.text.value", value);
+            return value;
         }
         
         public void SetInnerHtml(string value)
@@ -104,6 +112,15 @@ namespace Aquality.Selenium.Elements
             Click();
             LogElementAction("loc.send.text", value);
             Browser.ExecuteScript(JavaScript.SetInnerHTML, GetElement(), value);
+        }
+
+        public void SendKey(Key key)
+        {
+            LogElementAction("loc.text.sending.key", key);
+            var keysString = typeof(Keys)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .FirstOrDefault(field => field.Name == key.ToString())?.GetValue(null).ToString();
+            DoWithRetry(() => GetElement().SendKeys(keysString));
         }
     }
 }

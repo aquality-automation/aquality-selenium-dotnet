@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Utilities;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
 
@@ -18,12 +19,23 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
+                AqualityServices.LocalizedLogger.Info("loc.browser.grid");
                 var browserProfile = AqualityServices.Get<IBrowserProfile>();
                 var capabilities = browserProfile.DriverSettings.DriverOptions.ToCapabilities();
                 var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
                 var driver = AqualityServices.Get<IActionRetrier>().DoWithRetry(() => 
-                    (RemoteWebDriver)Activator.CreateInstance(typeof(RemoteWebDriver), 
-                    browserProfile.RemoteConnectionUrl, capabilities, timeoutConfiguration.Command));
+                {
+                    try
+                    {
+                        return new RemoteWebDriver(browserProfile.RemoteConnectionUrl, capabilities, timeoutConfiguration.Command);
+                    }
+                    catch (Exception e)
+                    {
+                        AqualityServices.LocalizedLogger.Fatal("loc.browser.grid.fail", e);
+                        throw;
+                    }                    
+                }, new[] { typeof(WebDriverException) });
+                LogBrowserIsReady(browserProfile.BrowserName);
                 return new Browser(driver);
             }
         }

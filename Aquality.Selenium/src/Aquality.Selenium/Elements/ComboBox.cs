@@ -45,7 +45,7 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByContainingText(string text)
         {
-            LogElementAction("loc.selecting.value");
+            LogElementAction("loc.combobox.select.by.text", text);
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByContainingValue(string value)
         {
-            LogElementAction("loc.selecting.value");
+            LogElementAction("loc.selecting.value", value);
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
@@ -83,19 +83,19 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByIndex(int index)
         {
-            LogElementAction("loc.selecting.value");
+            LogElementAction("loc.selecting.value", index);
             DoWithRetry(() => new SelectElement(GetElement()).SelectByIndex(index));
         }
 
         public void SelectByText(string text)
         {
-            LogElementAction("loc.selecting.value");
+            LogElementAction("loc.combobox.select.by.text", text);
             DoWithRetry(() => new SelectElement(GetElement()).SelectByText(text));
         }
 
         public void SelectByValue(string value)
         {
-            LogElementAction("loc.selecting.value");
+            LogElementAction("loc.selecting.value", value);
             DoWithRetry(() => new SelectElement(GetElement()).SelectByValue(value));
         }
     }

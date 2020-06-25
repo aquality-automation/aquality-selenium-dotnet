@@ -510,6 +510,17 @@
             </summary>
             <param name="settingsFile">JSON settings file.</param>
         </member>
+        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.EdgeChromiumSettings">
+            <summary>
+            Settings specific for Edge(chromium) web driver.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.EdgeChromiumSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
+            <summary>
+            Instantiates class using JSON file with general settings
+            </summary>
+            <param name="settingsFile">JSON settings file.</param>
+        </member>
         <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.EdgeSettings">
             <summary>
             Settings specific for Edge web driver.
@@ -737,6 +748,333 @@
         <member name="M:Aquality.Selenium.Elements.Actions.MouseActions.MoveToElement">
             <summary>
             Moves mouse to the element.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.MouseActions.MoveMouseFromElement">
+            <summary>
+            Moves mouse from this element.
+            </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Actions.Key">
+            <summary>
+            Represents action keys which could be used to <see cref="M:Aquality.Selenium.Elements.Interfaces.IElement.SendKey(Aquality.Selenium.Elements.Actions.Key)"/>.
+            Used to enhance logging of SendKeys actions
+            Directly related to <see cref="T:OpenQA.Selenium.Keys"/>
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Null">
+            <summary>
+            Represents the NUL keystroke.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad0">
+            <summary>
+            Represents the number pad 0 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad1">
+            <summary>
+            Represents the number pad 1 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad2">
+            <summary>
+            Represents the number pad 2 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad3">
+            <summary>
+            Represents the number pad 3 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad4">
+            <summary>
+            Represents the number pad 4 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad5">
+            <summary>
+            Represents the number pad 5 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad6">
+            <summary>
+            Represents the number pad 6 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad7">
+            <summary>
+            Represents the number pad 7 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad8">
+            <summary>
+            Represents the number pad 8 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.NumberPad9">
+            <summary>
+            Represents the number pad 9 key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Multiply">
+            <summary>
+            Represents the number pad multiplication key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Add">
+            <summary>
+            Represents the number pad addition key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Separator">
+            <summary>
+            Represents the number pad thousands separator key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Equal">
+            <summary>
+            Represents the equal sign key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Subtract">
+            <summary>
+            Represents the number pad subtraction key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Divide">
+            <summary>
+            Represents the number pad division key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F1">
+            <summary>
+            Represents the function key F1.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F2">
+            <summary>
+            Represents the function key F2.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F3">
+            <summary>
+            Represents the function key F3.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F4">
+            <summary>
+            Represents the function key F4.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F5">
+            <summary>
+            Represents the function key F5.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F6">
+            <summary>
+            Represents the function key F6.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F7">
+            <summary>
+            Represents the function key F7.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F8">
+            <summary>
+            Represents the function key F8.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F9">
+            <summary>
+            Represents the function key F9.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F10">
+            <summary>
+            Represents the function key F10.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F11">
+            <summary>
+            Represents the function key F11.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.F12">
+            <summary>
+            Represents the function key F12.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Decimal">
+            <summary>
+            Represents the number pad decimal separator key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Meta">
+            <summary>
+            Represents the function key META.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Semicolon">
+            <summary>
+            Represents the semi-colon key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Insert">
+            <summary>
+            Represents the Insert key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Cancel">
+            <summary>
+            Represents the Cancel keystroke.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Help">
+            <summary>
+            Represents the Help keystroke.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Backspace">
+            <summary>
+            Represents the Backspace key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Tab">
+            <summary>
+            Represents the Tab key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Clear">
+            <summary>
+            Represents the Clear keystroke.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Return">
+            <summary>
+            Represents the Return key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Enter">
+            <summary>
+            Represents the Enter key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Shift">
+            <summary>
+            Represents the Shift key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.LeftShift">
+            <summary>
+            Represents the Shift key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Control">
+            <summary>
+            Represents the Control key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.LeftControl">
+            <summary>
+            Represents the Control key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Alt">
+            <summary>
+            Represents the Alt key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.LeftAlt">
+            <summary>
+            Represents the Alt key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Delete">
+            <summary>
+            Represents the Delete key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Pause">
+            <summary>
+            Represents the Pause key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Space">
+            <summary>
+            Represents the Spacebar key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.PageUp">
+            <summary>
+            Represents the Page Up key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.PageDown">
+            <summary>
+            Represents the Page Down key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.End">
+            <summary>
+            Represents the End key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Home">
+            <summary>
+            Represents the Home key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Left">
+            <summary>
+            Represents the left arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.ArrowLeft">
+            <summary>
+            Represents the left arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Up">
+            <summary>
+            Represents the up arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.ArrowUp">
+            <summary>
+            Represents the up arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Right">
+            <summary>
+            Represents the right arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.ArrowRight">
+            <summary>
+            Represents the right arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Down">
+            <summary>
+            Represents the Left arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.ArrowDown">
+            <summary>
+            Represents the Left arrow key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Escape">
+            <summary>
+            Represents the Escape key.
+            </summary>
+        </member>
+        <member name="F:Aquality.Selenium.Elements.Actions.Key.Command">
+            <summary>
+            Represents the function key COMMAND.
             </summary>
         </member>
         <member name="T:Aquality.Selenium.Elements.Button">
@@ -967,6 +1305,12 @@
             Sets element inner HTML.
             </summary>
             <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.SendKey(Aquality.Selenium.Elements.Actions.Key)">
+            <summary>
+            Send key.
+            </summary>
+            <param name="key"> Key for sending.</param>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IElementFactory">
             <summary>
