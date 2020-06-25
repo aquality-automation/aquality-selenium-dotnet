@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Sets Selenium WebDriver ImplicitWait timeout. 
-        /// Default value: <see cref="ITimeoutConfiguration.Implicit"/>.
+        /// Default value: <see cref="Core.Configurations.ITimeoutConfiguration.Implicit"/>.
         /// </summary>
         /// <param name="timeout">Desired Implicit wait timeout.</param>
         public void SetImplicitWaitTimeout(TimeSpan timeout)

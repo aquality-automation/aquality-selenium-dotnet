@@ -6,7 +6,6 @@ using OpenQA.Selenium.Chrome;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using Microsoft.Extensions.DependencyInjection;
 using WebDriverManager.DriverConfigs;
 using WebDriverManager.Helpers;
 using System.IO;

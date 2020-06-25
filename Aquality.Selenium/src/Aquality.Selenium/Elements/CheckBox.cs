@@ -30,13 +30,13 @@ namespace Aquality.Selenium.Elements
 
         public void Toggle()
         {
-            SetState(!State);
+            SetState(!GetState());
         }
 
         private void SetState(bool state)
         {
             LogElementAction("loc.setting.value", state);
-            if (state != State)
+            if (state != GetState())
             {
                 Click();
             }

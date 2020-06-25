@@ -87,7 +87,7 @@
         <member name="M:Aquality.Selenium.Browsers.Browser.SetImplicitWaitTimeout(System.TimeSpan)">
             <summary>
             Sets Selenium WebDriver ImplicitWait timeout. 
-            Default value: <see cref="!:ITimeoutConfiguration.Implicit"/>.
+            Default value: <see cref="P:Aquality.Selenium.Core.Configurations.ITimeoutConfiguration.Implicit"/>.
             </summary>
             <param name="timeout">Desired Implicit wait timeout.</param>
         </member>

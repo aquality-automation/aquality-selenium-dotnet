@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Core.Localization;
-using System;
 
 namespace Aquality.Selenium.Browsers
 {

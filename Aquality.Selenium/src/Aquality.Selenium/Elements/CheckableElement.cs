@@ -14,12 +14,15 @@ namespace Aquality.Selenium.Elements
             get
             {
                 LogElementAction("loc.checkable.get.state");
-                var state = State;
+                var state = GetState();
                 LogElementAction("loc.checkable.state", state);
                 return state;
             }
         }
 
-        protected virtual bool State => DoWithRetry(() => GetElement().Selected);
+        protected virtual bool GetState()
+        {
+            return DoWithRetry(() => GetElement().Selected);
+        }
     }
 }
