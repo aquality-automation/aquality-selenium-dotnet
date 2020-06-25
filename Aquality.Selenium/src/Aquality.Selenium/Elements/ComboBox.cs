@@ -83,7 +83,7 @@ namespace Aquality.Selenium.Elements
 
         public void SelectByIndex(int index)
         {
-            LogElementAction("loc.selecting.value", index);
+            LogElementAction("loc.selecting.value", $"#{index}");
             DoWithRetry(() => new SelectElement(GetElement()).SelectByIndex(index));
         }
 
