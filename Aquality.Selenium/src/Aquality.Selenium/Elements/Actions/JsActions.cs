@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Highlights the element.
-        /// Default value is from configuration: <see cref="IBrowserProfile.IsElementHighlightEnabled">
+        /// Default value is from configuration: <see cref="IBrowserProfile.IsElementHighlightEnabled"/>
         /// </summary>
         public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {

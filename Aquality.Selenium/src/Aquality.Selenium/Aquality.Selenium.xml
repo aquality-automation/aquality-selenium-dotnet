@@ -330,7 +330,7 @@
         </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>
-            Factory that creates instance of desired Browser based on <see cref="!:Configurations.IConfiguration"/>.
+            Factory that creates instance of desired Browser based on <see cref="T:Aquality.Selenium.Configurations.IBrowserProfile"/>.
             </summary>
         </member>
         <member name="P:Aquality.Selenium.Browsers.IBrowserFactory.Browser">
@@ -665,7 +665,12 @@
             Performs click on element.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Aquality.Selenium.Elements.Actions.JsActions.HighlightElement(Aquality.Selenium.Elements.HighlightState)" -->
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.HighlightElement(Aquality.Selenium.Elements.HighlightState)">
+            <summary>
+            Highlights the element.
+            Default value is from configuration: <see cref="P:Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/>
+            </summary>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ScrollIntoView">
             <summary>
             Scrolling page to the element.

@@ -1,7 +1,7 @@
 ﻿namespace Aquality.Selenium.Browsers
 {
     /// <summary>
-    /// Factory that creates instance of desired Browser based on <see cref="Configurations.IConfiguration"/>.
+    /// Factory that creates instance of desired Browser based on <see cref="Configurations.IBrowserProfile"/>.
     /// </summary>
     public interface IBrowserFactory
     {
