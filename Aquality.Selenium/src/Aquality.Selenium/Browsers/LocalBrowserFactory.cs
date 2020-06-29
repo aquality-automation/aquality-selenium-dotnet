@@ -73,7 +73,7 @@ namespace Aquality.Selenium.Browsers
                             (SafariOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException($"Browser [{browserName}] is not supported.");
+                        throw new NotSupportedException($"Browser [{browserName}] is not supported.");
                 }
                 return driver;
             }
