@@ -109,7 +109,9 @@ namespace Aquality.Selenium.Browsers
             get
             {
                 Logger.Info("loc.browser.getUrl");
-                return Driver.Url;
+                var url = Driver.Url;
+                Logger.Info("loc.browser.url.value", url);
+                return url;
             }
         }
 
@@ -230,6 +232,7 @@ namespace Aquality.Selenium.Browsers
         /// <exception cref="TimeoutException">Throws when timeout exceeded and page is not loaded.</exception>
         public void WaitForPageToLoad()
         {
+            Logger.Info("loc.browser.page.wait");
             var errorMessage = LocalizationManager.GetLocalizedMessage("loc.browser.page.timeout");
             conditionalWait.WaitForTrue(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
         }

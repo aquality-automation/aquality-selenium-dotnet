@@ -29,68 +29,59 @@ namespace Aquality.Selenium.Browsers
         private static readonly object WebDriverDownloadingLock = new object();
 
         public LocalBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger)
-            : base(localizedLogger)
+            : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
         {
-            ActionRetrier = actionRetrier;
-            BrowserProfile = browserProfile;
-            TimeoutConfiguration = timeoutConfiguration;
         }
 
-        private IActionRetrier ActionRetrier { get; }
-        private IBrowserProfile BrowserProfile { get; }
-        private ITimeoutConfiguration TimeoutConfiguration { get; }
-
-        public override Browser Browser => CreateBrowser();
-
-        private Browser CreateBrowser()
+        protected override RemoteWebDriver Driver
         {
-            var commandTimeout = TimeoutConfiguration.Command;
-            var browserName = BrowserProfile.BrowserName;
-            var driverSettings = BrowserProfile.DriverSettings;
-            RemoteWebDriver driver;
-            switch (browserName)
+            get
             {
-                case BrowserName.Chrome:
-                    SetUpDriver(new ChromeConfig(), driverSettings);
-                    driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(),
-                        (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                case BrowserName.Firefox:
-                    SetUpDriver(new FirefoxConfig(), driverSettings);
-                    var geckoService = FirefoxDriverService.CreateDefaultService();
-                    geckoService.Host = "::1";
-                    driver = GetDriver<FirefoxDriver>(geckoService, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                case BrowserName.IExplorer:
-                    SetUpDriver(new InternetExplorerConfig(), driverSettings);
-                    driver = GetDriver<InternetExplorerDriver>(InternetExplorerDriverService.CreateDefaultService(),
-                        (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                case BrowserName.Edge:
-                    driver = GetDriver<EdgeDriver>(EdgeDriverService.CreateDefaultService(),
-                        (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                case BrowserName.EdgeChromium:
-                    SetUpDriver(new EdgeConfig(), driverSettings);
-                    driver = GetDriver<EdgeChromiumDriver>(EdgeChromiumService.CreateChromiumService(),
-                        (EdgeChromiumOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                case BrowserName.Safari:
-                    driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
-                        (SafariOptions)driverSettings.DriverOptions, commandTimeout);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException($"Browser [{browserName}] is not supported.");
+                var commandTimeout = TimeoutConfiguration.Command;
+                var browserName = BrowserProfile.BrowserName;
+                var driverSettings = BrowserProfile.DriverSettings;
+                RemoteWebDriver driver;
+                switch (browserName)
+                {
+                    case BrowserName.Chrome:
+                        SetUpDriver(new ChromeConfig(), driverSettings);
+                        driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(),
+                            (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.Firefox:
+                        SetUpDriver(new FirefoxConfig(), driverSettings);
+                        var geckoService = FirefoxDriverService.CreateDefaultService();
+                        geckoService.Host = "::1";
+                        driver = GetDriver<FirefoxDriver>(geckoService, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.IExplorer:
+                        SetUpDriver(new InternetExplorerConfig(), driverSettings);
+                        driver = GetDriver<InternetExplorerDriver>(InternetExplorerDriverService.CreateDefaultService(),
+                            (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.Edge:
+                        driver = GetDriver<EdgeDriver>(EdgeDriverService.CreateDefaultService(),
+                            (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.EdgeChromium:
+                        SetUpDriver(new EdgeConfig(), driverSettings);
+                        driver = GetDriver<EdgeChromiumDriver>(EdgeChromiumService.CreateChromiumService(),
+                            (EdgeChromiumOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.Safari:
+                        driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
+                            (SafariOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException($"Browser [{browserName}] is not supported.");
+                }
+                return driver;
             }
-
-            LogBrowserIsReady(browserName);
-            return new Browser(driver);
         }
 
         private RemoteWebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : RemoteWebDriver
         {
-            return ActionRetrier.DoWithRetry(() =>
-                (T) Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout));
+            return (T) Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
         }
 
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)

@@ -1,7 +1,6 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
 
@@ -13,33 +12,16 @@ namespace Aquality.Selenium.Browsers
     public class RemoteBrowserFactory : BrowserFactory
     {
         public RemoteBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger) 
-            : base(localizedLogger)
+            : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
         {
-            ActionRetrier = actionRetrier;
-            BrowserProfile = browserProfile;
-            TimeoutConfiguration = timeoutConfiguration;
         }
 
-        private IActionRetrier ActionRetrier { get; }
-        private IBrowserProfile BrowserProfile { get; }
-        private ITimeoutConfiguration TimeoutConfiguration { get; }
-
-        public override Browser Browser
+        protected override RemoteWebDriver Driver
         {
             get
             {
                 LocalizedLogger.Info("loc.browser.grid");
                 var capabilities = BrowserProfile.DriverSettings.DriverOptions.ToCapabilities();
-                var driver = GetDriver(capabilities);
-                LogBrowserIsReady(BrowserProfile.BrowserName);
-                return new Browser(driver);
-            }
-        }
-
-        private RemoteWebDriver GetDriver(ICapabilities capabilities)
-        {
-            return ActionRetrier.DoWithRetry(() =>
-            {
                 try
                 {
                     return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
@@ -49,7 +31,7 @@ namespace Aquality.Selenium.Browsers
                     LocalizedLogger.Fatal("loc.browser.grid.fail", e);
                     throw;
                 }
-            }, new[] { typeof(WebDriverException) });
+            }
         }
     }
 }
