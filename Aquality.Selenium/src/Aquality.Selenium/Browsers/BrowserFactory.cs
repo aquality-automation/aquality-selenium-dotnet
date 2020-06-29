@@ -31,14 +31,9 @@ namespace Aquality.Selenium.Browsers
             get
             {
                 var browser = new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException) }));
-                LogBrowserIsReady(BrowserProfile.BrowserName);
+                LocalizedLogger.Info("loc.browser.ready", BrowserProfile.BrowserName);
                 return browser;
             }
-        }
-
-        protected void LogBrowserIsReady(BrowserName browserName)
-        {
-            LocalizedLogger.Info("loc.browser.ready", browserName);
         }
     }
 }
