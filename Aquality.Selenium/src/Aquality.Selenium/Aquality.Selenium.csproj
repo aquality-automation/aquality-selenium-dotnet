@@ -24,6 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Localization\be.json" />
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
     <None Remove="Resources\settings.json" />
@@ -60,6 +61,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\SetInnerHTML.js" />
     <EmbeddedResource Include="Resources\JavaScripts\OpenNewTab.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
+    <EmbeddedResource Include="Resources\Localization\be.json" />
     <EmbeddedResource Include="Resources\Localization\en.json" />
     <EmbeddedResource Include="Resources\Localization\ru.json" />
     <EmbeddedResource Include="Resources\settings.json" />

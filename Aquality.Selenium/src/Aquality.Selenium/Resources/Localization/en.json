@@ -8,7 +8,7 @@
   "loc.browser.getUrl": "Getting current url",
   "loc.browser.url.value": "Current url: [{0}]",
   "loc.browser.grid": "Setting webdriver from selenium grid hub",
-  "loc.browser.grid.fail": "Driver setting  from Selenium Grid hub was failed",
+  "loc.browser.grid.fail": "Driver setting from Selenium Grid hub was failed",
   "loc.browser.maximize": "Maximizing browser window",
   "loc.browser.navigate": "Navigate to url - '{0}'",
   "loc.browser.page.wait": "Waiting for page to load",
