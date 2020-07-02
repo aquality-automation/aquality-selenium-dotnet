@@ -15,6 +15,8 @@
   "loc.browser.page.timeout": "Page loading timed out",
   "loc.browser.ready": "Browser '{0}' ready...",
   "loc.browser.refresh": "Refreshing the page",
+  "loc.browser.alert.accept": "Accepting browser alert",
+  "loc.browser.alert.decline": "Dismissing browser alert",
   "loc.browser.alert.fail": "Failed while handling alert",
   "loc.button": "Button",
   "loc.checkbox": "CheckBox",

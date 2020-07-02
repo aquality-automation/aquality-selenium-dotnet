@@ -194,11 +194,13 @@ namespace Aquality.Selenium.Browsers
         /// <exception cref="NoAlertPresentException">Thrown when no alert found.</exception>
         public void HandleAlert(AlertAction alertAction, string text = null)
         {
+            Logger.Info($"loc.browser.alert.{alertAction.ToString().ToLower()}");
             try
             {
                 var alert = Driver.SwitchTo().Alert();
                 if (!string.IsNullOrEmpty(text))
                 {
+                    Logger.Info("loc.send.text", text);
                     alert.SendKeys(text);
                 }
                 if (alertAction.Equals(AlertAction.Accept))
