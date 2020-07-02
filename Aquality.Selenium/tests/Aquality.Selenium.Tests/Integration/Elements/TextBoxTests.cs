@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements;
+using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -38,11 +39,19 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         }
 
         [Test]
+        public void Should_BePossibleTo_SendKey()
+        {
+            var passwordTxb = authForm.PasswordTextBox;
+            passwordTxb.SendKey(Key.NumberPad0);
+            Assert.AreEqual("0", passwordTxb.Value);
+        }
+
+        [Test]
         public void Should_BePossibleTo_SendKeys()
         {
             var passwordTxb = authForm.PasswordTextBox;
-            passwordTxb.SendKeys(Keys.NumberPad0);
-            Assert.AreEqual("0", passwordTxb.Value);
+            passwordTxb.SendKeys("00");
+            Assert.AreEqual("00", passwordTxb.Value);
         }
 
         [Test]

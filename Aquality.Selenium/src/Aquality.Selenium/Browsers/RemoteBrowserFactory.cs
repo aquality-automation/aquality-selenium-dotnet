@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium.Remote;
 using System;
@@ -10,21 +11,26 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class RemoteBrowserFactory : BrowserFactory
     {
-        public RemoteBrowserFactory() : base()
+        public RemoteBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger) 
+            : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
         {
         }
 
-        public override Browser Browser
+        protected override RemoteWebDriver Driver
         {
             get
             {
-                var browserProfile = AqualityServices.Get<IBrowserProfile>();
-                var capabilities = browserProfile.DriverSettings.DriverOptions.ToCapabilities();
-                var timeoutConfiguration = AqualityServices.Get<ITimeoutConfiguration>();
-                var driver = AqualityServices.Get<IActionRetrier>().DoWithRetry(() => 
-                    (RemoteWebDriver)Activator.CreateInstance(typeof(RemoteWebDriver), 
-                    browserProfile.RemoteConnectionUrl, capabilities, timeoutConfiguration.Command));
-                return new Browser(driver);
+                LocalizedLogger.Info("loc.browser.grid");
+                var capabilities = BrowserProfile.DriverSettings.DriverOptions.ToCapabilities();
+                try
+                {
+                    return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
+                }
+                catch (Exception e)
+                {
+                    LocalizedLogger.Fatal("loc.browser.grid.fail", e);
+                    throw;
+                }
             }
         }
     }

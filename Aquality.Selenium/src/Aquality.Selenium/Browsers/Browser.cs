@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Sets Selenium WebDriver ImplicitWait timeout. 
-        /// Default value: <see cref="ITimeoutConfiguration.Implicit"/>.
+        /// Default value: <see cref="Core.Configurations.ITimeoutConfiguration.Implicit"/>.
         /// </summary>
         /// <param name="timeout">Desired Implicit wait timeout.</param>
         public void SetImplicitWaitTimeout(TimeSpan timeout)
@@ -109,7 +109,9 @@ namespace Aquality.Selenium.Browsers
             get
             {
                 Logger.Info("loc.browser.getUrl");
-                return Driver.Url;
+                var url = Driver.Url;
+                Logger.Info("loc.browser.url.value", url);
+                return url;
             }
         }
 
@@ -192,11 +194,13 @@ namespace Aquality.Selenium.Browsers
         /// <exception cref="NoAlertPresentException">Thrown when no alert found.</exception>
         public void HandleAlert(AlertAction alertAction, string text = null)
         {
+            Logger.Info($"loc.browser.alert.{alertAction.ToString().ToLower()}");
             try
             {
                 var alert = Driver.SwitchTo().Alert();
                 if (!string.IsNullOrEmpty(text))
                 {
+                    Logger.Info("loc.send.text", text);
                     alert.SendKeys(text);
                 }
                 if (alertAction.Equals(AlertAction.Accept))
@@ -230,6 +234,7 @@ namespace Aquality.Selenium.Browsers
         /// <exception cref="TimeoutException">Throws when timeout exceeded and page is not loaded.</exception>
         public void WaitForPageToLoad()
         {
+            Logger.Info("loc.browser.page.wait");
             var errorMessage = LocalizationManager.GetLocalizedMessage("loc.browser.page.timeout");
             conditionalWait.WaitForTrue(() => ExecuteScript<bool>(JavaScript.IsPageLoaded), pageLoadTimeout, message: errorMessage);
         }

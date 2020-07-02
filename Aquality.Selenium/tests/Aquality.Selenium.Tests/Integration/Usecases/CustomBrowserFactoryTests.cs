@@ -6,10 +6,11 @@ using OpenQA.Selenium.Chrome;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using Microsoft.Extensions.DependencyInjection;
 using WebDriverManager.DriverConfigs;
 using WebDriverManager.Helpers;
 using System.IO;
+using Aquality.Selenium.Core.Utilities;
+using OpenQA.Selenium.Remote;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
@@ -48,21 +49,21 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         {
             private static readonly object WebDriverDownloadingLock = new object();
 
-            public CustomLocalBrowserFactory() : base()
+            public CustomLocalBrowserFactory() : 
+                base(AqualityServices.Get<IActionRetrier>(), AqualityServices.Get<IBrowserProfile>(), AqualityServices.Get<ITimeoutConfiguration>(), AqualityServices.LocalizedLogger)
             {
             }
 
-            public override Browser Browser => CreateBrowser();
-
-            private Browser CreateBrowser()
+            protected override RemoteWebDriver Driver
             {
-                var browserProfile = AqualityServices.Get<IBrowserProfile>();
-                var driverSettings = browserProfile.DriverSettings;
-                SetUpDriver(new ChromeConfig(), driverSettings);
-                var driver = new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
-                return new Browser(driver);
+                get
+                {
+                    var driverSettings = BrowserProfile.DriverSettings;
+                    SetUpDriver(new ChromeConfig(), driverSettings);
+                    return new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
+                }
             }
-
+            
             private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
             {
                 var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;

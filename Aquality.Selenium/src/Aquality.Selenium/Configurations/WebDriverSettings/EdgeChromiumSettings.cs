@@ -1,5 +1,4 @@
-﻿using System;
-using Aquality.Selenium.Browsers;
+﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Configurations;
 using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;

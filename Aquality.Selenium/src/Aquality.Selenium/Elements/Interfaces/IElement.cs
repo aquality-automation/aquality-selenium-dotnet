@@ -66,5 +66,11 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="value">Value to set.</param>
         void SetInnerHtml(string value);
+
+        /// <summary>
+        /// Send key.
+        /// </summary>
+        /// <param name="key"> Key for sending.</param>
+        void SendKey(Key key);
     }
 }

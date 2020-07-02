@@ -63,7 +63,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         }
 
         [Test]
-        public void Should_BePossibleTo_GetValuesViaJsActions()
+        public void Should_BePossibleTo_GetTextsViaJsActions()
         {
             var comboBox = dropdownForm.ComboBox;
             CollectionAssert.AreEqual(comboBox.Texts, comboBox.JsActions.GetTexts());

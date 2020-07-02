@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Elements.Actions
 
         /// <summary>
         /// Highlights the element.
-        /// Default value is from configuration: <see cref="IBrowserProfile.IsElementHighlightEnabled">
+        /// Default value is from configuration: <see cref="IBrowserProfile.IsElementHighlightEnabled"/>
         /// </summary>
         public void HighlightElement(HighlightState highlightState = HighlightState.Default)
         {
@@ -122,7 +122,9 @@ namespace Aquality.Selenium.Elements.Actions
         public bool IsElementOnScreen()
         {
             LogElementAction("loc.is.present.js");
-            return ExecuteScript<bool>(JavaScript.ElementIsOnScreen);
+            var value = ExecuteScript<bool>(JavaScript.ElementIsOnScreen);
+            LogElementAction("loc.is.present.value", value);
+            return value;
         }
 
         /// <summary>
@@ -132,7 +134,9 @@ namespace Aquality.Selenium.Elements.Actions
         public string GetElementText()
         {
             LogElementAction("loc.get.text.js");
-            return ExecuteScript<string>(JavaScript.GetElementText);
+            var value = ExecuteScript<string>(JavaScript.GetElementText);
+            LogElementAction("loc.text.value", value);
+            return value;
         }
 
         /// <summary>
@@ -151,7 +155,9 @@ namespace Aquality.Selenium.Elements.Actions
         public string GetXPath()
         {
             LogElementAction("loc.get.xpath.js");
-            return ExecuteScript<string>(JavaScript.GetElementXPath);
+            var value = ExecuteScript<string>(JavaScript.GetElementXPath);
+            LogElementAction("loc.xpath.value", value);
+            return value;
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Core.Waitings;
+using Aquality.Selenium.Core.Utilities;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -90,11 +91,11 @@ namespace Aquality.Selenium.Browsers
             IBrowserFactory applicationFactory;
             if (appProfile.IsRemote)
             {
-                applicationFactory = new RemoteBrowserFactory();
+                applicationFactory = new RemoteBrowserFactory(Get<IActionRetrier>(), Get<IBrowserProfile>(), Get<ITimeoutConfiguration>(), LocalizedLogger);
             }
             else
             {
-                applicationFactory = new LocalBrowserFactory();
+                applicationFactory = new LocalBrowserFactory(Get<IActionRetrier>(), Get<IBrowserProfile>(), Get<ITimeoutConfiguration>(), LocalizedLogger);
             }
 
             BrowserFactory = applicationFactory;

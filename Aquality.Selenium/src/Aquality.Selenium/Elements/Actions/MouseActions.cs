@@ -68,6 +68,18 @@ namespace Aquality.Selenium.Elements.Actions
             elementActionsRetrier.DoWithRetry(() => PerformAction(MoveToElement));
         }
 
+        /// <summary>
+        /// Moves mouse from this element.
+        /// </summary>
+        public void MoveMouseFromElement()
+        {
+            LogElementAction("loc.movingFrom");
+            elementActionsRetrier.DoWithRetry(
+                () => PerformAction(
+                    element => new SeleniumActions(AqualityServices.Browser.Driver)
+                    .MoveToElement(element, -element.Size.Width / 2, -element.Size.Height / 2)));
+        }
+
         private SeleniumActions MoveToElement(IWebElement element)
         {
             return new SeleniumActions(AqualityServices.Browser.Driver).MoveToElement(element);
