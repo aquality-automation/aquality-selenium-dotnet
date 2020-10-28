@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "83.0.4103.39",
+      "webDriverVersion": "MatchingBrowser",
       "capabilities": {
         "enableVNC": true
       },
