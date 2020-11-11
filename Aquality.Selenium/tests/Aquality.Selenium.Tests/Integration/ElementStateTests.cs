@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_WaitForElementEnabledState()
         {
-            Assert.IsTrue(dynamicControlsForm.IsDisplayed, "Form 'Dynamic Controls' should be displayed");
+            Assert.IsTrue(dynamicControlsForm.State.WaitForDisplayed(), "Form 'Dynamic Controls' should be displayed");
             dynamicControlsForm.ChangeInputStateButton.Click();
             Assert.IsTrue(dynamicControlsForm.TextInputTextBox.State.WaitForEnabled(), "Text input should be enable after changing state");
             dynamicControlsForm.ChangeInputStateButton.Click();

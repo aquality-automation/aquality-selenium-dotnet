@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_PerformActions()
         {
             var sliderForm = new SliderForm();
-            Assert.IsTrue(sliderForm.IsDisplayed, "Slider Form is not opened");
+            Assert.IsTrue(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
 
             sliderForm.ClickNextButton();
             sliderForm.ClickNextButton();
@@ -47,7 +47,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
             shoppingCardSummaryForm.ClickProceedToCheckoutButton();
             var authForm = new AuthenticationForm();
-            Assert.IsTrue(authForm.IsDisplayed, "Authentication Form is not opened");
+            Assert.IsTrue(authForm.State.WaitForDisplayed(), "Authentication Form is not opened");
 
             var cartMenuForm = new CartMenuForm();
             cartMenuForm.OpenCartMenu();

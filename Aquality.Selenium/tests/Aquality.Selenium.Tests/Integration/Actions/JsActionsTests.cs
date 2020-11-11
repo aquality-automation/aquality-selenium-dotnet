@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.Click();
-            Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
+            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ClickAndWait();
-            Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
+            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
@@ -69,6 +69,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var expectedText = currentText.Remove(currentText.Length - 1);
             product.TxtQuantity.JsActions.SetFocus();
             product.TxtQuantity.SendKeys(Keys.Delete);
+            product.TxtQuantity.SendKeys(Keys.Backspace);
             Assert.AreEqual(expectedText, product.TxtQuantity.Value, $"One character should be removed from '{currentText}'");
         }
 

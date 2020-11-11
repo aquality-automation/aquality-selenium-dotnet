@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).MouseActions.Click();
-            Assert.IsTrue(new DropdownForm().IsDisplayed, "Dropdown form should be displayed");
+            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
