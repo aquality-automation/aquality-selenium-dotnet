@@ -87,7 +87,8 @@ namespace Aquality.Selenium.Browsers
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
         {
             var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
-            var version = driverSettings.WebDriverVersion.Equals("Latest") ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
+            var version = driverSettings.WebDriverVersion.Equals(VersionResolveStrategy.Latest) ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
+            version = version.Equals(VersionResolveStrategy.MatchingBrowser) ? driverConfig.GetMatchingBrowserVersion() : version;
             var url = UrlHelper.BuildUrl(architecture.Equals(Architecture.X32) ? driverConfig.GetUrl32() : driverConfig.GetUrl64(), version);
             var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
             if (!File.Exists(binaryPath) || !Environment.GetEnvironmentVariable("PATH").Contains(binaryPath))

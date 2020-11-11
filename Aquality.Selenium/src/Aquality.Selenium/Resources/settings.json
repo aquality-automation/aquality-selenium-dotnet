@@ -6,7 +6,7 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "Latest",
+      "webDriverVersion": "MatchingBrowser",
       "capabilities": {
         "enableVNC": true,
         "loggingPrefs": {

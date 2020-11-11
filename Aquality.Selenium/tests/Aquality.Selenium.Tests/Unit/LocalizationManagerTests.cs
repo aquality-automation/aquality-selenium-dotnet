@@ -8,7 +8,7 @@ using Aquality.Selenium.Core.Localization;
 namespace Aquality.Selenium.Tests.Unit
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.All)]
+    [Parallelizable(ParallelScope.Children)]
     internal class LocalizationManagerTests
     {
         private const string LocalizedNavigationMessage = "Navigate to url - 'test'";

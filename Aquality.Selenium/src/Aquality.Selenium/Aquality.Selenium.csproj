@@ -68,9 +68,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.1" />
+    <PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
     <PackageReference Include="Aquality.Selenium.Core" Version="1.2.2" />
-    <PackageReference Include="WebDriverManager" Version="2.9.1" />
+    <PackageReference Include="WebDriverManager" Version="2.11.0" />
   </ItemGroup>
 
 </Project>
