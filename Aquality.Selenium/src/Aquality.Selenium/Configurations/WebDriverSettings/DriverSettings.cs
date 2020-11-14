@@ -2,6 +2,7 @@
 using Aquality.Selenium.Core.Configurations;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,8 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         public abstract DriverOptions DriverOptions { get; }
 
         public PageLoadStrategy PageLoadStrategy => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.pageLoadStrategy", PageLoadStrategy.Normal).ToEnum<PageLoadStrategy>();
+
+        public UnhandledPromptBehavior UnhandledPromptBehavior => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.unhandledPromptBehavior", UnhandledPromptBehavior.Ignore).ToEnum<UnhandledPromptBehavior>();
 
         public virtual string DownloadDir
         {
@@ -111,9 +114,12 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected abstract BrowserName BrowserName { get; }
 
-        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>();
+        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
+        {
+            { CapabilityType.UnhandledPromptBehavior, (options, value) => options.UnhandledPromptBehavior = value.ToEnum<UnhandledPromptBehavior>() }
+        };
 
-        protected void SetPageLoadStratergy(DriverOptions options)
+        protected void SetPageLoadStrategy(DriverOptions options)
         {
             options.PageLoadStrategy = PageLoadStrategy;
         }
