@@ -2,7 +2,6 @@
 using Aquality.Selenium.Core.Configurations;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
