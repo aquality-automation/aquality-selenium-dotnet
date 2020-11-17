@@ -30,8 +30,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             { "firefox_binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },
             { "firefox_profile", (options, value) => ((FirefoxOptions) options).Profile = new FirefoxProfileManager().GetProfile(value.ToString()) },
             { "log", (options, value) => ((FirefoxOptions) options).LogLevel = value.ToEnum<FirefoxDriverLogLevel>() },
-            { "marionette", (options, value) => ((FirefoxOptions) options).UseLegacyImplementation = (bool) value },
-            { CapabilityType.UnhandledPromptBehavior, (options, value) => options.UnhandledPromptBehavior = value.ToEnum<UnhandledPromptBehavior>() }
+            { "marionette", (options, value) => ((FirefoxOptions) options).UseLegacyImplementation = (bool) value }
         };
 
         public override DriverOptions DriverOptions

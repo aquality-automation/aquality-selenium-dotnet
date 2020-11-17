@@ -70,7 +70,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                             args: string.Join(",", capabilities.Select(cap => $"{Environment.NewLine}{cap.Key}: {cap.Value}")));
                     }
                 }
-                
+
                 return capabilities;
             }
         }
@@ -81,14 +81,14 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 if (options == null)
                 {
-                    options = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.{nameof(options)}"); 
+                    options = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.{nameof(options)}");
                     if (options.Any())
                     {
                         AqualityServices.LocalizedLogger.Debug("loc.browser.options",
                             args: string.Join(",", options.Select(opt => $"{Environment.NewLine}{opt.Key}: {opt.Value}")));
                     }
-                }                
-                
+                }
+
                 return options;
             }
         }
@@ -110,14 +110,11 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";        
+        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
 
         protected abstract BrowserName BrowserName { get; }
 
-        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
-        {
-            { CapabilityType.UnhandledPromptBehavior, (options, value) => options.UnhandledPromptBehavior = value.ToEnum<UnhandledPromptBehavior>() }
-        };
+        protected virtual IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>();
 
         protected void SetPageLoadStrategy(DriverOptions options)
         {
@@ -132,10 +129,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 {
                     var defaultAddCapabilityMethod = addCapabilityMethod ?? options.AddAdditionalCapability;
                     defaultAddCapabilityMethod(capability.Key, capability.Value);
-                } 
+                }
                 catch (ArgumentException exception)
                 {
-                    if(exception.Message.StartsWith("There is already an option"))
+                    if (exception.Message.StartsWith("There is already an option"))
                     {
                         SetKnownProperty(options, capability, exception);
                     }
@@ -156,7 +153,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             else
             {
                 SetOptionByPropertyName(options, capability, exception);
-            }            
+            }
         }
 
         protected void SetOptionsByPropertyNames(DriverOptions options)
@@ -174,7 +171,41 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                             .GetProperties()
                             .FirstOrDefault(property => IsPropertyNameMatchOption(property.Name, option.Key) && property.CanWrite)
                             ?? throw exception;
-            optionProperty.SetValue(options, option.Value);
+            var propertyType = optionProperty.PropertyType;
+            var valueToSet = IsEnumValue(propertyType, option.Value)
+                ? ParseEnumValue(propertyType, option.Value)
+                : option.Value;
+            optionProperty.SetValue(options, valueToSet);
+        }
+
+        private object ParseEnumValue(Type propertyType, object optionValue)
+        {
+            return optionValue is string
+                ? Enum.Parse(propertyType, optionValue.ToString(), ignoreCase: true)
+                : Enum.ToObject(propertyType, Convert.ChangeType(optionValue, Enum.GetUnderlyingType(propertyType)));
+        }
+
+        private bool IsEnumValue(Type propertyType, object optionValue)
+        {
+            var valueAsString = optionValue.ToString();
+            if (!propertyType.IsEnum || string.IsNullOrEmpty(valueAsString))
+            {
+                return false;
+            }
+            var normalizedValue = char.ToUpper(valueAsString[0]) +
+                (valueAsString.Length > 1 ? valueAsString.Substring(1) : string.Empty);
+            return propertyType.IsEnumDefined(normalizedValue)
+                || propertyType.IsEnumDefined(valueAsString)
+                || (IsValueOfIntegralNumericType(optionValue)
+                    && propertyType.IsEnumDefined(Convert.ChangeType(optionValue, Enum.GetUnderlyingType(propertyType))));
+        }
+
+        private bool IsValueOfIntegralNumericType(object value)
+        {
+            return value is byte || value is sbyte
+                || value is ushort || value is short
+                || value is uint || value is int
+                || value is ulong || value is long;
         }
 
         private bool IsPropertyNameMatchOption(string propertyName, string optionKey)
