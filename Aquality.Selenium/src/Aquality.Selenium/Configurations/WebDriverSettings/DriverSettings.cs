@@ -38,8 +38,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         public PageLoadStrategy PageLoadStrategy => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.pageLoadStrategy", PageLoadStrategy.Normal).ToEnum<PageLoadStrategy>();
 
-        public UnhandledPromptBehavior UnhandledPromptBehavior => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.unhandledPromptBehavior", UnhandledPromptBehavior.Ignore).ToEnum<UnhandledPromptBehavior>();
-
         public virtual string DownloadDir
         {
             get
