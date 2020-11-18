@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Configurations;
-using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
@@ -29,9 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             { "ignoreProtectedModeSettings", (options, value) => ((InternetExplorerOptions) options).IntroduceInstabilityByIgnoringProtectedModeSettings = (bool) value },
             { "ignoreZoomSetting", (options, value) => ((InternetExplorerOptions) options).IgnoreZoomLevel = (bool) value },
             { CapabilityType.HasNativeEvents, (options, value) => ((InternetExplorerOptions) options).EnableNativeEvents = (bool) value },
-            { CapabilityType.UnexpectedAlertBehavior, (options, value) => ((InternetExplorerOptions) options).UnhandledPromptBehavior = value.ToEnum<UnhandledPromptBehavior>() },
-            { "ie.browserCommandLineSwitches", (options, value) => ((InternetExplorerOptions) options).BrowserCommandLineArguments = value.ToString() },
-            { "elementScrollBehavior", (options, value) => ((InternetExplorerOptions) options).ElementScrollBehavior = value.ToEnum<InternetExplorerElementScrollBehavior>() }
+            { "ie.browserCommandLineSwitches", (options, value) => ((InternetExplorerOptions) options).BrowserCommandLineArguments = value.ToString() }
         };
 
         public override DriverOptions DriverOptions
@@ -41,7 +38,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 var options = new InternetExplorerOptions();
                 SetCapabilities(options);
                 SetOptionsByPropertyNames(options);
-                SetPageLoadStratergy(options);
+                SetPageLoadStrategy(options);
                 options.BrowserCommandLineArguments = string.Join(" ", BrowserStartArguments);
                 return options;
             }

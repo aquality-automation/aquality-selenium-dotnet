@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
                 SetFirefoxPrefs(options);
                 SetFirefoxArguments(options);
-                SetPageLoadStratergy(options);
+                SetPageLoadStrategy(options);
                 return options;
             }
         }
@@ -54,21 +54,21 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 {
                     options.SetPreference(option.Key, DownloadDir);
                 }
-                else if (value is bool)
+                else if (value is bool boolean)
                 {
-                    options.SetPreference(option.Key, (bool) value);
+                    options.SetPreference(option.Key, boolean);
                 }
-                else if (value is int)
+                else if (value is int @int)
                 {
-                    options.SetPreference(option.Key, (int) value);
+                    options.SetPreference(option.Key, @int);
                 }
-                else if (value is long)
+                else if (value is long @long)
                 {
-                    options.SetPreference(option.Key, (long)value);
+                    options.SetPreference(option.Key, @long);
                 }
-                else if (value is float)
+                else if (value is float @float)
                 {
-                    options.SetPreference(option.Key, (float) value);
+                    options.SetPreference(option.Key, @float);
                 }
                 else if (value is string)
                 {

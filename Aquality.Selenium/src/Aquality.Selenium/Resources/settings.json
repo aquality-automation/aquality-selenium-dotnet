@@ -13,7 +13,8 @@
           "driver": "INFO",
           "server": "OFF",
           "browser": "FINE"
-        }
+        },
+        "unhandledPromptBehavior": "default"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -29,7 +30,8 @@
     "firefox": {
       "webDriverVersion": "Latest",
       "capabilities": {
-        "enableVNC": true
+        "enableVNC": true,
+        "unhandledPromptBehavior": "default"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -52,7 +54,8 @@
       "webDriverVersion": "Latest",
       "systemArchitecture": "X32",
       "capabilities": {
-        "ignoreProtectedModeSettings": true
+        "ignoreProtectedModeSettings": true,
+        "unhandledPromptBehavior": "default"
       },
       "options": {
       },
@@ -61,6 +64,7 @@
     "edge": {
       "systemArchitecture": "X32",
       "capabilities": {
+        "unhandledPromptBehavior": "default"
       },
       "options": {
       },

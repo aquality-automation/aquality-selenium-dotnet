@@ -8,7 +8,8 @@
     "chrome": {
       "webDriverVersion": "MatchingBrowser",
       "capabilities": {
-        "enableVNC": true
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -24,7 +25,8 @@
       "webDriverVersion": "Latest",
       "systemArchitecture": "X64",
       "capabilities": {
-        "enableVNC": true
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -49,12 +51,14 @@
       "capabilities": {
         "ignoreProtectedModeSettings": true,
         "requireWindowFocus": false,
-        "elementScrollBehavior": 2
+        "elementScrollBehavior": 2,
+        "unhandledPromptBehavior": "ignore"
       }
     },
     "edge": {
       "systemArchitecture": "X64",
       "capabilities": {
+        "unhandledPromptBehavior": "ignore"
       },
       "options": {
       },
@@ -63,7 +67,8 @@
     "edgechromium": {
       "webDriverVersion": "82.0.458.0",
       "capabilities": {
-        "enableVNC": true
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
       },
       "options": {
         "intl.accept_languages": "en",

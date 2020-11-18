@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetEdgeChromiumPrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
                 SetEdgeChromiumArguments(options);
-                SetPageLoadStratergy(options);
+                SetPageLoadStrategy(options);
                 return options;
             }
         }

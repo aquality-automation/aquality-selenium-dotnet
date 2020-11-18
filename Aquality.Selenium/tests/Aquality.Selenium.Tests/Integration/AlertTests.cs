@@ -32,6 +32,28 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
+        public void Should_BePossibleTo_AcceptConfirmationAlert_InWaitFor()
+        {
+            alertsForm.JsConfirmButton.Click();
+            AqualityServices.ConditionalWait.WaitFor(driver =>
+            {
+                try
+                {
+                    AqualityServices.Logger.Debug($"Current url: {driver.Url}");
+                    return false;
+                }
+                catch (UnhandledAlertException e)
+                {
+                    AqualityServices.Logger.Debug($"Alert appeared: {e.Message}");
+                    AqualityServices.Browser.HandleAlert(AlertAction.Accept);
+                    return true;
+                }
+                
+            });
+            Assert.AreEqual("You clicked: Ok", alertsForm.ResultLabel.GetText());
+        }
+
+        [Test]
         public void Should_BePossibleTo_DeclineConfirmationAlert()
         {
             alertsForm.JsConfirmButton.Click();
