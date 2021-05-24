@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             alertsForm.JsAlertButton.Click();
             AqualityServices.Browser.HandleAlert(AlertAction.Accept);
-            Assert.AreEqual("You successfuly clicked an alert", alertsForm.ResultLabel.GetText());
+            Assert.AreEqual("You successfully clicked an alert", alertsForm.ResultLabel.GetText());
         }
 
         [Test]
