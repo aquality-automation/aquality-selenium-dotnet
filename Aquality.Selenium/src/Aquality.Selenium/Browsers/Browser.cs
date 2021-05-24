@@ -78,10 +78,10 @@ namespace Aquality.Selenium.Browsers
         /// <param name="timeout">Desired page load timeout.</param>
         public void SetPageLoadTimeout(TimeSpan timeout)
         {
+            pageLoadTimeout = timeout;
             if (!BrowserName.Equals(BrowserName.Safari))
             {
                 Driver.Manage().Timeouts().PageLoad = timeout;
-                pageLoadTimeout = timeout;
             }
         }
 
