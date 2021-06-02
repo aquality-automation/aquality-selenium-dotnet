@@ -44,6 +44,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var sliderForm = new SliderForm();
             Assume.That(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
             sliderForm.ClickNextButton();
+            sliderForm.ClickNextButton();
             sliderForm.WaitForSliding();
             var style = sliderForm.Style;
             Assert.DoesNotThrow(() => sliderForm.Dump.Save(dumpName), "Should be possible to save dump"); 
