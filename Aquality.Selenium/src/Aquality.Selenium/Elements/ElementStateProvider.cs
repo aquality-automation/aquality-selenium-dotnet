@@ -1,5 +1,5 @@
-﻿using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Core.Elements.Interfaces;
+﻿using Aquality.Selenium.Core.Elements.Interfaces;
+using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Core.Waitings;
 using OpenQA.Selenium;
 using CoreElementStateProvider = Aquality.Selenium.Core.Elements.ElementStateProvider;

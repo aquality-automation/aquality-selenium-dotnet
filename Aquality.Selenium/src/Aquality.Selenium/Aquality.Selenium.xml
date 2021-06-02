@@ -1485,6 +1485,21 @@
             Instance of logger <see cref="T:Aquality.Selenium.Core.Logging.Logger"/>
             </summary>
         </member>
+        <member name="P:Aquality.Selenium.Forms.Form.VisualizationConfiguration">
+            <summary>
+            Visualization configuration used by <see cref="P:Aquality.Selenium.Core.Forms.Form`1.Dump"/>.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Forms.Form.LocalizedLogger">
+            <summary>
+            Localized logger used by <see cref="P:Aquality.Selenium.Core.Forms.Form`1.Dump"/>.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Forms.Form.ConditionalWait">
+            <summary>
+            Conditional wait <see cref="T:Aquality.Selenium.Core.Waitings.IConditionalWait"/>
+            </summary>
+        </member>
         <member name="P:Aquality.Selenium.Forms.Form.ElementFactory">
             <summary>
             Element factory <see cref="T:Aquality.Selenium.Elements.Interfaces.IElementFactory"/>
@@ -1499,13 +1514,6 @@
             <summary>
             Name of the form.
             </summary>
-        </member>
-        <member name="P:Aquality.Selenium.Forms.Form.IsDisplayed">
-            <summary>
-            Return form state for form locator
-            </summary>
-            <value>True - form is opened,
-            False - form is not opened.</value>
         </member>
         <member name="P:Aquality.Selenium.Forms.Form.State">
             <summary>
@@ -1523,29 +1531,6 @@
             </summary>
             <param name="x">horizontal coordinate</param>
             <param name="y">vertical coordinate</param>
-        </member>
-        <member name="M:Aquality.Selenium.Forms.Form.FindChildElement``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds child element of current form by its locator.
-            </summary>
-            <typeparam name="T">Type of child element that has to implement IElement.</typeparam>
-            <param name="childLocator">Locator of child element relative to form.</param>
-            <param name="name">Child element name.</param>
-            <param name="supplier">Delegate that defines constructor of child element in case of custom element.</param>
-            <param name="state">Child element state.</param>
-            <returns>Instance of child element.</returns>
-        </member>
-        <member name="M:Aquality.Selenium.Forms.Form.FindChildElements``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementsCount,Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds child elements of current form by their locator.
-            </summary>
-            <typeparam name="T">Type of child elements that has to implement IElement.</typeparam>
-            <param name="childLocator">Locator of child elements relative to form.</param>
-            <param name="name">Child elements name.</param>
-            <param name="supplier">Delegate that defines constructor of child element in case of custom element type.</param>
-            <param name="expectedCount">Expected number of elements that have to be found (zero, more then zero, any).</param>
-            <param name="state">Child elements state.</param>
-            <returns>List of child elements.</returns>
         </member>
     </members>
 </doc>

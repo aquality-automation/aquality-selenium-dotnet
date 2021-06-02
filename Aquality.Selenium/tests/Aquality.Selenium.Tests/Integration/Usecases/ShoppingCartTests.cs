@@ -27,6 +27,23 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         }
 
         [Test]
+        public void Should_BePossibleTo_CheckVisualState()
+        {
+            var sliderForm = new SliderForm();
+            Assume.That(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
+            var style = sliderForm.Style;
+            Assert.DoesNotThrow(() => sliderForm.Dump.Save(), "Should be possible to save dump");
+            Assert.That(sliderForm.Dump.Compare() == 0L || sliderForm.Style != style, "Form dump should remain the same, unless the slider has already scrolled");
+            sliderForm.ClickNextButton();
+            Assert.That(sliderForm.Dump.Compare(), Is.GreaterThan(0), "After clicking on slider next button, the form dump should differ");
+            Assert.That(AqualityServices.ConditionalWait.WaitFor(() =>
+            {
+                sliderForm.ClickNextButton();
+                return sliderForm.Dump.Compare() == 0L;
+            }), "After some clicking on slider the form dump should be the same as initial");
+        }
+
+        [Test]
         public void Should_BePossibleTo_PerformActions()
         {
             var sliderForm = new SliderForm();
