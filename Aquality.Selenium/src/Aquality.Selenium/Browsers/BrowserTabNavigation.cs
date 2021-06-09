@@ -74,7 +74,7 @@ namespace Aquality.Selenium.Browsers
             var names = TabHandles;
             if (index < 0 || names.Count <= index)
             {
-                throw new IndexOutOfRangeException(
+                throw new ArgumentOutOfRangeException(
                     $"Index of browser tab '{index}' you provided is out of range {0}..{names.Count}");
             }
 

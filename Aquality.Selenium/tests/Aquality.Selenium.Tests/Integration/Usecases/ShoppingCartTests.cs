@@ -27,7 +27,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             Assert.DoesNotThrow(() =>
             {
                 AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice,
-                   new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException) });
+                   new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException), typeof(AssertionException) });
             }, "Shopping cart actions should actually work");
             
         }
