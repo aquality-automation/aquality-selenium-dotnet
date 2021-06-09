@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [SetUp]
         public void BeforeTest()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
             AqualityServices.Browser.Maximize();
         }
 

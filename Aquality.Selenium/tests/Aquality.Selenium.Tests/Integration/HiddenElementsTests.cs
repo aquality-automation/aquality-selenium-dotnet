@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void BeforeTest()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
         }
 
         [Test]

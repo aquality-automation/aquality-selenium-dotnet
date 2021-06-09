@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_MoveToElement()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
