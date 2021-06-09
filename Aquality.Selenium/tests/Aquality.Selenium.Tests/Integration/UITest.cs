@@ -1,6 +1,7 @@
-﻿using static Aquality.Selenium.Browsers.AqualityServices;
+﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp;
+using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -15,29 +16,15 @@ namespace Aquality.Selenium.Tests.Integration
         [TearDown]
         public void CleanUp()
         {
-            if (IsBrowserStarted)
+            if (AqualityServices.IsBrowserStarted)
             {
-                Browser.Quit();
+                AqualityServices.Browser.Quit();
             }
         }
 
         protected void OpenAutomationPracticeSite()
         {
-            var resourceLimitLabel = Get<IElementFactory>()
-                .GetLabel(By.XPath("//h1[.='Resource Limit Is Reached']"), "Resource Limit Is Reached");
-            Browser.GoTo(Constants.UrlAutomationPractice);
-            Browser.WaitForPageToLoad();
-            ConditionalWait.WaitForTrue(() =>
-            {
-                if (resourceLimitLabel.State.IsDisplayed)
-                {
-                    Browser.Refresh();
-                    Browser.WaitForPageToLoad();
-                    return false;
-                }
-                return true;
-            }, timeout: TimeSpan.FromMinutes(3), pollingInterval: TimeSpan.FromSeconds(15), 
-            message: $"Failed to load [{Constants.UrlAutomationPractice}] website. {resourceLimitLabel.Name} message is displayed.");
+            SiteLoader.OpenAutomationPracticeSite();
         }
     }
 }

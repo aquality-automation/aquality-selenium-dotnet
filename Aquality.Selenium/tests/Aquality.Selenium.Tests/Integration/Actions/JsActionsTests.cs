@@ -5,7 +5,6 @@ using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;

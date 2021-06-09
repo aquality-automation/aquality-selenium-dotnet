@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Utilities;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Modals;
 using NUnit.Framework;
@@ -25,7 +24,8 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_PerformActions()
         {
             // website automationpractice.com is out of resources and unable to proceed operations sometimes
-            AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice, new[] { typeof(NoSuchElementException) });
+            AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice, 
+                new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException) });
         }
 
         private void ActionsOnAutomationPractice()
