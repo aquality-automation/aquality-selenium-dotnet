@@ -1,10 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
 
 [assembly: LevelOfParallelism(10)]
 namespace Aquality.Selenium.Tests.Integration
@@ -22,7 +18,7 @@ namespace Aquality.Selenium.Tests.Integration
             }
         }
 
-        protected void OpenAutomationPracticeSite()
+        protected static void OpenAutomationPracticeSite()
         {
             SiteLoader.OpenAutomationPracticeSite();
         }

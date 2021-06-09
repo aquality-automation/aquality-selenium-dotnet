@@ -24,8 +24,12 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_PerformActions()
         {
             // website automationpractice.com is out of resources and unable to proceed operations sometimes
-            AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice, 
-                new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException) });
+            Assert.DoesNotThrow(() =>
+            {
+                AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice,
+                   new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException) });
+            }, "Shopping cart actions should actually work");
+            
         }
 
         private void ActionsOnAutomationPractice()
