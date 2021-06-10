@@ -5,6 +5,7 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
+using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers;
 using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
@@ -26,8 +27,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 
         public void NavigateToLastProduct()
         {
-            AqualityServices.Browser.GoTo(GetLastProduct().Href);
-            AqualityServices.Browser.WaitForPageToLoad();
+            SiteLoader.OpenAutomationPracticeSite(GetLastProduct().Href);
         }
 
         public ILink GetLastProduct()

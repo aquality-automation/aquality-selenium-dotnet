@@ -5,7 +5,6 @@ using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
@@ -47,7 +46,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_HoverMouse()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 
@@ -60,7 +59,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_SetFocus()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
             var productList = new ProductListForm();
             productList.NavigateToLastProduct();
 

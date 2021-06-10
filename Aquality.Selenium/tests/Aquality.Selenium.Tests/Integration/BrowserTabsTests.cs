@@ -135,7 +135,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BeThrow_IfSwitchToNewTab_ByIncorrectIndex()
         {
-            Assert.Throws(typeof(IndexOutOfRangeException), () => { AqualityServices.Browser.Tabs().SwitchToTab(10, true); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { AqualityServices.Browser.Tabs().SwitchToTab(10, true); });
         }
 
         private void CheckSwitchingBy(int expectedTabCount, Action switchMethod)

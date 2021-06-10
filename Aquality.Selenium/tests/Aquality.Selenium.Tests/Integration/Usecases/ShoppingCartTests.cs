@@ -1,8 +1,9 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Integration.TestApp;
+using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Modals;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
@@ -17,18 +18,25 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         private static readonly int DayToSelect = 29;
         private static readonly string State = "California";
 
-        private string Email => $"john+{DateTime.Now.Millisecond}@doe.com";
-
-        [SetUp]
-        public void BeforeTest()
-        {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
-            AqualityServices.Browser.Maximize();
-        }
+        private static string Email => $"john+{DateTime.Now.Millisecond}@doe.com";
 
         [Test]
         public void Should_BePossibleTo_PerformActions()
         {
+            // website automationpractice.com is out of resources and unable to proceed operations sometimes
+            Assert.DoesNotThrow(() =>
+            {
+                AqualityServices.Get<IActionRetrier>().DoWithRetry(ActionsOnAutomationPractice,
+                   new[] { typeof(NoSuchElementException), typeof(WebDriverTimeoutException), typeof(AssertionException) });
+            }, "Shopping cart actions should actually work");
+            
+        }
+
+        private void ActionsOnAutomationPractice()
+        {
+            AqualityServices.Browser.Quit();
+            OpenAutomationPracticeSite();
+            AqualityServices.Browser.Maximize();
             var sliderForm = new SliderForm();
             Assert.IsTrue(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
 

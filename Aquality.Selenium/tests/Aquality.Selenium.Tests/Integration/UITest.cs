@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers;
 using NUnit.Framework;
 
 [assembly: LevelOfParallelism(10)]
@@ -15,6 +16,11 @@ namespace Aquality.Selenium.Tests.Integration
             {
                 AqualityServices.Browser.Quit();
             }
+        }
+
+        protected static void OpenAutomationPracticeSite()
+        {
+            SiteLoader.OpenAutomationPracticeSite();
         }
     }
 }

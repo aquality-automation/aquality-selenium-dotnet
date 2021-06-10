@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using TheInternetAuthenticationForm = Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms.AuthenticationForm;
@@ -189,12 +188,11 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ScrollWindowBy()
         {
-            var browser = AqualityServices.Browser;
-            browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
             var sliderForm = new SliderForm();
             var initialY = sliderForm.FormPointInViewPort.Y;
             var formHeight = sliderForm.Size.Height;
-            browser.ScrollWindowBy(0, formHeight);
+            AqualityServices.Browser.ScrollWindowBy(0, formHeight);
             Assert.LessOrEqual(Math.Abs(formHeight - (initialY - sliderForm.FormPointInViewPort.Y)), 1, "Window should be scrolled.");
         }
 

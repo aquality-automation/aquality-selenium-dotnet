@@ -1,20 +1,22 @@
-﻿using OpenQA.Selenium;
-using Aquality.Selenium.Browsers;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
+using Aquality.Selenium.Core.Applications;
+using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Elements;
+using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Logging;
+using Aquality.Selenium.Core.Utilities;
+using Aquality.Selenium.Core.Visualization;
+using Aquality.Selenium.Core.Waitings;
 using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Core.Utilities;
-using Aquality.Selenium.Core.Applications;
-using Aquality.Selenium.Core.Localization;
-using Aquality.Selenium.Core.Waitings;
+using OpenQA.Selenium;
+using System.Reflection;
+using System.Linq;
 using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
-using Aquality.Selenium.Core.Configurations;
-using System.Reflection;
-using System.Linq;
 
 namespace Aquality.Selenium.Elements
 {
@@ -54,6 +56,8 @@ namespace Aquality.Selenium.Elements
         protected override ILocalizationManager LocalizationManager => AqualityServices.Get<ILocalizationManager>();
 
         protected override IConditionalWait ConditionalWait => AqualityServices.ConditionalWait;
+
+        protected override IImageComparator ImageComparator => AqualityServices.Get<IImageComparator>();
 
         public void ClickAndWait()
         {

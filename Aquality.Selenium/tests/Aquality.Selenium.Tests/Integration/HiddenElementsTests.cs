@@ -1,7 +1,5 @@
-﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Core.Elements;
+﻿using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using NUnit.Framework;
 using System;
@@ -30,7 +28,7 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void BeforeTest()
         {
-            AqualityServices.Browser.GoTo(Constants.UrlAutomationPractice);
+            OpenAutomationPracticeSite();
         }
 
         [Test]
