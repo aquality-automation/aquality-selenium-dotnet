@@ -9,11 +9,6 @@
       "webDriverVersion": "MatchingBrowser",
       "capabilities": {
         "enableVNC": true,
-        "loggingPrefs": {
-          "driver": "INFO",
-          "server": "OFF",
-          "browser": "FINE"
-        },
         "unhandledPromptBehavior": "default"
       },
       "options": {
