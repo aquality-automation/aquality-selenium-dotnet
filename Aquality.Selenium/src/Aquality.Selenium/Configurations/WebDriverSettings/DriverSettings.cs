@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected ISettingsFile SettingsFile { get; }
 
-        public string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", "Latest");
+        public virtual string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", "Latest");
 
         public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", Architecture.Auto).ToEnum<Architecture>();
 
@@ -107,7 +107,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
+        protected virtual string DriverSettingsPath => $".driverSettings.{BrowserName.ToString().ToLowerInvariant()}";
 
         protected abstract BrowserName BrowserName { get; }
 

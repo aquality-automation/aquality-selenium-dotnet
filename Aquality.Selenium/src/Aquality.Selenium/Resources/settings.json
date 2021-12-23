@@ -85,31 +85,62 @@
         "safari.options.dataDir": "/Users/username/Downloads"
       },
       "startArguments": []
+    },
+    "opera": {
+      "webDriverVersion": "Latest",
+      "capabilities": {
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
+      },
+      "options": {
+        "intl.accept_languages": "en",
+        "safebrowsing.enabled": "true",
+        "profile.default_content_settings.popups": "0",
+        "disable-popup-blocking": "true",
+        "download.prompt_for_download": "false"
+      },
+      "startArguments": []
+    },
+    "yandex": {
+      "webDriverVersion": "94.0.4606.41",
+      "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe",
+      "capabilities": {
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
+      },
+      "options": {
+        "intl.accept_languages": "en",
+        "safebrowsing.enabled": "true",
+        "profile.default_content_settings.popups": "0",
+        "disable-popup-blocking": "true",
+        "download.prompt_for_download": "false",
+        "download.default_directory": "./downloads"
+      },
+      "startArguments": []
+    },
+    "timeouts": {
+      "timeoutImplicit": 0,
+      "timeoutCondition": 30,
+      "timeoutScript": 10,
+      "timeoutPageLoad": 15,
+      "timeoutPollingInterval": 300,
+      "timeoutCommand": 60
+    },
+    "retry": {
+      "number": 2,
+      "pollingInterval": 300
+    },
+    "logger": {
+      "language": "en",
+      "logPageSource": true
+    },
+    "elementCache": {
+      "isEnabled": false
+    },
+    "visualization": {
+      "defaultThreshold": 0.012,
+      "comparisonWidth": 16,
+      "comparisonHeight": 16,
+      "pathToDumps": "../../../Resources/VisualDumps/"
     }
-  },
-  "timeouts": {
-    "timeoutImplicit": 0,
-    "timeoutCondition": 30,
-    "timeoutScript": 10,
-    "timeoutPageLoad": 15,
-    "timeoutPollingInterval": 300,
-    "timeoutCommand": 60
-  },
-  "retry": {
-    "number": 2,
-    "pollingInterval": 300
-  },
-  "logger": {
-    "language": "en",
-    "logPageSource": true
-  },
-  "elementCache": {
-    "isEnabled": false
-  },
-  "visualization": {
-    "defaultThreshold": 0.012,
-    "comparisonWidth": 16,
-    "comparisonHeight": 16,
-    "pathToDumps": "../../../Resources/VisualDumps/"
   }
-}

@@ -6,7 +6,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
     internal abstract class TheDemoSiteForm : Form
     {
-        private const string BaseUrl = "http://thedemosite.co.uk/";
+        private const string BaseUrl = "http://eprint.com.hr/demo/index.php";
 
         protected TheDemoSiteForm(By locator, string name) : base(locator, name)
         {
