@@ -21,7 +21,17 @@ namespace Aquality.Selenium.Configurations
             this.settingsFile = settingsFile;
         }
 
-        public BrowserName BrowserName => (BrowserName)Enum.Parse(typeof(BrowserName), settingsFile.GetValue<string>(".browserName"), ignoreCase: true);
+        public BrowserName BrowserName
+        {
+            get
+            {
+                if (!Enum.TryParse(settingsFile.GetValue<string>(".browserName"), ignoreCase: true, out BrowserName browserName))
+                {
+                    return BrowserName.Other;
+                }
+                return browserName;
+            }
+        }
 
         public bool IsElementHighlightEnabled => settingsFile.GetValue<bool>(".isElementHighlightEnabled");
 
@@ -39,14 +49,18 @@ namespace Aquality.Selenium.Configurations
                         return new ChromeSettings(settingsFile);
                     case BrowserName.Edge:
                         return new EdgeSettings(settingsFile);
+                    case BrowserName.EdgeChromium:
+                        return new EdgeChromiumSettings(settingsFile);
                     case BrowserName.Firefox:
                         return new FirefoxSettings(settingsFile);
                     case BrowserName.IExplorer:
                         return new InternetExplorerSettings(settingsFile);
+                    case BrowserName.Opera:
+                        return new OperaSettings(settingsFile);
                     case BrowserName.Safari:
                         return new SafariSettings(settingsFile);
-                    case BrowserName.EdgeChromium:
-                        return new EdgeChromiumSettings(settingsFile);
+                    case BrowserName.Yandex:
+                        return new YandexSettings(settingsFile);
                     default:
                         throw new InvalidOperationException($"There is no assigned behaviour for retrieving DriverSettings for browser {BrowserName}");
                 }

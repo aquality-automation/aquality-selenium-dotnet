@@ -18,6 +18,7 @@ using EdgeChromiumOptions = Microsoft.Edge.SeleniumTools.EdgeOptions;
 using EdgeChromiumService = Microsoft.Edge.SeleniumTools.EdgeDriverService;
 using EdgeChromiumDriver = Microsoft.Edge.SeleniumTools.EdgeDriver;
 using Aquality.Selenium.Core.Localization;
+using OpenQA.Selenium.Opera;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -44,6 +45,7 @@ namespace Aquality.Selenium.Browsers
                 switch (browserName)
                 {
                     case BrowserName.Chrome:
+                    case BrowserName.Yandex:
                         SetUpDriver(new ChromeConfig(), driverSettings);
                         driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
@@ -67,6 +69,11 @@ namespace Aquality.Selenium.Browsers
                         SetUpDriver(new EdgeConfig(), driverSettings);
                         driver = GetDriver<EdgeChromiumDriver>(EdgeChromiumService.CreateChromiumService(),
                             (EdgeChromiumOptions)driverSettings.DriverOptions, commandTimeout);
+                        break;
+                    case BrowserName.Opera:
+                        SetUpDriver(new OperaConfig(), driverSettings);
+                        driver = GetDriver<OperaDriver>(OperaDriverService.CreateDefaultService(),
+                            (OperaOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:
                         driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
@@ -95,7 +102,7 @@ namespace Aquality.Selenium.Browsers
             {
                 lock (WebDriverDownloadingLock)
                 {
-                    new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
+                    new DriverManager().SetUpDriver(url, binaryPath);
                 }
             }
         }

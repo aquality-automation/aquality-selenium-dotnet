@@ -391,7 +391,10 @@ namespace Aquality.Selenium.Browsers
         EdgeChromium,
         Firefox,
         IExplorer,
-        Safari
+        Opera,
+        Other,
+        Safari,
+        Yandex
     }
 
     /// <summary>

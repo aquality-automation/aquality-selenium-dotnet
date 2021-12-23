@@ -19,7 +19,8 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
-      "startArguments": []
+      "startArguments": [],
+      "pageLoadStrategy": "Normal"
     },
     "firefox": {
       "webDriverVersion": "Latest",
@@ -84,6 +85,38 @@
       "options": {
         "safari.options.dataDir": "/Users/username/Downloads"
       }
+    },
+    "opera": {
+      "webDriverVersion": "Latest",
+      "capabilities": {
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
+      },
+      "options": {
+        "intl.accept_languages": "en",
+        "safebrowsing.enabled": "true",
+        "profile.default_content_settings.popups": "0",
+        "disable-popup-blocking": "true",
+        "download.prompt_for_download": "false"
+      },
+      "startArguments": []
+    },
+    "yandex": {
+      "webDriverVersion": "94.0.4606.41",
+      "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe",
+      "capabilities": {
+        "enableVNC": true,
+        "unhandledPromptBehavior": "ignore"
+      },
+      "options": {
+        "intl.accept_languages": "en",
+        "safebrowsing.enabled": "true",
+        "profile.default_content_settings.popups": "0",
+        "disable-popup-blocking": "true",
+        "download.prompt_for_download": "false",
+        "download.default_directory": "./downloads"
+      },
+      "startArguments": []
     }
   },
   "timeouts": {
