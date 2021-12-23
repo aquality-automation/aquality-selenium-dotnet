@@ -40,8 +40,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
             foreach (var option in BrowserOptions)
             {
-                var value = option.Key == DownloadDirCapabilityKey ? DownloadDir : option.Value;
-                options.AddUserProfilePreference(option.Key, value);                
+                options.AddUserProfilePreference(option.Key, option.Value);                
             }
         }
 
