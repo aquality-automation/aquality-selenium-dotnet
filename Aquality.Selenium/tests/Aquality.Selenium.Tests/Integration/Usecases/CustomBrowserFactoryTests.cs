@@ -10,7 +10,7 @@ using WebDriverManager.DriverConfigs;
 using WebDriverManager.Helpers;
 using System.IO;
 using Aquality.Selenium.Core.Utilities;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
@@ -54,7 +54,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
             }
 
-            protected override RemoteWebDriver Driver
+            protected override WebDriver Driver
             {
                 get
                 {
@@ -75,7 +75,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 {
                     lock (WebDriverDownloadingLock)
                     {
-                        new DriverManager().SetUpDriver(url, binaryPath, driverConfig.GetBinaryName());
+                        new DriverManager().SetUpDriver(url, binaryPath);
                     }
                 }
             }

@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 var options = new ChromeOptions();
                 SetChromePrefs(options);
-                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
+                SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetChromeArguments(options);
                 SetPageLoadStrategy(options);
                 return options;

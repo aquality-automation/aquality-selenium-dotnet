@@ -28,8 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             { "binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },            
             { "firefox_binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },
             { "firefox_profile", (options, value) => ((FirefoxOptions) options).Profile = new FirefoxProfileManager().GetProfile(value.ToString()) },
-            { "log", (options, value) => ((FirefoxOptions) options).LogLevel = value.ToEnum<FirefoxDriverLogLevel>() },
-            { "marionette", (options, value) => ((FirefoxOptions) options).UseLegacyImplementation = (bool) value }
+            { "log", (options, value) => ((FirefoxOptions) options).LogLevel = value.ToEnum<FirefoxDriverLogLevel>() }
         };
 
         public override DriverOptions DriverOptions
@@ -37,7 +36,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             get
             {
                 var options = new FirefoxOptions();
-                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
+                SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetFirefoxPrefs(options);
                 SetFirefoxArguments(options);
                 SetPageLoadStrategy(options);

@@ -25,7 +25,12 @@ namespace Aquality.Selenium.Configurations
         {
             get
             {
-                if (!Enum.TryParse(settingsFile.GetValue<string>(".browserName"), ignoreCase: true, out BrowserName browserName))
+                var dirtyName = settingsFile.GetValue<string>(".browserName");
+                if (dirtyName.Equals("edgechromium", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    throw new NotSupportedException("EdgeChromium is now officially supported in Selenium 4. Please use 'edge' browserName in settings.json");
+                }
+                if (!Enum.TryParse(dirtyName, ignoreCase: true, out BrowserName browserName))
                 {
                     return BrowserName.Other;
                 }
@@ -49,8 +54,6 @@ namespace Aquality.Selenium.Configurations
                         return new ChromeSettings(settingsFile);
                     case BrowserName.Edge:
                         return new EdgeSettings(settingsFile);
-                    case BrowserName.EdgeChromium:
-                        return new EdgeChromiumSettings(settingsFile);
                     case BrowserName.Firefox:
                         return new FirefoxSettings(settingsFile);
                     case BrowserName.IExplorer:

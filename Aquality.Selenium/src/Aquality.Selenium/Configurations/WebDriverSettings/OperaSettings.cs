@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 var options = new OperaOptions();                
                 SetOperaPrefs(options);
-                SetCapabilities(options, (name, value) => options.AddAdditionalCapability(name, value, isGlobalCapability: true));
+                SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetOperaArguments(options);
                 SetPageLoadStrategy(options);
                 return options;

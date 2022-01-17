@@ -2,7 +2,6 @@
 using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Extensions;
 using System.Drawing;
 using System.Reflection;
@@ -27,7 +26,7 @@ namespace Aquality.Selenium.Browsers
         /// Instantiate browser.
         /// </summary>
         /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
-        public Browser(RemoteWebDriver webDriver)
+        public Browser(WebDriver webDriver)
         {
             Driver = webDriver;
             Logger = AqualityServices.LocalizedLogger;
@@ -48,7 +47,7 @@ namespace Aquality.Selenium.Browsers
         /// Gets instance of Selenium WebDriver.
         /// </summary>
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
-        public RemoteWebDriver Driver { get; }
+        public WebDriver Driver { get; }
 
         /// <summary>
         /// Gets name of desired browser from configuration.
@@ -388,7 +387,6 @@ namespace Aquality.Selenium.Browsers
     {
         Chrome,
         Edge,
-        EdgeChromium,
         Firefox,
         IExplorer,
         Opera,

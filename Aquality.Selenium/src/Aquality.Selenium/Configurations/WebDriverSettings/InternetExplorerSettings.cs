@@ -4,7 +4,6 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {

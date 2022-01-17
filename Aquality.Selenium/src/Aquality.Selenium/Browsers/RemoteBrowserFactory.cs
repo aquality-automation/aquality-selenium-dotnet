@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
 
@@ -16,7 +17,7 @@ namespace Aquality.Selenium.Browsers
         {
         }
 
-        protected override RemoteWebDriver Driver
+        protected override WebDriver Driver
         {
             get
             {

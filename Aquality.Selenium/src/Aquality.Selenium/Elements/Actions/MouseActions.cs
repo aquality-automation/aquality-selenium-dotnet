@@ -1,5 +1,4 @@
 ﻿using System;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
 using SeleniumActions = OpenQA.Selenium.Interactions.Actions;
 using Aquality.Selenium.Elements.Interfaces;
@@ -85,7 +84,7 @@ namespace Aquality.Selenium.Elements.Actions
             return new SeleniumActions(AqualityServices.Browser.Driver).MoveToElement(element);
         }
 
-        private void PerformAction(Func<RemoteWebElement, SeleniumActions> action)
+        private void PerformAction(Func<WebElement, SeleniumActions> action)
         {
             action(element.GetElement()).Build().Perform();
         }

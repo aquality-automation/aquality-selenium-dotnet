@@ -4,7 +4,6 @@ using Aquality.Selenium.Core.Applications;
 using Aquality.Selenium.Core.Configurations;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Core.Localization;
-using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Core.Visualization;
 using Aquality.Selenium.Core.Waitings;
