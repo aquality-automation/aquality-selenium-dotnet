@@ -124,7 +124,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             {
                 try
                 {
-                    var defaultAddCapabilityMethod = addCapabilityMethod ?? options.AddAdditionalCapability;
+                    var defaultAddCapabilityMethod = addCapabilityMethod ?? options.AddAdditionalOption;
                     defaultAddCapabilityMethod(capability.Key, capability.Value);
                 }
                 catch (ArgumentException exception)

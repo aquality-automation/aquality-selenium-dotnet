@@ -148,16 +148,5 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should be switched to correct tab");
             Assert.AreEqual(expectedTabCount, browser.Tabs().TabHandles.Count, "Number of tabs should be correct");
         }
-
-        private void CheckSwitching(int expectedTabCount, Action switchMethod)
-        {
-            var browser = AqualityServices.Browser;
-            var tabHandle = browser.Tabs().CurrentTabHandle;
-            WelcomeForm.ClickElementalSelenium();
-            switchMethod.Invoke();
-            var newTabHandle = browser.Tabs().CurrentTabHandle;
-            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
-            Assert.AreEqual(expectedTabCount, browser.Tabs().TabHandles.Count, "Number of tabs should be correct");
-        }
     }
 }

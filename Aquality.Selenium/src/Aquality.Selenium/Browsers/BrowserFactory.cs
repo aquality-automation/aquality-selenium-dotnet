@@ -2,7 +2,6 @@
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -24,7 +23,7 @@ namespace Aquality.Selenium.Browsers
         protected ITimeoutConfiguration TimeoutConfiguration { get; }
         protected ILocalizedLogger LocalizedLogger { get; }
 
-        protected abstract RemoteWebDriver Driver { get; }
+        protected abstract WebDriver Driver { get; }
 
         public virtual Browser Browser
         {

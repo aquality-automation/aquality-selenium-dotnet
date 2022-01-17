@@ -6,7 +6,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using System;
 using System.IO;
@@ -14,9 +13,6 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
-using EdgeChromiumOptions = Microsoft.Edge.SeleniumTools.EdgeOptions;
-using EdgeChromiumService = Microsoft.Edge.SeleniumTools.EdgeDriverService;
-using EdgeChromiumDriver = Microsoft.Edge.SeleniumTools.EdgeDriver;
 using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium.Opera;
 
@@ -34,14 +30,14 @@ namespace Aquality.Selenium.Browsers
         {
         }
 
-        protected override RemoteWebDriver Driver
+        protected override WebDriver Driver
         {
             get
             {
                 var commandTimeout = TimeoutConfiguration.Command;
                 var browserName = BrowserProfile.BrowserName;
                 var driverSettings = BrowserProfile.DriverSettings;
-                RemoteWebDriver driver;
+                WebDriver driver;
                 switch (browserName)
                 {
                     case BrowserName.Chrome:
@@ -62,13 +58,9 @@ namespace Aquality.Selenium.Browsers
                             (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Edge:
+                        SetUpDriver(new EdgeConfig(), driverSettings);
                         driver = GetDriver<EdgeDriver>(EdgeDriverService.CreateDefaultService(),
                             (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
-                        break;
-                    case BrowserName.EdgeChromium:
-                        SetUpDriver(new EdgeConfig(), driverSettings);
-                        driver = GetDriver<EdgeChromiumDriver>(EdgeChromiumService.CreateChromiumService(),
-                            (EdgeChromiumOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Opera:
                         SetUpDriver(new OperaConfig(), driverSettings);
@@ -86,9 +78,9 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private RemoteWebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : RemoteWebDriver
+        private WebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
         {
-            return (T) Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
+            return (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
         }
 
         private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)

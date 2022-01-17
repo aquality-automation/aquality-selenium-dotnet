@@ -54,15 +54,7 @@
       "startArguments": []
     },
     "edge": {
-      "systemArchitecture": "X64",
-      "capabilities": {
-      },
-      "options": {
-      },
-      "startArguments": []
-    },
-    "edgechromium": {
-      "webDriverVersion": "82.0.458.0",
+      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },

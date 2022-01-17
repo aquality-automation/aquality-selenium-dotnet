@@ -1,5 +1,5 @@
 ﻿using Aquality.Selenium.Core.Localization;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ namespace Aquality.Selenium.Browsers
 {
     public class BrowserTabNavigation : IBrowserTabNavigation
     {
-        private readonly RemoteWebDriver driver;
+        private readonly WebDriver driver;
 
-        internal BrowserTabNavigation(RemoteWebDriver driver)
+        internal BrowserTabNavigation(WebDriver driver)
         {
             this.driver = driver;
         }

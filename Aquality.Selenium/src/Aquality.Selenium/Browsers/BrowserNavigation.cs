@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 using System;
 
 namespace Aquality.Selenium.Browsers
@@ -10,9 +9,9 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class BrowserNavigation : INavigation
     {
-        private readonly RemoteWebDriver driver;
+        private readonly WebDriver driver;
 
-        internal BrowserNavigation(RemoteWebDriver driver)
+        internal BrowserNavigation(WebDriver driver)
         {
             this.driver = driver;
         }
