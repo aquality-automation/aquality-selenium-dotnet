@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class EdgeSettings : DriverSettings
     {
         /// <summary>
-        /// Instantiates class using JSON file with general settings
+        /// Instantiates class using JSON file with general settings.
         /// </summary>
         /// <param name="settingsFile">JSON settings file.</param>
         public EdgeSettings(ISettingsFile settingsFile) : base(settingsFile)
@@ -27,15 +27,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             get
             {
                 var options = new EdgeOptions();
-                SetEdgeChromiumPrefs(options);
+                SetEdgePrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
-                SetEdgeChromiumArguments(options);
+                SetEdgeArguments(options);
                 SetPageLoadStrategy(options);
                 return options;
             }
         }
 
-        private void SetEdgeChromiumPrefs(EdgeOptions options)
+        private void SetEdgePrefs(EdgeOptions options)
         {
             foreach (var option in BrowserOptions)
             {
@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private void SetEdgeChromiumArguments(EdgeOptions options)
+        private void SetEdgeArguments(EdgeOptions options)
         {
             options.AddArguments(BrowserStartArguments);
         }

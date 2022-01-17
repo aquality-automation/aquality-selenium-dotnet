@@ -66,7 +66,7 @@
             Provides functionality to work with browser via Selenium WebDriver.  
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(OpenQA.Selenium.Remote.RemoteWebDriver)">
+        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(OpenQA.Selenium.WebDriver)">
             <summary>
             Instantiate browser.
             </summary>
@@ -510,20 +510,9 @@
             </summary>
             <param name="settingsFile">JSON settings file.</param>
         </member>
-        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.EdgeChromiumSettings">
-            <summary>
-            Settings specific for Edge(chromium) web driver.
-            </summary>
-        </member>
-        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.EdgeChromiumSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
-            <summary>
-            Instantiates class using JSON file with general settings
-            </summary>
-            <param name="settingsFile">JSON settings file.</param>
-        </member>
         <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.EdgeSettings">
             <summary>
-            Settings specific for Edge web driver.
+            Settings specific for Edge (chromium) web driver.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.EdgeSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
@@ -590,6 +579,17 @@
             </summary>
             <param name="settingsFile">Settings file.</param>
         </member>
+        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.OperaSettings">
+            <summary>
+            Settings specific for Opera web driver.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.OperaSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
+            <summary>
+            Instantiates class using JSON file with general settings.
+            </summary>
+            <param name="settingsFile">JSON settings file.</param>
+        </member>
         <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.SafariSettings">
             <summary>
             Settings specific for Safari web driver.
@@ -600,6 +600,17 @@
             Instantiates class using file with general settings.
             </summary>
             <param name="settingsFile">Settings file.</param>
+        </member>
+        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.YandexSettings">
+            <summary>
+            Settings specific for Yandex web driver.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.YandexSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
+            <summary>
+            Instantiates class using JSON file with general settings.
+            </summary>
+            <param name="settingsFile">JSON settings file.</param>
         </member>
         <member name="T:Aquality.Selenium.Elements.Actions.CheckBoxJsActions">
             <summary>
