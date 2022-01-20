@@ -29,6 +29,7 @@ namespace Aquality.Selenium.Browsers
         public Browser(WebDriver webDriver)
         {
             Driver = webDriver;
+            Network = new NetworkHandling(webDriver);
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
@@ -48,6 +49,8 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
         public WebDriver Driver { get; }
+
+        public INetwork Network { get; }
 
         /// <summary>
         /// Gets name of desired browser from configuration.
