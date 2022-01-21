@@ -9,9 +9,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public IButton EnabledButton => ElementFactory.GetButton(By.Id("ui-id-2"), "Enabled");
+        public static IButton EnabledButton => ElementFactory.GetButton(By.Id("ui-id-2"), "Enabled");
 
-        public bool IsEnabledButtonFocused => EnabledButton.GetAttribute("class").Contains("focus");
+        public static bool IsEnabledButtonFocused => EnabledButton.GetAttribute("class").Contains("focus");
 
         protected override string UrlPart => "jqueryui/menu";
     }

@@ -39,8 +39,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var menuForm = new JQueryMenuForm();
             menuForm.Open();
-            menuForm.EnabledButton.MouseActions.MoveToElement();
-            Assert.IsTrue(menuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
+            JQueryMenuForm.EnabledButton.MouseActions.MoveToElement();
+            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
         }
     }
 }

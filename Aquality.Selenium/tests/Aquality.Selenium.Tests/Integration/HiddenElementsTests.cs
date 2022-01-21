@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Integration
         private static readonly Func<ElementState, ElementsCount, IList<ILabel>>[] ElementListProviders
             = new Func<ElementState, ElementsCount, IList<ILabel>>[]
             {
-                (state, count) => hoversForm.GetListElements(state, count),
+                (state, count) => HoversForm.GetListElements(state, count),
                 (state, count) => hoversForm.GetListElementsByName(state, count),
                 (state, count) => hoversForm.GetListElementsByClassName(state, count),
                 (state, count) => hoversForm.GetListElementsByCss(state, count),
@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementExists()
         {
-            Assert.IsTrue(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).State.IsExist);
+            Assert.IsTrue(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).State.IsExist);
         }
 
         [Test]

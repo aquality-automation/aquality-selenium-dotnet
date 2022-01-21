@@ -47,8 +47,8 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var menuForm = new JQueryMenuForm();
             menuForm.Open();
-            menuForm.EnabledButton.JsActions.HoverMouse();            
-            Assert.IsTrue(menuForm.IsEnabledButtonFocused, "Element should be focused after hover");
+            JQueryMenuForm.EnabledButton.JsActions.HoverMouse();            
+            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after hover");
         }
 
         [Test]
@@ -56,15 +56,15 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var form = new ForgotPasswordForm();
             form.Open();
-            form.EmailTextBox.ClearAndType("peter.parker@example.com");
-            form.RetrievePasswordButton.JsActions.SetFocus();
+            ForgotPasswordForm.EmailTextBox.ClearAndType("peter.parker@example.com");
+            ForgotPasswordForm.RetrievePasswordButton.JsActions.SetFocus();
             
-            var currentText = form.EmailTextBox.Value;
+            var currentText = ForgotPasswordForm.EmailTextBox.Value;
             var expectedText = currentText.Remove(currentText.Length - 1);
-            form.EmailTextBox.JsActions.SetFocus();
-            form.EmailTextBox.SendKeys(Keys.Delete);
-            form.EmailTextBox.SendKeys(Keys.Backspace);
-            Assert.AreEqual(expectedText, form.EmailTextBox.Value, $"One character should be removed from '{currentText}'");
+            ForgotPasswordForm.EmailTextBox.JsActions.SetFocus();
+            ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Delete);
+            ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Backspace);
+            Assert.AreEqual(expectedText, ForgotPasswordForm.EmailTextBox.Value, $"One character should be removed from '{currentText}'");
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             hoversForm.Open();
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
+                Assert.IsFalse(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
                     $"Hidden element for {HoverExample.First} should be invisible.");
-                Assert.IsTrue(hoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
+                Assert.IsTrue(HoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
                     $"Element for {HoverExample.First} should be visible.");
             });
         }

@@ -21,17 +21,17 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected override string UrlPart => "hovers";
 
-        public ILabel GetHiddenElement(HoverExample example, ElementState state = ElementState.Displayed)
+        public static ILabel GetHiddenElement(HoverExample example, ElementState state = ElementState.Displayed)
         {
             return ElementFactory.GetLabel(By.XPath(string.Format(HiddenElementTmpLoc, (int)example)), $"Hidden element for {example} example", state);
         }
 
-        public ILabel GetExample(HoverExample example)
+        public static ILabel GetExample(HoverExample example)
         {
             return ElementFactory.GetLabel(By.XPath(string.Format(ExampleTmpLoc, (int)example)), $"{example} example");
         }
 
-        public IList<ILabel> GetListElements(ElementState state, ElementsCount count)
+        public static IList<ILabel> GetListElements(ElementState state, ElementsCount count)
         {
             return ElementFactory.FindElements<ILabel>(By.XPath(string.Format(HiddenElementTmpLoc, string.Empty)), state: state, expectedCount: count);
         }

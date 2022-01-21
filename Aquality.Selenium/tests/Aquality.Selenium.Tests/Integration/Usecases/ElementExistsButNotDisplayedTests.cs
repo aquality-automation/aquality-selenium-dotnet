@@ -23,14 +23,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         [Test]
         public void Should_BePossibleTo_WaitForElement_WhichExistsButNotDisplayed()
         {
-            var button = hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState);
+            var button = HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState);
             Assert.IsTrue(AqualityServices.ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
         }
 
         [Test]
         public void Should_ThrowWebDriverTimeoutException_WhenElementNotInDesiredState()
         {
-            Assert.Throws<WebDriverTimeoutException>(() => hoversForm.GetHiddenElement(HoverExample.First, ElementState.Displayed).GetElement(smallTimeout));
+            Assert.Throws<WebDriverTimeoutException>(() => HoversForm.GetHiddenElement(HoverExample.First, ElementState.Displayed).GetElement(smallTimeout));
         }
 
         [Test]

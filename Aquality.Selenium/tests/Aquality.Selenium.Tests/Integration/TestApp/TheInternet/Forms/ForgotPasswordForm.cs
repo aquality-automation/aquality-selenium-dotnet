@@ -9,9 +9,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("email"), "E-mail");
+        public static ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("email"), "E-mail");
 
-        public IButton RetrievePasswordButton => ElementFactory.GetButton(By.Id("form_submit"), "Retrieve password");
+        public static IButton RetrievePasswordButton => ElementFactory.GetButton(By.Id("form_submit"), "Retrieve password");
 
         protected override string UrlPart => "forgot_password";
     }
