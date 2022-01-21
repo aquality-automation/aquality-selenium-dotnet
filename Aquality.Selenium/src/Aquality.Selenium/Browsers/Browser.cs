@@ -50,6 +50,9 @@ namespace Aquality.Selenium.Browsers
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
         public WebDriver Driver { get; }
 
+        /// <summary>
+        /// Provides Network Handling functionality <see cref="NetworkHandling"/>
+        /// </summary>
         public INetwork Network { get; }
 
         /// <summary>
