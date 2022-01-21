@@ -30,12 +30,12 @@ namespace Aquality.Selenium.Browsers
         {
             add
             {
-                Logger.Info("loc.browser.network.requestsent.add");
+                Logger.Info("loc.browser.network.event.requestsent.add");
                 network.NetworkRequestSent += value;
             }
             remove
             {
-                Logger.Info("loc.browser.network.requestsent.remove");
+                Logger.Info("loc.browser.network.event.requestsent.remove");
                 network.NetworkRequestSent -= value;
             }
         }
@@ -47,12 +47,12 @@ namespace Aquality.Selenium.Browsers
         {
             add
             {
-                Logger.Info("loc.browser.network.responsereceived.add");
+                Logger.Info("loc.browser.network.event.responsereceived.add");
                 network.NetworkResponseReceived += value;
             }
             remove
             {
-                Logger.Info("loc.browser.network.responsereceived.remove");
+                Logger.Info("loc.browser.network.event.responsereceived.remove");
                 network.NetworkResponseReceived -= value;
             }
         }
@@ -63,7 +63,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
         public void AddAuthenticationHandler(NetworkAuthenticationHandler handler)
         {
-            Logger.Info("loc.browser.network.authentication.add");
+            Logger.Info("loc.browser.network.handler.authentication.add");
             network.AddAuthenticationHandler(handler);
         }
 
@@ -73,7 +73,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="handler">Handler parameters: request matcher, request transformer and response supplier.</param>
         public void AddRequestHandler(NetworkRequestHandler handler)
         {
-            Logger.Info("loc.browser.network.request.add");
+            Logger.Info("loc.browser.network.handler.request.add");
             network.AddRequestHandler(handler);
         }
 
@@ -83,7 +83,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="handler">Handler parameters: response matcher and transformer.</param>
         public void AddResponseHandler(NetworkResponseHandler handler)
         {
-            Logger.Info("loc.browser.network.response.add");
+            Logger.Info("loc.browser.network.handler.response.add");
             network.AddResponseHandler(handler);
         }
 
@@ -92,7 +92,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void ClearAuthenticationHandlers()
         {
-            Logger.Info("loc.browser.network.authentication.clear");
+            Logger.Info("loc.browser.network.handler.authentication.clear");
             network.ClearAuthenticationHandlers();
         }
 
@@ -101,7 +101,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void ClearRequestHandlers()
         {
-            Logger.Info("loc.browser.network.request.clear");
+            Logger.Info("loc.browser.network.handler.request.clear");
             network.ClearRequestHandlers();
         }
 
@@ -110,7 +110,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void ClearResponseHandlers()
         {
-            Logger.Info("loc.browser.network.response.clear");
+            Logger.Info("loc.browser.network.handler.response.clear");
             network.ClearResponseHandlers();
         }
 

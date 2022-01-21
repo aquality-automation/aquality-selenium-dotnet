@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="2.0.0" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="2.0.1" />
     <PackageReference Include="WebDriverManager" Version="2.12.3" />
   </ItemGroup>
 

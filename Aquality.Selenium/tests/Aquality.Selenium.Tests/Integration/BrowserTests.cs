@@ -238,48 +238,5 @@ namespace Aquality.Selenium.Tests.Integration
             var downloadDir = AqualityServices.Browser.DownloadDirectory;
             Assert.IsTrue(downloadDir.ToLower().Contains("downloads", StringComparison.InvariantCultureIgnoreCase));
         }
-
-        [Test]
-        public void Should_BePossibleTo_SetBasicAuthentication()
-        {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.Open();
-            var basicAuthForm = new BasicAuthForm();
-            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(basicAuthForm.Domain, basicAuthForm.User, basicAuthForm.Password),
-                "Should be possible to set basic authentication async");
-            basicAuthForm.Open();
-            Assert.IsTrue(basicAuthForm.IsCongratulationsPresent, "Basic authentication should work");
-        }
-
-        [Test]
-        public void Should_BePossibleTo_ClearBasicAuthentication()
-        {
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.Open();
-            var basicAuthForm = new BasicAuthForm();
-            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(basicAuthForm.Domain, basicAuthForm.User, basicAuthForm.Password),
-                "Should be possible to set basic authentication async");
-            AqualityServices.Browser.Network.ClearAuthenticationHandlers();
-            basicAuthForm.Open();            
-            Assert.IsFalse(basicAuthForm.IsCongratulationsPresent, "Basic authentication should not work after the handler is cleared");
-        }
-
-        [Test]
-        public void Should_BePossibleTo_AddAndClearRequestHandler()
-        {
-            const string somePhrase = "delicious cheese!";
-            AqualityServices.Browser.Network.AddRequestHandler(new NetworkRequestHandler 
-            { 
-                RequestMatcher = req => true,
-                ResponseSupplier = req => new HttpResponseData { Body = somePhrase, StatusCode = 200 }
-            });
-            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.Network.StartMonitoring());
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.Open();
-            StringAssert.Contains(somePhrase, AqualityServices.Browser.Driver.PageSource, "Request should be intercepted");
-            AqualityServices.Browser.Network.ClearRequestHandlers();
-            welcomeForm.Open();
-            StringAssert.DoesNotContain(somePhrase, AqualityServices.Browser.Driver.PageSource, "Request should not be intercepted");
-        }
     }
 }

@@ -13,7 +13,7 @@ namespace Aquality.Selenium.Tests.Integration
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var basicAuthForm = new BasicAuthForm();
-            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(basicAuthForm.Domain, basicAuthForm.User, basicAuthForm.Password),
+            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(BasicAuthForm.Domain, BasicAuthForm.User, BasicAuthForm.Password),
                 "Should be possible to set basic authentication async");
             basicAuthForm.Open();
             Assert.IsTrue(basicAuthForm.IsCongratulationsPresent, "Basic authentication should work");
@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Tests.Integration
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var basicAuthForm = new BasicAuthForm();
-            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(basicAuthForm.Domain, basicAuthForm.User, basicAuthForm.Password),
+            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(BasicAuthForm.Domain, BasicAuthForm.User, BasicAuthForm.Password),
                 "Should be possible to set basic authentication async");
             AqualityServices.Browser.Network.ClearAuthenticationHandlers();
             basicAuthForm.Open();            

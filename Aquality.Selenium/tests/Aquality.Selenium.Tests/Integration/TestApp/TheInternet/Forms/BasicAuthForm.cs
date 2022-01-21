@@ -16,11 +16,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected override string UrlPart => "basic_auth";
 
-        public string User => userAndPass;
+        public static string User => userAndPass;
         
-        public string Password => userAndPass;
+        public static string Password => userAndPass;
 
-        public string Domain => domain;
+        public static string Domain => domain;
 
         public bool IsCongratulationsPresent => CongratulationsLabel.State.IsDisplayed;
     }
