@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
+using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers;
 using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Modals;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -21,6 +22,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         private static string Email => $"john+{DateTime.Now.Millisecond}@doe.com";
 
         [Test]
+        [Ignore("automationpractice.com site is down")]
         public void Should_BePossibleTo_PerformActions()
         {
             // website automationpractice.com is out of resources and unable to proceed operations sometimes
@@ -35,7 +37,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         private void ActionsOnAutomationPractice()
         {
             AqualityServices.Browser.Quit();
-            OpenAutomationPracticeSite();
+            SiteLoader.OpenAutomationPracticeSite();
             AqualityServices.Browser.Maximize();
             var sliderForm = new SliderForm();
             Assert.IsTrue(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");

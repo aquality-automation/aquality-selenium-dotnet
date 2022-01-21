@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using TheInternetAuthenticationForm = Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms.AuthenticationForm;
 using NUnit.Framework;
@@ -188,12 +187,17 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_ScrollWindowBy()
         {
-            OpenAutomationPracticeSite();
-            var sliderForm = new SliderForm();
-            var initialY = sliderForm.FormPointInViewPort.Y;
-            var formHeight = sliderForm.Size.Height;
-            AqualityServices.Browser.ScrollWindowBy(0, formHeight);
-            Assert.LessOrEqual(Math.Abs(formHeight - (initialY - sliderForm.FormPointInViewPort.Y)), 1, "Window should be scrolled.");
+            var infiniteScrollForm = new InfiniteScrollForm();
+            infiniteScrollForm.Open();
+            infiniteScrollForm.WaitForPageToLoad();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            Assert.DoesNotThrow(
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
+                {
+                    var formHeight = infiniteScrollForm.Size.Height;
+                    AqualityServices.Browser.ScrollWindowBy(0, formHeight);
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }), "Some examples should be added after scroll");
         }
 
         [Test]

@@ -78,6 +78,11 @@
             </summary>
             <value>Instance of Selenium WebDriver for desired web browser.</value>
         </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.Network">
+            <summary>
+            Provides Network Handling functionality <see cref="T:Aquality.Selenium.Browsers.NetworkHandling"/>
+            </summary>
+        </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.BrowserName">
             <summary>
             Gets name of desired browser from configuration.
