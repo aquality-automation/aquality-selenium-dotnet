@@ -33,37 +33,37 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         public static IList<ILabel> GetListElements(ElementState state, ElementsCount count)
         {
-            return ElementFactory.FindElements<ILabel>(By.XPath(string.Format(HiddenElementTmpLoc, string.Empty)), state: state, expectedCount: count);
+            return ElementFactory.FindElements<ILabel>(By.XPath(string.Format(HiddenElementTmpLoc, string.Empty)), "Element by xpath", state: state, expectedCount: count);
         }
 
         public IList<ILabel> GetListElementsByName(ElementState state, ElementsCount count)
         {
-            return ElementFactory.FindElements<ILabel>(ItemByName, state: state, expectedCount: count);
+            return ElementFactory.FindElements<ILabel>(ItemByName, "Item by name", state: state, expectedCount: count);
         }
 
         public IList<ILabel> GetListElementsByClassName(ElementState state, ElementsCount count)
         {
-            return ElementFactory.FindElements<ILabel>(ItemByClassName, state: state, expectedCount: count);
+            return ElementFactory.FindElements<ILabel>(ItemByClassName, "Item by class name", state: state, expectedCount: count);
         }
 
         public IList<ILabel> GetListElementsByCss(ElementState state, ElementsCount count)
         {
-            return ElementFactory.FindElements<ILabel>(ItemByCssSelector, state: state, expectedCount: count);
+            return ElementFactory.FindElements<ILabel>(ItemByCssSelector, "Item by css", state: state, expectedCount: count);
         }
 
         public ILabel GetChildElementByNonXPath(ElementState state)
         {
-            return FormElement.FindChildElement<ILabel>(ItemByCssSelector, state: state);
+            return FormElement.FindChildElement<ILabel>(ItemByCssSelector, "Child by non xpath", state: state);
         }
 
         public IList<ILabel> GetListElementsByDottedXPath(ElementState state, ElementsCount count)
         {
-            return ElementFactory.FindElements<ILabel>(DottedXPath, state: state, expectedCount: count);
+            return ElementFactory.FindElements<ILabel>(DottedXPath, "Item by dotted xpath", state: state, expectedCount: count);
         }
 
         public IList<ILabel> GetChildElementsByDottedXPath(ElementState state, ElementsCount count)
         {
-            return FormElement.FindChildElements<ILabel>(DottedXPath, state: state, expectedCount: count);
+            return FormElement.FindChildElements<ILabel>(DottedXPath, "Child by dotted xpath", state: state, expectedCount: count);
         }
     }
 

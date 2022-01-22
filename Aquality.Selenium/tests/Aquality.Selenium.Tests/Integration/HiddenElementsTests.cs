@@ -56,7 +56,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
-                Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
+                Assert.IsTrue(elements.All(element => element.State.WaitForNotDisplayed()));
             });
         }
     }
