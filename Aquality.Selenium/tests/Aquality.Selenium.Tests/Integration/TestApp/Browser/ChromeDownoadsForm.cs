@@ -8,7 +8,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
     internal class ChromeDownoadsForm : Form
     {
         private const string Address = "chrome://downloads/";
-        public By NestedShadowRootLocator => By.Id("moreActionsMenu");
+
+        public static By NestedShadowRootLocator => By.Id("moreActionsMenu");
         public ILabel DownloadsToolbarLabel => FormElement.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
         public ILabel MainContainerLabel => FormElement.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
         public ILabel DownloadsToolbarLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
@@ -18,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
         {
         }
 
-        public void Open()
+        public static void Open()
         {
             AqualityServices.Browser.GoTo(Address);
         }

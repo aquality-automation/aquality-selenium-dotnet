@@ -72,6 +72,11 @@ namespace Aquality.Selenium.Elements
             return ResolveSupplier(supplier)(locator, name, state);
         }
 
+        private ElementSupplier<T> ResolveSupplier<T>() where T : Interfaces.IElement
+        {
+            return ResolveSupplier<T>(null);
+        }
+
         protected override ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier = null)
         {
             var baseSupplier = base.ResolveSupplier(supplier);
