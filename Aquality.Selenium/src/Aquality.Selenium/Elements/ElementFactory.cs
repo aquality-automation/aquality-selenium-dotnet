@@ -77,7 +77,7 @@ namespace Aquality.Selenium.Elements
             return ResolveSupplier<T>(null);
         }
 
-        protected override ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier = null)
+        protected override ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier)
         {
             var baseSupplier = base.ResolveSupplier(supplier);
             return (loc, name, state) =>
