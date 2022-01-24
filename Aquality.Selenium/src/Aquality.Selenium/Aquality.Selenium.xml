@@ -78,6 +78,11 @@
             </summary>
             <value>Instance of Selenium WebDriver for desired web browser.</value>
         </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.Network">
+            <summary>
+            Provides Network Handling functionality <see cref="T:Aquality.Selenium.Browsers.NetworkHandling"/>
+            </summary>
+        </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.BrowserName">
             <summary>
             Gets name of desired browser from configuration.
@@ -328,6 +333,24 @@
             Refreshes current page.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.BrowserNetworkExtensions.RegisterBasicAuthenticationAndStartMonitoring(Aquality.Selenium.Browsers.Browser,System.String,System.String,System.String)">
+            <summary>
+            Registers authentication handler and awaits to start network monitoring.
+            </summary>
+            <param name="browser">Browser instance.</param>
+            <param name="hostPart">Part of the host name for URI matcher.</param>
+            <param name="username">Username for authentication.</param>
+            <param name="password">Password for authentication.</param>
+            <returns>A task to be awaited.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.BrowserNetworkExtensions.RegisterBasicAuthenticationAndStartMonitoring(Aquality.Selenium.Browsers.Browser,OpenQA.Selenium.NetworkAuthenticationHandler)">
+            <summary>
+            Registers authentication handler and awaits to start network monitoring.
+            </summary>
+            <param name="browser">Browser instance.</param>
+            <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
+            <returns>A task to be awaited.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>
             Factory that creates instance of desired Browser based on <see cref="T:Aquality.Selenium.Configurations.IBrowserProfile"/>.
@@ -414,6 +437,72 @@
             <summary>
             Factory that creates instance of local Browser.
             </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.NetworkHandling">
+            <summary>
+            Wrap over implementation of Selenium WebDriver INetwork.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.#ctor(OpenQA.Selenium.WebDriver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Aquality.Selenium.Browsers.NetworkHandling"/> class.
+            </summary>
+            <param name="driver">The <see cref="T:OpenQA.Selenium.IWebDriver"/> instance on which the network should be monitored.</param>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.NetworkHandling.NetworkRequestSent">
+            <summary>
+            A network request sent event.
+            </summary>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.NetworkHandling.NetworkResponseReceived">
+            <summary>
+            A network response received event.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.AddAuthenticationHandler(OpenQA.Selenium.NetworkAuthenticationHandler)">
+            <summary>
+            Add basic authentication handler.
+            </summary>
+            <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.AddRequestHandler(OpenQA.Selenium.NetworkRequestHandler)">
+            <summary>
+            Add request handler.
+            </summary>
+            <param name="handler">Handler parameters: request matcher, request transformer and response supplier.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.AddResponseHandler(OpenQA.Selenium.NetworkResponseHandler)">
+            <summary>
+            Add response handler.
+            </summary>
+            <param name="handler">Handler parameters: response matcher and transformer.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.ClearAuthenticationHandlers">
+            <summary>
+            Clear basic authentication handlers.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.ClearRequestHandlers">
+            <summary>
+            Clear request handlers.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.ClearResponseHandlers">
+            <summary>
+            Clear response handlers.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.StartMonitoring">
+            <summary>
+            Awaits to start network monitoring.
+            </summary>
+            <returns>A task to be awaited.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.StopMonitoring">
+            <summary>
+            Awaits to stop network monitoring.
+            </summary>
+            <returns>A task to be awaited.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.RemoteBrowserFactory">
             <summary>

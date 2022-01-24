@@ -72,5 +72,17 @@
   "loc.browser.get.tab.handles": "Атрыманне спісу дэскрыптараў адкрытых укладак",
   "loc.browser.get.tab.handle": "Атрыманне дэскрыптара бягучай укладкі",
   "loc.browser.tab.open.new": "Адкрыццё новай укладкі",
-  "loc.browser.tab.close": "Закрыццё ўкладкі"
+  "loc.browser.tab.close": "Закрыццё ўкладкі",
+  "loc.browser.network.event.requestsent.add": "Падпісваемся на падзею адпраўкі сеткавага запыта",
+  "loc.browser.network.event.requestsent.remove": "Адпісваемся ад падзеі адпраўкі сеткавага запыта",
+  "loc.browser.network.event.responsereceived.add": "Падпісваемся на падзею атрымання сеткавага адказа",
+  "loc.browser.network.event.responsereceived.remove": "Адпісваемся ад падзеі атрымання сеткавага адказа",
+  "loc.browser.network.handler.authentication.add": "Дадаем апрацоўшчык базавай аўтэнтыфікацыі",
+  "loc.browser.network.handler.authentication.clear": "Ачышчаем апрацоўшчыкі базавай аўтэнтыфікацыі",
+  "loc.browser.network.handler.request.add": "Дадаем апрацоўшчык сеткавых запытаў",
+  "loc.browser.network.handler.request.clear": "Ачышчаем апрацоўшчыкі сеткавых запытаў",
+  "loc.browser.network.handler.response.add": "Дадаем апрацоўшчык сеткавых адказаў",
+  "loc.browser.network.handler.response.clear": "Ачышчаем апрацоўшчыкі сеткавых адказаў",
+  "loc.browser.network.monitoring.start": "Пачынаем сеткавы маніторынг",
+  "loc.browser.network.monitoring.stop": "Спыняем сеткавы маніторынг"
 }

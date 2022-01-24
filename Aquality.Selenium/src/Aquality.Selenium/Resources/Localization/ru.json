@@ -49,7 +49,7 @@
   "loc.hover.js": "Наведение курсора на элемент посредством JavaScript",
   "loc.is.present.js": "Присутствует ли (посредством JavaScript)",
   "loc.is.present.value": "Присутствует ли на экране: [{0}]",
-  "loc.get.xpath.js": "Получение XPath локатора элемента посредством JavaScrip",
+  "loc.get.xpath.js": "Получение XPath локатора элемента посредством JavaScript",
   "loc.xpath.value": "XPath локатор: [{0}]",
   "loc.label": "Надпись",
   "loc.link": "Ссылка",
@@ -72,5 +72,17 @@
   "loc.browser.get.tab.handles": "Получение списка дескрипторов открытых вкладок",
   "loc.browser.get.tab.handle": "Получение дескриптора текущей вкладки",
   "loc.browser.tab.open.new": "Открытие новой вкладки",
-  "loc.browser.tab.close": "Закрытие вкладки"
+  "loc.browser.tab.close": "Закрытие вкладки",
+  "loc.browser.network.event.requestsent.add": "Подписываемся на событие отправки сетевого запроса",
+  "loc.browser.network.event.requestsent.remove": "Отписываемся от события отправки сетевого запроса",
+  "loc.browser.network.event.responsereceived.add": "Подписываемся на событие получения сетевого ответа",
+  "loc.browser.network.event.responsereceived.remove": "Отписываемся от события получения сетевого ответа",
+  "loc.browser.network.handler.authentication.add": "Добавление обработчика базовой аутентификации",
+  "loc.browser.network.handler.authentication.clear": "Очистка обработчиков базовой аутентификации",
+  "loc.browser.network.handler.request.add": "Добавление обработчика сетевых запросов",
+  "loc.browser.network.handler.request.clear": "Очистка обработчиков сетевых запросов",
+  "loc.browser.network.handler.response.add": "Добавление обработчика сетевых ответов",
+  "loc.browser.network.handler.response.clear": "Очистка обработчиков сетевых ответов",
+  "loc.browser.network.monitoring.start": "Начинаем сетевой мониторинг",
+  "loc.browser.network.monitoring.stop": "Останавливаем сетевой мониторинг"
 }

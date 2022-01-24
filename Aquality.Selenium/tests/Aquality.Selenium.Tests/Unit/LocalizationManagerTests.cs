@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Tests.Unit
     [Parallelizable(ParallelScope.Children)]
     internal class LocalizationManagerTests
     {
-        private const string LocalizedNavigationMessage = "Navigate to url - 'test'";
+        private const string LocalizedNavigationMessage = "Navigate to URL - 'test'";
         private const string LogPath = "../../../Log/log.log";
         private const string TestUrl = "test";
         private const string NavigationKey = "loc.browser.navigate";

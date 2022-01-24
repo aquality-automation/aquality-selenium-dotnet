@@ -44,7 +44,24 @@ private ITextBox EmailTextBox => ElementFactory.GetTextBox(By.Id("email_create")
 emailTextBox.Type("email@domain.com");
 ```
 
-6. Quit browser at the end:
+6. Handle basic authentication:
+```csharp
+Assert.DoesNotThrowAsync(() => browser.RegisterBasicAuthenticationAndStartMonitoring("domain.com", "username", "password"),
+                "Should be possible to set basic authentication async");
+```
+or intercept network requests/responses:
+```csharp
+browser.Network.AddRequestHandler(
+    new NetworkRequestHandler 
+    { 
+        RequestMatcher = req => true,
+        ResponseSupplier = req => new HttpResponseData { Body = "my body content", StatusCode = 200 }
+    });
+Assert.DoesNotThrowAsync(() => browser.Network.StartMonitoring());
+```
+see more examples at [NetworkHandlingTests](Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/NetworkHandlingTests.cs).
+
+7. Quit browser at the end:
 ```csharp
 browser.Quit();
 ```
@@ -55,4 +72,4 @@ To get more details please look at wiki:
 - [In Russian](https://github.com/aquality-automation/aquality-selenium-dotnet/wiki/Overview-(Russian))
 
 ### License
-Library's source code is made available under the [Apache 2.0 license](https://github.com/aquality-automation/aquality-selenium-dotnet/blob/master/LICENSE).
+Library's source code is made available under the [Apache 2.0 license](LICENSE).

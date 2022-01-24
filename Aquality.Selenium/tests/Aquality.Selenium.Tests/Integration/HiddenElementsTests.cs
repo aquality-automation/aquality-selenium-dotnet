@@ -1,6 +1,6 @@
 ﻿using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
+using Aquality.Selenium.Elements.Interfaces;
+using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,36 +10,35 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class HiddenElementsTests : UITest
     {
-        private static readonly ProductTabContentForm productsForm = new ProductTabContentForm();
+        private static readonly HoversForm hoversForm = new HoversForm();
 
-        private static readonly Func<ElementState, ElementsCount, IList<Label>>[] ElementListProviders
-            = new Func<ElementState, ElementsCount, IList<Label>>[]
+        private static readonly Func<ElementState, ElementsCount, IList<ILabel>>[] ElementListProviders
+            = new Func<ElementState, ElementsCount, IList<ILabel>>[]
             {
-                (state, count) => productsForm.GetListElements(state, count),
-                (state, count) => productsForm.GetListElementsById(state, count),
-                (state, count) => productsForm.GetListElementsByName(state, count),
-                (state, count) => productsForm.GetListElementsByClassName(state, count),
-                (state, count) => productsForm.GetListElementsByCss(state, count),
-                (state, count) => productsForm.GetListElementsByDottedXPath(state, count),
-                (state, count) => productsForm.GetChildElementsByDottedXPath(state, count),
-                (state, count) => new List<Label> { productsForm.GetChildElementByNonXPath(state) }
+                (state, count) => HoversForm.GetListElements(state, count),
+                (state, count) => hoversForm.GetListElementsByName(state, count),
+                (state, count) => hoversForm.GetListElementsByClassName(state, count),
+                (state, count) => hoversForm.GetListElementsByCss(state, count),
+                (state, count) => hoversForm.GetListElementsByDottedXPath(state, count),
+                (state, count) => hoversForm.GetChildElementsByDottedXPath(state, count),
+                (state, count) => new List<ILabel> { hoversForm.GetChildElementByNonXPath(state) }
             };
 
         [SetUp]
         public void BeforeTest()
         {
-            OpenAutomationPracticeSite();
+            hoversForm.Open();
         }
 
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementExists()
         {
-            Assert.IsTrue(new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState).State.IsExist);
+            Assert.IsTrue(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).State.IsExist);
         }
 
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementsExist(
-            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<ILabel>> elementListProvider)
         {
             var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
@@ -51,13 +50,13 @@ namespace Aquality.Selenium.Tests.Integration
 
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed(
-            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<Label>> elementListProvider)
+            [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<ILabel>> elementListProvider)
         {
             var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
-                Assert.IsFalse(elements.Any(element => element.State.WaitForDisplayed(TimeSpan.FromSeconds(1))));
+                Assert.IsTrue(elements.All(element => element.State.WaitForNotDisplayed()));
             });
         }
     }

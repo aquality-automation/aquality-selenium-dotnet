@@ -1,5 +1,4 @@
 using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 
@@ -38,14 +37,10 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_MoveToElement()
         {
-            OpenAutomationPracticeSite();
-            var productList = new ProductListForm();
-            productList.NavigateToLastProduct();
-
-            var product = new ProductForm();
-            product.GetLastProductView().MouseActions.MoveToElement();
-            var classAttribute = product.GetLastProductView().GetAttribute("class");
-            Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown after move mouse");
+            var menuForm = new JQueryMenuForm();
+            menuForm.Open();
+            JQueryMenuForm.EnabledButton.MouseActions.MoveToElement();
+            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
         }
     }
 }

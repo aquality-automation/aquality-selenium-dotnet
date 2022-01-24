@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
-using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
+using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -10,27 +10,27 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     internal class ElementExistsButNotDisplayedTests : UITest
     {
-        private readonly SliderForm sliderForm = new SliderForm();
+        private static readonly HoversForm hoversForm = new HoversForm();
         private readonly By fakeElement = By.XPath("//fake");
         private readonly TimeSpan smallTimeout = TimeSpan.FromSeconds(1);
 
         [SetUp]
         public void BeforeTest()
         {
-            OpenAutomationPracticeSite();
+            hoversForm.Open();
         }
 
         [Test]
         public void Should_BePossibleTo_WaitForElement_WhichExistsButNotDisplayed()
         {
-            var button = new SliderForm().GetAddToCartBtn(ElementState.ExistsInAnyState);
+            var button = HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState);
             Assert.IsTrue(AqualityServices.ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
         }
 
         [Test]
         public void Should_ThrowWebDriverTimeoutException_WhenElementNotInDesiredState()
         {
-            Assert.Throws<WebDriverTimeoutException>(() => sliderForm.GetAddToCartBtn(ElementState.Displayed).GetElement(smallTimeout));
+            Assert.Throws<WebDriverTimeoutException>(() => HoversForm.GetHiddenElement(HoverExample.First, ElementState.Displayed).GetElement(smallTimeout));
         }
 
         [Test]

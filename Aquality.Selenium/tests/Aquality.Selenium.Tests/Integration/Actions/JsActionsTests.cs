@@ -5,7 +5,6 @@ using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements;
-using Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -46,30 +45,26 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         [Test]
         public void Should_BePossibleTo_HoverMouse()
         {
-            OpenAutomationPracticeSite();
-            var productList = new ProductListForm();
-            productList.NavigateToLastProduct();
-
-            var product = new ProductForm();
-            product.GetLastProductView().JsActions.HoverMouse();
-            var classAttribute = product.GetLastProductView().GetAttribute("class");
-            Assert.IsTrue(classAttribute.Contains("shown"), "Product view should be shown");
+            var menuForm = new JQueryMenuForm();
+            menuForm.Open();
+            JQueryMenuForm.EnabledButton.JsActions.HoverMouse();            
+            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after hover");
         }
 
         [Test]
         public void Should_BePossibleTo_SetFocus()
         {
-            OpenAutomationPracticeSite();
-            var productList = new ProductListForm();
-            productList.NavigateToLastProduct();
-
-            var product = new ProductForm();
-            var currentText = product.TxtQuantity.Value;
+            var form = new ForgotPasswordForm();
+            form.Open();
+            ForgotPasswordForm.EmailTextBox.ClearAndType("peter.parker@example.com");
+            ForgotPasswordForm.RetrievePasswordButton.JsActions.SetFocus();
+            
+            var currentText = ForgotPasswordForm.EmailTextBox.Value;
             var expectedText = currentText.Remove(currentText.Length - 1);
-            product.TxtQuantity.JsActions.SetFocus();
-            product.TxtQuantity.SendKeys(Keys.Delete);
-            product.TxtQuantity.SendKeys(Keys.Backspace);
-            Assert.AreEqual(expectedText, product.TxtQuantity.Value, $"One character should be removed from '{currentText}'");
+            ForgotPasswordForm.EmailTextBox.JsActions.SetFocus();
+            ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Delete);
+            ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Backspace);
+            Assert.AreEqual(expectedText, ForgotPasswordForm.EmailTextBox.Value, $"One character should be removed from '{currentText}'");
         }
 
         [Test]
@@ -79,9 +74,9 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             hoversForm.Open();
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(hoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
+                Assert.IsFalse(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
                     $"Hidden element for {HoverExample.First} should be invisible.");
-                Assert.IsTrue(hoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
+                Assert.IsTrue(HoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
                     $"Element for {HoverExample.First} should be visible.");
             });
         }
