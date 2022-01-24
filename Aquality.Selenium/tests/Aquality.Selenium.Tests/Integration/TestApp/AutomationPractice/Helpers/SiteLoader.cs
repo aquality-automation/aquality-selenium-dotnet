@@ -1,7 +1,7 @@
-﻿using Aquality.Selenium.Elements.Interfaces;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 using System;
-using static Aquality.Selenium.Browsers.AqualityServices;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers
 {
@@ -9,16 +9,16 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Helpers
     {
         public static void OpenAutomationPracticeSite(string customUrl = null)
         {
-            var resourceLimitLabel = Get<IElementFactory>()
+            var resourceLimitLabel = AqualityServices.Get<IElementFactory>()
                 .GetLabel(By.XPath("//h1[.='Resource Limit Is Reached']"), "Resource Limit Is Reached");
-            Browser.GoTo(customUrl ?? Constants.UrlAutomationPractice);
-            Browser.WaitForPageToLoad();
-            ConditionalWait.WaitForTrue(() =>
+            AqualityServices.Browser.GoTo(customUrl ?? Constants.UrlAutomationPractice);
+            AqualityServices.Browser.WaitForPageToLoad();
+            AqualityServices.ConditionalWait.WaitForTrue(() =>
             {
                 if (resourceLimitLabel.State.IsDisplayed)
                 {
-                    Browser.Refresh();
-                    Browser.WaitForPageToLoad();
+                    AqualityServices.Browser.Refresh();
+                    AqualityServices.Browser.WaitForPageToLoad();
                     return false;
                 }
                 return true;
