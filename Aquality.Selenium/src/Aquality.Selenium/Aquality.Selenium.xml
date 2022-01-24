@@ -755,6 +755,24 @@
             Allows to perform actions on elements via JavaScript.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ExpandShadowRoot">
+            <summary>
+            Expands shadow root.
+            </summary>
+            <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds element in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="locator">Locator of the target element. 
+            Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
+            <param name="name">Name of the target element.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="state">State of the target element.</param>
+            <returns>Instance of element.</returns>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ClickAndWait">
             <summary>
             Perfroms click on element and waits for page is loaded.
@@ -1368,7 +1386,7 @@
             <summary>
             Gets element text.
             </summary>
-            <param name="highlightState">Should the element be hightlighted or not. 
+            <param name="highlightState">Should the element be highlighted or not. 
             Default value is from configuration: <seealso cref="P:Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
             <returns>String representation of element text.</returns>
         </member>
@@ -1376,8 +1394,8 @@
             <summary>
             Gets element attribute value by its name.
             </summary>
-            <param name="attr">Name of attrbiute</param>
-            <param name="highlightState">Should the element be hightlighted or not. 
+            <param name="attr">Name of attribute</param>
+            <param name="highlightState">Should the element be highlighted or not. 
             Default value is from configuration: <seealso cref="P:Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
             <returns>Value of element attribute.</returns>
         </member>
@@ -1386,7 +1404,7 @@
             Gets css value of the element.
             </summary>
             <param name="propertyName">Name of css property</param>
-            <param name="highlightState">Should the element be hightlighted or not. 
+            <param name="highlightState">Should the element be highlighted or not. 
             Default value is from configuration: <seealso cref="P:Aquality.Selenium.Configurations.IBrowserProfile.IsElementHighlightEnabled"/></param>
             <returns>Value of element attribute.</returns>
         </member>
@@ -1416,6 +1434,24 @@
             Send key.
             </summary>
             <param name="key"> Key for sending.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.ExpandShadowRoot">
+            <summary>
+            Expands shadow root.
+            </summary>
+            <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds element in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="locator">Locator of the target element. 
+            Note that some browsers don't support XPath locator for shadow elements.</param>
+            <param name="name">Name of the target element.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="state">State of the target element.</param>
+            <returns>Instance of element.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IElementFactory">
             <summary>
@@ -1484,6 +1520,17 @@
             <param name="name">Element name</param>
             <param name="state">Element state</param>
             <returns>Instance of element that implements ITextBox interface</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IElementFactory.Get``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Creates element that implements <typeparamref name="T"/> interface.
+            </summary>
+            <typeparam name="T">Type of child element that has to implement IElement.</typeparam>
+            <param name="locator">Base elements locator.</param>
+            <param name="name">Elements name.</param>
+            <param name="supplier">Delegate that defines constructor of element in case of custom element.</param>
+            <param name="state">Elements state.</param>
+            <returns></returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.ILabel">
             <summary>

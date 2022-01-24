@@ -84,5 +84,7 @@
   "loc.browser.network.handler.response.add": "Добавление обработчика сетевых ответов",
   "loc.browser.network.handler.response.clear": "Очистка обработчиков сетевых ответов",
   "loc.browser.network.monitoring.start": "Начинаем сетевой мониторинг",
-  "loc.browser.network.monitoring.stop": "Останавливаем сетевой мониторинг"
+  "loc.browser.network.monitoring.stop": "Останавливаем сетевой мониторинг",
+  "loc.shadowroot.expand": "Разворачиваем дерево скрытых элементов",
+  "loc.shadowroot.expand.js": "Разворачиваем дерево скрытых элементов посредством JavaScript"
 }

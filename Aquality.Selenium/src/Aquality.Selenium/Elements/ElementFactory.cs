@@ -34,37 +34,56 @@ namespace Aquality.Selenium.Elements
 
         public IButton GetButton(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new Button(locator, name, state);
+            return ResolveSupplier<IButton>()(locator, name, state);
         }
 
         public ICheckBox GetCheckBox(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new CheckBox(locator, name, state);
+            return ResolveSupplier<ICheckBox>()(locator, name, state);
         }
 
         public IComboBox GetComboBox(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new ComboBox(locator, name, state);
+            return ResolveSupplier<IComboBox>()(locator, name, state);
         }
 
         public ILabel GetLabel(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new Label(locator, name, state);
+            return ResolveSupplier<ILabel>()(locator, name, state);
         }
 
         public ILink GetLink(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new Link(locator, name, state);
+            return ResolveSupplier<ILink>()(locator, name, state);
         }
 
         public IRadioButton GetRadioButton(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new RadioButton(locator, name, state);
+            return ResolveSupplier<IRadioButton>()(locator, name, state);
         }
 
         public ITextBox GetTextBox(By locator, string name, ElementState state = ElementState.Displayed)
         {
-            return new TextBox(locator, name, state);
+            return ResolveSupplier<ITextBox>()(locator, name, state);
+        }
+
+        public T Get<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) where T : Interfaces.IElement
+        {
+            return ResolveSupplier(supplier)(locator, name, state);
+        }
+
+        protected override ElementSupplier<T> ResolveSupplier<T>(ElementSupplier<T> supplier = null)
+        {
+            var baseSupplier = base.ResolveSupplier(supplier);
+            return (loc, name, state) =>
+            {
+                var element = baseSupplier.Invoke(loc, name, state);
+                if (element is Element)
+                {
+                    (element as Element).CustomFinder = ElementFinder;
+                }                
+                return element;
+            };
         }
 
         /// <summary>

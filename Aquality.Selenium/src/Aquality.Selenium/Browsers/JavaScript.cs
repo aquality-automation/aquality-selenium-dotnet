@@ -33,7 +33,8 @@ namespace Aquality.Selenium.Browsers
         SetValue,
         GetViewPortCoordinates,
         OpenNewTab,
-        OpenInNewTab
+        OpenInNewTab,
+        ExpandShadowRoot
     }
 
     /// <summary>

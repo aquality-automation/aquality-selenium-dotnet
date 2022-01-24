@@ -84,5 +84,7 @@
   "loc.browser.network.handler.response.add": "Adding Network Response handler",
   "loc.browser.network.handler.response.clear": "Clearing Network Response handler",
   "loc.browser.network.monitoring.start": "Starting Network Monitoring",
-  "loc.browser.network.monitoring.stop": "Stopping Network Monitoring"
+  "loc.browser.network.monitoring.stop": "Stopping Network Monitoring",
+  "loc.shadowroot.expand": "Expanding the Shadow Root",
+  "loc.shadowroot.expand.js": "Expanding the Shadow Root via JavaScript"
 }
