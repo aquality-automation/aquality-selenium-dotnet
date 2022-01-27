@@ -83,9 +83,9 @@ namespace Aquality.Selenium.Elements
             return (loc, name, state) =>
             {
                 var element = baseSupplier.Invoke(loc, name, state);
-                if (element is Element)
+                if (element is Element baseElement)
                 {
-                    (element as Element).CustomFinder = ElementFinder;
+                    baseElement.CustomFinder = ElementFinder;
                 }                
                 return element;
             };
