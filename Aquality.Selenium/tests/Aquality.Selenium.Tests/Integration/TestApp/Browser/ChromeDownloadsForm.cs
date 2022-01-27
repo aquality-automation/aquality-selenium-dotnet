@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
 {
-    internal class ChromeDownoadsForm : Form
+    internal class ChromeDownloadsForm : Form
     {
         private const string Address = "chrome://downloads/";
 
@@ -13,9 +13,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
         public ILabel DownloadsToolbarLabel => FormElement.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
         public ILabel MainContainerLabel => FormElement.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
         public ILabel DownloadsToolbarLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
-        public ILabel MainContainerLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
+        public ILabel MainContainerLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "Main container");
 
-        public ChromeDownoadsForm() : base(By.TagName("downloads-manager"), "Chrome downloads manager")
+        public ChromeDownloadsForm() : base(By.TagName("downloads-manager"), "Chrome downloads manager")
         {
         }
 
