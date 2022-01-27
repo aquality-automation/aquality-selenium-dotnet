@@ -6,7 +6,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class ShadowRootTests : UITest
     {
-        private static readonly ChromeDownoadsForm form = new ChromeDownoadsForm();
+        private static readonly ChromeDownloadsForm form = new ChromeDownloadsForm();
 
         [SetUp]
         public void OpenDownloads()
