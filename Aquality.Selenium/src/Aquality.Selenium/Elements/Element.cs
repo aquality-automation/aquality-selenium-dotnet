@@ -46,7 +46,9 @@ namespace Aquality.Selenium.Elements
 
         protected virtual IElementFactory CustomFactory => AqualityServices.Get<IElementFactory>();
 
-        protected override ICoreElementFinder Finder => AqualityServices.Get<ICoreElementFinder>();
+        protected internal virtual ICoreElementFinder CustomFinder { get; internal set; } = AqualityServices.Get<ICoreElementFinder>();
+
+        protected override ICoreElementFinder Finder => CustomFinder; 
 
         protected override IElementCacheConfiguration CacheConfiguration => AqualityServices.Get<IElementCacheConfiguration>();
 
@@ -124,6 +126,21 @@ namespace Aquality.Selenium.Elements
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .FirstOrDefault(field => field.Name == key.ToString())?.GetValue(null).ToString();
             DoWithRetry(() => GetElement().SendKeys(keysString));
+        }
+
+        public ShadowRoot ExpandShadowRoot()
+        {
+            LogElementAction("loc.shadowroot.expand");
+            var shadowRoot = (ShadowRoot)GetElement().GetShadowRoot();
+            return shadowRoot;
+        }
+
+        public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
+            where T : IElement
+        {
+            var shadowRootRelativeFinder = new RelativeElementFinder(LocalizedLogger, ConditionalWait, ExpandShadowRoot);
+            var shadowRootFactory = new ElementFactory(ConditionalWait, shadowRootRelativeFinder, LocalizationManager);
+            return shadowRootFactory.Get(locator, name, supplier, state);
         }
     }
 }

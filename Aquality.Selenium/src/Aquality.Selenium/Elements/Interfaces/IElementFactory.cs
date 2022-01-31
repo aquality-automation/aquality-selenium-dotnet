@@ -71,5 +71,16 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// <param name="state">Element state</param>
         /// <returns>Instance of element that implements ITextBox interface</returns>
         ITextBox GetTextBox(By locator, string name, ElementState state = ElementState.Displayed);
+
+        /// <summary>
+        /// Creates element that implements <typeparamref name="T"/> interface.
+        /// </summary>
+        /// <typeparam name="T">Type of child element that has to implement IElement.</typeparam>
+        /// <param name="locator">Base elements locator.</param>
+        /// <param name="name">Elements name.</param>
+        /// <param name="supplier">Delegate that defines constructor of element in case of custom element.</param>
+        /// <param name="state">Elements state.</param>
+        /// <returns></returns>
+        T Get<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) where T : IElement;
     }
 }

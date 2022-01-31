@@ -84,5 +84,7 @@
   "loc.browser.network.handler.response.add": "Дадаем апрацоўшчык сеткавых адказаў",
   "loc.browser.network.handler.response.clear": "Ачышчаем апрацоўшчыкі сеткавых адказаў",
   "loc.browser.network.monitoring.start": "Пачынаем сеткавы маніторынг",
-  "loc.browser.network.monitoring.stop": "Спыняем сеткавы маніторынг"
+  "loc.browser.network.monitoring.stop": "Спыняем сеткавы маніторынг",
+  "loc.shadowroot.expand": "Разварочваем дрэва схаваных элементаў",
+  "loc.shadowroot.expand.js": "Разварочваем дрэва схаваных элементаў праз JavaScript"
 }
