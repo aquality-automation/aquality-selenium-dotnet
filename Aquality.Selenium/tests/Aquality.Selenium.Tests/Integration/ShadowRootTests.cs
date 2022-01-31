@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void OpenDownloads()
         {
-            ChromeDownoadsForm.Open();
+            ChromeDownloadsForm.Open();
         }
 
         [Test]
