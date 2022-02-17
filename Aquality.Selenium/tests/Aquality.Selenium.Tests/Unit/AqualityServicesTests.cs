@@ -63,6 +63,16 @@ namespace Aquality.Selenium.Tests.Unit
             Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
         }
 
+        [TestCase(null)]
+        [TestCase("enable-automation")]
+        [TestCase("a")]
+        public void Should_BeAbleGetBrowser_WithExcludedArguments(string excludedArguments)
+        {
+            var currentBrowser = AqualityServices.Get<IBrowserProfile>().BrowserName;
+            Environment.SetEnvironmentVariable($"driverSettings.{currentBrowser.ToString().ToLowerInvariant()}.excludedArguments", excludedArguments);
+            Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
+        }
+
         [Ignore("Not all browsers are supported in Azure CICD pipeline")]
         [TestCase(BrowserName.IExplorer)]
         [TestCase(BrowserName.Firefox)]
