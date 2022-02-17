@@ -38,10 +38,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         private void SetChromeExcludedArguments(ChromeOptions options)
         {
-            if (SettingsFile.IsValuePresent($"{DriverSettingsPath}.excludedArguments"))
-            {
-                options.AddExcludedArguments(SettingsFile.GetValueList<string>($"{DriverSettingsPath}.excludedArguments"));
-            }
+            options.AddExcludedArguments(BrowserExcludedArguments);
         }
 
         private void SetChromePrefs(ChromeOptions options)

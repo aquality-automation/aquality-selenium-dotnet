@@ -30,9 +30,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetEdgePrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetEdgeArguments(options);
+                SetEdgeExcludedArguments(options);
                 SetPageLoadStrategy(options);
                 return options;
             }
+        }
+
+        private void SetEdgeExcludedArguments(EdgeOptions options)
+        {
+            options.AddExcludedArguments(BrowserExcludedArguments);
         }
 
         private void SetEdgePrefs(EdgeOptions options)

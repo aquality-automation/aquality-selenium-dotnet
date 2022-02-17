@@ -31,9 +31,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetOperaPrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetOperaArguments(options);
+                SetOperaExcludedArguments(options);
                 SetPageLoadStrategy(options);
                 return options;
             }
+        }
+
+        private void SetOperaExcludedArguments(OperaOptions options)
+        {
+            options.AddExcludedArguments(BrowserExcludedArguments);
         }
 
         private void SetOperaPrefs(OperaOptions options)

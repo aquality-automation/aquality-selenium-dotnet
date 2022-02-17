@@ -18,6 +18,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         private IReadOnlyDictionary<string, object> options;
         private IReadOnlyDictionary<string, object> capabilities;
         private IReadOnlyList<string> startArguments;
+        private IReadOnlyList<string> excludedArguments;
 
         /// <summary>
         /// Instantiates class using JSON file with general settings.
@@ -87,6 +88,24 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 }
 
                 return options;
+            }
+        }
+
+        protected IReadOnlyList<string> BrowserExcludedArguments
+        {
+            get
+            {
+                if (excludedArguments == null)
+                {
+                    excludedArguments = SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.{nameof(excludedArguments)}");
+
+                    if (excludedArguments.Any())
+                    {
+                        AqualityServices.LocalizedLogger.Debug("loc.browser.excludedArguments", args: string.Join(" ", excludedArguments));
+                    }
+                }
+
+                return excludedArguments;
             }
         }
 
