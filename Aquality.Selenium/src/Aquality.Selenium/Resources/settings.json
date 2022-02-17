@@ -19,6 +19,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "excludedArguments": [ "enable-automation" ],
       "startArguments": [],
       "pageLoadStrategy": "Normal"
     },
