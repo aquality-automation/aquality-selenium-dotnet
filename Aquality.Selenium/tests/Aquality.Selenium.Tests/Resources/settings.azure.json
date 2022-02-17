@@ -19,7 +19,9 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
-      "startArguments": []
+      "excludedArguments": [ "enable-automation" ],
+      "startArguments": [],
+      "pageLoadStrategy": "Normal"
     },
     "firefox": {
       "webDriverVersion": "0.24.0",
@@ -66,6 +68,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "excludedArguments": [ "enable-automation" ],
       "startArguments": []
     },
     "safari": {
