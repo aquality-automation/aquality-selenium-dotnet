@@ -30,6 +30,7 @@ namespace Aquality.Selenium.Browsers
         {
             Driver = webDriver;
             Network = new NetworkHandling(webDriver);
+            JavaScriptMonitoring = new JavaScriptHandling(webDriver);
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
@@ -54,6 +55,11 @@ namespace Aquality.Selenium.Browsers
         /// Provides Network Handling functionality <see cref="NetworkHandling"/>
         /// </summary>
         public INetwork Network { get; }
+
+        /// <summary>
+        /// Provides JavaScript Monitoring functionality <see cref="JavaScriptHandling"/>
+        /// </summary>
+        public IJavaScriptEngine JavaScriptEngine { get; }
 
         /// <summary>
         /// Gets name of desired browser from configuration.
