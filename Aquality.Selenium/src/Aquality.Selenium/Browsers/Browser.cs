@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Browsers
         {
             Driver = webDriver;
             Network = new NetworkHandling(webDriver);
-            JavaScriptMonitoring = new JavaScriptHandling(webDriver);
+            JavaScriptEngine = new JavaScriptHandling(webDriver);
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
