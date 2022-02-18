@@ -30,9 +30,15 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetChromePrefs(options);
                 SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
                 SetChromeArguments(options);
+                SetChromeExcludedArguments(options);
                 SetPageLoadStrategy(options);
                 return options;
             }
+        }
+
+        private void SetChromeExcludedArguments(ChromeOptions options)
+        {
+            options.AddExcludedArguments(BrowserExcludedArguments);
         }
 
         private void SetChromePrefs(ChromeOptions options)

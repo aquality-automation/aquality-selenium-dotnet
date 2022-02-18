@@ -1,5 +1,6 @@
 {
   "loc.browser.arguments": "Получили стартовые аргументы браузера из settings файла: {0}",
+  "loc.browser.excludedArguments": "Исключение аргументов браузера из settings файла: {0}",
   "loc.browser.back": "Возврат на предыдущую страницу",
   "loc.browser.forward": "Перейти на следующую страницу",
   "loc.browser.capabilities": "Получили capabilities браузера из settings файла: {0}",

@@ -19,6 +19,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "excludedArguments": [ "enable-automation" ],
       "startArguments": [],
       "pageLoadStrategy": "Normal"
     },
@@ -70,6 +71,7 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "excludedArguments": ["enable-automation"],
       "startArguments": []
     },
     "safari": {
@@ -90,6 +92,7 @@
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false"
       },
+      "excludedArguments": ["enable-automation"],
       "startArguments": []
     },
     "yandex": {
