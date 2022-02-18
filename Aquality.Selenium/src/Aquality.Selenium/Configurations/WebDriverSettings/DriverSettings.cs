@@ -98,7 +98,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 if (excludedArguments == null)
                 {
                     excludedArguments = SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.{nameof(excludedArguments)}");
-
                     if (excludedArguments.Any())
                     {
                         AqualityServices.LocalizedLogger.Debug("loc.browser.excludedArguments", args: string.Join(" ", excludedArguments));
@@ -116,12 +115,12 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 if (startArguments == null)
                 {
                     startArguments = SettingsFile.GetValueListOrEmpty<string>($"{DriverSettingsPath}.{nameof(startArguments)}");
-
                     if (startArguments.Any())
                     {
                         AqualityServices.LocalizedLogger.Debug("loc.browser.arguments", args: string.Join(" ", startArguments));
                     }
                 }
+
                 return startArguments;
             }
         }
