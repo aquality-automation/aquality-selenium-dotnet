@@ -213,6 +213,33 @@ namespace Aquality.Selenium.Elements.Actions
             return new Point((int)Math.Round(coordinates[0]), (int)Math.Round(coordinates[1]));
         }
 
+        /// <summary>
+        /// Executed pinned script against element.
+        /// </summary>
+        /// <param name="pinnedScript">Instance of script pinned with <see cref="Browser.JavaScriptEngine"/>.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <typeparam name="T">Type of return value.</typeparam>
+        /// <returns>Script execution result.</returns>
+        public T ExecuteScript<T>(PinnedScript pinnedScript, params object[] arguments)
+        {
+            LogElementAction("loc.el.execute.pinnedjs");
+            var result = ActionRetrier.DoWithRetry(() => pinnedScript.ExecuteScript<T>(ResolveArguments(arguments)));
+            LogElementAction("loc.el.execute.pinnedjs.result", result);
+            return result;
+        }
+
+        /// <summary>
+        /// Executed pinned script against element.
+        /// </summary>
+        /// <param name="pinnedScript">Instance of script pinned with <see cref="Browser.JavaScriptEngine"/>.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <returns>Script execution result.</returns>
+        public void ExecuteScript(PinnedScript pinnedScript, params object[] arguments)
+        {
+            LogElementAction("loc.el.execute.pinnedjs");
+            ActionRetrier.DoWithRetry(() => pinnedScript.ExecuteScript(ResolveArguments(arguments)));
+        }
+
         protected T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)
         {
             return ActionRetrier.DoWithRetry(() => Browser.ExecuteScript<T>(scriptName, ResolveArguments(arguments)));

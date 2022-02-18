@@ -43,6 +43,8 @@
   "loc.el.attr.value": "Значение аттрибута '{0}': [{1}]",
   "loc.el.attr.set": "Установка значения аттрибута '{0}': [{1}]",
   "loc.el.cssvalue": "Получение значения css '{0}'",
+  "loc.el.execute.pinnedjs": "Исполнение закреплённого JavaScript",
+  "loc.el.execute.pinnedjs.result": "Результат исполнения закреплённого JavaScript: [{0}]",
   "loc.focusing": "Взятие элемента в фокус",
   "loc.get.text": "Получение текста элемента",
   "loc.text.value": "Текст элемента: [{0}]",

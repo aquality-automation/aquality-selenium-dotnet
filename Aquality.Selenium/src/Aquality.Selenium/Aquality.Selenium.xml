@@ -647,6 +647,45 @@
             </summary>
             <returns>A task to be awaited.</returns>
         </member>
+        <member name="T:Aquality.Selenium.Browsers.PinnedScriptExtensions">
+            <summary>
+            Extensions for scripts pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executes pinned JS script.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript(OpenQA.Selenium.PinnedScript,Aquality.Selenium.Elements.Interfaces.IElement,System.Object[])">
+            <summary>
+            Executes pinned JS script against the element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="element">Instance of element created with <see cref="P:Aquality.Selenium.Forms.Form.ElementFactory"/>.</param>
+            <param name="arguments">Script arguments.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,Aquality.Selenium.Elements.Interfaces.IElement,System.Object[])">
+            <summary>
+            Executes pinned JS script against the element and gets result value.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="element">Instance of element created with <see cref="P:Aquality.Selenium.Forms.Form.ElementFactory"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executes pinned JS script and gets result value.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.RemoteBrowserFactory">
             <summary>
             Factory that creates instance of remote Browser.
@@ -997,6 +1036,23 @@
             Gets element coordinates relative to the View Port.
             </summary>
             <returns>Point object.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executed pinned script against element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ExecuteScript(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executed pinned script against element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <returns>Script execution result.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Actions.MouseActions">
             <summary>
