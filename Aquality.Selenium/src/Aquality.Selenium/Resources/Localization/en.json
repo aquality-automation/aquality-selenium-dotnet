@@ -41,6 +41,7 @@
   "loc.combobox.values": "Option values: [{0}]",
   "loc.el.getattr": "Getting attribute '{0}'",
   "loc.el.attr.value": "Value of attribute '{0}': [{1}]",
+  "loc.el.attr.set": "Setting value of attribute '{0}': [{1}]",
   "loc.el.cssvalue": "Getting css value '{0}'",
   "loc.focusing": "Focusing",
   "loc.get.text": "Getting text from element",

@@ -962,6 +962,13 @@
             Set focus on element.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.SetAttribute(System.String,System.String)">
+            <summary>
+            Setting attribute value.
+            </summary>
+            <param name="name">Attribute name</param>
+            <param name="value">Value to set</param>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.IsElementOnScreen">
             <summary>
             Checks whether element on screen or not.

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Remove="Resources\JavaScripts\ExpandShadowRoot.js" />
+    <None Remove="Resources\JavaScripts\SetAttribute.js" />
     <None Remove="Resources\Localization\be.json" />
     <None Remove="Resources\Localization\en.json" />
     <None Remove="Resources\Localization\ru.json" />
@@ -62,6 +63,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\SetFocus.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetInnerHTML.js" />
     <EmbeddedResource Include="Resources\JavaScripts\OpenNewTab.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\SetAttribute.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
     <EmbeddedResource Include="Resources\Localization\be.json" />
     <EmbeddedResource Include="Resources\Localization\en.json" />

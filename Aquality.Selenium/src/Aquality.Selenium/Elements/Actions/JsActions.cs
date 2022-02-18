@@ -146,6 +146,17 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
+        /// Setting attribute value.
+        /// </summary>
+        /// <param name="name">Attribute name</param>
+        /// <param name="value">Value to set</param>
+        public void SetAttribute(string name, string value)
+        {
+            LogElementAction("loc.el.attr.set", name, value);
+            ExecuteScript(JavaScript.SetAttribute, name, value);
+        }
+
+        /// <summary>
         /// Checks whether element on screen or not.
         /// </summary>
         /// <returns>True if element is on screen and false otherwise.</returns>
