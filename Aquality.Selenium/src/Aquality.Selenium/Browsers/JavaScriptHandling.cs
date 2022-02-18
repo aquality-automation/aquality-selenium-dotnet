@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                Logger.Info("loc.browser.javascript.bindingcallbacks.get");
+                Logger.Info("loc.browser.javascript.scriptcallbackbindings.get");
                 return javaScriptEngine.ScriptCallbackBindings;
             }
         }
@@ -124,7 +124,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task containing an <see cref="InitializationScript"/> object representing the script to be loaded on each page.</returns>
         public async Task<InitializationScript> AddInitializationScript(string scriptName, string script)
         {
-            Logger.Info("loc.browser.javascript.inializationscript.add", scriptName);
+            Logger.Info("loc.browser.javascript.initializationscript.add", scriptName);
             return await javaScriptEngine.AddInitializationScript(scriptName, script);
         }
 
@@ -135,7 +135,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task RemoveInitializationScript(string scriptName)
         {
-            Logger.Info("loc.browser.javascript.inializationscript.remove", scriptName);
+            Logger.Info("loc.browser.javascript.initializationscript.remove", scriptName);
             await javaScriptEngine.RemoveInitializationScript(scriptName);
         }
 
@@ -185,17 +185,6 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Asynchronously removes all bindings to JavaScript callbacks and all
-        /// initialization scripts from being loaded for each document.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task ClearAll()
-        {
-            Logger.Info("loc.browser.javascript.clearall");
-            await javaScriptEngine.ClearAll();
-        }
-
-        /// <summary>
         /// Enables monitoring for DOM changes.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation.</returns>
@@ -223,7 +212,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task containing a <see cref="PinnedScript"/> object to use to execute the script.</returns>
         public async Task<PinnedScript> PinScript(string script)
         {
-            Logger.Info("loc.browser.javascript.script.pin");
+            Logger.Info("loc.browser.javascript.snippet.pin");
             return await javaScriptEngine.PinScript(script);
         }
 
@@ -234,7 +223,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task UnpinScript(PinnedScript script)
         {
-            Logger.Info("loc.browser.javascript.script.unpin");
+            Logger.Info("loc.browser.javascript.snippet.unpin");
             await javaScriptEngine.UnpinScript(script);
         }
 
@@ -255,6 +244,17 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.event.monitoring.stop");
             javaScriptEngine.StopEventMonitoring();
+        }
+
+        /// <summary>
+        /// Asynchronously removes all bindings to JavaScript callbacks and all
+        /// initialization scripts from being loaded for each document.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        public async Task ClearAll()
+        {
+            Logger.Info("loc.browser.javascript.clearall");
+            await javaScriptEngine.ClearAll();
         }
 
         /// <summary>

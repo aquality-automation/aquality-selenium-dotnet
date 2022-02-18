@@ -523,13 +523,6 @@
             </summary>
             <returns>A task that represents the asynchronous operation.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.ClearAll">
-            <summary>
-            Asynchronously removes all bindings to JavaScript callbacks and all
-            initialization scripts from being loaded for each document.
-            </summary>
-            <returns>A task that represents the asynchronous operation.</returns>
-        </member>
         <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.EnableDomMutationMonitoring">
             <summary>
             Enables monitoring for DOM changes.
@@ -567,6 +560,13 @@
             <summary>
             Stops monitoring for events from the browser's JavaScript engine.
             </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.ClearAll">
+            <summary>
+            Asynchronously removes all bindings to JavaScript callbacks and all
+            initialization scripts from being loaded for each document.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.Reset">
             <summary>
