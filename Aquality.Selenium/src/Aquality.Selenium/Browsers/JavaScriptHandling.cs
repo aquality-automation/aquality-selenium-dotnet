@@ -11,6 +11,7 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class JavaScriptHandling : IJavaScriptEngine
     {
+        private readonly IList<string> bindings = new List<string>();
         private readonly IJavaScriptEngine javaScriptEngine;
 
         /// <summary>
@@ -38,13 +39,15 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Gets the read-only list of binding callbacks added for this JavaScript engine.
+        /// Note: Selenium functionality here is broken, 
+        /// no value added to this list in <see cref="JavaScriptEngine.AddScriptCallbackBinding(string)"/>, so we store these values in read-only field.
         /// </summary>
         public IReadOnlyList<string> ScriptCallbackBindings
         {
             get
             {
                 Logger.Info("loc.browser.javascript.scriptcallbackbindings.get");
-                return javaScriptEngine.ScriptCallbackBindings;
+                return new List<string>(bindings);
             }
         }
 
@@ -161,6 +164,7 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.scriptcallbackbinding.add", bindingName);
             await javaScriptEngine.AddScriptCallbackBinding(bindingName);
+            bindings.Add(bindingName);
         }
 
         /// <summary>
@@ -172,6 +176,7 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.scriptcallbackbinding.remove", bindingName);
             await javaScriptEngine.RemoveScriptCallbackBinding(bindingName);
+            bindings.Remove(bindingName);
         }
 
         /// <summary>
@@ -182,6 +187,7 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.scriptcallbackbindings.clear");
             await javaScriptEngine.ClearScriptCallbackBindings();
+            bindings.Clear();
         }
 
         /// <summary>
@@ -255,6 +261,7 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.clearall");
             await javaScriptEngine.ClearAll();
+            bindings.Clear();
         }
 
         /// <summary>
@@ -267,6 +274,7 @@ namespace Aquality.Selenium.Browsers
         {
             Logger.Info("loc.browser.javascript.reset");
             await javaScriptEngine.Reset();
+            bindings.Clear();
         }
     }
 }

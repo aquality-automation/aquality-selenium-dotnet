@@ -457,6 +457,8 @@
         <member name="P:Aquality.Selenium.Browsers.JavaScriptHandling.ScriptCallbackBindings">
             <summary>
             Gets the read-only list of binding callbacks added for this JavaScript engine.
+            Note: Selenium functionality here is broken, 
+            no value added to this list in <see cref="M:OpenQA.Selenium.JavaScriptEngine.AddScriptCallbackBinding(System.String)"/>, so we store these values in read-only field.
             </summary>
         </member>
         <member name="E:Aquality.Selenium.Browsers.JavaScriptHandling.JavaScriptCallbackExecuted">
