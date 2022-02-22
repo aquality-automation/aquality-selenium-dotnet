@@ -124,8 +124,14 @@
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.IsStarted">
             <summary>
-            Checkes whether current SessionId is null or not.
+            Checks whether current SessionId is null or not.
             </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.DevTools">
+            <summary>
+            Provides interface to handle DevTools for Chromium-based and Firefox drivers.
+            </summary>
+            <returns>An instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Quit">
             <summary>
@@ -134,7 +140,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.GoTo(System.String)">
             <summary>
-            Navigates to desired url.
+            Navigates to desired URL.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
@@ -161,9 +167,9 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Tabs">
             <summary>
-            Provide interface to manage of browser tabs.
+            Provides interface to manage of browser tabs.
             </summary>
-            <returns>instance of IBrowserTabNavigation.</returns>
+            <returns>Instance of IBrowserTabNavigation.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.HandleAlert(Aquality.Selenium.Browsers.AlertAction,System.String)">
             <summary>
@@ -175,7 +181,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Maximize">
             <summary>
-            Maximises web page.
+            Maximizes web page.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.WaitForPageToLoad">
@@ -350,6 +356,80 @@
             <param name="browser">Browser instance.</param>
             <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
             <returns>A task to be awaited.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.DevToolsHandling">
+            <summary>
+            Wrapper for Selenium <see cref="T:OpenQA.Selenium.DevTools.IDevTools"/> functionality.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.#ctor(OpenQA.Selenium.DevTools.IDevTools)">
+            <summary>
+            Initializes an instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            </summary>
+            <param name="devToolsProvider">Instance of <see cref="T:OpenQA.Selenium.WebDriver"/> which supports CDP Protocol.</param>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.DevToolsHandling.HasActiveDevToolsSession">
+            <summary>
+            Gets a value indicating whether a DevTools session is active.
+            Because backing field is not set to null in Selenium <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.CloseDevToolsSession"/> implementations 
+            <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/> and <see cref="T:OpenQA.Selenium.Firefox.FirefoxDriver"/>, we need to rework it with ours backing field.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.CloseDevToolsSession">
+            <summary>
+            Closes a DevTools session.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)"/>, where parameter protocolVersion
+            defaults to autodetect the protocol version for Chromium, V85 for Firefox.
+            </summary>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            </summary>
+            <param name="protocolVersion">The version of the Chromium Developer Tools protocol to use. 
+            Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Executes a custom Chromium Dev Tools Protocol Command.
+            Note: works only if current driver is instance of <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>.
+            </summary>
+            <param name="commandName">Name of the command to execute.</param>
+            <param name="commandParameters">Parameters of the command to execute.</param>
+            <returns>An object representing the result of the command, if applicable.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Sends the specified command and returns the associated command response.
+            </summary>
+            <param name="commandName">The name of the command to send.</param>
+            <param name="commandParameters">The parameters of the command as a JToken object</param>
+            <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
+            <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
+            <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SetGeoLocationOverride(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Overrides the GeoLocation Position or Error. Omitting any of the parameters emulates position unavailable.
+            </summary>
+            <param name="latitude">Latitude of GeoLocation.</param>
+            <param name="longitude">Longitude of location.</param>
+            <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
+            <exception cref="T:System.NotSupportedException"></exception>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ClearGeolocationOverride">
+            <summary>
+            Clears the overridden GeoLocation Position and Error.
+            </summary>
+            <returns>A task for asynchronous command.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>

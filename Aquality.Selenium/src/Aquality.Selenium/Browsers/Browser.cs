@@ -9,6 +9,8 @@ using System;
 using Aquality.Selenium.Core.Waitings;
 using System.Collections.ObjectModel;
 
+using IDevTools = OpenQA.Selenium.DevTools.IDevTools;
+
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
@@ -18,6 +20,7 @@ namespace Aquality.Selenium.Browsers
     {        
         private TimeSpan implicitWaitTimeout;
         private TimeSpan pageLoadTimeout;
+        private DevToolsHandling devTools;
 
         private readonly IBrowserProfile browserProfile;
         private readonly IConditionalWait conditionalWait;
@@ -121,9 +124,28 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Checkes whether current SessionId is null or not.
+        /// Checks whether current SessionId is null or not.
         /// </summary>
         public bool IsStarted => Driver?.SessionId != null;
+
+        /// <summary>
+        /// Provides interface to handle DevTools for Chromium-based and Firefox drivers.
+        /// </summary>
+        /// <returns>An instance of <see cref="DevToolsHandling"/>.</returns>
+        public DevToolsHandling DevTools
+        {
+            get
+            {
+                if (Driver is IDevTools driver)
+                {
+                    return devTools ?? (devTools = new DevToolsHandling(driver));
+                }
+                else
+                {
+                    throw new NotSupportedException("DevTools protocol is not supported for current browser.");
+                }
+            }
+        }
 
         /// <summary>
         /// Quit web browser.
@@ -135,7 +157,7 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Navigates to desired url.
+        /// Navigates to desired URL.
         /// </summary>
         /// <param name="url">String representation of URL.</param>
         public void GoTo(string url)
@@ -183,9 +205,9 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Provide interface to manage of browser tabs.
+        /// Provides interface to manage of browser tabs.
         /// </summary>
-        /// <returns>instance of IBrowserTabNavigation.</returns>
+        /// <returns>Instance of IBrowserTabNavigation.</returns>
         public IBrowserTabNavigation Tabs()
         {
             return new BrowserTabNavigation(Driver);
@@ -225,7 +247,7 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
-        /// Maximises web page.
+        /// Maximizes web page.
         /// </summary>
         public void Maximize()
         {
