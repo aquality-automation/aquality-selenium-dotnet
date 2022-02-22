@@ -6,6 +6,7 @@ using OpenQA.Selenium.DevTools;
 using OpenQA.Selenium.DevTools.V85.Emulation;
 using OpenQA.Selenium.Firefox;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -42,9 +43,9 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                Logger.Info("loc.devtools.session.hasactive");
+                Logger.Info("loc.browser.devtools.session.isactive");
                 var result = devToolsProvider.HasActiveDevToolsSession && !wasDevToolsSessionClosed;
-                Logger.Info("loc.devtools.session.hasactive.result", result);
+                Logger.Info("loc.browser.devtools.session.isactive.result", result);
                 return result;
             }
         }
@@ -54,7 +55,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         public void CloseDevToolsSession()
         {
-            Logger.Info("loc.devtools.session.close");
+            Logger.Info("loc.browser.devtools.session.close");
             devToolsProvider.CloseDevToolsSession();
             wasDevToolsSessionClosed = true;
         }
@@ -67,7 +68,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         public DevToolsSession GetDevToolsSession()
         {
-            Logger.Info("loc.devtools.session.get", "default");
+            Logger.Info("loc.browser.devtools.session.get", "default");
             return devToolsProvider.GetDevToolsSession();
         }
 
@@ -79,7 +80,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         public DevToolsSession GetDevToolsSession(int protocolVersion)
         {
-            Logger.Info("loc.devtools.session.get", protocolVersion);
+            Logger.Info("loc.browser.devtools.session.get", protocolVersion);
             return devToolsProvider.GetDevToolsSession(protocolVersion);
         }
 
@@ -94,10 +95,10 @@ namespace Aquality.Selenium.Browsers
         {
             if (devToolsProvider is ChromiumDriver driver)
             {
-                Logger.Info("loc.devtools.command.execute", commandName,
-                               string.Join(",", commandParameters.Select(cap => $"{Environment.NewLine}{cap.Key}: {cap.Value}")));
+                LogCommand(commandName, JToken.FromObject(commandParameters));
                 var result = driver.ExecuteCdpCommand(commandName, commandParameters);
-                Logger.Info("loc.devtools.command.execute.result", JToken.FromObject(result).ToString());
+                var formattedResult = JToken.FromObject(result);
+                LogCommandResult(formattedResult);
                 return result;
             }
             else
@@ -118,10 +119,31 @@ namespace Aquality.Selenium.Browsers
         public async Task<JToken> SendCommand(string commandName, JToken commandParameters, 
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            Logger.Info("loc.devtools.command.execute", commandName, commandParameters.ToString());
-            var result = await GetDevToolsSession().SendCommand(commandName, commandParameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-            Logger.Info("loc.devtools.geolocation.set.result", result.ToString());
+            LogCommand(commandName, commandParameters);
+            var result = await devToolsProvider.GetDevToolsSession()
+                .SendCommand(commandName, commandParameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            LogCommandResult(result);            
             return result;
+        }
+
+        private void LogCommand(string commandName, JToken commandParameters)
+        {
+            if (commandParameters.Any())
+            {
+                Logger.Info("loc.browser.devtools.command.execute.withparams", commandName, commandParameters.ToString());
+            }
+            else
+            {
+                Logger.Info("loc.browser.devtools.command.execute", commandName);
+            }
+        }
+
+        private void LogCommandResult(JToken result)
+        {
+            if (result.Any())
+            {
+                Logger.Info("loc.browser.devtools.command.execute.result", result.ToString());
+            }
         }
 
         /// <summary>
@@ -140,7 +162,7 @@ namespace Aquality.Selenium.Browsers
                 Accuracy = accuracy
             };
             var settingsJToken = JToken.FromObject(settings);
-            return await GetDevToolsSession().SendCommand(new SetGeolocationOverrideCommandSettings().CommandName, settingsJToken);
+            return await SendCommand(settings.CommandName, settingsJToken);
         }
 
         /// <summary>
