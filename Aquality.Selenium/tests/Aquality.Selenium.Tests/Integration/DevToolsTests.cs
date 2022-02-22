@@ -23,6 +23,8 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.IsTrue(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting");
             Assert.DoesNotThrow(() => DevTools.CloseDevToolsSession(), "Should be possible to close DevTools session");
             Assert.IsFalse(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as not active after close");
+            Assert.IsNotNull(DevTools.GetDevToolsSession(), "Should be possible to get a new DevTools session after close");
+            Assert.IsTrue(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting for a second time");
         }
 
         [Test]

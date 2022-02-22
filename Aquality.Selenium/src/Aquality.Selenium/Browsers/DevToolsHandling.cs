@@ -69,7 +69,9 @@ namespace Aquality.Selenium.Browsers
         public DevToolsSession GetDevToolsSession()
         {
             Logger.Info("loc.browser.devtools.session.get", "default");
-            return devToolsProvider.GetDevToolsSession();
+            var session = devToolsProvider.GetDevToolsSession();
+            wasDevToolsSessionClosed = false;
+            return session;
         }
 
         /// <summary>
