@@ -52,8 +52,9 @@ namespace Aquality.Selenium.Tests.Integration
 
         private static void CheckGeolocationOverride(Action<double?, double?, double?> setAction, Action clearAction)
         {
-            var locationForm = new HomeForm();
-            locationForm.Open();
+            LocationForm.Open();
+            var locationForm = new LocationForm();
+            locationForm.DismissCookieInfo();
             locationForm.DetectBrowserGeolocation();
             var defaultLatitude = locationForm.Latitude;
             var defaultLongitude = locationForm.Longitude;
