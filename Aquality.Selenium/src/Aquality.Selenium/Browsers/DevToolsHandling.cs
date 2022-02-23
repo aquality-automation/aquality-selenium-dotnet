@@ -3,10 +3,8 @@ using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V85.Emulation;
 using OpenQA.Selenium.Firefox;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -146,34 +144,6 @@ namespace Aquality.Selenium.Browsers
             {
                 Logger.Info("loc.browser.devtools.command.execute.result", result.ToString());
             }
-        }
-
-        /// <summary>
-        /// Overrides the GeoLocation Position or Error. Omitting any of the parameters emulates position unavailable.
-        /// </summary>
-        /// <param name="latitude">Latitude of GeoLocation.</param>
-        /// <param name="longitude">Longitude of location.</param>
-        /// <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
-        /// <exception cref="NotSupportedException"></exception>
-        public async Task<JToken> SetGeoLocationOverride(double? latitude, double? longitude, double? accuracy = 1)
-        {
-            var settings = new SetGeolocationOverrideCommandSettings
-            {
-                Latitude = latitude,
-                Longitude = longitude,
-                Accuracy = accuracy
-            };
-            var settingsJToken = JToken.FromObject(settings);
-            return await SendCommand(settings.CommandName, settingsJToken);
-        }
-
-        /// <summary>
-        /// Clears the overridden GeoLocation Position and Error.
-        /// </summary>
-        /// <returns>A task for asynchronous command.</returns>
-        public async Task ClearGeolocationOverride()
-        {
-            await SendCommand(new ClearGeolocationOverrideCommandSettings().CommandName, new JObject());
         }
     }
 }
