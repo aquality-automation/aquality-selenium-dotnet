@@ -1,7 +1,9 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V85.Emulation;
 using System;
 using System.Collections.Generic;
@@ -10,14 +12,17 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class DevToolsEmulationTests : UITest
     {
-        private static readonly double LatitudeForOverride = 35.8235;
-        private static readonly double LongitudeForOverride = -78.8256;
-        private static readonly double Accuracy = 0.97;
+        private const double LatitudeForOverride = 35.8235;
+        private const double LongitudeForOverride = -78.8256;
+        private const double Accuracy = 0.97;
 
-        private static readonly long deviceModeSettingWidth = 600;
-        private static readonly long deviceModeSettingHeight = 1000;
-        private static readonly bool deviceModeSettingMobile = true;
-        private static readonly double deviceModeSettingDeviceScaleFactor = 50;
+        private const long DeviceModeSettingWidth = 600;
+        private const long DeviceModeSettingHeight = 1000;
+        private const bool DeviceModeSettingMobile = true;
+        private const double DeviceModeSettingDeviceScaleFactor = 50;
+
+        private const string CustomUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25";
+        private const string CustomAcceptLanguage = "be-BY";
 
         private static DevToolsHandling DevTools => AqualityServices.Browser.DevTools;
 
@@ -64,21 +69,22 @@ namespace Aquality.Selenium.Tests.Integration
                     Mobile = isMobile,
                     DeviceScaleFactor = scaleFactor
                 };
-                Assert.DoesNotThrowAsync(() => DevTools.SetDeviceMetricsOverride(parameters), "Should be possible to set device metrics override with version-specific parameters");
+                Assert.DoesNotThrowAsync(() => DevTools.SetDeviceMetricsOverride(parameters), 
+                    "Should be possible to set device metrics override with version-specific parameters, even if the version doesn't match");
             }
 
             CheckDeviceMetricsOverride(setAction);
         }
-
+        
         private static void CheckDeviceMetricsOverride(Action<long, long, bool, double> setAction)
         {
             long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
             var initialValue = getWindowHeight();
-            Assume.That(initialValue, Is.Not.EqualTo(deviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
-            setAction(deviceModeSettingWidth, deviceModeSettingHeight, deviceModeSettingMobile, deviceModeSettingDeviceScaleFactor);
+            Assume.That(initialValue, Is.Not.EqualTo(DeviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
+            setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            Assert.AreEqual(deviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
+            Assert.AreEqual(DeviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
             
             Assert.DoesNotThrowAsync(() => DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
             AqualityServices.Browser.Refresh();
@@ -132,6 +138,37 @@ namespace Aquality.Selenium.Tests.Integration
             locationForm.DetectBrowserGeolocation();
             Assert.AreEqual(defaultLatitude, locationForm.Latitude, "Latitude should match to default");
             Assert.AreEqual(defaultLongitude, locationForm.Longitude, "Longitude should match to default");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetUserAgentAndLanguageOverride()
+        {
+            var defaultLanguage = new BrowserLanguageForm().Open().Value;
+            var defaultUserAgent = new UserAgentForm().Open().Value;
+
+            Assume.That(defaultLanguage, Is.Not.EqualTo(CustomAcceptLanguage), "Default accept-language header should be different from the custom one to check override");
+            Assume.That(defaultUserAgent, Is.Not.EqualTo(CustomUserAgent), "Default user agent header should be different from the custom one to check override");
+
+            Assert.DoesNotThrowAsync(() => DevTools.SetUserAgentOverride(CustomUserAgent, CustomAcceptLanguage), "Should be possible to set user agent override");
+            StringAssert.Contains(CustomAcceptLanguage, new BrowserLanguageForm().Open().Value, "Accept-language header should match to value set");
+            Assert.AreEqual(CustomUserAgent, new UserAgentForm().Open().Value, "User agent should match to value set");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetScriptExecutionDisabled_AndEnableAgain()
+        {
+            var alertsForm = new JavaScriptAlertsForm();
+            alertsForm.Open();
+            alertsForm.JsAlertButton.Click();
+            Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be handled");
+
+            Assert.DoesNotThrowAsync(() => DevTools.SetScriptExecutionDisabled(), "Should be possible to set script execution disabled");
+            alertsForm.JsAlertButton.Click();
+            Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should not appear as JS scripts disabled");
+
+            Assert.DoesNotThrowAsync(() => DevTools.SetScriptExecutionDisabled(false), "Should be possible to set script execution enabled");
+            alertsForm.JsAlertButton.Click();
+            Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be handled as JS scripts are enabled again");
         }
     }
 }

@@ -415,6 +415,33 @@
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetUserAgentOverride(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Overrides the values of user agent.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetUserAgentOverrideCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetUserAgentOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.String,System.String)">
+            <summary>
+            Overrides the values of user agent.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="userAgent">User agent to use.</param>
+            <param name="acceptLanguage">Browser language to emulate.</param>
+            <param name="platform">The platform navigator.platform should return.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetScriptExecutionDisabled(Aquality.Selenium.Browsers.DevToolsHandling,System.Boolean)">
+            <summary>
+            Switches script execution in the page.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="value">Whether script execution should be disabled in the page.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsHandling">
             <summary>
             Wrapper for Selenium <see cref="T:OpenQA.Selenium.DevTools.IDevTools"/> functionality.

@@ -29,7 +29,8 @@ namespace Aquality.Selenium.Browsers
         /// <param name="latitude">Latitude of GeoLocation.</param>
         /// <param name="longitude">Longitude of location.</param>
         /// <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
-        public static async Task SetGeoLocationOverride(this DevToolsHandling devTools, double? latitude, double? longitude, double? accuracy = 1)
+        public static async Task SetGeoLocationOverride(this DevToolsHandling devTools, 
+            double? latitude, double? longitude, double? accuracy = 1)
         {
             var settings = new SetGeolocationOverrideCommandSettings
             {
@@ -59,6 +60,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task for asynchronous command.</returns>
         public static async Task SetDeviceMetricsOverride(this DevToolsHandling devTools, ICommand commandParameters)
         {
+            GuardCommandParameters<SetDeviceMetricsOverrideCommandSettings>(commandParameters);
             await devTools.SendCommand(commandParameters);
         }
 
@@ -97,7 +99,7 @@ namespace Aquality.Selenium.Browsers
                 }
                 deviceModeSetting.ScreenOrientation = screenOrientation;
             }
-            await devTools.SendCommand(deviceModeSetting);
+            await SetDeviceMetricsOverride(devTools, deviceModeSetting);
         }
 
         /// <summary>
@@ -108,6 +110,58 @@ namespace Aquality.Selenium.Browsers
         public static async Task ClearDeviceMetricsOverride(this DevToolsHandling devTools)
         {
             await devTools.SendCommand(new ClearDeviceMetricsOverrideCommandSettings());
+        }
+
+        /// <summary>
+        /// Overrides the values of user agent.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="commandParameters">Version-specific set of parameters. 
+        /// For example, take a look at <see cref="SetUserAgentOverrideCommandSettings"/>.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetUserAgentOverride(this DevToolsHandling devTools, ICommand commandParameters)
+        {
+            GuardCommandParameters<SetUserAgentOverrideCommandSettings>(commandParameters);
+            await devTools.SendCommand(commandParameters);
+        }
+
+        /// <summary>
+        /// Overrides the values of user agent.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="userAgent">User agent to use.</param>
+        /// <param name="acceptLanguage">Browser language to emulate.</param>
+        /// <param name="platform">The platform navigator.platform should return.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetUserAgentOverride(this DevToolsHandling devTools,
+            string userAgent, string acceptLanguage = null, string platform = null)
+        {
+            var settings = new SetUserAgentOverrideCommandSettings()
+            {
+                UserAgent = userAgent,
+                AcceptLanguage = acceptLanguage,
+                Platform = platform
+            };
+            await SetUserAgentOverride(devTools, settings);
+        }
+
+        /// <summary>
+        /// Switches script execution in the page.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="value">Whether script execution should be disabled in the page.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetScriptExecutionDisabled(this DevToolsHandling devTools, bool value = true)
+        {
+            await devTools.SendCommand(new SetScriptExecutionDisabledCommandSettings { Value = value });
+        }
+
+        private static void GuardCommandParameters<T>(ICommand commandParameters) where T : ICommand, new()
+        {
+            if (commandParameters == null || commandParameters.CommandName != new T().CommandName)
+            {
+                throw new ArgumentException("Command parameters are null or does not match to command name.", nameof(commandParameters));
+            }
         }
     }
 }
