@@ -83,6 +83,11 @@
             Provides Network Handling functionality <see cref="T:Aquality.Selenium.Browsers.NetworkHandling"/>
             </summary>
         </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine">
+            <summary>
+            Provides JavaScript Monitoring functionality <see cref="T:Aquality.Selenium.Browsers.JavaScriptHandling"/>
+            </summary>
+        </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.BrowserName">
             <summary>
             Gets name of desired browser from configuration.
@@ -433,6 +438,146 @@
             <param name="javaScript">Desired JS script name.</param>
             <returns>String representation of script.</returns>
         </member>
+        <member name="T:Aquality.Selenium.Browsers.JavaScriptHandling">
+            <summary>
+            Wrap over implementation of Selenium WebDriver IJavaScriptEngine.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.#ctor(OpenQA.Selenium.IWebDriver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Aquality.Selenium.Browsers.JavaScriptHandling"/> class.
+            </summary>
+            <param name="driver">The <see cref="T:OpenQA.Selenium.IWebDriver"/> instance on which the JavaScript events should be monitored.</param>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.JavaScriptHandling.InitializationScripts">
+            <summary>
+            Gets the read-only list of initialization scripts added for this JavaScript engine.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.JavaScriptHandling.ScriptCallbackBindings">
+            <summary>
+            Gets the read-only list of binding callbacks added for this JavaScript engine.
+            Note: Selenium functionality here is broken, 
+            no value added to this list in <see cref="M:OpenQA.Selenium.JavaScriptEngine.AddScriptCallbackBinding(System.String)"/>, so we store these values in read-only field.
+            </summary>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.JavaScriptHandling.JavaScriptCallbackExecuted">
+            <summary>
+            Occurs when a JavaScript callback with a named binding is executed.
+            </summary>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.JavaScriptHandling.JavaScriptExceptionThrown">
+            <summary>
+            Occurs when an exception is thrown by JavaScript being executed in the browser.
+            </summary>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.JavaScriptHandling.JavaScriptConsoleApiCalled">
+            <summary>
+            Occurs when methods on the JavaScript console are called. 
+            </summary>
+        </member>
+        <member name="E:Aquality.Selenium.Browsers.JavaScriptHandling.DomMutated">
+            <summary>
+            Occurs when a value of an attribute in an element is being changed.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.AddInitializationScript(System.String,System.String)">
+            <summary>
+            Asynchronously adds JavaScript to be loaded on every document load.
+            </summary>
+            <param name="scriptName">The friendly name by which to refer to this initialization script.</param>
+            <param name="script">The JavaScript to be loaded on every page.</param>
+            <returns>A task containing an <see cref="T:OpenQA.Selenium.InitializationScript"/> object representing the script to be loaded on each page.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.RemoveInitializationScript(System.String)">
+            <summary>
+            Asynchronously removes JavaScript from being loaded on every document load.
+            </summary>
+            <param name="scriptName">The friendly name of the initialization script to be removed.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.ClearInitializationScripts">
+            <summary>
+            Asynchronously removes all initialization scripts from being
+            loaded on every document load.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.AddScriptCallbackBinding(System.String)">
+            <summary>
+            Asynchronously adds a binding to a callback method that will raise
+            an event when the named binding is called by JavaScript executing
+            in the browser.
+            </summary>
+            <param name="bindingName">The name of the callback that will trigger events when called by JavaScript executing in the browser.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.RemoveScriptCallbackBinding(System.String)">
+            <summary>
+            Asynchronously removes a binding to a JavaScript callback.
+            </summary>
+            <param name="bindingName">The name of the callback to be removed.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.ClearScriptCallbackBindings">
+            <summary>
+            Asynchronously removes all bindings to JavaScript callbacks.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.EnableDomMutationMonitoring">
+            <summary>
+            Enables monitoring for DOM changes.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.DisableDomMutationMonitoring">
+            <summary>
+            Disables monitoring for DOM changes.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.PinScript(System.String)">
+            <summary>
+            Pins a JavaScript snippet for execution in the browser without transmitting the
+            entire script across the wire for every execution.
+            </summary>
+            <param name="script">The JavaScript to pin</param>
+            <returns>A task containing a <see cref="T:OpenQA.Selenium.PinnedScript"/> object to use to execute the script.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.UnpinScript(OpenQA.Selenium.PinnedScript)">
+            <summary>
+            Unpins a previously pinned script from the browser.
+            </summary>
+            <param name="script">The <see cref="T:OpenQA.Selenium.PinnedScript"/> object to unpin.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.StartEventMonitoring">
+            <summary>
+            Asynchronously starts monitoring for events from the browser's JavaScript engine.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.StopEventMonitoring">
+            <summary>
+            Stops monitoring for events from the browser's JavaScript engine.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.ClearAll">
+            <summary>
+            Asynchronously removes all bindings to JavaScript callbacks and all
+            initialization scripts from being loaded for each document.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.Reset">
+            <summary>
+            Asynchronously removes all bindings to JavaScript callbacks, all
+            initialization scripts from being loaded for each document, and
+            stops listening for events.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.LocalBrowserFactory">
             <summary>
             Factory that creates instance of local Browser.
@@ -443,7 +588,7 @@
             Wrap over implementation of Selenium WebDriver INetwork.
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.#ctor(OpenQA.Selenium.WebDriver)">
+        <member name="M:Aquality.Selenium.Browsers.NetworkHandling.#ctor(OpenQA.Selenium.IWebDriver)">
             <summary>
             Initializes a new instance of the <see cref="T:Aquality.Selenium.Browsers.NetworkHandling"/> class.
             </summary>
@@ -503,6 +648,45 @@
             Awaits to stop network monitoring.
             </summary>
             <returns>A task to be awaited.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.PinnedScriptExtensions">
+            <summary>
+            Extensions for scripts pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executes pinned JS script.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript(OpenQA.Selenium.PinnedScript,Aquality.Selenium.Elements.Interfaces.IElement,System.Object[])">
+            <summary>
+            Executes pinned JS script against the element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="element">Instance of element created with <see cref="P:Aquality.Selenium.Forms.Form.ElementFactory"/>.</param>
+            <param name="arguments">Script arguments.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,Aquality.Selenium.Elements.Interfaces.IElement,System.Object[])">
+            <summary>
+            Executes pinned JS script against the element and gets result value.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="element">Instance of element created with <see cref="P:Aquality.Selenium.Forms.Form.ElementFactory"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.PinnedScriptExtensions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executes pinned JS script and gets result value.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.RemoteBrowserFactory">
             <summary>
@@ -819,6 +1003,13 @@
             Set focus on element.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.SetAttribute(System.String,System.String)">
+            <summary>
+            Setting attribute value.
+            </summary>
+            <param name="name">Attribute name</param>
+            <param name="value">Value to set</param>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.IsElementOnScreen">
             <summary>
             Checks whether element on screen or not.
@@ -847,6 +1038,23 @@
             Gets element coordinates relative to the View Port.
             </summary>
             <returns>Point object.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ExecuteScript``1(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executed pinned script against element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <typeparam name="T">Type of return value.</typeparam>
+            <returns>Script execution result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ExecuteScript(OpenQA.Selenium.PinnedScript,System.Object[])">
+            <summary>
+            Executed pinned script against element.
+            </summary>
+            <param name="pinnedScript">Instance of script pinned with <see cref="P:Aquality.Selenium.Browsers.Browser.JavaScriptEngine"/>.</param>
+            <param name="arguments">Script arguments.</param>
+            <returns>Script execution result.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Actions.MouseActions">
             <summary>

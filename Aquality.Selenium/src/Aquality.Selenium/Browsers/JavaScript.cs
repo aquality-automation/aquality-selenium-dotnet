@@ -28,6 +28,7 @@ namespace Aquality.Selenium.Browsers
         ScrollToTop,
         ScrollWindowBy,
         SelectComboBoxValueByText,
+        SetAttribute,
         SetFocus,
         SetInnerHTML,
         SetValue,

@@ -146,6 +146,17 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
+        /// Setting attribute value.
+        /// </summary>
+        /// <param name="name">Attribute name</param>
+        /// <param name="value">Value to set</param>
+        public void SetAttribute(string name, string value)
+        {
+            LogElementAction("loc.el.attr.set", name, value);
+            ExecuteScript(JavaScript.SetAttribute, name, value);
+        }
+
+        /// <summary>
         /// Checks whether element on screen or not.
         /// </summary>
         /// <returns>True if element is on screen and false otherwise.</returns>
@@ -200,6 +211,33 @@ namespace Aquality.Selenium.Elements.Actions
                 .Select(item => double.Parse(item.ToString()))
                 .ToArray();
             return new Point((int)Math.Round(coordinates[0]), (int)Math.Round(coordinates[1]));
+        }
+
+        /// <summary>
+        /// Executed pinned script against element.
+        /// </summary>
+        /// <param name="pinnedScript">Instance of script pinned with <see cref="Browser.JavaScriptEngine"/>.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <typeparam name="T">Type of return value.</typeparam>
+        /// <returns>Script execution result.</returns>
+        public T ExecuteScript<T>(PinnedScript pinnedScript, params object[] arguments)
+        {
+            LogElementAction("loc.el.execute.pinnedjs");
+            var result = ActionRetrier.DoWithRetry(() => pinnedScript.ExecuteScript<T>(ResolveArguments(arguments)));
+            LogElementAction("loc.el.execute.pinnedjs.result", result);
+            return result;
+        }
+
+        /// <summary>
+        /// Executed pinned script against element.
+        /// </summary>
+        /// <param name="pinnedScript">Instance of script pinned with <see cref="Browser.JavaScriptEngine"/>.</param>
+        /// <param name="arguments">Script arguments.</param>
+        /// <returns>Script execution result.</returns>
+        public void ExecuteScript(PinnedScript pinnedScript, params object[] arguments)
+        {
+            LogElementAction("loc.el.execute.pinnedjs");
+            ActionRetrier.DoWithRetry(() => pinnedScript.ExecuteScript(ResolveArguments(arguments)));
         }
 
         protected T ExecuteScript<T>(JavaScript scriptName, params object[] arguments)

@@ -16,7 +16,7 @@ namespace Aquality.Selenium.Browsers
         /// Initializes a new instance of the <see cref="NetworkHandling"/> class.
         /// </summary>
         /// <param name="driver">The <see cref="IWebDriver"/> instance on which the network should be monitored.</param>
-        public NetworkHandling(WebDriver driver)
+        public NetworkHandling(IWebDriver driver)
         {
             network = driver.Manage().Network;
         }
