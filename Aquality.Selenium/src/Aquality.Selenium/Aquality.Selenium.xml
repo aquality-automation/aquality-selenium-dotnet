@@ -357,6 +357,64 @@
             <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
             <returns>A task to be awaited.</returns>
         </member>
+        <member name="T:Aquality.Selenium.Browsers.DevToolsEmulationExtensions">
+            <summary>
+            Implementation of version-independent emulation DevTools commands as extensions for <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.CanEmulate(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Tells whether emulation is supported.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command with boolean result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetGeoLocationOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Overrides the GeoLocation Position or Error. Omitting any of the parameters emulates position unavailable.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="latitude">Latitude of GeoLocation.</param>
+            <param name="longitude">Longitude of location.</param>
+            <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearGeolocationOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears the overridden GeoLocation Position and Error.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Overrides the values of device screen dimensions.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetDeviceMetricsOverrideCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Int64,System.Int64,System.Boolean,System.Double,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Overrides the values of device screen dimensions.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="width">Value to override window.screen.width.</param>
+            <param name="height">Value to override window.screen.height.</param>
+            <param name="mobile">Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text autosizing and more.</param>
+            <param name="deviceScaleFactor">Overriding device scale factor value. 0 disables the override.</param>
+            <param name="screenOrientationType">Orientation type. 
+            Allowed Values (in any case): portraitPrimary, portraitSecondary, landscapePrimary, landscapeSecondary.</param>
+            <param name="screenOrientationAngle">Orientation angle. Set only if orientation type was set.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears the overridden device metrics.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsHandling">
             <summary>
             Wrapper for Selenium <see cref="T:OpenQA.Selenium.DevTools.IDevTools"/> functionality.
@@ -410,26 +468,21 @@
             Sends the specified command and returns the associated command response.
             </summary>
             <param name="commandName">The name of the command to send.</param>
-            <param name="commandParameters">The parameters of the command as a JToken object</param>
+            <param name="commandParameters">The parameters of the command as a JToken object.</param>
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SetGeoLocationOverride(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
             <summary>
-            Overrides the GeoLocation Position or Error. Omitting any of the parameters emulates position unavailable.
+            Sends the specified command and returns the associated command response.
             </summary>
-            <param name="latitude">Latitude of GeoLocation.</param>
-            <param name="longitude">Longitude of location.</param>
-            <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
-            <exception cref="T:System.NotSupportedException"></exception>
-        </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ClearGeolocationOverride">
-            <summary>
-            Clears the overridden GeoLocation Position and Error.
-            </summary>
-            <returns>A task for asynchronous command.</returns>
+            <param name="commandWithParameters">The command to send with parameters.</param>
+            <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
+            <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
+            <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>

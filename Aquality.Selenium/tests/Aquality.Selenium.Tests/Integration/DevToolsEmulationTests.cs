@@ -1,5 +1,6 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
+using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium.DevTools.V85.Emulation;
 using System;
@@ -7,11 +8,16 @@ using System.Collections.Generic;
 
 namespace Aquality.Selenium.Tests.Integration
 {
-    internal class DevToolsTests : UITest
+    internal class DevToolsEmulationTests : UITest
     {
         private static readonly double LatitudeForOverride = 35.8235;
         private static readonly double LongitudeForOverride = -78.8256;
         private static readonly double Accuracy = 0.97;
+
+        private static readonly long deviceModeSettingWidth = 600;
+        private static readonly long deviceModeSettingHeight = 1000;
+        private static readonly bool deviceModeSettingMobile = true;
+        private static readonly double deviceModeSettingDeviceScaleFactor = 50;
 
         private static DevToolsHandling DevTools => AqualityServices.Browser.DevTools;
 
@@ -25,6 +31,58 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.IsFalse(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as not active after close");
             Assert.IsNotNull(DevTools.GetDevToolsSession(), "Should be possible to get a new DevTools session after close");
             Assert.IsTrue(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting for a second time");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_CheckThatBrowserCanEmulate()
+        {
+            var canEmulate = false;
+            Assert.DoesNotThrowAsync(async () => canEmulate = await DevTools.CanEmulate(), "Should be possible to check that browser can emulate");
+            Assert.IsTrue(canEmulate, "Emulation should be supported in browser");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetAndClearDeviceMetricsOverride()
+        {
+            CheckDeviceMetricsOverride((width, height, isMobile, scaleFactor) => Assert.DoesNotThrowAsync(
+                () => DevTools.SetDeviceMetricsOverride(width, height, isMobile), "Should be possible to set device metrics override"));
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetAndClearDeviceMetricsOverride_WithVersionSpecificParameters()
+        {
+            void setAction(long width, long height, bool isMobile, double scaleFactor)
+            {
+                var parameters = new OpenQA.Selenium.DevTools.V95.Emulation.SetDeviceMetricsOverrideCommandSettings
+                {
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V95.Emulation.DisplayFeature
+                    {
+                        Orientation = OpenQA.Selenium.DevTools.V95.Emulation.DisplayFeatureOrientationValues.Horizontal
+                    },
+                    Width = width,
+                    Height = height,
+                    Mobile = isMobile,
+                    DeviceScaleFactor = scaleFactor
+                };
+                Assert.DoesNotThrowAsync(() => DevTools.SetDeviceMetricsOverride(parameters), "Should be possible to set device metrics override with version-specific parameters");
+            }
+
+            CheckDeviceMetricsOverride(setAction);
+        }
+
+        private static void CheckDeviceMetricsOverride(Action<long, long, bool, double> setAction)
+        {
+            long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
+            var initialValue = getWindowHeight();
+            Assume.That(initialValue, Is.Not.EqualTo(deviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
+            setAction(deviceModeSettingWidth, deviceModeSettingHeight, deviceModeSettingMobile, deviceModeSettingDeviceScaleFactor);
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
+            Assert.AreEqual(deviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
+            
+            Assert.DoesNotThrowAsync(() => DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
+            AqualityServices.Browser.Refresh();
+            Assert.AreEqual(initialValue, getWindowHeight(), "Browser height should match to initial value after clear");
         }
 
         [Test]

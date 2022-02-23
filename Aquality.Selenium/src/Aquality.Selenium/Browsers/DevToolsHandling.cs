@@ -111,19 +111,35 @@ namespace Aquality.Selenium.Browsers
         /// Sends the specified command and returns the associated command response.
         /// </summary>
         /// <param name="commandName">The name of the command to send.</param>
-        /// <param name="commandParameters">The parameters of the command as a JToken object</param>
+        /// <param name="commandParameters">The parameters of the command as a JToken object.</param>
         /// <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
-        public async Task<JToken> SendCommand(string commandName, JToken commandParameters, 
+        public async Task<JToken> SendCommand(string commandName, JToken commandParameters = null, 
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            LogCommand(commandName, commandParameters);
+            var parameters = commandParameters ?? new JObject();
+            LogCommand(commandName, parameters);
             var result = await devToolsProvider.GetDevToolsSession()
-                .SendCommand(commandName, commandParameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+                .SendCommand(commandName, parameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
             LogCommandResult(result);            
             return result;
+        }
+
+        /// <summary>
+        /// Sends the specified command and returns the associated command response.
+        /// </summary>
+        /// <param name="commandWithParameters">The command to send with parameters.</param>
+        /// <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
+        /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
+        /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+        /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
+        public async Task<JToken> SendCommand(ICommand commandWithParameters,
+            CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await SendCommand(commandWithParameters.CommandName, JToken.FromObject(commandWithParameters), 
+                cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         private void LogCommand(string commandName, JToken commandParameters)
