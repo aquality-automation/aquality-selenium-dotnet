@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
@@ -169,6 +170,43 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.DoesNotThrowAsync(() => DevTools.SetScriptExecutionDisabled(false), "Should be possible to set script execution enabled");
             alertsForm.JsAlertButton.Click();
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be handled as JS scripts are enabled again");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetTouchEmulationEnabled_AndDisabled()
+        {
+            bool isTouchEnabled() => AqualityServices.Browser.ExecuteScriptFromFile<bool>("Resources.IsTouchEnabled.js");
+            Assume.That(isTouchEnabled, Is.False, "Touch should be initially disabled");
+
+            Assert.DoesNotThrowAsync(() => DevTools.SetTouchEmulationEnabled(true), "Should be possible to enable touch emulation");
+            Assert.IsTrue(isTouchEnabled(), "Touch should be enabled");
+            Assert.DoesNotThrowAsync(() => DevTools.SetTouchEmulationEnabled(new SetTouchEmulationEnabledCommandSettings { Enabled = false }), 
+                "Should be possible to disable touch emulation");
+            Assert.IsFalse(isTouchEnabled(), "Touch should be disabled");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetEmulatedMedia()
+        {
+            const string emulatedMedia = "projection";
+            string getMediaType() => AqualityServices.Browser.ExecuteScriptFromFile<string>("Resources.GetMediaType.js");
+            var initialValue = getMediaType();
+            Assume.That(initialValue, Does.Not.Contain(emulatedMedia), "Initial media type should differ from value to be set");
+
+            Assert.DoesNotThrowAsync(() => DevTools.SetEmulatedMedia(emulatedMedia, new Dictionary<string, string> { { "width", DeviceModeSettingWidth.ToString() } }), 
+                "Should be possible to set emulated media");
+            Assert.AreEqual(emulatedMedia, getMediaType(), "Media type should equal to emulated");
+            Assert.DoesNotThrowAsync(() => DevTools.DisableEmulatedMediaOverride(), "Should be possible to disable emulated media override");
+            Assert.AreEqual(initialValue, getMediaType(), "Media type should equal to initial after disabling the override");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_SetDefaultBackgroundColorOverride()
+        {
+            Assert.DoesNotThrowAsync(() => DevTools.SetDefaultBackgroundColorOverride(0, 255, 38, 0.25), 
+                "Should be possible to set default background color override");
+            Assert.DoesNotThrowAsync(() => DevTools.ClearDefaultBackgroundColorOverride(), 
+                "Should be possible to clear default background color override");
         }
     }
 }

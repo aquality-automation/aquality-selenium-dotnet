@@ -1,13 +1,18 @@
 ﻿using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium.DevTools;
+using OpenQA.Selenium.DevTools.V85.DOM;
 using OpenQA.Selenium.DevTools.V85.Emulation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aquality.Selenium.Browsers
 {
     /// <summary>
     /// Implementation of version-independent emulation DevTools commands as extensions for <see cref="DevToolsHandling"/>.
+    /// Currently only non-experimental extensions are implemented.
+    /// For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Emulation/"/>.
     /// </summary>
     public static class DevToolsEmulationExtensions
     {
@@ -154,6 +159,99 @@ namespace Aquality.Selenium.Browsers
         public static async Task SetScriptExecutionDisabled(this DevToolsHandling devTools, bool value = true)
         {
             await devTools.SendCommand(new SetScriptExecutionDisabledCommandSettings { Value = value });
+        }
+
+        /// <summary>
+        /// Enables touch on platforms which do not support them.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="enabled">Whether the touch event emulation should be enabled.</param>
+        /// <param name="maxTouchPoints">Maximum touch points supported. Defaults to one.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetTouchEmulationEnabled(this DevToolsHandling devTools, bool enabled = true, long? maxTouchPoints = null)
+        {
+            await devTools.SendCommand(new SetTouchEmulationEnabledCommandSettings { Enabled = enabled, MaxTouchPoints = maxTouchPoints });
+        }
+
+        /// <summary>
+        /// Enables touch on platforms which do not support them.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="commandParameters">Version-specific set of parameters. 
+        /// For example, take a look at <see cref="SetTouchEmulationEnabledCommandSettings"/>.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetTouchEmulationEnabled(this DevToolsHandling devTools, ICommand commandParameters)
+        {
+            GuardCommandParameters<SetTouchEmulationEnabledCommandSettings>(commandParameters);
+            await devTools.SendCommand(commandParameters);
+        }
+
+        /// <summary>
+        /// Emulates the given media type or media feature for CSS media queries.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="media">Media type to emulate. Empty string disables the override.
+        /// Possible values: braille, embossed, handheld, print, projection, screen, speech, tty, tv.</param>
+        /// <param name="mediaFeatures">Media features to emulate.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetEmulatedMedia(this DevToolsHandling devTools, string media, IDictionary<string, string> mediaFeatures = null)
+        {
+            var settings = new SetEmulatedMediaCommandSettings { Media = media };
+            if (mediaFeatures != null)
+            {
+                settings.Features = mediaFeatures.Keys.Select(key => new MediaFeature { Name = key, Value = mediaFeatures[key] }).ToArray();
+            }
+            await devTools.SendCommand(settings);
+        }
+
+        /// <summary>
+        /// Emulates the given media type or media feature for CSS media queries.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="commandParameters">Version-specific set of parameters. 
+        /// For example, take a look at <see cref="SetEmulatedMediaCommandSettings"/>.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetEmulatedMedia(this DevToolsHandling devTools, ICommand commandParameters)
+        {
+            GuardCommandParameters<SetEmulatedMediaCommandSettings>(commandParameters);
+            await devTools.SendCommand(commandParameters);
+        }
+
+        /// <summary>
+        /// Disables emulated media override.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task DisableEmulatedMediaOverride(this DevToolsHandling devTools)
+        {
+            var settings = new SetEmulatedMediaCommandSettings { Media = string.Empty };
+            await SetEmulatedMedia(devTools, settings);
+        }
+
+        /// <summary>
+        /// Sets an override of the default background color of the frame. This override is used if the content does not specify one.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <param name="red">The red component, in the [0-255] range.</param>
+        /// <param name="green">The green component, in the [0-255] range.</param>
+        /// <param name="blue">The blue component, in the [0-255] range.</param>
+        /// <param name="alpha">The alpha component, in the [0-1] range (default: 1).</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task SetDefaultBackgroundColorOverride(this DevToolsHandling devTools,
+            long red, long green, long blue, double? alpha = null)
+        {
+            var settings = new SetDefaultBackgroundColorOverrideCommandSettings { Color = new RGBA { R = red, G = green, B = blue, A = alpha } };
+            await devTools.SendCommand(settings);
+        }
+
+        /// <summary>
+        /// Clears an override of the default background color of the frame.
+        /// </summary>
+        /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
+        /// <returns>A task for asynchronous command.</returns>
+        public static async Task ClearDefaultBackgroundColorOverride(this DevToolsHandling devTools)
+        {
+            await devTools.SendCommand(new SetDefaultBackgroundColorOverrideCommandSettings());
         }
 
         private static void GuardCommandParameters<T>(ICommand commandParameters) where T : ICommand, new()

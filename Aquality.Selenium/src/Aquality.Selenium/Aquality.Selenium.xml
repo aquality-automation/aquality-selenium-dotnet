@@ -360,6 +360,8 @@
         <member name="T:Aquality.Selenium.Browsers.DevToolsEmulationExtensions">
             <summary>
             Implementation of version-independent emulation DevTools commands as extensions for <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            Currently only non-experimental extensions are implemented.
+            For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Emulation/"/>.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.CanEmulate(Aquality.Selenium.Browsers.DevToolsHandling)">
@@ -440,6 +442,68 @@
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <param name="value">Whether script execution should be disabled in the page.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetTouchEmulationEnabled(Aquality.Selenium.Browsers.DevToolsHandling,System.Boolean,System.Nullable{System.Int64})">
+            <summary>
+            Enables touch on platforms which do not support them.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="enabled">Whether the touch event emulation should be enabled.</param>
+            <param name="maxTouchPoints">Maximum touch points supported. Defaults to one.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetTouchEmulationEnabled(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Enables touch on platforms which do not support them.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetTouchEmulationEnabledCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetEmulatedMedia(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Emulates the given media type or media feature for CSS media queries.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="media">Media type to emulate. Empty string disables the override.
+            Possible values: braille, embossed, handheld, print, projection, screen, speech, tty, tv.</param>
+            <param name="mediaFeatures">Media features to emulate.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetEmulatedMedia(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Emulates the given media type or media feature for CSS media queries.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetEmulatedMediaCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.DisableEmulatedMediaOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Disables emulated media override.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDefaultBackgroundColorOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Int64,System.Int64,System.Int64,System.Nullable{System.Double})">
+            <summary>
+            Sets an override of the default background color of the frame. This override is used if the content does not specify one.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="red">The red component, in the [0-255] range.</param>
+            <param name="green">The green component, in the [0-255] range.</param>
+            <param name="blue">The blue component, in the [0-255] range.</param>
+            <param name="alpha">The alpha component, in the [0-1] range (default: 1).</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearDefaultBackgroundColorOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears an override of the default background color of the frame.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsHandling">
