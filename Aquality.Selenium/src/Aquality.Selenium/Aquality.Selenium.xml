@@ -129,8 +129,14 @@
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.IsStarted">
             <summary>
-            Checkes whether current SessionId is null or not.
+            Checks whether current SessionId is null or not.
             </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.DevTools">
+            <summary>
+            Provides interface to handle DevTools for Chromium-based and Firefox drivers.
+            </summary>
+            <returns>An instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Quit">
             <summary>
@@ -139,7 +145,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.GoTo(System.String)">
             <summary>
-            Navigates to desired url.
+            Navigates to desired URL.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
@@ -166,9 +172,9 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Tabs">
             <summary>
-            Provide interface to manage of browser tabs.
+            Provides interface to manage of browser tabs.
             </summary>
-            <returns>instance of IBrowserTabNavigation.</returns>
+            <returns>Instance of IBrowserTabNavigation.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.HandleAlert(Aquality.Selenium.Browsers.AlertAction,System.String)">
             <summary>
@@ -180,7 +186,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.Maximize">
             <summary>
-            Maximises web page.
+            Maximizes web page.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.WaitForPageToLoad">
@@ -355,6 +361,224 @@
             <param name="browser">Browser instance.</param>
             <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
             <returns>A task to be awaited.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.DevToolsEmulationExtensions">
+            <summary>
+            Implementation of version-independent emulation DevTools commands as extensions for <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            Currently only non-experimental extensions are implemented.
+            For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Emulation/"/>.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.CanEmulate(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Tells whether emulation is supported.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command with boolean result.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetGeoLocationOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Overrides the GeoLocation Position or Error. Omitting any of the parameters emulates position unavailable.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="latitude">Latitude of GeoLocation.</param>
+            <param name="longitude">Longitude of location.</param>
+            <param name="accuracy">Accuracy of the geoLocation. By default is set to 1 meaning 100% accuracy.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearGeolocationOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears the overridden GeoLocation Position and Error.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Overrides the values of device screen dimensions.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetDeviceMetricsOverrideCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Int64,System.Int64,System.Boolean,System.Double,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Overrides the values of device screen dimensions.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="width">Value to override window.screen.width.</param>
+            <param name="height">Value to override window.screen.height.</param>
+            <param name="mobile">Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text autosizing and more.</param>
+            <param name="deviceScaleFactor">Overriding device scale factor value. 0 disables the override.</param>
+            <param name="screenOrientationType">Orientation type. 
+            Allowed Values (in any case): portraitPrimary, portraitSecondary, landscapePrimary, landscapeSecondary.</param>
+            <param name="screenOrientationAngle">Orientation angle. Set only if orientation type was set.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears the overridden device metrics.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetUserAgentOverride(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Overrides the values of user agent.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetUserAgentOverrideCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetUserAgentOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.String,System.String)">
+            <summary>
+            Overrides the values of user agent.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="userAgent">User agent to use.</param>
+            <param name="acceptLanguage">Browser language to emulate.</param>
+            <param name="platform">The platform navigator.platform should return.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetScriptExecutionDisabled(Aquality.Selenium.Browsers.DevToolsHandling,System.Boolean)">
+            <summary>
+            Switches script execution in the page.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="value">Whether script execution should be disabled in the page.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetTouchEmulationEnabled(Aquality.Selenium.Browsers.DevToolsHandling,System.Boolean,System.Nullable{System.Int64})">
+            <summary>
+            Enables touch on platforms which do not support them.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="enabled">Whether the touch event emulation should be enabled.</param>
+            <param name="maxTouchPoints">Maximum touch points supported. Defaults to one.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetTouchEmulationEnabled(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Enables touch on platforms which do not support them.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetTouchEmulationEnabledCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetEmulatedMedia(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Emulates the given media type or media feature for CSS media queries.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="media">Media type to emulate. Empty string disables the override.
+            Possible values: braille, embossed, handheld, print, projection, screen, speech, tty, tv.</param>
+            <param name="mediaFeatures">Media features to emulate.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetEmulatedMedia(Aquality.Selenium.Browsers.DevToolsHandling,OpenQA.Selenium.DevTools.ICommand)">
+            <summary>
+            Emulates the given media type or media feature for CSS media queries.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="commandParameters">Version-specific set of parameters. 
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V85.Emulation.SetEmulatedMediaCommandSettings"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.DisableEmulatedMediaOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Disables emulated media override.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDefaultBackgroundColorOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Int64,System.Int64,System.Int64,System.Nullable{System.Double})">
+            <summary>
+            Sets an override of the default background color of the frame. This override is used if the content does not specify one.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="red">The red component, in the [0-255] range.</param>
+            <param name="green">The green component, in the [0-255] range.</param>
+            <param name="blue">The blue component, in the [0-255] range.</param>
+            <param name="alpha">The alpha component, in the [0-1] range (default: 1).</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.ClearDefaultBackgroundColorOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Clears an override of the default background color of the frame.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.DevToolsHandling">
+            <summary>
+            Wrapper for Selenium <see cref="T:OpenQA.Selenium.DevTools.IDevTools"/> functionality.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.#ctor(OpenQA.Selenium.DevTools.IDevTools)">
+            <summary>
+            Initializes an instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            </summary>
+            <param name="devToolsProvider">Instance of <see cref="T:OpenQA.Selenium.WebDriver"/> which supports CDP Protocol.</param>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.DevToolsHandling.HasActiveDevToolsSession">
+            <summary>
+            Gets a value indicating whether a DevTools session is active.
+            Because backing field is not set to null in Selenium <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.CloseDevToolsSession"/> implementations 
+            <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/> and <see cref="T:OpenQA.Selenium.Firefox.FirefoxDriver"/>, we need to rework it with ours backing field.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.CloseDevToolsSession">
+            <summary>
+            Closes a DevTools session.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)"/>, where parameter protocolVersion
+            defaults to autodetect the protocol version for Chromium, V85 for Firefox.
+            </summary>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            </summary>
+            <param name="protocolVersion">The version of the Chromium Developer Tools protocol to use. 
+            Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Executes a custom Chromium Dev Tools Protocol Command.
+            Note: works only if current driver is instance of <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>.
+            </summary>
+            <param name="commandName">Name of the command to execute.</param>
+            <param name="commandParameters">Parameters of the command to execute.</param>
+            <returns>An object representing the result of the command, if applicable.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Sends the specified command and returns the associated command response.
+            </summary>
+            <param name="commandName">The name of the command to send.</param>
+            <param name="commandParameters">The parameters of the command as a JToken object.</param>
+            <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
+            <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
+            <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Sends the specified command and returns the associated command response.
+            </summary>
+            <param name="commandWithParameters">The command to send with parameters.</param>
+            <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
+            <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
+            <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>
