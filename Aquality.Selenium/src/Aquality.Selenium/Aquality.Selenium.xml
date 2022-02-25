@@ -580,6 +580,35 @@
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
+        <member name="T:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions">
+            <summary>
+            Implementation of version-independent performance DevTools commands as extensions for <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
+            For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Performance/"/>.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.DisablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Disable collecting and reporting metrics.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.EnablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling,System.String)">
+            <summary>
+            Enable collecting and reporting metrics.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <param name="timeDomain">Time domain to use for collecting and reporting duration metrics.
+            Allowed Values: timeTicks, threadTicks. </param>
+            <returns>A task for asynchronous command.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.GetPerformanceMetrics(Aquality.Selenium.Browsers.DevToolsHandling)">
+            <summary>
+            Retrieve current values of run-time metrics.
+            </summary>
+            <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
+            <returns>A task for asynchronous command with current values for run-time metrics as result.</returns>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.IBrowserFactory">
             <summary>
             Factory that creates instance of desired Browser based on <see cref="T:Aquality.Selenium.Configurations.IBrowserProfile"/>.
