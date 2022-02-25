@@ -70,7 +70,9 @@ stages:
       inputs:
         versionSpec: '5.x'
     - task: gitversion/execute@0
-      displayName: 'Calculate SemVer'
+      inputs:
+        useConfigFile: true
+        configFilePath: 'GitVersion.yml'
 
     - script: dotnet pack Aquality.Selenium\src\Aquality.Selenium\Aquality.Selenium.csproj -c $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersion) -o $(Build.ArtifactStagingDirectory)
       displayName: 'Pack to NuGet package'
