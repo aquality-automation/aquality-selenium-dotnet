@@ -81,7 +81,9 @@ namespace Aquality.Selenium.Browsers
         public DevToolsSession GetDevToolsSession(int protocolVersion)
         {
             Logger.Info("loc.browser.devtools.session.get", protocolVersion);
-            return devToolsProvider.GetDevToolsSession(protocolVersion);
+            var session = devToolsProvider.GetDevToolsSession(protocolVersion);
+            wasDevToolsSessionClosed = false;
+            return session;
         }
 
         /// <summary>
