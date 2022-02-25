@@ -1,5 +1,4 @@
 ﻿using Aquality.Selenium.Browsers;
-using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;

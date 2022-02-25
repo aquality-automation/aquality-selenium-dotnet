@@ -61,7 +61,15 @@ Assert.DoesNotThrowAsync(() => browser.Network.StartMonitoring());
 ```
 see more examples at [NetworkHandlingTests](Aquality.Selenium/tests/Aquality.Selenium.Tests/Integration/NetworkHandlingTests.cs).
 
-7. Quit browser at the end:
+7. Emulate GeoLocation, Device, Touch, Media, UserAgent overrides, Disable script execution and more using DevTools extensions:
+```csharp
+const double latitude = 35.8235;
+const double longitude = -78.8256;
+const double accuracy = 0.97;
+Assert.DoesNotThrowAsync(() => DevTools.SetGeoLocationOverride(latitude, longitude, accuracy), "Should be possible to override geoLocation")
+```
+
+8. Quit browser at the end:
 ```csharp
 browser.Quit();
 ```
