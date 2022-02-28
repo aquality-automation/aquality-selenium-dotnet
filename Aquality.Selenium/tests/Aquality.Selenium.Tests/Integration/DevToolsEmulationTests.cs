@@ -78,7 +78,7 @@ namespace Aquality.Selenium.Tests.Integration
         
         private static void CheckDeviceMetricsOverride(Action<long, long, bool, double> setAction)
         {
-            long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
+            static long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
             var initialValue = getWindowHeight();
             Assume.That(initialValue, Is.Not.EqualTo(DeviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
             setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
@@ -174,7 +174,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_SetTouchEmulationEnabled_AndDisabled()
         {
-            bool isTouchEnabled() => AqualityServices.Browser.ExecuteScriptFromFile<bool>("Resources.IsTouchEnabled.js");
+            static bool isTouchEnabled() => AqualityServices.Browser.ExecuteScriptFromFile<bool>("Resources.IsTouchEnabled.js");
             Assume.That(isTouchEnabled, Is.False, "Touch should be initially disabled");
 
             Assert.DoesNotThrowAsync(() => DevTools.SetTouchEmulationEnabled(true), "Should be possible to enable touch emulation");
@@ -188,7 +188,8 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetEmulatedMedia()
         {
             const string emulatedMedia = "projection";
-            string getMediaType() => AqualityServices.Browser.ExecuteScriptFromFile<string>("Resources.GetMediaType.js");
+
+            static string getMediaType() => AqualityServices.Browser.ExecuteScriptFromFile<string>("Resources.GetMediaType.js");
             var initialValue = getMediaType();
             Assume.That(initialValue, Does.Not.Contain(emulatedMedia), "Initial media type should differ from value to be set");
 
