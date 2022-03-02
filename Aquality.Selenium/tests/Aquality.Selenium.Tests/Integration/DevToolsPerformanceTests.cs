@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using NUnit.Framework;
-using OpenQA.Selenium.DevTools.V96.Performance;
 using System.Collections.Generic;
 
 namespace Aquality.Selenium.Tests.Integration

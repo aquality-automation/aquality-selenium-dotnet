@@ -362,6 +362,21 @@
             <param name="handler">Authentication parameters, such as URI matcher and credentials.</param>
             <returns>A task to be awaited.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.BrowserNetworkExtensions.EnableHttpExchangeLoggingAndStartMonitoring(Aquality.Selenium.Browsers.Browser,Aquality.Selenium.Logging.HttpExchangeLoggingOptions)">
+            <summary>
+            Enables HTTP Request/Response logging, and starts network monitoring.
+            </summary>
+            <param name="browser">Browser instance.</param>
+            <param name="loggingOptions">Logging preferences.</param>
+            <returns>A task to be awaited.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.BrowserNetworkExtensions.EnableHttpExchangeLogging(Aquality.Selenium.Browsers.Browser,Aquality.Selenium.Logging.HttpExchangeLoggingOptions)">
+            <summary>
+            Enables HTTP Request/Response logging.
+            </summary>
+            <param name="browser">Browser instance.</param>
+            <param name="loggingOptions">Logging preferences.</param>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsEmulationExtensions">
             <summary>
             Implementation of version-independent emulation DevTools commands as extensions for <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.
@@ -2139,6 +2154,76 @@
             </summary>
             <param name="x">horizontal coordinate</param>
             <param name="y">vertical coordinate</param>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.HttpExchangeLoggingOptions">
+            <summary>
+            HTTP Request/Response logging options.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.RequestInfo">
+            <summary>
+            Controls logging of general request info: Method, URL, Request ID.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.RequestHeaders">
+            <summary>
+            Controls logging of request headers.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.RequestPostData">
+            <summary>
+            Controls logging of request POST data.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.ResponseInfo">
+            <summary>
+            Controls logging of general response info: Status code, URL, Resource type, Request ID.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.ResponseHeaders">
+            <summary>
+            Controls logging of response headers.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.HttpExchangeLoggingOptions.ResponseBody">
+            <summary>
+            Controls logging of response body.
+            </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.LocalizedLoggerExtensions">
+            <summary>
+            Extensions for localized logger.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Logging.LocalizedLoggerExtensions.LogByLevel(Aquality.Selenium.Core.Localization.ILocalizedLogger,Aquality.Selenium.Logging.LogLevel,System.String,System.Object[])">
+            <summary>
+            Logging of localized messages with a specific log level.
+            </summary>
+            <param name="logger">Current instance of logger.</param>
+            <param name="logLevel">Logging level.</param>
+            <param name="messageKey">Localized message key.</param>
+            <param name="args">Arguments for the localized message.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when specified log level is not supported.</exception>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.LoggingParameters">
+            <summary>
+            Logging parameters for specific features, such as HTTP Exchange.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.LoggingParameters.Enabled">
+            <summary>
+            Whether feature logging should be enabled or not.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.LoggingParameters.LogLevel">
+            <summary>
+            Logging level for the specific feature.
+            </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.LogLevel">
+            <summary>
+            Logging level for specific features, such as HTTP Exchange.
+            </summary>
         </member>
     </members>
 </doc>
