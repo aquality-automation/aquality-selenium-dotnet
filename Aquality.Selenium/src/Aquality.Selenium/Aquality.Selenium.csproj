@@ -28,7 +28,9 @@
     <None Remove="Resources\JavaScripts\SetAttribute.js" />
     <None Remove="Resources\Localization\be.json" />
     <None Remove="Resources\Localization\en.json" />
+    <None Remove="Resources\Localization\pl.json" />
     <None Remove="Resources\Localization\ru.json" />
+    <None Remove="Resources\Localization\uk.json" />
     <None Remove="Resources\settings.json" />
     <None Include="..\..\..\LICENSE">
       <Pack>True</Pack>
@@ -65,6 +67,8 @@
     <EmbeddedResource Include="Resources\JavaScripts\OpenNewTab.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetAttribute.js" />
     <EmbeddedResource Include="Resources\JavaScripts\SetValue.js" />
+    <EmbeddedResource Include="Resources\Localization\pl.json" />
+    <EmbeddedResource Include="Resources\Localization\uk.json" />
     <EmbeddedResource Include="Resources\Localization\be.json" />
     <EmbeddedResource Include="Resources\Localization\en.json" />
     <EmbeddedResource Include="Resources\Localization\ru.json" />
@@ -72,7 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="2.0.1" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="2.0.2" />
     <PackageReference Include="WebDriverManager" Version="2.12.3" />
   </ItemGroup>
 

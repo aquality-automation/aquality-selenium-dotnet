@@ -2,11 +2,15 @@
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.IO;
+using System.Linq;
 
 namespace Aquality.Selenium.Tests.Integration
 {
     internal class NetworkHandlingTests : UITest
     {
+        private const string LogPath = "../../../Log/log.log";
+
         [Test]
         public void Should_BePossibleTo_SetBasicAuthentication()
         {
@@ -103,6 +107,21 @@ namespace Aquality.Selenium.Tests.Integration
             AqualityServices.Browser.Network.NetworkResponseReceived -= eventHandler;
             welcomeForm.Open();
             Assert.AreEqual(oldValue, counter, "Should be possible to unsubscribe from Response Received event");
+        }
+
+        [Test]
+        [Parallelizable(ParallelScope.None)]
+        public void Should_BePossibleTo_EnableHttpExchangeLogging_AndDisableIt()
+        {
+            var someForm = new DropdownForm();
+            someForm.Open();
+            var logMessage1 = File.ReadAllLines(LogPath).LastOrDefault();
+            Assert.IsFalse(string.IsNullOrEmpty(logMessage1), "Some message should appear in log file and should not be empty");
+            Assert.DoesNotThrowAsync(() => AqualityServices.Browser.EnableHttpExchangeLoggingAndStartMonitoring(), "Should be possible to enable HTTP exchange logging");
+            AqualityServices.Browser.Driver.Navigate().Refresh();
+            var logMessage2 = File.ReadAllLines(LogPath).LastOrDefault();
+            Assert.IsFalse(string.IsNullOrEmpty(logMessage2), "Some message should appear in log file and should not be empty");
+            Assert.AreNotEqual(logMessage1, logMessage2, "HTTP logging message should be in file, although no Aquality-actions performed");
         }
     }
 }
