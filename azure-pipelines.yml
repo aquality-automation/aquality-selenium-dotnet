@@ -25,7 +25,13 @@ stages:
         projectVersion: '$(Build.BuildNumber)'
         extraProperties: |
           sonar.coverage.exclusions=**/**
-
+          
+    - task: UseDotNet@2
+      displayName: Use .NET 6.0
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.x'
+        
     - task: DotNetCoreCLI@2
       displayName: 'Build solution'
       env: 
@@ -48,7 +54,13 @@ stages:
     variables:
       profile: 'azure'
 
-    steps:
+    steps:          
+    - task: UseDotNet@2
+      displayName: Use .NET 6.0
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.x'
+        
     - task: DotNetCoreCLI@2
       displayName: 'Run tests'
       inputs:
@@ -73,6 +85,12 @@ stages:
       inputs:
         useConfigFile: true
         configFilePath: 'GitVersion.yml'
+                      
+    - task: UseDotNet@2
+      displayName: Use .NET 6.0
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.x'
 
     - script: dotnet pack Aquality.Selenium\src\Aquality.Selenium\Aquality.Selenium.csproj -c $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersion) -o $(Build.ArtifactStagingDirectory)
       displayName: 'Pack to NuGet package'
