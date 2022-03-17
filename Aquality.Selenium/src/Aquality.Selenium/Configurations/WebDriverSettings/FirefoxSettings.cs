@@ -23,6 +23,8 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected override BrowserName BrowserName => BrowserName.Firefox;
 
+        public bool IsGeckoServiceHostDefaultEnabled => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.isGeckoServiceHostDefaultEnabled", false);
+
         protected override IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
         {
             { "binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },            

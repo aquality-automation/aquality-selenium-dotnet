@@ -49,7 +49,7 @@ namespace Aquality.Selenium.Browsers
                     case BrowserName.Firefox:
                         SetUpDriver(new FirefoxConfig(), driverSettings);
                         var geckoService = FirefoxDriverService.CreateDefaultService();
-                        geckoService.Host = "::1";
+                        geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? "::1" : geckoService.Host;
                         driver = GetDriver<FirefoxDriver>(geckoService, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.IExplorer:
