@@ -24,6 +24,7 @@ namespace Aquality.Selenium.Browsers
     public class LocalBrowserFactory : BrowserFactory
     {
         private static readonly object WebDriverDownloadingLock = new object();
+        private const string HostAddress = "::1";
 
         public LocalBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger)
             : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
@@ -49,7 +50,7 @@ namespace Aquality.Selenium.Browsers
                     case BrowserName.Firefox:
                         SetUpDriver(new FirefoxConfig(), driverSettings);
                         var geckoService = FirefoxDriverService.CreateDefaultService();
-                        geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? "::1" : geckoService.Host;
+                        geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? HostAddress : geckoService.Host;
                         driver = GetDriver<FirefoxDriver>(geckoService, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.IExplorer:
