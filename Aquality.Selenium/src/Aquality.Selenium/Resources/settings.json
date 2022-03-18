@@ -25,6 +25,7 @@
     },
     "firefox": {
       "webDriverVersion": "Latest",
+      "isGeckoServiceHostDefaultEnabled": false,
       "capabilities": {
         "enableVNC": true,
         "unhandledPromptBehavior": "default"
