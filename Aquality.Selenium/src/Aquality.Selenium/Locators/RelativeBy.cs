@@ -104,7 +104,8 @@ namespace Aquality.Selenium.Locators
 
         public override ReadOnlyCollection<IWebElement> FindElements(ISearchContext context)
         {
-            return ((RelativeSeleniumBy)by).FindElements(context);
+           return context.FindElements(by);
+          //  return ((RelativeSeleniumBy)by).FindElements(context);
         }
 
 

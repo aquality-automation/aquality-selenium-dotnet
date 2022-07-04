@@ -20,6 +20,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public static string ELEMENT_NAME_ROW2_COLUMN1 = "Cell in row 2 column 1";
 
         public static readonly string locatorCellRow5Column5 = "//tr[5]/td[5]";
+        public const string locatorCellRow1Column5 = "//tr[1]/td[5]";
         public const string locatorCellRow3Column5 = "//tr[3]/td[5]";
         public const string locatorCellRow7Column5 = "//tr[7]/td[5]";
         public const string locatorCellRow5Column3 = "//tr[5]/td[3]";
