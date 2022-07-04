@@ -20,12 +20,12 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public static string ELEMENT_NAME_ROW2_COLUMN1 = "Cell in row 2 column 1";
 
         public static readonly string locatorCellRow5Column5 = "//tr[5]/td[5]";
-        private const string locatorCellRow3Column5 = "//tr[3]/td[5]";
-        private const string locatorCellRow7Column5 = "//tr[7]/td[5]";
-        private const string locatorCellRow5Column3 = "//tr[5]/td[3]";
-        private const string locatorCellRow5Column7 = "//tr[5]/td[7]";
-        private const string locatorCellRow1Column1 = "//tr[1]/td[1]";
-        private const string locatorCellRow2Column1 = "//tr[2]/td[1]";
+        public const string locatorCellRow3Column5 = "//tr[3]/td[5]";
+        public const string locatorCellRow7Column5 = "//tr[7]/td[5]";
+        public const string locatorCellRow5Column3 = "//tr[5]/td[3]";
+        public const string locatorCellRow5Column7 = "//tr[5]/td[7]";
+        public const string locatorCellRow1Column1 = "//tr[1]/td[1]";
+        public const string locatorCellRow2Column1 = "//tr[2]/td[1]";
 
 
         public ILabel CellInRow3Column5 => ElementFactory.GetLabel(By.XPath(locatorCellRow3Column5), ELEMENT_NAME_ROW3_COLUMN5);
