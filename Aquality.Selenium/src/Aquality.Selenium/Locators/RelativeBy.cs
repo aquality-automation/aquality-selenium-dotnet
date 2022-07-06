@@ -31,133 +31,127 @@ namespace Aquality.Selenium.Locators
         }
 
         public RelativeBy Above(By by)
-        {  
+        {
             functions.Add(new Function(ABOVE, new[] { by }));
             return this;
-            //this.by = RelativeSeleniumBy.WithLocator(this.by).Above(by);
-            //return new RelativeBy(this.by);
         }
 
         public RelativeBy Above(WebElement webElement)
         {
             functions.Add(new Function(ABOVE, new[] { webElement }));
             return this;
-            //    by = RelativeSeleniumBy.WithLocator(by).Above(webElement);
-            //    return new RelativeBy(by);
         }
 
         public RelativeBy Above(IElement element)
         {
             functions.Add(new Function(ABOVE, new[] { element.Locator }));
             return this;
-            //  by = RelativeSeleniumBy.WithLocator(by).Above(element.Locator);
-            //   return new RelativeBy(by);
         }
 
         public RelativeBy Below(By by)
         {
             functions.Add(new Function(BELOW, new[] { by }));
             return this;
-            // this.by = RelativeSeleniumBy.WithLocator(this.by).Below(by);
-            // return new RelativeBy(this.by);
         }
 
         public RelativeBy Below(WebElement webElement)
         {
             functions.Add(new Function(BELOW, new[] { webElement }));
             return this;
-            // by = RelativeSeleniumBy.WithLocator(by).Below(webElement);
-            // return new RelativeBy(by);
         }
 
         public RelativeBy Below(IElement element)
         {
             functions.Add(new Function(BELOW, new[] { element.Locator }));
             return this;
-            //  by = RelativeSeleniumBy.WithLocator(by).Below(element.Locator);
-            // return new RelativeBy(by);
         }
 
         public RelativeBy Left(By by)
         {
             functions.Add(new Function(LEFT, new[] { by }));
             return this;
-            // this.by = RelativeSeleniumBy.WithLocator(this.by).LeftOf(by);
-            //  return new RelativeBy(this.by);
         }
 
         public RelativeBy Left(WebElement webElement)
         {
             functions.Add(new Function(LEFT, new[] { webElement }));
             return this;
-            // by = RelativeSeleniumBy.WithLocator(by).LeftOf(webElement);
-            // return new RelativeBy(by);
         }
 
         public RelativeBy Left(IElement element)
         {
             functions.Add(new Function(LEFT, new[] { element.Locator }));
             return this;
-            //  by = RelativeSeleniumBy.WithLocator(by).LeftOf(element.Locator);
-            // return new RelativeBy(by);
         }
 
         public RelativeBy Right(By by)
         {
             functions.Add(new Function(RIGHT, new[] { by }));
             return this;
-            // this.by = RelativeSeleniumBy.WithLocator(this.by).RightOf(by);
-            // return new RelativeBy(this.by);
         }
 
         public RelativeBy Right(WebElement webElement)
         {
             functions.Add(new Function(RIGHT, new[] { webElement }));
             return this;
-            // by = RelativeSeleniumBy.WithLocator(by).RightOf(webElement);
-            //  return new RelativeBy(by);
         }
 
         public RelativeBy Right(IElement element)
         {
             functions.Add(new Function(RIGHT, new[] { element.Locator }));
             return this;
-            // by = RelativeSeleniumBy.WithLocator(by).RightOf(element.Locator);
-            // return new RelativeBy(by);
+        }
+
+        public RelativeBy Near(By by)
+        {
+            functions.Add(new Function(NEAR, new[] { by }));
+            return this;
+        }
+
+        public RelativeBy Near(WebElement webElement)
+        {
+            functions.Add(new Function(NEAR, new[] { webElement }));
+            return this;
+        }
+
+        public RelativeBy Near(IElement element)
+        {
+            functions.Add(new Function(NEAR, new[] { element.Locator }));
+            return this;
         }
 
 
         public override IWebElement FindElement(ISearchContext context)
         {
             return FindElements(context).First();
-           // Console.WriteLine(by.ToString());
-           // return ((RelativeSeleniumBy)by).FindElement(context);
         }
 
         public override ReadOnlyCollection<IWebElement> FindElements(ISearchContext context)
         {
-            
+
             RelativeSeleniumBy formedBy = RelativeSeleniumBy.WithLocator(by);
-            functions.ForEach(x =>
+            functions.ForEach(function =>
             {
-                var firstArgumentType = x.Arguments.First().GetType();
-                switch (x.Name)
+                var firstArgumentType = function.Arguments.First().GetType();
+                var countArguments = function.Arguments.Length;
+
+                switch (function.Name)
                 {
 
                     case ABOVE:
                         if (firstArgumentType == typeof(WebElement))
                         {
-                            formedBy = formedBy.Above((WebElement)x.Arguments.First());
+                            formedBy = formedBy.Above((WebElement)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(By))
                         {
-                            formedBy = formedBy.Above((By)x.Arguments.First());
+                            formedBy = formedBy.Above((By)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(IElement))
                         {
-                            formedBy = formedBy.Above(((IElement)x.Arguments.First()).Locator);
+                            formedBy = formedBy.Above(((IElement)function.Arguments.First()).Locator);
                         }
 
                         break;
@@ -166,17 +160,17 @@ namespace Aquality.Selenium.Locators
 
                         if (firstArgumentType == typeof(WebElement))
                         {
-                            formedBy = formedBy.Below((WebElement)x.Arguments.First());
+                            formedBy = formedBy.Below((WebElement)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(By))
                         {
-                            formedBy = formedBy.Below((By)x.Arguments.First());
+                            formedBy = formedBy.Below((By)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(IElement))
                         {
-                            formedBy = formedBy.Below(((IElement)x.Arguments.First()).Locator);
+                            formedBy = formedBy.Below(((IElement)function.Arguments.First()).Locator);
                         }
                         break;
 
@@ -184,17 +178,17 @@ namespace Aquality.Selenium.Locators
 
                         if (firstArgumentType == typeof(WebElement))
                         {
-                            formedBy = formedBy.LeftOf((WebElement)x.Arguments.First());
+                            formedBy = formedBy.LeftOf((WebElement)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(By))
                         {
-                            formedBy = formedBy.LeftOf((By)x.Arguments.First());
+                            formedBy = formedBy.LeftOf((By)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(IElement))
                         {
-                            formedBy = formedBy.LeftOf(((IElement)x.Arguments.First()).Locator);
+                            formedBy = formedBy.LeftOf(((IElement)function.Arguments.First()).Locator);
                         }
 
                         break;
@@ -203,33 +197,78 @@ namespace Aquality.Selenium.Locators
 
                         if (firstArgumentType == typeof(WebElement))
                         {
-                            formedBy = formedBy.RightOf((WebElement)x.Arguments.First());
+                            formedBy = formedBy.RightOf((WebElement)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(By))
                         {
-                            formedBy = formedBy.RightOf((By)x.Arguments.First());
+                            formedBy = formedBy.RightOf((By)function.Arguments.First());
                         }
 
                         if (firstArgumentType == typeof(IElement))
                         {
-                            formedBy = formedBy.RightOf(((IElement)x.Arguments.First()).Locator);
+                            formedBy = formedBy.RightOf(((IElement)function.Arguments.First()).Locator);
                         }
 
                         break;
+
+                    case NEAR:
+                        if (countArguments == 1)
+                        {
+                            if (firstArgumentType == typeof(WebElement))
+                            {
+                                formedBy = formedBy.Near((WebElement)function.Arguments.First());
+                            }
+
+                            if (firstArgumentType == typeof(By))
+                            {
+                                formedBy = formedBy.Near((By)function.Arguments.First());
+                            }
+
+                            if (firstArgumentType == typeof(IElement))
+                            {
+                                formedBy = formedBy.Near(((IElement)function.Arguments.First()).Locator);
+                            }
+                        }
+                        else
+                        {
+                            if (firstArgumentType == typeof(WebElement))
+                            {
+                                formedBy = formedBy.Near((WebElement)function.Arguments.First(), (int)function.Arguments[1]);
+                            }
+
+                            if (firstArgumentType == typeof(By))
+                            {
+                                formedBy = formedBy.Near((By)function.Arguments.First(), (int)function.Arguments[1]);
+                            }
+
+                            if (firstArgumentType == typeof(IElement))
+                            {
+                                formedBy = formedBy.Near(((IElement)function.Arguments.First()).Locator, (int)function.Arguments[1]);
+                            }
+                        }
+                        break;
+
+                    default:
+                        throw new ArgumentException($"There is no realisation for {function.Name} function");
+
+
+
+
+
 
                 }
                 // Console.WriteLine(typeof(RelativeSeleniumBy).GetMethods().Where(y=>y.Name==x.Name).First().GetParameters().First().ParameterType.Name);
                 // formedBy = (RelativeSeleniumBy)typeof(RelativeSeleniumBy).GetMethod(x.Name).Invoke(formedBy, x.Arguments);
                 //  (RelativeSeleniumBy)typeof(RelativeSeleniumBy).GetMethods().Where(x=>x.Attributes.)
 
-            //    Console.WriteLine("Parameters");
-           //     typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name)).ToList()[2].GetParameters().Select(z => z.ParameterType).ToList().ForEach(c => Console.WriteLine(c));
-            //    Console.WriteLine("Arguments");
-           //     x.Arguments.Select(t => t.GetType()).ToList().ForEach(z => Console.WriteLine(z));
+                //    Console.WriteLine("Parameters");
+                //     typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name)).ToList()[2].GetParameters().Select(z => z.ParameterType).ToList().ForEach(c => Console.WriteLine(c));
+                //    Console.WriteLine("Arguments");
+                //     x.Arguments.Select(t => t.GetType()).ToList().ForEach(z => Console.WriteLine(z));
 
 
-            //    Console.WriteLine(typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name) && (y.GetParameters().Select(z => z.ParameterType).SequenceEqual(x.Arguments.Select(t => t.GetType())))).First().Name);
+                //    Console.WriteLine(typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name) && (y.GetParameters().Select(z => z.ParameterType).SequenceEqual(x.Arguments.Select(t => t.GetType())))).First().Name);
 
             });
             return context.FindElements(formedBy);
