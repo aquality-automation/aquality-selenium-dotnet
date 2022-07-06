@@ -215,36 +215,36 @@ namespace Aquality.Selenium.Tests.Integration
                     .Above(cellInRow7Column5)
                     , ChallengingDomForm.ELEMENT_NAME_ROW3_COLUMN5);
 
-            /*var actualWebElementCellRaw3Column5GotBySeleniumRelative =
+            var actualWebElementCellRaw3Column5GotBySeleniumRelative =
                   AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
                   .WithLocator(By.XPath(labelLocatorCell))
                   .Above(By.XPath(ChallengingDomForm.locatorCellRow7Column5))
                   .Below(By.XPath(ChallengingDomForm.locatorCellRow3Column5))
                   .LeftOf(By.XPath(ChallengingDomForm.locatorCellRow5Column7))
                   .RightOf(By.XPath(ChallengingDomForm.locatorCellRow5Column3))
-                  .Above(By.XPath(ChallengingDomForm.locatorCellRow7Column5)));*/
+                  .Above(By.XPath(ChallengingDomForm.locatorCellRow7Column5)));
 
 
 
 
-            var actualWebElementCellRaw3Column5GotBySeleniumRelative =
-                  AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
-                  .WithLocator(RelativeSeleniumBy.WithLocator(By.XPath(labelLocatorCell)).Above(By.XPath(ChallengingDomForm.locatorCellRow7Column5)))
+         //   var actualWebElementCellRaw3Column5GotBySeleniumRelative =
+          //        AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
+          //        .WithLocator(RelativeSeleniumBy.WithLocator(By.XPath(labelLocatorCell)).Above(By.XPath(ChallengingDomForm.locatorCellRow7Column5)))
 
-                  .Below(By.XPath(ChallengingDomForm.locatorCellRow3Column5)));
-                  
-
+           //       .Below(By.XPath(ChallengingDomForm.locatorCellRow3Column5)));
 
 
+            
 
-            var expectedText = cellInRow5Column5.Text;
+
+         var expectedText = cellInRow5Column5.Text;
 
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(expectedText, actualWebElementCellRaw3Column5GotBySeleniumRelative.Text, GetMessageError(RIGHT, SELENIUM_RELATIVE));
-              //  Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, GetMessageError(RIGHT, XPATH));
-              //  Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, GetMessageError(RIGHT, WEB_ELEMENT));
-              //  Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, GetMessageError(RIGHT, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, GetMessageError(RIGHT, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, GetMessageError(RIGHT, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, GetMessageError(RIGHT, AQUALITY_ELEMENT));
             });
         }
 
