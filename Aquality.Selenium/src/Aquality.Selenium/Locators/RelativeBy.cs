@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using RelativeSeleniumBy = OpenQA.Selenium.RelativeBy;
-using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using Aquality.Selenium.Core.Elements.Interfaces;
 using System.Collections.ObjectModel;
 using System;
@@ -11,14 +10,13 @@ namespace Aquality.Selenium.Locators
 {
     public class RelativeBy : By
     {
-        private By by;
-        private List<Function> functions = new List<Function>();
+        private readonly By by;
+        private readonly List<Function> functions = new List<Function>();
 
         private const string ABOVE = "Above";
         private const string BELOW = "Below";
         private const string LEFT = "LeftOf";
         private const string RIGHT = "RightOf";
-        private const string NEAR = "Near";
 
         private RelativeBy(By by)
         {
@@ -102,25 +100,6 @@ namespace Aquality.Selenium.Locators
             return this;
         }
 
-        public RelativeBy Near(By by)
-        {
-            functions.Add(new Function(NEAR, new[] { by }));
-            return this;
-        }
-
-        public RelativeBy Near(WebElement webElement)
-        {
-            functions.Add(new Function(NEAR, new[] { webElement }));
-            return this;
-        }
-
-        public RelativeBy Near(IElement element)
-        {
-            functions.Add(new Function(NEAR, new[] { element.Locator }));
-            return this;
-        }
-
-
         public override IWebElement FindElement(ISearchContext context)
         {
             return FindElements(context).First();
@@ -128,154 +107,129 @@ namespace Aquality.Selenium.Locators
 
         public override ReadOnlyCollection<IWebElement> FindElements(ISearchContext context)
         {
-
             RelativeSeleniumBy formedBy = RelativeSeleniumBy.WithLocator(by);
+
             functions.ForEach(function =>
             {
+                var firstArgument = function.Arguments.First();
                 var firstArgumentType = function.Arguments.First().GetType();
-                var countArguments = function.Arguments.Length;
 
                 switch (function.Name)
                 {
-
                     case ABOVE:
-                        if (firstArgumentType == typeof(WebElement))
-                        {
-                            formedBy = formedBy.Above((WebElement)function.Arguments.First());
-                        }
 
-                        if (firstArgumentType == typeof(By))
-                        {
-                            formedBy = formedBy.Above((By)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(IElement))
-                        {
-                            formedBy = formedBy.Above(((IElement)function.Arguments.First()).Locator);
-                        }
-
+                        formedBy = GetRelativeWithAbove(formedBy, firstArgument);
                         break;
 
                     case BELOW:
 
-                        if (firstArgumentType == typeof(WebElement))
-                        {
-                            formedBy = formedBy.Below((WebElement)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(By))
-                        {
-                            formedBy = formedBy.Below((By)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(IElement))
-                        {
-                            formedBy = formedBy.Below(((IElement)function.Arguments.First()).Locator);
-                        }
+                        formedBy = GetRelativeWithBelow(formedBy, firstArgument);
                         break;
 
                     case LEFT:
 
-                        if (firstArgumentType == typeof(WebElement))
-                        {
-                            formedBy = formedBy.LeftOf((WebElement)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(By))
-                        {
-                            formedBy = formedBy.LeftOf((By)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(IElement))
-                        {
-                            formedBy = formedBy.LeftOf(((IElement)function.Arguments.First()).Locator);
-                        }
-
+                        formedBy = GetRelativeWithLeft(formedBy, firstArgument);
                         break;
 
                     case RIGHT:
 
-                        if (firstArgumentType == typeof(WebElement))
-                        {
-                            formedBy = formedBy.RightOf((WebElement)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(By))
-                        {
-                            formedBy = formedBy.RightOf((By)function.Arguments.First());
-                        }
-
-                        if (firstArgumentType == typeof(IElement))
-                        {
-                            formedBy = formedBy.RightOf(((IElement)function.Arguments.First()).Locator);
-                        }
-
-                        break;
-
-                    case NEAR:
-                        if (countArguments == 1)
-                        {
-                            if (firstArgumentType == typeof(WebElement))
-                            {
-                                formedBy = formedBy.Near((WebElement)function.Arguments.First());
-                            }
-
-                            if (firstArgumentType == typeof(By))
-                            {
-                                formedBy = formedBy.Near((By)function.Arguments.First());
-                            }
-
-                            if (firstArgumentType == typeof(IElement))
-                            {
-                                formedBy = formedBy.Near(((IElement)function.Arguments.First()).Locator);
-                            }
-                        }
-                        else
-                        {
-                            if (firstArgumentType == typeof(WebElement))
-                            {
-                                formedBy = formedBy.Near((WebElement)function.Arguments.First(), (int)function.Arguments[1]);
-                            }
-
-                            if (firstArgumentType == typeof(By))
-                            {
-                                formedBy = formedBy.Near((By)function.Arguments.First(), (int)function.Arguments[1]);
-                            }
-
-                            if (firstArgumentType == typeof(IElement))
-                            {
-                                formedBy = formedBy.Near(((IElement)function.Arguments.First()).Locator, (int)function.Arguments[1]);
-                            }
-                        }
+                        formedBy = GetRelativeWithRight(formedBy, firstArgument);
                         break;
 
                     default:
                         throw new ArgumentException($"There is no realisation for {function.Name} function");
 
-
-
-
-
-
                 }
-                // Console.WriteLine(typeof(RelativeSeleniumBy).GetMethods().Where(y=>y.Name==x.Name).First().GetParameters().First().ParameterType.Name);
-                // formedBy = (RelativeSeleniumBy)typeof(RelativeSeleniumBy).GetMethod(x.Name).Invoke(formedBy, x.Arguments);
-                //  (RelativeSeleniumBy)typeof(RelativeSeleniumBy).GetMethods().Where(x=>x.Attributes.)
-
-                //    Console.WriteLine("Parameters");
-                //     typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name)).ToList()[2].GetParameters().Select(z => z.ParameterType).ToList().ForEach(c => Console.WriteLine(c));
-                //    Console.WriteLine("Arguments");
-                //     x.Arguments.Select(t => t.GetType()).ToList().ForEach(z => Console.WriteLine(z));
-
-
-                //    Console.WriteLine(typeof(RelativeSeleniumBy).GetMethods().Where(y => (y.Name == x.Name) && (y.GetParameters().Select(z => z.ParameterType).SequenceEqual(x.Arguments.Select(t => t.GetType())))).First().Name);
-
             });
             return context.FindElements(formedBy);
-            // return context.FindElements(by);
-            //  return ((RelativeSeleniumBy)by).FindElements(context);
+        }
+        private RelativeSeleniumBy GetRelativeWithAbove(RelativeSeleniumBy formedBy, object savedArgument)
+        {
+            var typeArgument = savedArgument.GetType();
+
+            if (typeArgument == typeof(WebElement))
+            {
+                return formedBy.Above((WebElement)savedArgument);
+            }
+
+            if (typeArgument == typeof(By))
+            {
+                return formedBy.Above((By)savedArgument);
+            }
+
+            if (typeArgument == typeof(IElement))
+            {
+                return formedBy.Above(((IElement)savedArgument).Locator);
+            }
+
+            throw new ArgumentException($"There is no realisation for {typeArgument} type");
         }
 
+        private RelativeSeleniumBy GetRelativeWithBelow(RelativeSeleniumBy formedBy, object savedArgument)
+        {
+            var typeArgument = savedArgument.GetType();
+
+            if (typeArgument == typeof(WebElement))
+            {
+                return formedBy.Below((WebElement)savedArgument);
+            }
+
+            if (typeArgument == typeof(By))
+            {
+                return formedBy.Below((By)savedArgument);
+            }
+
+            if (typeArgument == typeof(IElement))
+            {
+                return formedBy.Below(((IElement)savedArgument).Locator);
+            }
+
+            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+        }
+
+        private RelativeSeleniumBy GetRelativeWithRight(RelativeSeleniumBy formedBy, object savedArgument)
+        {
+            var typeArgument = savedArgument.GetType();
+
+            if (typeArgument == typeof(WebElement))
+            {
+                return formedBy.RightOf((WebElement)savedArgument);
+            }
+
+            if (typeArgument == typeof(By))
+            {
+                return formedBy.RightOf((By)savedArgument);
+            }
+
+            if (typeArgument == typeof(IElement))
+            {
+                return formedBy.RightOf(((IElement)savedArgument).Locator);
+            }
+
+            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+        }
+
+        private RelativeSeleniumBy GetRelativeWithLeft(RelativeSeleniumBy formedBy, object savedArgument)
+        {
+            var typeArgument = savedArgument.GetType();
+
+            if (typeArgument == typeof(WebElement))
+            {
+                return formedBy.LeftOf((WebElement)savedArgument);
+            }
+
+            if (typeArgument == typeof(By))
+            {
+                return formedBy.LeftOf((By)savedArgument);
+            }
+
+            if (typeArgument == typeof(IElement))
+            {
+                return formedBy.LeftOf(((IElement)savedArgument).Locator);
+            }
+
+            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+        }
 
     }
 }
