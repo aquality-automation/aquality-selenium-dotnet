@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Aquality.Selenium.Locators
+﻿namespace Aquality.Selenium.Locators
 {
     internal class Function
     {
         public string Name { get; }
-        public Object[] Arguments { get; }
+        public object[] Arguments { get; }
 
-        private Function()
-        {
+        private Function() { }
 
-        }
-
-        public Function(string name, Object[] arguments)
+        public Function(string name, object[] arguments)
         {
             Name = name;
             Arguments = arguments;
         }
-
     }
 }

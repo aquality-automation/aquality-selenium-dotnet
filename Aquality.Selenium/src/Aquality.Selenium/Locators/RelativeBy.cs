@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Aquality.Selenium.Locators
 {
-    public class RelativeBy : By
+    public class RelativeBy : By, IRelativeBy, IRelativeWebElement, IRelativeAqualityElement
     {
         private readonly By by;
         private readonly List<Function> functions = new List<Function>();
@@ -17,6 +17,8 @@ namespace Aquality.Selenium.Locators
         private const string BELOW = "Below";
         private const string LEFT = "LeftOf";
         private const string RIGHT = "RightOf";
+
+        private RelativeBy() { }
 
         private RelativeBy(By by)
         {
@@ -162,7 +164,7 @@ namespace Aquality.Selenium.Locators
                 return formedBy.Above(((IElement)savedArgument).Locator);
             }
 
-            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+            throw new ArgumentException(ErrorMessageForType(typeArgument));
         }
 
         private RelativeSeleniumBy GetRelativeWithBelow(RelativeSeleniumBy formedBy, object savedArgument)
@@ -184,7 +186,7 @@ namespace Aquality.Selenium.Locators
                 return formedBy.Below(((IElement)savedArgument).Locator);
             }
 
-            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+            throw new ArgumentException(ErrorMessageForType(typeArgument));
         }
 
         private RelativeSeleniumBy GetRelativeWithRight(RelativeSeleniumBy formedBy, object savedArgument)
@@ -206,7 +208,7 @@ namespace Aquality.Selenium.Locators
                 return formedBy.RightOf(((IElement)savedArgument).Locator);
             }
 
-            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+            throw new ArgumentException(ErrorMessageForType(typeArgument));
         }
 
         private RelativeSeleniumBy GetRelativeWithLeft(RelativeSeleniumBy formedBy, object savedArgument)
@@ -228,8 +230,9 @@ namespace Aquality.Selenium.Locators
                 return formedBy.LeftOf(((IElement)savedArgument).Locator);
             }
 
-            throw new ArgumentException($"There is no realisation for {typeArgument} type");
+            throw new ArgumentException(ErrorMessageForType(typeArgument));
         }
 
+        private string ErrorMessageForType(Type typeArgument) => $"There is no realisation for {typeArgument} type";
     }
 }

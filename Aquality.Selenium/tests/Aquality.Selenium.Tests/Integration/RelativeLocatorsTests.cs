@@ -3,17 +3,8 @@ using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using Aquality.Selenium.Elements.Interfaces;
 using RelativeSeleniumBy = OpenQA.Selenium.RelativeBy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
 using Aquality.Selenium.Locators;
 using By = OpenQA.Selenium.By;
-
-using Aquality.Selenium.Core.Elements;
 
 namespace Aquality.Selenium.Tests.Integration
 {
@@ -26,14 +17,12 @@ namespace Aquality.Selenium.Tests.Integration
         private const string BELOW = "below";
         private const string LEFT = "left";
         private const string RIGHT = "right";
-        private const string NEAR = "near";
-        private const string NEAR_DISTANCE = "near with distance";
         private const string SELENIUM_RELATIVE = "selenium relative";
         private const string XPATH = "xpath";
         private const string WEB_ELEMENT = "web element";
         private const string AQUALITY_ELEMENT = "aquality element";
 
-        private static string GetMessageError(string gotWith, string gotBy) => $"Text of element got with [{gotWith}] by [{gotBy}] is not expected";
+        private static string MessageError(string gotWith, string gotBy) => $"Text of element got with [{gotWith}] by [{gotBy}] is not expected";
 
         [SetUp]
         public void Before()
@@ -72,10 +61,10 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw3Column5GotBySeleniumRelative.Text, GetMessageError(ABOVE, SELENIUM_RELATIVE));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, GetMessageError(ABOVE, XPATH));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, GetMessageError(ABOVE, WEB_ELEMENT));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, GetMessageError(ABOVE, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw3Column5GotBySeleniumRelative.Text, MessageError(ABOVE, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, MessageError(ABOVE, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, MessageError(ABOVE, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, MessageError(ABOVE, AQUALITY_ELEMENT));
             });
         }
 
@@ -106,10 +95,10 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw7Column5GotBySeleniumRelative.Text, GetMessageError(BELOW, SELENIUM_RELATIVE));
-                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithByXpath.Text, GetMessageError(BELOW, XPATH));
-                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithWebElement.Text, GetMessageError(BELOW, WEB_ELEMENT));
-                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithAqualityElement.Text, GetMessageError(BELOW, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw7Column5GotBySeleniumRelative.Text, MessageError(BELOW, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithByXpath.Text, MessageError(BELOW, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithWebElement.Text, MessageError(BELOW, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw7Column5GotWithAqualityElement.Text, MessageError(BELOW, AQUALITY_ELEMENT));
             });
         }
 
@@ -140,10 +129,10 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw5Column3GotBySeleniumRelative.Text, GetMessageError(LEFT, SELENIUM_RELATIVE));
-                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithByXpath.Text, GetMessageError(LEFT, XPATH));
-                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithWebElement.Text, GetMessageError(LEFT, WEB_ELEMENT));
-                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithAqualityElement.Text, GetMessageError(LEFT, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw5Column3GotBySeleniumRelative.Text, MessageError(LEFT, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithByXpath.Text, MessageError(LEFT, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithWebElement.Text, MessageError(LEFT, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw5Column3GotWithAqualityElement.Text, MessageError(LEFT, AQUALITY_ELEMENT));
             });
         }
 
@@ -174,10 +163,10 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw5Column7GotBySeleniumRelative.Text, GetMessageError(RIGHT, SELENIUM_RELATIVE));
-                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithByXpath.Text, GetMessageError(RIGHT, XPATH));
-                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithWebElement.Text, GetMessageError(RIGHT, WEB_ELEMENT));
-                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithAqualityElement.Text, GetMessageError(RIGHT, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw5Column7GotBySeleniumRelative.Text, MessageError(RIGHT, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithByXpath.Text, MessageError(RIGHT, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithWebElement.Text, MessageError(RIGHT, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw5Column7GotWithAqualityElement.Text, MessageError(RIGHT, AQUALITY_ELEMENT));
             });
         }
 
@@ -231,20 +220,20 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw3Column5GotBySeleniumRelative.Text, GetMessageError(gotWith, SELENIUM_RELATIVE));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, GetMessageError(gotWith, XPATH));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, GetMessageError(gotWith, WEB_ELEMENT));
-                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, GetMessageError(gotWith, AQUALITY_ELEMENT));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw3Column5GotBySeleniumRelative.Text, MessageError(gotWith, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithByXpath.Text, MessageError(gotWith, XPATH));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithWebElement.Text, MessageError(gotWith, WEB_ELEMENT));
+                Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, MessageError(gotWith, AQUALITY_ELEMENT));
             });
         }
-
+/*
         [Test]
         public void Should_BePossibleTo_NearWithDifferentParametersType()
         {
             var cellInRow5Column5 = challengingDomForm.CellInRow5Column5;
             var cellInRow1Column1 = challengingDomForm.CellInRow1Column1;
 
-            /*  var actualCellRaw2Column1GotWithByXpath =
+            *//*  var actualCellRaw2Column1GotWithByXpath =
                       ElementFactory.GetLabel(RelativeBy.WithLocator(By.XPath(labelLocatorCell))
                      .Near(By.XPath(ChallengingDomForm.locatorCellRow1Column1)), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);
 
@@ -254,7 +243,7 @@ namespace Aquality.Selenium.Tests.Integration
 
               var actualCellRaw2Column1GotWithAqualityElement =
                       ElementFactory.GetLabel(RelativeBy.WithLocator(By.XPath(labelLocatorCell))
-                      .Near(cellInRow5Column5), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);*/
+                      .Near(cellInRow5Column5), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);*//*
 
 
             var actualWebElementCellRaw2Column1GotBySeleniumRelative =
@@ -262,22 +251,22 @@ namespace Aquality.Selenium.Tests.Integration
                    .WithLocator(By.XPath("//a[contains(@class,'button')]"))
                            .Near(By.XPath("//a[contains(@class,'button')]"),400));
 
-            /*var actualWebElementCellRaw2Column1GotBySeleniumRelative =
+            *//*var actualWebElementCellRaw2Column1GotBySeleniumRelative =
                     AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
                     .WithLocator(By.XPath(labelLocatorCell))
-                            .Near(By.XPath(ChallengingDomForm.locatorCellRow1Column1)));*/
+                            .Near(By.XPath(ChallengingDomForm.locatorCellRow1Column1)));*//*
 
             var expectedText = cellInRow1Column1.Text;
             var text = actualWebElementCellRaw2Column1GotBySeleniumRelative.Text;
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw2Column1GotBySeleniumRelative.Text, GetMessageError(NEAR, SELENIUM_RELATIVE));
+                Assert.AreEqual(expectedText, actualWebElementCellRaw2Column1GotBySeleniumRelative.Text, MessageError(NEAR, SELENIUM_RELATIVE));
              //   Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithByXpath.Text, GetMessageError(NEAR, XPATH));
               //  Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithWebElement.Text, GetMessageError(NEAR, WEB_ELEMENT));
               //  Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithAqualityElement.Text, GetMessageError(NEAR, AQUALITY_ELEMENT));
             });
-        }
+        }*/
 
 
 
