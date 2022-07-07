@@ -139,7 +139,7 @@ namespace Aquality.Selenium.Locators
                         break;
 
                     default:
-                        throw new ArgumentException($"There is no realisation for {function.Name} function");
+                        throw new ArgumentException($"There is no realisation for [{function.Name}] function");
 
                 }
             });
@@ -233,6 +233,6 @@ namespace Aquality.Selenium.Locators
             throw new ArgumentException(ErrorMessageForType(typeArgument));
         }
 
-        private string ErrorMessageForType(Type typeArgument) => $"There is no realisation for {typeArgument} type";
+        private string ErrorMessageForType(Type typeArgument) => $"There is no realisation for [{typeArgument}] type";
     }
 }
