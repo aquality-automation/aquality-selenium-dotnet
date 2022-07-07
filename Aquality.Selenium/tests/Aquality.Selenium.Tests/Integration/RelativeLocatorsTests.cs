@@ -226,51 +226,5 @@ namespace Aquality.Selenium.Tests.Integration
                 Assert.AreEqual(expectedText, actualCellRaw3Column5GotWithAqualityElement.Text, MessageError(gotWith, AQUALITY_ELEMENT));
             });
         }
-/*
-        [Test]
-        public void Should_BePossibleTo_NearWithDifferentParametersType()
-        {
-            var cellInRow5Column5 = challengingDomForm.CellInRow5Column5;
-            var cellInRow1Column1 = challengingDomForm.CellInRow1Column1;
-
-            *//*  var actualCellRaw2Column1GotWithByXpath =
-                      ElementFactory.GetLabel(RelativeBy.WithLocator(By.XPath(labelLocatorCell))
-                     .Near(By.XPath(ChallengingDomForm.locatorCellRow1Column1)), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);
-
-              var actualCellRaw2Column1GotWithWebElement =
-                      ElementFactory.GetLabel(RelativeBy.WithLocator(By.XPath(labelLocatorCell))
-                      .Near(cellInRow5Column5.GetElement()), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);
-
-              var actualCellRaw2Column1GotWithAqualityElement =
-                      ElementFactory.GetLabel(RelativeBy.WithLocator(By.XPath(labelLocatorCell))
-                      .Near(cellInRow5Column5), ChallengingDomForm.ELEMENT_NAME_ROW1_COLUMN1);*//*
-
-
-            var actualWebElementCellRaw2Column1GotBySeleniumRelative =
-                   AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
-                   .WithLocator(By.XPath("//a[contains(@class,'button')]"))
-                           .Near(By.XPath("//a[contains(@class,'button')]"),400));
-
-            *//*var actualWebElementCellRaw2Column1GotBySeleniumRelative =
-                    AqualityServices.Browser.Driver.FindElement(RelativeSeleniumBy
-                    .WithLocator(By.XPath(labelLocatorCell))
-                            .Near(By.XPath(ChallengingDomForm.locatorCellRow1Column1)));*//*
-
-            var expectedText = cellInRow1Column1.Text;
-            var text = actualWebElementCellRaw2Column1GotBySeleniumRelative.Text;
-
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(expectedText, actualWebElementCellRaw2Column1GotBySeleniumRelative.Text, MessageError(NEAR, SELENIUM_RELATIVE));
-             //   Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithByXpath.Text, GetMessageError(NEAR, XPATH));
-              //  Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithWebElement.Text, GetMessageError(NEAR, WEB_ELEMENT));
-              //  Assert.AreEqual(expectedText, actualCellRaw2Column1GotWithAqualityElement.Text, GetMessageError(NEAR, AQUALITY_ELEMENT));
-            });
-        }*/
-
-
-
-
-
     }
 }
