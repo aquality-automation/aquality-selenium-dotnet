@@ -77,7 +77,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aquality.Selenium.Core" Version="2.0.2" />
-    <PackageReference Include="WebDriverManager" Version="2.12.3" />
+    <PackageReference Include="Selenium.Support" Version="4.4.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.4.0" />
+    <PackageReference Include="WebDriverManager" Version="2.15.0" />
   </ItemGroup>
 
 </Project>

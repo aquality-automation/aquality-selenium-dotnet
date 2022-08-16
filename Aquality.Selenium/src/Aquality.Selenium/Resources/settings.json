@@ -82,6 +82,7 @@
     },
     "opera": {
       "webDriverVersion": "Latest",
+      "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Programs\\Opera\\opera.exe",
       "capabilities": {
         "enableVNC": true,
         "unhandledPromptBehavior": "ignore"
@@ -94,7 +95,7 @@
         "download.prompt_for_download": "false"
       },
       "excludedArguments": ["enable-automation"],
-      "startArguments": []
+      "startArguments": ["--remote-debugging-port=9222"]
     },
     "yandex": {
       "webDriverVersion": "94.0.4606.41",

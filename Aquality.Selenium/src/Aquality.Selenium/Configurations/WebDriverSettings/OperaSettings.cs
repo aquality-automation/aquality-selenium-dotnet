@@ -1,16 +1,19 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Opera;
+using OpenQA.Selenium.Chrome;
 using System;
+using System.IO;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
     /// <summary>
     /// Settings specific for Opera web driver.
     /// </summary>
-    public class OperaSettings : DriverSettings
+    public class OperaSettings : ChromeSettings
     {
+        private const string DefaultBinaryLocation = "%USERPROFILE%\\AppData\\Local\\Programs\\Opera\\opera.exe";
         /// <summary>
         /// Instantiates class using JSON file with general settings.
         /// </summary>
@@ -19,40 +22,26 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
         }
 
-        protected override BrowserName BrowserName => BrowserName.Opera;
+        public virtual string BinaryLocation
+        {
+            get
+            {
+                var pathInConfiguration = SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.binaryLocation", DefaultBinaryLocation);
+                return pathInConfiguration.StartsWith("%") ? Environment.ExpandEnvironmentVariables(pathInConfiguration) : Path.GetFullPath(pathInConfiguration);
+            }
+        }
 
-        public override string DownloadDirCapabilityKey => throw new NotSupportedException("Download directory key for Opera profiles is not supported");
+        protected override BrowserName BrowserName => BrowserName.Opera;
 
         public override DriverOptions DriverOptions
         {
             get
             {
-                var options = new OperaOptions();                
-                SetOperaPrefs(options);
-                SetCapabilities(options, (name, value) => options.AddAdditionalOption(name, value));
-                SetOperaArguments(options);
-                SetOperaExcludedArguments(options);
-                SetPageLoadStrategy(options);
+                var options = (ChromeOptions) base.DriverOptions;
+                options.BinaryLocation = BinaryLocation;
+                options.AddArgument("user-data-dir=" + Path.GetDirectoryName(BinaryLocation));
                 return options;
             }
-        }
-
-        private void SetOperaExcludedArguments(OperaOptions options)
-        {
-            options.AddExcludedArguments(BrowserExcludedArguments);
-        }
-
-        private void SetOperaPrefs(OperaOptions options)
-        {
-            foreach (var option in BrowserOptions)
-            {
-                options.AddUserProfilePreference(option.Key, option.Value);                
-            }
-        }
-
-        private void SetOperaArguments(OperaOptions options)
-        {
-            options.AddArguments(BrowserStartArguments);
         }
     }
 }
