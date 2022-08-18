@@ -81,7 +81,7 @@
     },
     "opera": {
       "webDriverVersion": "Latest",
-      "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Programs\\Opera\\opera.exe",
+      "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Programs\\Opera\\launcher.exe",
       "capabilities": {
         "enableVNC": true,
         "unhandledPromptBehavior": "ignore"
@@ -94,10 +94,10 @@
         "download.prompt_for_download": "false"
       },
       "excludedArguments": ["enable-automation"],
-      "startArguments": ["--remote-debugging-port=9222"]
+      "startArguments": ["--remote-debugging-port=9222", "--no-sandbox", "--disable-dev-shm-usage"]
     },
     "yandex": {
-      "webDriverVersion": "94.0.4606.41",
+      "webDriverVersion": "102.0.5005.61",
       "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe",
       "capabilities": {
         "enableVNC": true,
