@@ -81,7 +81,7 @@ namespace Aquality.Selenium.Tests.Integration
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var counter = 0;
-            void eventHandler(object sender, NetworkRequestSentEventArgs args) => counter++;
+            void eventHandler(object sender, NetworkRequestSentEventArgs args) => ++counter;
             AqualityServices.Browser.Network.NetworkRequestSent += eventHandler;
             Assert.DoesNotThrowAsync(() => AqualityServices.Browser.Network.StartMonitoring());
             welcomeForm.Open();
@@ -98,7 +98,7 @@ namespace Aquality.Selenium.Tests.Integration
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var counter = 0;
-            void eventHandler(object sender, NetworkResponseReceivedEventArgs args) => counter++;
+            void eventHandler(object sender, NetworkResponseReceivedEventArgs args) => ++counter;
             AqualityServices.Browser.Network.NetworkResponseReceived += eventHandler;
             Assert.DoesNotThrowAsync(() => AqualityServices.Browser.Network.StartMonitoring());
             welcomeForm.Open();
