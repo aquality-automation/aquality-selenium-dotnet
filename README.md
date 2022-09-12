@@ -15,8 +15,11 @@ Most of performed methods are logged using NLog, so you can easily see a history
 We use interfaces where is possible, so you can implement your own version of target interface with no need to rewrite other classes.
 
 ### Quick start
+To start the project using Aquality.Selenium framework, you can [download our template BDD project by this link.](https://github.com/aquality-automation/aquality-selenium-dotnet-template)
 
-1. To start work with this package, simply add the nuget dependency Aquality.Selenium to your project.
+Alternatively, you can follow the steps below:
+
+1. Add the nuget dependency Aquality.Selenium to your project.
 
 2. Create instance of Browser in your test method:
 ```csharp
