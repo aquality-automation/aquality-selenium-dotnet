@@ -5,6 +5,7 @@
   "loc.browser.forward": "Перейти на следующую страницу",
   "loc.browser.capabilities": "Получили capabilities браузера из settings файла: {0}",
   "loc.browser.options": "Получили опции профиля браузера из settings файла: {0}",
+  "loc.browser.loggingPreferences": "Получили настройки логирования браузера из settings файла: {0}",
   "loc.browser.driver.quit": "Закрытие драйвера браузера",
   "loc.browser.getUrl": "Получение адреса текущей страницы",
   "loc.browser.url.value": "Адрес текущей страницы: [{0}]",

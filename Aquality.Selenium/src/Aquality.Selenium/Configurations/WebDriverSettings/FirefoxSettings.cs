@@ -42,6 +42,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetFirefoxPrefs(options);
                 SetFirefoxArguments(options);
                 SetPageLoadStrategy(options);
+                SetLoggingPreferences(options);
                 return options;
             }
         }

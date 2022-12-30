@@ -28,6 +28,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetCapabilities(options);
                 SetOptionsByPropertyNames(options);
                 SetPageLoadStrategy(options);
+                SetLoggingPreferences(options);
                 return options;
             }
         }

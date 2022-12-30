@@ -5,6 +5,7 @@
   "loc.browser.forward": "Proceed to the next page",
   "loc.browser.capabilities": "Got browser capabilities from settings file: {0}",
   "loc.browser.options": "Got browser profile options from settings file: {0}",
+  "loc.browser.loggingPreferences": "Got browser logging preferences from settings file: {0}",
   "loc.browser.driver.quit": "Closing browser",
   "loc.browser.getUrl": "Getting current URL",
   "loc.browser.url.value": "Current URL: [{0}]",
