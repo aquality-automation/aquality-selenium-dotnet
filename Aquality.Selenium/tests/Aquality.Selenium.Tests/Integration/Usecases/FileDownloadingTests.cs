@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             browser.Tabs().SwitchToLastTab();
             downloaderForm.Open();
             var downloadLink = downloaderForm.GetDownloadLink(fileName);
-            if (downloadLink.State.WaitForDisplayed())
+            if (downloadLink.State.IsDisplayed)
             {
                 downloadLink.JsActions.ClickAndWait();
             }

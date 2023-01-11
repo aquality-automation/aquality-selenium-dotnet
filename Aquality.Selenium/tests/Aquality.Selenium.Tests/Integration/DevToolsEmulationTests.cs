@@ -134,6 +134,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(LongitudeForOverride, locationForm.Longitude, "Longitude should match to override value");
 
             clearAction();
+            AqualityServices.Browser.WaitForPageToLoad();
             AqualityServices.Browser.Refresh();
             locationForm.DetectBrowserGeolocation();
             Assert.AreEqual(defaultLatitude, locationForm.Latitude, "Latitude should match to default");
