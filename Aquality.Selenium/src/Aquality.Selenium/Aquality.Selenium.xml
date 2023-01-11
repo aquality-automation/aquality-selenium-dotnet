@@ -149,6 +149,12 @@
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.GoTo(System.Uri)">
+            <summary>
+            Navigates to desired URL.
+            </summary>
+            <param name="url">Desired URL.</param>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.GoBack">
             <summary>
             Navigates back.

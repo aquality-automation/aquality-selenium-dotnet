@@ -172,6 +172,15 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Navigates to desired URL.
+        /// </summary>
+        /// <param name="url">Desired URL.</param>
+        public void GoTo(Uri url)
+        {
+            Navigate().GoToUrl(url);
+        }
+
+        /// <summary>
         /// Navigates back.
         /// </summary>
         public void GoBack()
