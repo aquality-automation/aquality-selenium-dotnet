@@ -182,7 +182,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         {
             foreach (var preference in LoggingPreferences)
             {
-                options.SetLoggingPreference(preference.Key, preference.Value);
+                options.SetLoggingPreference(preference.Key.ToLower(), preference.Value);
             }
         }
 
