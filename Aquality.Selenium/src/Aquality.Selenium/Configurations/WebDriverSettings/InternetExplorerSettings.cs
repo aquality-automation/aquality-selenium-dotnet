@@ -38,6 +38,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetCapabilities(options);
                 SetOptionsByPropertyNames(options);
                 SetPageLoadStrategy(options);
+                SetLoggingPreferences(options);
                 options.BrowserCommandLineArguments = string.Join(" ", BrowserStartArguments);
                 return options;
             }

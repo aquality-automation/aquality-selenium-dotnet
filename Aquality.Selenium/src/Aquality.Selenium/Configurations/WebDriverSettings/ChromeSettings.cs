@@ -32,6 +32,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetChromeArguments(options);
                 SetChromeExcludedArguments(options);
                 SetPageLoadStrategy(options);
+                SetLoggingPreferences(options);
                 return options;
             }
         }

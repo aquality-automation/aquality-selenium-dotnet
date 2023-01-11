@@ -19,6 +19,9 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "loggingPreferences": {
+          "Performance": "All"
+      },
       "excludedArguments": [ "enable-automation" ],
       "startArguments": [],
       "pageLoadStrategy": "Normal"

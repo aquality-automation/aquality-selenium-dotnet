@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright 2022 Aquality Automation</Copyright>
+    <Copyright>Copyright 2023 Aquality Automation</Copyright>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 

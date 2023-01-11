@@ -5,6 +5,7 @@
   "loc.browser.forward": "Przejście do następnej strony",
   "loc.browser.capabilities": "Pobrano możliwości przeglądarki z pliku ustawień: {0}",
   "loc.browser.options": "Pobrano opcje profilu przeglądarki z pliku ustawień: {0}",
+  "loc.browser.loggingPreferences": "Pobrano ustawienia logowania przeglądarki z pliku ustawień: {0}",
   "loc.browser.driver.quit": "Zamykanie przeglądarki",
   "loc.browser.getUrl": "Pobieranie aktualnego adresu URL",
   "loc.browser.url.value": "Aktualny adres URL: [{0}]",

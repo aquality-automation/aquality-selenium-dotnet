@@ -32,6 +32,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 SetEdgeArguments(options);
                 SetEdgeExcludedArguments(options);
                 SetPageLoadStrategy(options);
+                SetLoggingPreferences(options);
                 return options;
             }
         }

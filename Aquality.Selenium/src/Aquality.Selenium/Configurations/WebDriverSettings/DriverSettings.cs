@@ -17,6 +17,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     {
         private IReadOnlyDictionary<string, object> options;
         private IReadOnlyDictionary<string, object> capabilities;
+        private IReadOnlyDictionary<string, LogLevel> loggingPreferences;
         private IReadOnlyList<string> startArguments;
         private IReadOnlyList<string> excludedArguments;
 
@@ -91,6 +92,24 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
+        protected IReadOnlyDictionary<string, LogLevel> LoggingPreferences
+        {
+            get
+            {
+                if (loggingPreferences == null)
+                {
+                    loggingPreferences = SettingsFile.GetValueDictionaryOrEmpty<LogLevel>($"{DriverSettingsPath}.{nameof(loggingPreferences)}");
+                    if (loggingPreferences.Any())
+                    {
+                        AqualityServices.LocalizedLogger.Debug("loc.browser.loggingPreferences",
+                            args: string.Join(",", loggingPreferences.Select(opt => $"{Environment.NewLine}{opt.Key}: {opt.Value}")));
+                    }
+                }
+
+                return loggingPreferences;
+            }
+        }
+
         protected IReadOnlyList<string> BrowserExcludedArguments
         {
             get
@@ -156,6 +175,14 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                         throw;
                     }
                 }
+            }
+        }
+
+        protected void SetLoggingPreferences(DriverOptions options)
+        {
+            foreach (var preference in LoggingPreferences)
+            {
+                options.SetLoggingPreference(preference.Key, preference.Value);
             }
         }
 
