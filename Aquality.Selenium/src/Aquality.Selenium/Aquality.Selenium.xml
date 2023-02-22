@@ -852,6 +852,12 @@
             </summary>
             <returns>A task that represents the asynchronous operation.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, 
+            or resetting unmanaged resources.
+            </summary>
+        </member>
         <member name="T:Aquality.Selenium.Browsers.LocalBrowserFactory">
             <summary>
             Factory that creates instance of local Browser.

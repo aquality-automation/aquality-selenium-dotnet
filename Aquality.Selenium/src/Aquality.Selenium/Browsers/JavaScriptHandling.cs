@@ -276,5 +276,23 @@ namespace Aquality.Selenium.Browsers
             await javaScriptEngine.Reset();
             bindings.Clear();
         }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, 
+        /// or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                javaScriptEngine.Dispose();
+            }
+        }
     }
 }
