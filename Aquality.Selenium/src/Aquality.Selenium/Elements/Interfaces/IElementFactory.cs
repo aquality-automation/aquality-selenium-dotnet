@@ -37,6 +37,15 @@ namespace Aquality.Selenium.Elements.Interfaces
         IComboBox GetComboBox(By locator, string name, ElementState state = ElementState.Displayed);
 
         /// <summary>
+        /// Creates element that implements IMultiChoiceBox interface.
+        /// </summary>
+        /// <param name="locator">Element locator</param>
+        /// <param name="name">Element name</param>
+        /// <param name="state">Element state</param>
+        /// <returns>Instance of element that implements IMultiChoiceBox interface</returns>
+        IMultiChoiceBox GetMultiChoiceBox(By locator, string name, ElementState state = ElementState.Displayed);
+
+        /// <summary>
         /// Creates element that implements ILabel interface.
         /// </summary>
         /// <param name="locator">Element locator</param>

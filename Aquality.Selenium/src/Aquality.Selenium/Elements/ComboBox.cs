@@ -3,6 +3,7 @@ using Aquality.Selenium.Elements.Actions;
 using Aquality.Selenium.Elements.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,38 +69,31 @@ namespace Aquality.Selenium.Elements
         public void SelectByContainingText(string text)
         {
             LogElementAction("loc.combobox.select.by.text", text);
-            DoWithRetry(() =>
-            {
-                var select = new SelectElement(GetElement());
-                foreach (var element in select.Options)
-                {
-                    var elementText = element.Text;
-                    if (elementText.ToLower().Contains(text.ToLower()))
-                    {
-                        select.SelectByText(elementText);
-                        return;
-                    }
-                }
-                throw new InvalidElementStateException($"Failed to select option that contains text {text}");
-            });
+            ApplyFunctionToOptionsThatContain(element => element.Text, (select, option) => select.SelectByText(text), text);
         }
 
         public void SelectByContainingValue(string value)
         {
             LogElementAction("loc.selecting.value", value);
+            ApplyFunctionToOptionsThatContain(
+                element => element.GetAttribute(Attributes.Value), (select, option) => select.SelectByValue(option), value);
+        }
+
+        protected void ApplyFunctionToOptionsThatContain(Func<IWebElement, string> getValueFunction, Action<SelectElement, string> selectFunction, string value)
+        {
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
                 foreach (var element in select.Options)
                 {
-                    var elementValue = element.GetAttribute(Attributes.Value);
+                    var elementValue = getValueFunction(element);
                     if (elementValue.ToLower().Contains(value.ToLower()))
                     {
-                        select.SelectByValue(elementValue);
+                        selectFunction(select, elementValue);
                         return;
                     }
                 }
-                throw new InvalidElementStateException($"Failed to select option that contains value {value}");
+                throw new InvalidElementStateException($"Failed to find option that contains [{value}]");
             });
         }
 
