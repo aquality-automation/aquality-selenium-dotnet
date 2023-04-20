@@ -84,16 +84,20 @@ namespace Aquality.Selenium.Elements
             DoWithRetry(() =>
             {
                 var select = new SelectElement(GetElement());
+                var isSelected = false;
                 foreach (var element in select.Options)
                 {
                     var elementValue = getValueFunction(element);
                     if (elementValue.ToLower().Contains(value.ToLower()))
                     {
                         selectFunction(select, elementValue);
-                        return;
+                        isSelected = true;
                     }
                 }
-                throw new InvalidElementStateException($"Failed to find option that contains [{value}]");
+                if (!isSelected)
+                {
+                    throw new InvalidElementStateException($"Failed to find option that contains [{value}]");
+                }
             });
         }
 
