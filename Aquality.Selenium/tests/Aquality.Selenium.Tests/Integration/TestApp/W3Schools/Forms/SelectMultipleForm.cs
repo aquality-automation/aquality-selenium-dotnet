@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.W3Schools.Forms
 
         public void AcceptCookies()
         {
-            if (acceptCookiesButton.State.IsDisplayed)
+            if (acceptCookiesButton.State.WaitForDisplayed())
             {
                 acceptCookiesButton.Click();
                 acceptCookiesButton.State.WaitForNotDisplayed();
