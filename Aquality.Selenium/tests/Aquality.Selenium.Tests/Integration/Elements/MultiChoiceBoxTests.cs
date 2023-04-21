@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace Aquality.Selenium.Tests.Integration.Elements
 {
+    [TestFixture]
+    [Parallelizable(ParallelScope.None)]
     internal class MultiChoiceBoxTests : UITest
     {
         private readonly SelectMultipleForm selectMultipleForm = new SelectMultipleForm();
