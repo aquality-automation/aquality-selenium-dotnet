@@ -29,7 +29,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.W3Schools.Forms
             }
         }
 
-        public void SwitchToResultFrame()
+        public static void SwitchToResultFrame()
         {
             AqualityServices.Browser.Driver.SwitchTo().Frame("iframeResult");
         }

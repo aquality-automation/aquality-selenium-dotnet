@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             SelectMultipleForm.Open();
             selectMultipleForm.AcceptCookies();
-            selectMultipleForm.SwitchToResultFrame();
+            SelectMultipleForm.SwitchToResultFrame();
         }
 
         [Test]

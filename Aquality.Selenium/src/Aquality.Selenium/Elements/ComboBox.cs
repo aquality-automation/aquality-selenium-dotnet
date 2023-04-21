@@ -69,7 +69,7 @@ namespace Aquality.Selenium.Elements
         public void SelectByContainingText(string text)
         {
             LogElementAction("loc.combobox.select.by.text", text);
-            ApplyFunctionToOptionsThatContain(element => element.Text, (select, option) => select.SelectByText(text), text);
+            ApplyFunctionToOptionsThatContain(element => element.Text, (select, option) => select.SelectByText(option), text);
         }
 
         public void SelectByContainingValue(string value)

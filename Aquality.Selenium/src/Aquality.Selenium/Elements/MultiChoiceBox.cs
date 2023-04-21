@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Elements
 
         public void DeselectByContainingValue(string value)
         {
-            LogElementAction(LocDeselectingValue);
+            LogElementAction(LocDeselectingValue, value);
             ApplyFunctionToOptionsThatContain(element => element.GetAttribute(Attributes.Value),
                     (select, option) => select.DeselectByValue(option),
                     value);
