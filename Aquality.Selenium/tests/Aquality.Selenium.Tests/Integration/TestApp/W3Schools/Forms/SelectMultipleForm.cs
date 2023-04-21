@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.W3Schools.Forms
         }
 
         public IList<string> ValuesFromResult
-            => Regex.Matches(resultTextBox.GetText().Trim(), ".*?=(.*?)(&|$)").Select(match => match.Groups[1].Value).ToList();
+            => Regex.Matches(resultTextBox.Text.Trim(), ".*?=(.*?)(&|$)").Select(match => match.Groups[1].Value).ToList();
 
         public IList<string> AllTexts => carsMultiChoiceBox.Texts;
 
