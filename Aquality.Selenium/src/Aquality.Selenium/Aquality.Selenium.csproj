@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <None Remove="Resources\JavaScripts\ExpandShadowRoot.js" />
+    <None Remove="Resources\JavaScripts\GetDevicePixelRatio.js" />
+    <None Remove="Resources\JavaScripts\GetElementsFromPoint.js" />
     <None Remove="Resources\JavaScripts\SetAttribute.js" />
     <None Remove="Resources\Localization\be.json" />
     <None Remove="Resources\Localization\en.json" />
@@ -46,6 +48,8 @@
     <EmbeddedResource Include="Resources\JavaScripts\GetCheckBoxState.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxSelectedText.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetComboBoxTexts.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetDevicePixelRatio.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetElementsFromPoint.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementByXPath.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ExpandShadowRoot.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementText.js" />
@@ -77,6 +81,11 @@
 
   <ItemGroup>
     <PackageReference Include="Aquality.Selenium.Core" Version="3.0.0" />
+    <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
+    <PackageReference Include="OpenCvSharp4.runtime.linux-arm" Version="4.7.0.20230115" />
+    <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20230105" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
+    <PackageReference Include="OpenCvSharp4_.runtime.ubuntu.20.04-x64" Version="4.7.0.20230115" />
     <PackageReference Include="WebDriverManager" Version="2.16.2" />
   </ItemGroup>
 

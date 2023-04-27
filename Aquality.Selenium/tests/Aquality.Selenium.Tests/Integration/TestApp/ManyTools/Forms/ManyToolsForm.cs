@@ -1,7 +1,10 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
 {
@@ -22,9 +25,13 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
 
         public T Open()
         {
-            AqualityServices.Browser.GoTo(Url);
-            AqualityServices.Browser.WaitForPageToLoad();
-            return (T) this;
+            AqualityServices.Get<IActionRetrier>().DoWithRetry(() =>
+            {
+                AqualityServices.Browser.GoTo(Url);
+                AqualityServices.Browser.WaitForPageToLoad();
+            }, new List<Type> { typeof(WebDriverTimeoutException) });
+
+            return (T)this;
         }
     }
 }
