@@ -1,23 +1,40 @@
-function getCssPath(element) {
-    const selectorPath = [];
-
-    while (element.tagName) {
-        let selector = element.nodeName.toLowerCase();
-        if (element.id) {
-            selector += `#${element.id}`;
-        } else if (element.parentNode) {
-            let i = 0;
-            const children = element.parentNode.children;
-            while (i < children.length && children[i] !== element) {
-                i++;
-            }
-            selector += `:nth-child(${i + 1})`
-        }
-
-        selectorPath.unshift(selector);
-        element = element.parentNode;
+function previousElementSibling (element) {
+  if (element.previousElementSibling !== 'undefined') {
+    return element.previousElementSibling;
+  } else {
+    // Loop through ignoring anything not an element
+    while (element = element.previousSibling) {
+      if (element.nodeType === 1) {
+        return element;
+      }
     }
-
-    return selectorPath.join(' > ');
+  }
+}
+function getCssPath (element) {
+  // False on non-elements
+  if (!(element instanceof HTMLElement)) { return false; }
+  let path = [];
+  while (element.nodeType === Node.ELEMENT_NODE) {
+    let selector = element.nodeName;
+    if (element.id) { selector += ('#' + element.id); }
+    else {
+      // Walk backwards until there is no previous sibling
+      let sibling = element;
+      // Will hold nodeName to join for adjacent selection
+      let siblingSelectors = [];
+      while (sibling !== null && sibling.nodeType === Node.ELEMENT_NODE) {
+        siblingSelectors.unshift(sibling.nodeName);
+        sibling = previousElementSibling(sibling);
+      }
+      // :first-child does not apply to HTML
+      if (siblingSelectors[0] !== 'HTML') {
+        siblingSelectors[0] = siblingSelectors[0] + ':first-child';
+      }
+      selector = siblingSelectors.join(' + ');
+    }
+    path.unshift(selector);
+    element = element.parentNode;
+  }
+  return path.join(' > ');
 }
 return getCssPath(arguments[0]);
