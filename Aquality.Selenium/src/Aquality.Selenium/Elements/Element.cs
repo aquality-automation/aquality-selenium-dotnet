@@ -16,6 +16,7 @@ using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
+using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements
 {
@@ -135,12 +136,28 @@ namespace Aquality.Selenium.Elements
             return shadowRoot;
         }
 
+        /// <summary>
+        /// Provides <see cref="IElementFactory"/> to find elements in the shadow root of the current element.
+        /// </summary>
+        protected virtual IElementFactory ShadowRootElementFactory
+        {
+            get
+            {
+                var shadowRootRelativeFinder = new RelativeElementFinder(LocalizedLogger, ConditionalWait, ExpandShadowRoot);
+                return new ElementFactory(ConditionalWait, shadowRootRelativeFinder, LocalizationManager);
+            }
+        }
+
         public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
             where T : IElement
         {
-            var shadowRootRelativeFinder = new RelativeElementFinder(LocalizedLogger, ConditionalWait, ExpandShadowRoot);
-            var shadowRootFactory = new ElementFactory(ConditionalWait, shadowRootRelativeFinder, LocalizationManager);
-            return shadowRootFactory.Get(locator, name, supplier, state);
+            return ShadowRootElementFactory.Get(locator, name, supplier, state);
+        }
+
+        public IList<T> FindElementsInShadowRoot<T>(By locator, string name = null, ElementSupplier<T> supplier = null, ElementsCount expectedCount = ElementsCount.Any, ElementState state = ElementState.Displayed) 
+            where T : IElement
+        {
+            return ShadowRootElementFactory.FindElements(locator, name, supplier, expectedCount, state);
         }
     }
 }

@@ -122,10 +122,20 @@ namespace Aquality.Selenium.Elements
         /// <returns>target element's locator</returns>
         protected override By GenerateXpathLocator(By baseLocator, IWebElement webElement, int elementIndex)
         {
-            return IsLocatorSupportedForXPathExtraction(baseLocator)
-                ? base.GenerateXpathLocator(baseLocator, webElement, elementIndex)
-                : By.XPath(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
+            if (IsLocatorSupportedForXPathExtraction(baseLocator))
+            {
+                return base.GenerateXpathLocator(baseLocator, webElement, elementIndex);
+            }
+            try
+            {
+                return By.XPath(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
                     JavaScript.GetElementXPath.GetScript(), webElement), message: "XPath generation failed"));
+            }
+            catch (Exception ex)
+            {
+                return By.CssSelector(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
+                    JavaScript.GetElementCssSelector.GetScript(), webElement), message: $"{ex.Message}. CSS selector generation failed too."));
+            }                
         }
 
         /// <summary>
