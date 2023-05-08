@@ -1771,6 +1771,12 @@
             </summary>
             <param name="bytes">Image bytes to locate element by.</param>
         </member>
+        <member name="P:Aquality.Selenium.Elements.Interfaces.ByImage.Threshold">
+            <summary>
+            Threshold of image similarity.
+            Should be a float between 0 and 1, where 1 means 100% match, and 0.5 means 50% match.
+            </summary>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.GetElementOnPoint(OpenCvSharp.Point,OpenQA.Selenium.ISearchContext)">
             <summary>
             Gets a single element on point (find by center coordinates, then select closest to matchLocation).

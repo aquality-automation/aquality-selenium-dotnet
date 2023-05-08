@@ -40,6 +40,12 @@ namespace Aquality.Selenium.Elements.Interfaces
             template = Mat.ImDecode(bytes, ImreadModes.Unchanged);
         }
 
+        /// <summary>
+        /// Threshold of image similarity.
+        /// Should be a float between 0 and 1, where 1 means 100% match, and 0.5 means 50% match.
+        /// </summary>
+        public virtual float Threshold { get; set; } = 1 - AqualityServices.Get<IVisualizationConfiguration>().DefaultThreshold;
+
         public override IWebElement FindElement(ISearchContext context)
         {
             return FindElements(context)?.FirstOrDefault() 
@@ -53,11 +59,10 @@ namespace Aquality.Selenium.Elements.Interfaces
 
             Cv2.MatchTemplate(source, template, result, TemplateMatchModes.CCoeffNormed);
 
-            var threshold = 1 - AqualityServices.Get<IVisualizationConfiguration>().DefaultThreshold;
             Cv2.MinMaxLoc(result, out _, out var maxVal, out _, out var matchLocation);
             var matchCounter = Math.Abs((result.Width - template.Width + 1) * (result.Height - template.Height + 1));
             var matchLocations = new List<Point>();
-            while (matchCounter > 0 && maxVal >= threshold)
+            while (matchCounter > 0 && maxVal >= Threshold)
             {
                 matchCounter--;
                 matchLocations.Add(matchLocation);
