@@ -13,9 +13,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
         public static By NestedShadowRootLocator => By.Id("moreActionsMenu");
         public ILabel DownloadsToolbarLabel => FormElement.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
         public IList<ILabel> DivElementLabels => FormElement.FindElementsInShadowRoot<ILabel>(By.CssSelector("div"), "div");
+        public IList<ILabel> MainContainerLabels => FormElement.FindElementsInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
         public ILabel MainContainerLabel => FormElement.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
         public ILabel DownloadsToolbarLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
         public IList<ILabel> DivElementLabelsFromJs => FormElement.JsActions.FindElementsInShadowRoot<ILabel>(By.CssSelector("div"), "div");
+        public IList<ILabel> MainContainerLabelsFromJs => FormElement.JsActions.FindElementsInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");
         public ILabel MainContainerLabelFromJs => FormElement.JsActions.FindElementInShadowRoot<ILabel>(By.Id("mainContainer"), "Main container");
 
         public ChromeDownloadsForm() : base(By.TagName("downloads-manager"), "Chrome downloads manager")
