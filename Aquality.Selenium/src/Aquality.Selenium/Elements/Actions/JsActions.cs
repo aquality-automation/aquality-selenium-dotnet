@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Elements.Interfaces;
@@ -44,18 +43,6 @@ namespace Aquality.Selenium.Elements.Actions
         {
             LogElementAction("loc.shadowroot.expand.js");
             return ExecuteScript<ShadowRoot>(JavaScript.ExpandShadowRoot);
-        }
-
-        public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed)
-            where T : IElement
-        {
-            return this.GetShadowRootElementFactory().Get(locator, name, supplier, state);
-        }
-
-        public IList<T> FindElementsInShadowRoot<T>(By locator, string name = null, ElementSupplier<T> supplier = null, ElementsCount expectedCount = ElementsCount.Any, ElementState state = ElementState.Displayed)
-            where T : IElement
-        {
-            return this.GetShadowRootElementFactory().FindElements(locator, name, supplier, expectedCount, state);
         }
 
         /// <summary>

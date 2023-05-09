@@ -135,17 +135,5 @@ namespace Aquality.Selenium.Elements
             var shadowRoot = (ShadowRoot)GetElement().GetShadowRoot();
             return shadowRoot;
         }
-
-        public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
-            where T : IElement
-        {
-            return this.GetShadowRootElementFactory().Get(locator, name, supplier, state);
-        }
-
-        public IList<T> FindElementsInShadowRoot<T>(By locator, string name = null, ElementSupplier<T> supplier = null, ElementsCount expectedCount = ElementsCount.Any, ElementState state = ElementState.Displayed) 
-            where T : IElement
-        {
-            return this.GetShadowRootElementFactory().FindElements(locator, name, supplier, expectedCount, state);
-        }
     }
 }
