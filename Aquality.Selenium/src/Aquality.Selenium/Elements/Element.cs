@@ -136,28 +136,16 @@ namespace Aquality.Selenium.Elements
             return shadowRoot;
         }
 
-        /// <summary>
-        /// Provides <see cref="IElementFactory"/> to find elements in the shadow root of the current element.
-        /// </summary>
-        protected virtual IElementFactory ShadowRootElementFactory
-        {
-            get
-            {
-                var shadowRootRelativeFinder = new RelativeElementFinder(LocalizedLogger, ConditionalWait, ExpandShadowRoot);
-                return new ElementFactory(ConditionalWait, shadowRootRelativeFinder, LocalizationManager);
-            }
-        }
-
         public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
             where T : IElement
         {
-            return ShadowRootElementFactory.Get(locator, name, supplier, state);
+            return this.GetShadowRootElementFactory().Get(locator, name, supplier, state);
         }
 
         public IList<T> FindElementsInShadowRoot<T>(By locator, string name = null, ElementSupplier<T> supplier = null, ElementsCount expectedCount = ElementsCount.Any, ElementState state = ElementState.Displayed) 
             where T : IElement
         {
-            return ShadowRootElementFactory.FindElements(locator, name, supplier, expectedCount, state);
+            return this.GetShadowRootElementFactory().FindElements(locator, name, supplier, expectedCount, state);
         }
     }
 }

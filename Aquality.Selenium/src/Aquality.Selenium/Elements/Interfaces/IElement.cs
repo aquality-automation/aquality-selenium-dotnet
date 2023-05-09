@@ -1,7 +1,4 @@
-﻿using Aquality.Selenium.Core.Elements;
-using Aquality.Selenium.Elements.Actions;
-using OpenQA.Selenium;
-using System.Collections.Generic;
+﻿using Aquality.Selenium.Elements.Actions;
 using ICoreElement = Aquality.Selenium.Core.Elements.Interfaces.IElement;
 
 namespace Aquality.Selenium.Elements.Interfaces
@@ -9,7 +6,7 @@ namespace Aquality.Selenium.Elements.Interfaces
     /// <summary>
     /// Describes behavior of any UI element.
     /// </summary>
-    public interface IElement : ICoreElement
+    public interface IElement : ICoreElement, IShadowRootExpander
     {
         /// <summary>
         /// Gets JavaScript actions that can be performed with an element.
@@ -75,40 +72,5 @@ namespace Aquality.Selenium.Elements.Interfaces
         /// </summary>
         /// <param name="key"> Key for sending.</param>
         void SendKey(Key key);
-
-        /// <summary>
-        /// Expands shadow root.
-        /// </summary>
-        /// <returns><see cref="ShadowRoot"/> search context.</returns>
-        ShadowRoot ExpandShadowRoot();
-
-        /// <summary>
-        /// Finds element in the shadow root of the current element.
-        /// </summary>
-        /// <typeparam name="T">Type of the target element that has to implement <see cref="IElement"/>.</typeparam>
-        /// <param name="locator">Locator of the target element. 
-        /// Note that some browsers don't support XPath locator for shadow elements. 
-        /// Therefore, we suggest to use CSS selectors.</param>
-        /// <param name="name">Name of the target element.</param>
-        /// <param name="supplier">Delegate that defines constructor of element.</param>
-        /// <param name="state">State of the target element.</param>
-        /// <returns>Instance of element.</returns>
-        T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
-            where T : IElement;
-
-        /// <summary>
-        /// Finds elements in the shadow root of the current element.
-        /// </summary>
-        /// <typeparam name="T">Type of the target elements that has to implement <see cref="IElement"/>.</typeparam>
-        /// <param name="locator">Locator of target elements. 
-        /// Note that some browsers don't support XPath locator for shadow elements.
-        /// Therefore, we suggest to use CSS selectors</param>
-        /// <param name="name">Name of target elements.</param>
-        /// <param name="supplier">Delegate that defines constructor of element.</param>
-        /// <param name="expectedCount">Expected number of elements that have to be found (zero, more then zero, any).</param>
-        /// <param name="state">State of target elements.</param>
-        /// <returns>List of found elements.</returns>
-        IList<T> FindElementsInShadowRoot<T>(By locator, string name = null, ElementSupplier<T> supplier = null, ElementsCount expectedCount = ElementsCount.Any, ElementState state = ElementState.Displayed) 
-            where T : IElement;
     }
 }
