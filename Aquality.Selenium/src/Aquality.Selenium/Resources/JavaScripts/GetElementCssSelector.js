@@ -11,8 +11,8 @@ function previousElementSibling (element) {
   }
 }
 function getCssPath (element) {
-  // False on non-elements
-  if (!(element instanceof HTMLElement)) { return false; }
+  // Empty on non-elements
+  if (!(element instanceof HTMLElement)) { return ''; }
   let path = [];
   while (element.nodeType === Node.ELEMENT_NODE) {
     let selector = element.nodeName;
