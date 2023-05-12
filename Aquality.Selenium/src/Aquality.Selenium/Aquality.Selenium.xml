@@ -680,7 +680,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.CloseTab">
             <summary>
-            Closes curent tab.
+            Closes current tab.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTab(System.Boolean)">
@@ -689,9 +689,27 @@
             </summary>
             <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTabViaJs(System.Boolean)">
+            <summary>
+            Opens new tab using JS function.
+            </summary>
+            <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.String)">
             <summary>
             Navigates to desired url in new tab.
+            </summary>
+            <param name="url">String representation of URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.Uri)">
+            <summary>
+            Navigates to desired url in new tab.
+            </summary>
+            <param name="url">target URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTabViaJs(System.String)">
+            <summary>
+            Navigates to desired url in new tab using JS function.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>

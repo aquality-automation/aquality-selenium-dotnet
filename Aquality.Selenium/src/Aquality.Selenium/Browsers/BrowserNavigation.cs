@@ -11,12 +11,13 @@ namespace Aquality.Selenium.Browsers
     {
         private readonly WebDriver driver;
 
-        internal BrowserNavigation(WebDriver driver)
+        protected internal BrowserNavigation(WebDriver driver, ILocalizedLogger logger)
         {
             this.driver = driver;
+            Logger = logger;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private ILocalizedLogger Logger { get; }
 
         /// <summary>
         /// Navigates back.

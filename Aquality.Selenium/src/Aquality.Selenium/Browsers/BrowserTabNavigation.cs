@@ -10,12 +10,13 @@ namespace Aquality.Selenium.Browsers
     {
         private readonly WebDriver driver;
 
-        internal BrowserTabNavigation(WebDriver driver)
+        protected internal BrowserTabNavigation(WebDriver driver, ILocalizedLogger logger)
         {
             this.driver = driver;
+            Logger = logger;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private ILocalizedLogger Logger { get; }
 
         public string CurrentTabHandle
         {
@@ -44,7 +45,18 @@ namespace Aquality.Selenium.Browsers
         public void OpenNewTab(bool switchToNew = true)
         {
             Logger.Info("loc.browser.tab.open.new");
-            AqualityServices.Browser.ExecuteScript(JavaScript.OpenNewTab);
+            var currentHandle = switchToNew ? null : CurrentTabHandle;
+            driver.SwitchTo().NewWindow(WindowType.Tab);
+            if (!switchToNew)
+            {
+                CloseAndSwitch(currentHandle, closeCurrent: false);
+            }
+        }
+
+        public void OpenNewTabViaJs(bool switchToNew = true)
+        {
+            Logger.Info("loc.browser.tab.open.new");
+            driver.ExecuteScript(JavaScript.OpenNewTab.GetScript());
             if (switchToNew)
             {
                 SwitchToLastTab();
@@ -53,7 +65,19 @@ namespace Aquality.Selenium.Browsers
 
         public void OpenInNewTab(string url)
         {
-            AqualityServices.Browser.ExecuteScript(JavaScript.OpenInNewTab, url);
+            OpenNewTab(switchToNew: true);
+            driver.Navigate().GoToUrl(url);
+        }
+
+        public void OpenInNewTab(Uri url)
+        {
+            OpenNewTab(switchToNew: true);
+            driver.Navigate().GoToUrl(url);
+        }
+
+        public void OpenInNewTabViaJs(string url)
+        {
+            driver.ExecuteScript(JavaScript.OpenInNewTab.GetScript(), url);
         }
 
         public void SwitchToLastTab(bool closeCurrent = false)
