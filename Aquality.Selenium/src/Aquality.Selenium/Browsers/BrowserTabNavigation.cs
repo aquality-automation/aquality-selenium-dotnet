@@ -102,7 +102,7 @@ namespace Aquality.Selenium.Browsers
                     $"Index of browser tab '{index}' you provided is out of range {0}..{names.Count}");
             }
 
-            var newTab = names.ElementAt(index);
+            var newTab = names[index];
             CloseAndSwitch(newTab, closeCurrent);
         }
 
