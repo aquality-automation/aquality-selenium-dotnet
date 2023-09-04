@@ -14,14 +14,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
                 var checkBoxesForm = new CheckBoxesForm();
                 checkBoxesForm.Open();
-                Assert.That(checkBoxesForm.DoesUrlMatch, "URL is not expected (checkboxes form)");
+                Assert.AreEqual(checkBoxesForm.Url, AqualityServices.Browser.CurrentUrl);
                 AqualityServices.Browser.Quit();
             });
             var thread02 = new Thread(() =>
             {
                 var authForm = new AuthenticationForm();
                 authForm.Open();
-                Assert.That(authForm.DoesUrlMatch, "URL is not expected (auth form)");
+                Assert.AreEqual(authForm.Url, AqualityServices.Browser.CurrentUrl);
                 AqualityServices.Browser.Quit();
             });
 

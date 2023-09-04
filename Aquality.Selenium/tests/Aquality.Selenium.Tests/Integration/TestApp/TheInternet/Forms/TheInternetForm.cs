@@ -18,8 +18,6 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         public string Url => BaseUrl + UrlPart;
 
-        public bool DoesUrlMatch => AqualityServices.Browser.CurrentUrl.EndsWith(UrlPart);
-
         public void Open()
         {
             AqualityServices.Browser.GoTo(Url);
@@ -29,6 +27,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         public void ClickElementalSelenium()
         {
             ElementalSeleniumLink.Click();
+        }
+
+        public bool IsUrlMatch()
+        {
+            return AqualityServices.Browser.CurrentUrl.EndsWith(UrlPart);
         }
     }
 }
