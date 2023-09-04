@@ -88,6 +88,7 @@ namespace Aquality.Selenium.Tests.Integration
             
             Assert.DoesNotThrowAsync(async () => await DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
             AqualityServices.Browser.Refresh();
+            AqualityServices.Browser.WaitForPageToLoad();
             Assert.AreEqual(initialValue, getWindowHeight(), "Browser height should match to initial value after clear");
         }
 
