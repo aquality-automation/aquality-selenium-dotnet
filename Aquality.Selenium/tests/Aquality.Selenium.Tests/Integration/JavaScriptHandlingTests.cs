@@ -24,11 +24,11 @@ namespace Aquality.Selenium.Tests.Integration
             var attributeValueChanges = new List<DomMutationData>();
             void eventHandler(object sender, DomMutatedEventArgs e) => attributeValueChanges.Add(e.AttributeData);
             JavaScriptEngine.DomMutated += eventHandler;
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            Assert.DoesNotThrowAsync(async() => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
 
             welcomeForm.Open();
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.EnableDomMutationMonitoring(), "Should be possible to enable DOM mutation monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.EnableDomMutationMonitoring(), "Should be possible to enable DOM mutation monitoring");
 
             welcomeForm.SubTitleLabel.JsActions.SetAttribute(attributeName, attributeValue);
             AqualityServices.ConditionalWait.WaitForTrue(() => attributeValueChanges.Count > 0, 
@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration
             AqualityServices.ConditionalWait.WaitFor(() => attributeValueChanges.Count > 1, timeout: NegativeConditionTimeout);
             Assert.AreEqual(1, attributeValueChanges.Count, "No more changes in DOM is expected, should be possible to unsubscribe from DOM mutation event");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.DisableDomMutationMonitoring(), "Should be possible to disable DOM mutation monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.DisableDomMutationMonitoring(), "Should be possible to disable DOM mutation monitoring");
             Assert.DoesNotThrow(() => JavaScriptEngine.StopEventMonitoring(), "Should be possible to stop event monitoring");
         }
 
@@ -61,11 +61,11 @@ namespace Aquality.Selenium.Tests.Integration
             var expectedValue = welcomeForm.SubTitleLabel.JsActions.GetXPath();
             Assert.AreEqual(expectedValue, xpath, "Pinned script should return the same value");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
             Assert.Throws<JavaScriptException>(
                 () => pinnedScript.ExecuteScript<string>(welcomeForm.SubTitleLabel), 
                 "Unpinned script should not return the value");
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.Reset(), "Should be possible to reset JavaScript monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.Reset(), "Should be possible to reset JavaScript monitoring");
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Aquality.Selenium.Tests.Integration
             var actualText = keyPressesForm.InputTextBox.Value;
             Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via pinned JS");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
             Assert.Throws<JavaScriptException>(() => pinnedScript.ExecuteScript(keyPressesForm.InputTextBox, text),  "Unpinned script should not be executed");
         }
 
@@ -94,7 +94,7 @@ namespace Aquality.Selenium.Tests.Integration
             var apiCalledMessages = new List<string>();
             void eventHandler(object sender, JavaScriptConsoleApiCalledEventArgs e) => apiCalledMessages.Add(e.MessageContent);
             JavaScriptEngine.JavaScriptConsoleApiCalled += eventHandler;
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
 
             AqualityServices.Browser.ExecuteScript(consoleApiScript);
 
@@ -115,7 +115,7 @@ namespace Aquality.Selenium.Tests.Integration
             var errorMessages = new List<string>();
             void eventHandler(object sender, JavaScriptExceptionThrownEventArgs e) => errorMessages.Add(e.Message);
             JavaScriptEngine.JavaScriptExceptionThrown += eventHandler;
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
             welcomeForm.Open();
             welcomeForm.SubTitleLabel.JsActions.SetAttribute("onclick", "throw new Error('Hello, world!')");
             welcomeForm.SubTitleLabel.Click();
@@ -140,30 +140,30 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreEqual(script, initScript.ScriptSource, "Saved script source should match to expected");
             Assert.AreEqual(name, initScript.ScriptName, "Saved script name should match to expected");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            Assert.DoesNotThrowAsync(async() => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
             AqualityServices.Browser.Refresh();
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear after the refresh and be possible to handle");
 
             Assert.That(JavaScriptEngine.InitializationScripts, Has.Member(initScript), "Should be possible to read initialization scripts");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.RemoveInitializationScript(name), "Should be possible to remove initialization script");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.RemoveInitializationScript(name), "Should be possible to remove initialization script");
             AqualityServices.Browser.Refresh();
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Initialization script should not be executed after the remove");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after remove");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
             Assert.That(JavaScriptEngine.InitializationScripts, Has.One.Items, "Exactly one script should be among initialization scripts");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.ClearInitializationScripts(), "Should be possible to clear initialization scripts");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.ClearInitializationScripts(), "Should be possible to clear initialization scripts");
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Initialization script should not be executed after the clear");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after clear");
 
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.ClearAll(), "Should be possible to clear all JavaScript monitoring"); 
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.ClearAll(), "Should be possible to clear all JavaScript monitoring"); 
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Initialization script should not be executed after the clear all");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after clear all");
 
@@ -178,11 +178,11 @@ namespace Aquality.Selenium.Tests.Integration
             var executedBindings = new List<string>();
             void eventHandler(object sender, JavaScriptCallbackExecutedEventArgs e) => executedBindings.Add(e.BindingName);            
             JavaScriptEngine.JavaScriptCallbackExecuted += eventHandler;
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.AddInitializationScript(scriptName, script), "Should be possible to add initialization script");            
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddInitializationScript(scriptName, script), "Should be possible to add initialization script");            
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.AddScriptCallbackBinding(scriptName), "Should be possible to add script callback binding");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddScriptCallbackBinding(scriptName), "Should be possible to add script callback binding");
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), 
                 "Callback binding should prevent from initialization script execution");
             AqualityServices.ConditionalWait.WaitForTrue(() => executedBindings.Contains(scriptName), message: "Subscription to JavaScriptCallbackExecuted event should work");
@@ -192,11 +192,11 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(JavaScriptEngine.ScriptCallbackBindings, Has.Member(scriptName), "Should be possible to read script callback bindings");
             oldCount = executedBindings.Count;
 
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.RemoveScriptCallbackBinding(scriptName), "Should be possible to remove script callback binding");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.RemoveScriptCallbackBinding(scriptName), "Should be possible to remove script callback binding");
             Assert.That(JavaScriptEngine.ScriptCallbackBindings, Is.Empty, "Should be possible to read script callback bindings after remove");
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.AddScriptCallbackBinding(scriptName), "Should be possible to add script callback binding again");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddScriptCallbackBinding(scriptName), "Should be possible to add script callback binding again");
             Assert.That(JavaScriptEngine.ScriptCallbackBindings, Has.Member(scriptName), "Should be possible to read script callback bindings");
-            Assert.DoesNotThrowAsync(() => JavaScriptEngine.ClearScriptCallbackBindings(), "Should be possible to clear script callback bindings");
+            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.ClearScriptCallbackBindings(), "Should be possible to clear script callback bindings");
             Assert.That(JavaScriptEngine.ScriptCallbackBindings, Is.Empty, "Should be possible to read script callback bindings after remove");
 
             JavaScriptEngine.JavaScriptCallbackExecuted -= eventHandler;
