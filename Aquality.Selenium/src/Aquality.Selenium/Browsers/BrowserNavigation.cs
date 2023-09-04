@@ -44,7 +44,15 @@ namespace Aquality.Selenium.Browsers
         public void GoToUrl(string url)
         {
             InfoLocNavigate(url);
-            driver.Navigate().GoToUrl(url);
+            // temporary workaround to avoid issue described at https://github.com/SeleniumHQ/selenium/issues/12277
+            try
+            {
+                driver.Navigate().GoToUrl(url);
+            }
+            catch (WebDriverException e) when (driver.Url == url)
+            {
+                Logger.Fatal($"Navigation error occurred: [{e.Message}], but successfully navigated to URL [{url}]", e);
+            }            
         }
 
         /// <summary>
@@ -54,7 +62,14 @@ namespace Aquality.Selenium.Browsers
         public void GoToUrl(Uri url)
         {
             InfoLocNavigate(url.ToString());
-            driver.Navigate().GoToUrl(url);
+            try
+            {
+                driver.Navigate().GoToUrl(url);
+            }
+            catch (WebDriverException e) when (driver.Url == url.ToString())
+            {
+                Logger.Fatal($"Navigation error occurred: [{e.Message}], but successfully navigated to URL [{url}]", e);
+            }
         }
 
         /// <summary>

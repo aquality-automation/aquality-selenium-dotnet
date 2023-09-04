@@ -56,7 +56,16 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
-                Assert.IsTrue(elements.All(element => element.State.WaitForNotDisplayed()));
+                Assert.IsTrue(elements.All(element =>
+                {
+                    var result = element.State.WaitForNotDisplayed();
+                    if (!result)
+                    {
+                        element.MouseActions.MoveMouseFromElement();
+                        result = element.State.WaitForNotDisplayed();
+                    }
+                    return result;
+                }));
             });
         }
     }

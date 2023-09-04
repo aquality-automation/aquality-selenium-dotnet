@@ -79,11 +79,11 @@ namespace Aquality.Selenium.Tests.Integration
         private static void CheckDeviceMetricsOverride(Action<long, long, bool, double> setAction)
         {
             static long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             var initialValue = getWindowHeight();
             Assume.That(initialValue, Is.Not.EqualTo(DeviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
             setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.Open();
             Assert.AreEqual(DeviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
             
             Assert.DoesNotThrowAsync(async () => await DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
