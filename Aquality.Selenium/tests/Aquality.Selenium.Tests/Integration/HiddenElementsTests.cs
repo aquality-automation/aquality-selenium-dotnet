@@ -1,4 +1,5 @@
-﻿using Aquality.Selenium.Core.Elements;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
@@ -61,7 +62,7 @@ namespace Aquality.Selenium.Tests.Integration
                     var result = element.State.WaitForNotDisplayed();
                     if (!result)
                     {
-                        element.MouseActions.MoveMouseFromElement();
+                        AqualityServices.Browser.Refresh();
                         result = element.State.WaitForNotDisplayed();
                     }
                     return result;
