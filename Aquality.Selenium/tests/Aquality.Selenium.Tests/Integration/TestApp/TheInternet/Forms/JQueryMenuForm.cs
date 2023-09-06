@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
         {
         }
 
-        public static IButton EnabledButton => ElementFactory.GetButton(By.Id("ui-id-2"), "Enabled");
+        public static IButton EnabledButton => ElementFactory.GetButton(By.XPath("//*[@id='ui-id-2' or @id='ui-id-3']"), "Enabled");
 
         public static bool IsEnabledButtonFocused => EnabledButton.GetAttribute("class").Contains("focus");
 

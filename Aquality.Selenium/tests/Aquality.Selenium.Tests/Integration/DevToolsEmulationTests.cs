@@ -50,7 +50,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_SetAndClearDeviceMetricsOverride()
         {
             CheckDeviceMetricsOverride((width, height, isMobile, scaleFactor) => Assert.DoesNotThrowAsync(
-                () => DevTools.SetDeviceMetricsOverride(width, height, isMobile), "Should be possible to set device metrics override"));
+                async () => await DevTools.SetDeviceMetricsOverride(width, height, isMobile), "Should be possible to set device metrics override"));
         }
 
         [Test]
@@ -58,18 +58,18 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V108.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V116.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V108.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V116.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V108.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V116.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
                     Mobile = isMobile,
                     DeviceScaleFactor = scaleFactor
                 };
-                Assert.DoesNotThrowAsync(() => DevTools.SetDeviceMetricsOverride(parameters), 
+                Assert.DoesNotThrowAsync(async () => await DevTools.SetDeviceMetricsOverride(parameters), 
                     "Should be possible to set device metrics override with version-specific parameters, even if the version doesn't match");
             }
 
@@ -79,15 +79,16 @@ namespace Aquality.Selenium.Tests.Integration
         private static void CheckDeviceMetricsOverride(Action<long, long, bool, double> setAction)
         {
             static long getWindowHeight() => AqualityServices.Browser.ExecuteScriptFromFile<long>("Resources.GetWindowSize.js");
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.Open();
             var initialValue = getWindowHeight();
             Assume.That(initialValue, Is.Not.EqualTo(DeviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
             setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
-            var welcomeForm = new WelcomeForm();
-            welcomeForm.Open();
             Assert.AreEqual(DeviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
             
-            Assert.DoesNotThrowAsync(() => DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
+            Assert.DoesNotThrowAsync(async () => await DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
             AqualityServices.Browser.Refresh();
+            AqualityServices.Browser.WaitForPageToLoad();
             Assert.AreEqual(initialValue, getWindowHeight(), "Browser height should match to initial value after clear");
         }
 
@@ -96,8 +97,8 @@ namespace Aquality.Selenium.Tests.Integration
         {
             CheckGeolocationOverride(
                 (latitude, longitude, accuracy) => 
-                Assert.DoesNotThrowAsync(() => DevTools.SetGeoLocationOverride(latitude, longitude, accuracy), "Should be possible to override geoLocation"),
-                () => Assert.DoesNotThrowAsync(() => DevTools.ClearGeolocationOverride(), "Should be possible to clear geoLocation"));
+                Assert.DoesNotThrowAsync(async () => await DevTools.SetGeoLocationOverride(latitude, longitude, accuracy), "Should be possible to override geoLocation"),
+                () => Assert.DoesNotThrowAsync(async () => await DevTools.ClearGeolocationOverride(), "Should be possible to clear geoLocation"));
         }
 
         [Test]
@@ -150,7 +151,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assume.That(defaultLanguage, Is.Not.EqualTo(CustomAcceptLanguage), "Default accept-language header should be different from the custom one to check override");
             Assume.That(defaultUserAgent, Is.Not.EqualTo(CustomUserAgent), "Default user agent header should be different from the custom one to check override");
 
-            Assert.DoesNotThrowAsync(() => DevTools.SetUserAgentOverride(CustomUserAgent, CustomAcceptLanguage), "Should be possible to set user agent override");
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetUserAgentOverride(CustomUserAgent, CustomAcceptLanguage), "Should be possible to set user agent override");
             StringAssert.Contains(CustomAcceptLanguage, new BrowserLanguageForm().Open().Value, "Accept-language header should match to value set");
             Assert.AreEqual(CustomUserAgent, new UserAgentForm().Open().Value, "User agent should match to value set");
         }
@@ -163,11 +164,11 @@ namespace Aquality.Selenium.Tests.Integration
             alertsForm.JsAlertButton.Click();
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be handled");
 
-            Assert.DoesNotThrowAsync(() => DevTools.SetScriptExecutionDisabled(), "Should be possible to set script execution disabled");
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetScriptExecutionDisabled(), "Should be possible to set script execution disabled");
             alertsForm.JsAlertButton.Click();
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should not appear as JS scripts disabled");
 
-            Assert.DoesNotThrowAsync(() => DevTools.SetScriptExecutionDisabled(false), "Should be possible to set script execution enabled");
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetScriptExecutionDisabled(false), "Should be possible to set script execution enabled");
             alertsForm.JsAlertButton.Click();
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be handled as JS scripts are enabled again");
         }
@@ -178,9 +179,9 @@ namespace Aquality.Selenium.Tests.Integration
             static bool isTouchEnabled() => AqualityServices.Browser.ExecuteScriptFromFile<bool>("Resources.IsTouchEnabled.js");
             Assume.That(isTouchEnabled, Is.False, "Touch should be initially disabled");
 
-            Assert.DoesNotThrowAsync(() => DevTools.SetTouchEmulationEnabled(true), "Should be possible to enable touch emulation");
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetTouchEmulationEnabled(true), "Should be possible to enable touch emulation");
             Assert.IsTrue(isTouchEnabled(), "Touch should be enabled");
-            Assert.DoesNotThrowAsync(() => DevTools.SetTouchEmulationEnabled(new SetTouchEmulationEnabledCommandSettings { Enabled = false }), 
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetTouchEmulationEnabled(new SetTouchEmulationEnabledCommandSettings { Enabled = false }), 
                 "Should be possible to disable touch emulation");
             Assert.IsFalse(isTouchEnabled(), "Touch should be disabled");
         }
@@ -194,19 +195,19 @@ namespace Aquality.Selenium.Tests.Integration
             var initialValue = getMediaType();
             Assume.That(initialValue, Does.Not.Contain(emulatedMedia), "Initial media type should differ from value to be set");
 
-            Assert.DoesNotThrowAsync(() => DevTools.SetEmulatedMedia(emulatedMedia, new Dictionary<string, string> { { "width", DeviceModeSettingWidth.ToString() } }), 
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetEmulatedMedia(emulatedMedia, new Dictionary<string, string> { { "width", DeviceModeSettingWidth.ToString() } }), 
                 "Should be possible to set emulated media");
             Assert.AreEqual(emulatedMedia, getMediaType(), "Media type should equal to emulated");
-            Assert.DoesNotThrowAsync(() => DevTools.DisableEmulatedMediaOverride(), "Should be possible to disable emulated media override");
+            Assert.DoesNotThrowAsync(async () => await DevTools.DisableEmulatedMediaOverride(), "Should be possible to disable emulated media override");
             Assert.AreEqual(initialValue, getMediaType(), "Media type should equal to initial after disabling the override");
         }
 
         [Test]
         public void Should_BePossibleTo_SetDefaultBackgroundColorOverride()
         {
-            Assert.DoesNotThrowAsync(() => DevTools.SetDefaultBackgroundColorOverride(0, 255, 38, 0.25), 
+            Assert.DoesNotThrowAsync(async () => await DevTools.SetDefaultBackgroundColorOverride(0, 255, 38, 0.25), 
                 "Should be possible to set default background color override");
-            Assert.DoesNotThrowAsync(() => DevTools.ClearDefaultBackgroundColorOverride(), 
+            Assert.DoesNotThrowAsync(async () => await DevTools.ClearDefaultBackgroundColorOverride(), 
                 "Should be possible to clear default background color override");
         }
     }

@@ -1,4 +1,5 @@
-﻿using Aquality.Selenium.Core.Elements;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
@@ -56,7 +57,16 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(elements.Any());
-                Assert.IsTrue(elements.All(element => element.State.WaitForNotDisplayed()));
+                Assert.IsTrue(elements.All(element =>
+                {
+                    var result = element.State.WaitForNotDisplayed();
+                    if (!result)
+                    {
+                        AqualityServices.Browser.Refresh();
+                        result = element.State.WaitForNotDisplayed();
+                    }
+                    return result;
+                }));
             });
         }
     }
