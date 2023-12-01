@@ -8,7 +8,10 @@
     "chrome": {
       "webDriverVersion": "MatchingBrowser",
       "capabilities": {
-        "enableVNC": true,
+        "selenoid:options": 
+        { 
+            "enableVNC": true 
+        },
         "unhandledPromptBehavior": "default"
       },
       "options": {
