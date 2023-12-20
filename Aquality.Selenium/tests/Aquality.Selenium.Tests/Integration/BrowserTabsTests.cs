@@ -22,9 +22,28 @@ namespace Aquality.Selenium.Tests.Integration
             var url = new WelcomeForm().Url;
             var browser = AqualityServices.Browser;
             browser.Tabs().OpenInNewTab(url);
-            browser.Tabs().SwitchToLastTab();
             Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
             Assert.AreEqual(browser.Driver.Url, url);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_OpenUrlInNewTab_ViaJs()
+        {
+            var url = new WelcomeForm().Url;
+            var browser = AqualityServices.Browser;
+            browser.Tabs().OpenInNewTabViaJs(url);
+            Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
+            Assert.AreEqual(browser.Driver.Url, url);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_OpenUriInNewTab()
+        {
+            var url = new Uri(new WelcomeForm().Url);
+            var browser = AqualityServices.Browser;
+            browser.Tabs().OpenInNewTab(url);
+            Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
+            Assert.AreEqual(new Uri(browser.Driver.Url), url);
         }
         
         [Test]
@@ -56,6 +75,22 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
 
             browser.Tabs().OpenNewTab(false);
+            Assert.AreEqual(3, browser.Tabs().TabHandles.Count, "New tab should be opened");
+            Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should not be switched to new tab");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_OpenNewTab_ViaJs()
+        {
+            var browser = AqualityServices.Browser;
+            var tabHandle = browser.Tabs().CurrentTabHandle;
+
+            browser.Tabs().OpenNewTabViaJs();
+            var newTabHandle = browser.Tabs().CurrentTabHandle;
+            Assert.AreEqual(2, browser.Tabs().TabHandles.Count, "New tab should be opened");
+            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
+
+            browser.Tabs().OpenNewTabViaJs(false);
             Assert.AreEqual(3, browser.Tabs().TabHandles.Count, "New tab should be opened");
             Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should not be switched to new tab");
         }

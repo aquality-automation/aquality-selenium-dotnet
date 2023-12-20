@@ -8,7 +8,10 @@
     "chrome": {
       "webDriverVersion": "MatchingBrowser",
       "capabilities": {
-        "enableVNC": true,
+        "selenoid:options": 
+        { 
+            "enableVNC": true 
+        },
         "unhandledPromptBehavior": "ignore"
       },
       "options": {
@@ -18,6 +21,9 @@
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
+      },
+      "loggingPreferences": {
+          "Performance": "All"
       },
       "excludedArguments": [ "enable-automation" ],
       "startArguments": [],

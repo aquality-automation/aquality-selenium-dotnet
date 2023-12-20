@@ -172,6 +172,15 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Navigates to desired URL.
+        /// </summary>
+        /// <param name="url">Desired URL.</param>
+        public void GoTo(Uri url)
+        {
+            Navigate().GoToUrl(url);
+        }
+
+        /// <summary>
         /// Navigates back.
         /// </summary>
         public void GoBack()
@@ -207,7 +216,7 @@ namespace Aquality.Selenium.Browsers
 
         private INavigation Navigate()
         {
-            return new BrowserNavigation(Driver);
+            return new BrowserNavigation(Driver, Logger);
         }
 
         /// <summary>
@@ -216,7 +225,7 @@ namespace Aquality.Selenium.Browsers
         /// <returns>Instance of IBrowserTabNavigation.</returns>
         public IBrowserTabNavigation Tabs()
         {
-            return new BrowserTabNavigation(Driver);
+            return new BrowserTabNavigation(Driver, Logger);
         }
 
         /// <summary>

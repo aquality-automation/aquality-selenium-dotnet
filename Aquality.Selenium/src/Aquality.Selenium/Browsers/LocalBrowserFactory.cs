@@ -14,7 +14,6 @@ using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 using Aquality.Selenium.Core.Localization;
-using OpenQA.Selenium.Opera;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -64,9 +63,10 @@ namespace Aquality.Selenium.Browsers
                             (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Opera:
-                        SetUpDriver(new OperaConfig(), driverSettings);
-                        driver = GetDriver<OperaDriver>(OperaDriverService.CreateDefaultService(),
-                            (OperaOptions)driverSettings.DriverOptions, commandTimeout);
+                        var config = new OperaConfig();
+                        var driverPath = SetUpDriver(config, driverSettings);
+                        driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
+                            (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:
                         driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
@@ -84,7 +84,7 @@ namespace Aquality.Selenium.Browsers
             return (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
         }
 
-        private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
+        private static string SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
         {
             var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
             var version = driverSettings.WebDriverVersion.Equals(VersionResolveStrategy.Latest) ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
@@ -95,9 +95,10 @@ namespace Aquality.Selenium.Browsers
             {
                 lock (WebDriverDownloadingLock)
                 {
-                    new DriverManager().SetUpDriver(url, binaryPath);
+                    return new DriverManager().SetUpDriver(url, binaryPath);
                 }
             }
+            return binaryPath;
         }
     }
 }

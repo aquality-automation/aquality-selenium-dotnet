@@ -149,6 +149,12 @@
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.GoTo(System.Uri)">
+            <summary>
+            Navigates to desired URL.
+            </summary>
+            <param name="url">Desired URL.</param>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.GoBack">
             <summary>
             Navigates back.
@@ -674,7 +680,7 @@
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.CloseTab">
             <summary>
-            Closes curent tab.
+            Closes current tab.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTab(System.Boolean)">
@@ -683,9 +689,27 @@
             </summary>
             <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTabViaJs(System.Boolean)">
+            <summary>
+            Opens new tab using JS function.
+            </summary>
+            <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.String)">
             <summary>
             Navigates to desired url in new tab.
+            </summary>
+            <param name="url">String representation of URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.Uri)">
+            <summary>
+            Navigates to desired url in new tab.
+            </summary>
+            <param name="url">target URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTabViaJs(System.String)">
+            <summary>
+            Navigates to desired url in new tab using JS function.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
@@ -845,6 +869,12 @@
             stops listening for events.
             </summary>
             <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.JavaScriptHandling.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, 
+            or resetting unmanaged resources.
+            </summary>
         </member>
         <member name="T:Aquality.Selenium.Browsers.LocalBrowserFactory">
             <summary>

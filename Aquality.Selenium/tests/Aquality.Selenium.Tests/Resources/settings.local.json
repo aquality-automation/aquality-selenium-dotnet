@@ -18,6 +18,9 @@
         "download.prompt_for_download": "false",
         "download.default_directory": "./downloads"
       },
+      "loggingPreferences": {
+          "Performance": "All"
+      },
       "startArguments": [
         "--no-sandbox",
         "--headless",
