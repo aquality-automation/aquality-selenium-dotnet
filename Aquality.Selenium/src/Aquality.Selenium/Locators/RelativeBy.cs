@@ -17,6 +17,7 @@ namespace Aquality.Selenium.Locators
         private const string BELOW = "Below";
         private const string LEFT = "LeftOf";
         private const string RIGHT = "RightOf";
+        private const string NEAR = "Near";
 
         private RelativeBy() { }
 
@@ -102,6 +103,24 @@ namespace Aquality.Selenium.Locators
             return this;
         }
 
+        public RelativeBy Near(By by, int atMostDistanceInPixels = 50)
+        {
+            functions.Add(new Function(NEAR, new[] { by }));
+            return this;
+        }
+
+        public RelativeBy Near(WebElement webElement, int atMostDistanceInPixels = 50)
+        {
+            functions.Add(new Function(NEAR, new[] { webElement }));
+            return this;
+        }
+
+        public RelativeBy Near(IElement element, int atMostDistanceInPixels = 50)
+        {
+            functions.Add(new Function(NEAR, new[] { element.Locator }));
+            return this;
+        }
+
         public override IWebElement FindElement(ISearchContext context)
         {
             return FindElements(context).First();
@@ -115,7 +134,6 @@ namespace Aquality.Selenium.Locators
             {
                 var firstArgument = function.Arguments.First();
                 var firstArgumentType = function.Arguments.First().GetType();
-
                 switch (function.Name)
                 {
                     case ABOVE:
@@ -138,9 +156,13 @@ namespace Aquality.Selenium.Locators
                         formedBy = GetRelativeWithRight(formedBy, firstArgument);
                         break;
 
+                    case NEAR:
+
+                        formedBy = GetRelativeWitNear(formedBy, firstArgument);
+                        break;
+
                     default:
                         throw new ArgumentException($"There is no realisation for [{function.Name}] function");
-
                 }
             });
             return context.FindElements(formedBy);
@@ -228,6 +250,28 @@ namespace Aquality.Selenium.Locators
             if (typeArgument == typeof(IElement))
             {
                 return formedBy.LeftOf(((IElement)savedArgument).Locator);
+            }
+
+            throw new ArgumentException(ErrorMessageForType(typeArgument));
+        }
+
+        private RelativeSeleniumBy GetRelativeWitNear(RelativeSeleniumBy formedBy, object savedArgument)
+        {
+            var typeArgument = savedArgument.GetType();
+
+            if (typeArgument == typeof(WebElement))
+            {
+                return formedBy.Near((WebElement)savedArgument);
+            }
+
+            if (typeArgument == typeof(By))
+            {
+                return formedBy.Near((By)savedArgument);
+            }
+
+            if (typeArgument == typeof(IElement))
+            {
+                return formedBy.Near(((IElement)savedArgument).Locator);
             }
 
             throw new ArgumentException(ErrorMessageForType(typeArgument));
