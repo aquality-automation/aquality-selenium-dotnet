@@ -25,7 +25,7 @@ namespace Aquality.Selenium.Browsers
     {
         private const string HostAddressDefault = "::1";
         private const string DriverVersionVariableName = "SE_DRIVER_VERSION";
-        private static readonly Regex CurrentBrowserVersionRegex = new Regex("Current browser version is ([\\d,\\.]+)");
+        private const string CurrentBrowserVersionPattern = "Current browser version is ([\\d,\\.]+)";
 
         public LocalBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger)
             : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
@@ -85,19 +85,19 @@ namespace Aquality.Selenium.Browsers
 
         private WebDriver GetDriver<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
         {
+            var currentBrowserVersionRegex = new Regex(CurrentBrowserVersionPattern, RegexOptions.None, TimeoutConfiguration.Condition);
             try
             {
                 return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
             }
             catch (TargetInvocationException exception)
-            when (exception.InnerException != null && CurrentBrowserVersionRegex.IsMatch(exception.InnerException.Message))
+            when (exception.InnerException != null && currentBrowserVersionRegex.IsMatch(exception.InnerException.Message))
             {
                 Logger.Instance.Debug(exception.InnerException.Message, exception);
-                var currentVersion = CurrentBrowserVersionRegex.Match(exception.InnerException.Message).Groups[1].Value;
+                var currentVersion = currentBrowserVersionRegex.Match(exception.InnerException.Message).Groups[1].Value;
                 Environment.SetEnvironmentVariable(DriverVersionVariableName, currentVersion);
                 return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
             }
-
         }
     }
 }
