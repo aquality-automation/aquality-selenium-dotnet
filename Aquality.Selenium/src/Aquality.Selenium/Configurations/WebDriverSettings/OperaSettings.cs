@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -17,6 +18,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public class OperaSettings : ChromeSettings
     {
         private const string DefaultBinaryLocation = "%USERPROFILE%\\AppData\\Local\\Programs\\Opera\\launcher.exe";
+
         /// <summary>
         /// Instantiates class using JSON file with general settings.
         /// </summary>
@@ -24,6 +26,10 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         public OperaSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
+
+        public virtual string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", "Latest");
+
+        public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", Architecture.Auto).ToEnum<Architecture>();
 
         public virtual string BinaryLocation
         {
