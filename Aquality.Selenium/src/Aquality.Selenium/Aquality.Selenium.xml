@@ -1108,16 +1108,6 @@
             Describes web driver settings.
             </summary>
         </member>
-        <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.WebDriverVersion">
-            <summary>
-            Gets version of web driver for WebDriverManager.
-            </summary>
-        </member>
-        <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.SystemArchitecture">
-            <summary>
-            Gets target system architecture for WebDriverManager.
-            </summary>
-        </member>
         <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.DriverOptions">
             <summary>
             Gets desired options for web driver.
