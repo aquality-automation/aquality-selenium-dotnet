@@ -1233,21 +1233,9 @@
             </summary>
             <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds element in the shadow root of the current element.
-            </summary>
-            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
-            <param name="locator">Locator of the target element. 
-            Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
-            <param name="name">Name of the target element.</param>
-            <param name="supplier">Delegate that defines constructor of element.</param>
-            <param name="state">State of the target element.</param>
-            <returns>Instance of element.</returns>
-        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ClickAndWait">
             <summary>
-            Perfroms click on element and waits for page is loaded.
+            Performs click on element and waits for page is loaded.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.Click">
@@ -1728,6 +1716,15 @@
             </summary>
             <returns>Dictionary where key is interface and value is its implementation.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
+            <summary>
+            Generates locator for target element
+            </summary>
+            <param name="baseLocator">locator of parent element</param>
+            <param name="webElement">target element</param>
+            <param name="elementIndex">index of target element</param>
+            <returns>target element's locator</returns>
+        </member>
         <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateXpathLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
             <summary>
             Generates xpath locator for target element
@@ -1931,24 +1928,6 @@
             </summary>
             <param name="key"> Key for sending.</param>
         </member>
-        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.ExpandShadowRoot">
-            <summary>
-            Expands shadow root.
-            </summary>
-            <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
-        </member>
-        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds element in the shadow root of the current element.
-            </summary>
-            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
-            <param name="locator">Locator of the target element. 
-            Note that some browsers don't support XPath locator for shadow elements.</param>
-            <param name="name">Name of the target element.</param>
-            <param name="supplier">Delegate that defines constructor of element.</param>
-            <param name="state">State of the target element.</param>
-            <returns>Instance of element.</returns>
-        </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IElementFactory">
             <summary>
             Defines the interface used to create the elements.
@@ -2054,6 +2033,55 @@
             Gets RadioButton state.
             </summary>
             <value>True if checked and false otherwise.</value>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.IShadowRootExpander">
+            <summary>
+            Shadow Root expander.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IShadowRootExpander.ExpandShadowRoot">
+            <summary>
+            Expands shadow root.
+            </summary>
+            <returns>ShadowRoot search context.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions">
+            <summary>
+            Extensions for Shadow Root expander (like element or JS Actions).
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.GetShadowRootElementFactory(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander)">
+            <summary>
+            Provides <see cref="T:Aquality.Selenium.Elements.Interfaces.IElementFactory"/> to find elements in the shadow root of the current element.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.FindElementInShadowRoot``1(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander,OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds element in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="shadowRootExpander">Current instance of the Shadow root expander.</param>
+            <param name="locator">Locator of the target element. 
+            Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
+            <param name="name">Name of the target element.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="state">State of the target element.</param>
+            <returns>Instance of element.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.FindElementsInShadowRoot``1(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander,OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementsCount,Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds elements in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target elements that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="shadowRootExpander">Current instance of the Shadow root expander.</param>
+            <param name="locator">Locator of target elements. 
+            Note that some browsers don't support XPath locator for shadow elements.
+            Therefore, we suggest to use CSS selectors</param>
+            <param name="name">Name of target elements.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="expectedCount">Expected number of elements that have to be found (zero, more then zero, any).</param>
+            <param name="state">State of target elements.</param>
+            <returns>List of found elements.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.ITextBox">
             <summary>
