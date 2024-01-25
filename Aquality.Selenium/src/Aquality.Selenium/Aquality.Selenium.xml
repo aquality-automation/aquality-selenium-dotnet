@@ -1716,6 +1716,15 @@
             </summary>
             <returns>Dictionary where key is interface and value is its implementation.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
+            <summary>
+            Generates locator for target element
+            </summary>
+            <param name="baseLocator">locator of parent element</param>
+            <param name="webElement">target element</param>
+            <param name="elementIndex">index of target element</param>
+            <returns>target element's locator</returns>
+        </member>
         <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateXpathLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
             <summary>
             Generates xpath locator for target element
