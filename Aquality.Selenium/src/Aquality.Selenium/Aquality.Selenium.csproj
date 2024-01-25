@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright 2023 Aquality Automation</Copyright>
+    <Copyright>Copyright 2024 Aquality Automation</Copyright>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -78,8 +78,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.0.0" />
-    <PackageReference Include="WebDriverManager" Version="2.16.2" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.0.5" />
+    <PackageReference Include="WebDriverManager" Version="2.17.1" />
   </ItemGroup>
 
 </Project>

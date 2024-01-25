@@ -10,10 +10,11 @@ using OpenQA.Selenium.Safari;
 using System;
 using System.IO;
 using WebDriverManager;
-using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.Helpers;
 using Aquality.Selenium.Core.Localization;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Aquality.Selenium.Core.Logging;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -22,8 +23,9 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class LocalBrowserFactory : BrowserFactory
     {
-        private static readonly object WebDriverDownloadingLock = new object();
         private const string HostAddressDefault = "::1";
+        private const string DriverVersionVariableName = "SE_DRIVER_VERSION";
+        private const string CurrentBrowserVersionPattern = "Current browser version is ([\\d,\\.]+)";
 
         public LocalBrowserFactory(IActionRetrier actionRetrier, IBrowserProfile browserProfile, ITimeoutConfiguration timeoutConfiguration, ILocalizedLogger localizedLogger)
             : base(actionRetrier, browserProfile, timeoutConfiguration, localizedLogger)
@@ -42,34 +44,36 @@ namespace Aquality.Selenium.Browsers
                 {
                     case BrowserName.Chrome:
                     case BrowserName.Yandex:
-                        SetUpDriver(new ChromeConfig(), driverSettings);
-                        driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(),
+                        driver = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Firefox:
-                        SetUpDriver(new FirefoxConfig(), driverSettings);
-                        var geckoService = FirefoxDriverService.CreateDefaultService();
-                        geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? HostAddressDefault : geckoService.Host;
-                        driver = GetDriver<FirefoxDriver>(geckoService, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
+                        Func<DriverService> geckoServiceProvider = () =>
+                        {
+                            var geckoService = FirefoxDriverService.CreateDefaultService();
+                            geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? HostAddressDefault : geckoService.Host;
+                            return geckoService;
+                        };
+
+                        driver = GetDriver<FirefoxDriver>(geckoServiceProvider, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.IExplorer:
-                        SetUpDriver(new InternetExplorerConfig(), driverSettings);
-                        driver = GetDriver<InternetExplorerDriver>(InternetExplorerDriverService.CreateDefaultService(),
+                        driver = GetDriver<InternetExplorerDriver>(() => InternetExplorerDriverService.CreateDefaultService(),
                             (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Edge:
-                        SetUpDriver(new EdgeConfig(), driverSettings);
-                        driver = GetDriver<EdgeDriver>(EdgeDriverService.CreateDefaultService(),
+                        driver = GetDriver<EdgeDriver>(() => EdgeDriverService.CreateDefaultService(),
                             (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Opera:
                         var config = new OperaConfig();
-                        var driverPath = SetUpDriver(config, driverSettings);
-                        driver = GetDriver<ChromeDriver>(ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
+                        var operaSettings = (OperaSettings) driverSettings;
+                        var driverPath = new DriverManager().SetUpDriver(config, operaSettings.WebDriverVersion, operaSettings.SystemArchitecture);
+                        driver = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:
-                        driver = GetDriver<SafariDriver>(SafariDriverService.CreateDefaultService(),
+                        driver = GetDriver<SafariDriver>(() => SafariDriverService.CreateDefaultService(),
                             (SafariOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     default:
@@ -79,26 +83,21 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private WebDriver GetDriver<T>(DriverService driverService, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
+        private WebDriver GetDriver<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
         {
-            return (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
-        }
-
-        private static string SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
-        {
-            var architecture = driverSettings.SystemArchitecture.Equals(Architecture.Auto) ? ArchitectureHelper.GetArchitecture() : driverSettings.SystemArchitecture;
-            var version = driverSettings.WebDriverVersion.Equals(VersionResolveStrategy.Latest) ? driverConfig.GetLatestVersion() : driverSettings.WebDriverVersion;
-            version = version.Equals(VersionResolveStrategy.MatchingBrowser) ? driverConfig.GetMatchingBrowserVersion() : version;
-            var url = UrlHelper.BuildUrl(architecture.Equals(Architecture.X32) ? driverConfig.GetUrl32() : driverConfig.GetUrl64(), version);
-            var binaryPath = FileHelper.GetBinDestination(driverConfig.GetName(), version, architecture, driverConfig.GetBinaryName());
-            if (!File.Exists(binaryPath) || !Environment.GetEnvironmentVariable("PATH").Contains(binaryPath))
+            var currentBrowserVersionRegex = new Regex(CurrentBrowserVersionPattern, RegexOptions.None, TimeoutConfiguration.Condition);
+            try
             {
-                lock (WebDriverDownloadingLock)
-                {
-                    return new DriverManager().SetUpDriver(url, binaryPath);
-                }
+                return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
             }
-            return binaryPath;
+            catch (TargetInvocationException exception)
+            when (exception.InnerException != null && currentBrowserVersionRegex.IsMatch(exception.InnerException.Message))
+            {
+                Logger.Instance.Debug(exception.InnerException.Message, exception);
+                var currentVersion = currentBrowserVersionRegex.Match(exception.InnerException.Message).Groups[1].Value;
+                Environment.SetEnvironmentVariable(DriverVersionVariableName, currentVersion);
+                return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
+            }
         }
     }
 }

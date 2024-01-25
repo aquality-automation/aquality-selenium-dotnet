@@ -6,9 +6,11 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "MatchingBrowser",
       "capabilities": {
-        "enableVNC": true,
+        "selenoid:options": 
+        { 
+            "enableVNC": true 
+        },
         "unhandledPromptBehavior": "ignore"
       },
       "options": {
@@ -27,8 +29,6 @@
       "pageLoadStrategy": "Normal"
     },
     "firefox": {
-      "webDriverVersion": "0.24.0",
-      "systemArchitecture": "X64",
       "capabilities": {
         "enableVNC": true
       },
@@ -50,8 +50,6 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true
       },
@@ -59,7 +57,6 @@
       "startArguments": []
     },
     "edge": {
-      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },

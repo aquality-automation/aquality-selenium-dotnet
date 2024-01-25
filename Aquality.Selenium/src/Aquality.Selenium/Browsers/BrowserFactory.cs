@@ -2,6 +2,7 @@
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
+using System;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -29,7 +30,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                var browser = new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException) }));
+                var browser = new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException), typeof(InvalidOperationException) }));
                 LocalizedLogger.Info("loc.browser.ready", BrowserProfile.BrowserName);
                 return browser;
             }

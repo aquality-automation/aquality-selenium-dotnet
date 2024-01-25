@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -40,7 +41,7 @@ namespace Aquality.Selenium.Browsers
         void SwitchToLastTab(bool closeCurrent = false);
 
         /// <summary>
-        /// Closes curent tab.
+        /// Closes current tab.
         /// </summary>
         void CloseTab();
 
@@ -51,9 +52,27 @@ namespace Aquality.Selenium.Browsers
         void OpenNewTab(bool switchToNew = true);
 
         /// <summary>
+        /// Opens new tab using JS function.
+        /// </summary>
+        /// <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
+        void OpenNewTabViaJs(bool switchToNew = true);
+
+        /// <summary>
         /// Navigates to desired url in new tab.
         /// </summary>
         /// <param name="url">String representation of URL.</param>
         void OpenInNewTab(string url);
+
+        /// <summary>
+        /// Navigates to desired url in new tab.
+        /// </summary>
+        /// <param name="url">target URL.</param>
+        void OpenInNewTab(Uri url);
+
+        /// <summary>
+        /// Navigates to desired url in new tab using JS function.
+        /// </summary>
+        /// <param name="url">String representation of URL.</param>
+        void OpenInNewTabViaJs(string url);
     }
 }
