@@ -42,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\LoginFormForRelativeLocators.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\settings.azure.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

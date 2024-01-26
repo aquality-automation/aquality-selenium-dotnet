@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
-    internal class ChallengingDomForm : TheInternetForm
+    internal class ChallengingDomForm : TheInternetForm //TODO! This code should be removed during refactoring
     {
         public ChallengingDomForm() : base(By.XPath("//h3[contains(text(),'Challenging DOM')]"), "Challenging dom form")
         {

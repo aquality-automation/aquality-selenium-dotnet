@@ -1,0 +1,120 @@
+<!DOCTYPE html>   
+<html lang="en">     
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> Login Page </title>  
+<style>   
+    Body {  
+      font-family: Calibri, Helvetica, sans-serif;  
+      background-color: pink;  
+    }  
+    button {   
+       background-color: #4CAF50;   
+       width: 100%;  
+        color: orange;   
+        padding: 15px;   
+        margin: 10px 0px;   
+        border: none;   
+        cursor: pointer;   
+    }   
+    input[type=text], input[type=password] {   
+        width: 100%;   
+        margin: 8px 0;  
+        padding: 12px 20px;   
+        display: inline-block;   
+        border: 2px solid green;   
+        box-sizing: border-box;   
+    } 
+    input[type=checkbox] {   
+        width: auto;   
+        padding: 10px 18px;  
+        margin: 10px 5px;   
+    }   
+    button:hover {   
+        opacity: 0.7;   
+    }   
+    .btn {   
+        width: auto;   
+        padding: 10px 18px;  
+        margin: 10px 5px;  
+    }    
+
+    .center {
+        border: 5px solid;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+    .h1-center 
+    {text-align: center;}
+    .main-content-container {
+        max-width: 940px;
+        margin: 0 auto;
+        padding: 30px;
+        background: lightblue;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+    .container {
+        height: 80px;
+        margin: 10px 1em;
+        padding-left: 10px;
+        padding-right: 10px;
+        flex: 0 1 20%;
+    }
+
+</style>   
+</head>    
+    <body>    
+        <h1 class="h1-center"> Student Login Form </h1>  
+        <div class="main-content-container">  
+            <div class="container">
+                <label>Username : </label>
+                <input type="text" id="user-name" placeholder="Enter Username" name="username" required>
+            </div>
+            <div class="container">
+                <label>Surname : </label>
+                <input type="text" id="surname" placeholder="Enter Surname" name="surname" required>
+            </div>
+            <div class="container">
+                <label>Password : </label>
+                <input type="password" id="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <div class="container">
+                <label>University : </label>
+                <input type="text" id="university" placeholder="Enter University" name="university" required>
+            </div>
+            <div class="container">
+                <label>Phone : </label>
+                <input type="text" id="phone" placeholder="Enter Phone" name="phone" required>
+            </div>
+            <div class="container">
+                <label>Adress : </label>
+                <input type="text" id="adress" placeholder="Enter Adress" name="adress" required>
+            </div>
+            <div class="container">
+                <label>Card Id : </label>
+                <input type="text" id="card-id" placeholder="Enter Card Id" name="cardid" required>
+            </div>
+            <div class="container">
+                <label>Faculty : </label>
+                <input type="text" id="faculty" placeholder="Enter Faculty" name="faculty" required>
+            </div>
+            <div class="container">
+                <label>Study Period : </label>
+                <input type="text" id="study period" placeholder="Enter Study Period" name="studyperiod" required>
+            </div>
+            <div class="container">
+                <button type="submit" id="submit-btn" class="btn">Login</button>
+                <button type="button" id="cancel-btn" class="btn"> Cancel</button>
+            </div>
+            <div class="container">
+                <input type="checkbox" checked="checked"> Remember me
+            </div>
+            <div class="container">
+                <a href="#"> Forgot password? </a>
+            </div>
+            </div>   
+    </body>     
+</html>  
