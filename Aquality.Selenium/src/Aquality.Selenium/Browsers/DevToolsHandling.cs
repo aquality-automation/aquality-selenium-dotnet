@@ -94,7 +94,6 @@ namespace Aquality.Selenium.Browsers
         /// <param name="commandParameters">Parameters of the command to execute.</param>
         /// <param name="logCommand">Whether to log command.</param>
         /// <param name="logResult">Whether to log command result.</param>
-
         /// <returns>An object representing the result of the command, if applicable.</returns>
         public object ExecuteCdpCommand(string commandName, Dictionary<string, object> commandParameters, bool logCommand = true, bool logResult = true)
         {
@@ -120,6 +119,8 @@ namespace Aquality.Selenium.Browsers
         /// <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+        /// <param name="logCommand">Whether to log command.</param>
+        /// <param name="logResult">Whether to log command result.</param>
         /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         public async Task<JToken> SendCommand(string commandName, JToken commandParameters = null, 
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true,
