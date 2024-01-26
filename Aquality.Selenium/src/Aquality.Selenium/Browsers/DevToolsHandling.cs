@@ -140,43 +140,39 @@ namespace Aquality.Selenium.Browsers
         /// <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+        /// <param name="loggingOptions">Logging preferences.</param>
         /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         public async Task<JToken> SendCommand(ICommand commandWithParameters,
-            CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+            CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true, 
+            DevToolsCommandLoggingOptions loggingOptions = null)
         {
             return await SendCommand(commandWithParameters.CommandName, JToken.FromObject(commandWithParameters), 
-                cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+                cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived, loggingOptions);
         }
 
         private void LogCommand(string commandName, JToken commandParameters, DevToolsCommandLoggingOptions loggingOptions = null)
         {
-            if (loggingOptions == null)
-            {
-                loggingOptions = new DevToolsCommandLoggingOptions();
-            }
-            if (!loggingOptions.Result.Enabled)
+            var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Command;
+            if (!logging.Enabled)
             {
                 return;
             }
             if (commandParameters.Any())
             {
-                Logger.LogByLevel(loggingOptions.Command.LogLevel, "loc.browser.devtools.command.execute.withparams", commandName, commandParameters.ToString());
+                Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute.withparams", commandName, commandParameters.ToString());
             }
             else
             {
-                Logger.LogByLevel(loggingOptions.Command.LogLevel, "loc.browser.devtools.command.execute", commandName);
+                Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute", commandName);
             }
         }
 
         private void LogCommandResult(JToken result, DevToolsCommandLoggingOptions loggingOptions = null)
         {
-            if (loggingOptions == null)
+            var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Result;
+            if (result.Any() && logging.Enabled)
             {
-                loggingOptions = new DevToolsCommandLoggingOptions();
-            }
-            if (result.Any() && loggingOptions.Result.Enabled)
-            {
-                Logger.Info("loc.browser.devtools.command.execute.result", result.ToString());
+                Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute.result", result.ToString());
             }
         }
     }
