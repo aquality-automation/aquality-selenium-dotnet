@@ -93,14 +93,14 @@ namespace Aquality.Selenium.Browsers
         /// <param name="commandName">Name of the command to execute.</param>
         /// <param name="commandParameters">Parameters of the command to execute.</param>
         /// <returns>An object representing the result of the command, if applicable.</returns>
-        public object ExecuteCdpCommand(string commandName, Dictionary<string, object> commandParameters)
+        public object ExecuteCdpCommand(string commandName, Dictionary<string, object> commandParameters, bool logCommand = true, bool logResult = true)
         {
             if (devToolsProvider is ChromiumDriver driver)
             {
-                LogCommand(commandName, JToken.FromObject(commandParameters));
+                if (logCommand) LogCommand(commandName, JToken.FromObject(commandParameters));
                 var result = driver.ExecuteCdpCommand(commandName, commandParameters);
                 var formattedResult = JToken.FromObject(result);
-                LogCommandResult(formattedResult);
+                if (logResult) LogCommandResult(formattedResult);
                 return result;
             }
             else
@@ -119,13 +119,14 @@ namespace Aquality.Selenium.Browsers
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         public async Task<JToken> SendCommand(string commandName, JToken commandParameters = null, 
-            CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+            CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true,
+            bool logCommand = true, bool logResult = true)
         {
             var parameters = commandParameters ?? new JObject();
-            LogCommand(commandName, parameters);
+            if (logCommand) LogCommand(commandName, parameters);
             var result = await devToolsProvider.GetDevToolsSession()
                 .SendCommand(commandName, parameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-            LogCommandResult(result);            
+            if (logResult) LogCommandResult(result);            
             return result;
         }
 
