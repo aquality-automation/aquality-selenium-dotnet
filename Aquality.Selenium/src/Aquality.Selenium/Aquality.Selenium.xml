@@ -593,7 +593,7 @@
             <param name="loggingOptions">Logging preferences.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Sends the specified command and returns the associated command response.
             </summary>
@@ -601,6 +601,7 @@
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions">
