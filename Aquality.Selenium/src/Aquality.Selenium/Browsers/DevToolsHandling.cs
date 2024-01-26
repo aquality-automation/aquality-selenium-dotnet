@@ -92,6 +92,9 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <param name="commandName">Name of the command to execute.</param>
         /// <param name="commandParameters">Parameters of the command to execute.</param>
+        /// <param name="logCommand">Whether to log command.</param>
+        /// <param name="logResult">Whether to log command result.</param>
+
         /// <returns>An object representing the result of the command, if applicable.</returns>
         public object ExecuteCdpCommand(string commandName, Dictionary<string, object> commandParameters, bool logCommand = true, bool logResult = true)
         {
