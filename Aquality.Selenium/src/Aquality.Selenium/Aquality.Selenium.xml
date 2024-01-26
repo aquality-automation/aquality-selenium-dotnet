@@ -571,16 +571,17 @@
             Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Executes a custom Chromium Dev Tools Protocol Command.
             Note: works only if current driver is instance of <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>.
             </summary>
             <param name="commandName">Name of the command to execute.</param>
             <param name="commandParameters">Parameters of the command to execute.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>An object representing the result of the command, if applicable.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Sends the specified command and returns the associated command response.
             </summary>
@@ -589,6 +590,7 @@
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
@@ -2202,6 +2204,21 @@
             </summary>
             <param name="x">horizontal coordinate</param>
             <param name="y">vertical coordinate</param>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions">
+            <summary>
+            DevTools Command/Result logging options.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions.Command">
+            <summary>
+            Controls logging of command info: name and parameters (if any).
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions.Result">
+            <summary>
+            Controls logging of command result (if present).
+            </summary>
         </member>
         <member name="T:Aquality.Selenium.Logging.HttpExchangeLoggingOptions">
             <summary>
