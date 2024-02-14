@@ -6,7 +6,6 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "80.0.3987.106",
       "capabilities": {
         "enableVNC": true
       },
@@ -28,7 +27,6 @@
       ]
     },
     "firefox": {
-      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },
@@ -50,8 +48,6 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true
       },
@@ -59,7 +55,6 @@
       "startArguments": []
     },
     "edge": {
-      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true
       },

@@ -20,6 +20,7 @@ namespace Aquality.Selenium.Browsers
         GetElementsFromPoint,
         GetElementText,
         GetElementXPath,
+        GetElementCssSelector,
         GetTextFirstChild,
         IsPageLoaded,
         MouseHover,

@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
     internal abstract class TheInternetForm : Form
     {
         private ILink ElementalSeleniumLink => ElementFactory.GetLink(By.XPath("//a[contains(@href,'elementalselenium')]"), "Elemental Selenium");
-        private const string BaseUrl = "http://the-internet.herokuapp.com/";
+        private const string BaseUrl = "https://the-internet.herokuapp.com/";
 
         protected TheInternetForm(By locator, string name) : base(locator, name)
         {

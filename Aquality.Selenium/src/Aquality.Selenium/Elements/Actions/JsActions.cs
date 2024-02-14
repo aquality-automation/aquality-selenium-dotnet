@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Elements.Interfaces;
@@ -16,7 +15,7 @@ namespace Aquality.Selenium.Elements.Actions
     /// <summary>
     /// Allows to perform actions on elements via JavaScript.
     /// </summary>
-    public class JsActions
+    public class JsActions : IShadowRootExpander
     {
         private readonly IElement element;
         private readonly string elementType;
@@ -47,25 +46,7 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
-        /// Finds element in the shadow root of the current element.
-        /// </summary>
-        /// <typeparam name="T">Type of the target element that has to implement <see cref="IElement"/>.</typeparam>
-        /// <param name="locator">Locator of the target element. 
-        /// Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
-        /// <param name="name">Name of the target element.</param>
-        /// <param name="supplier">Delegate that defines constructor of element.</param>
-        /// <param name="state">State of the target element.</param>
-        /// <returns>Instance of element.</returns>
-        public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed)
-            where T : IElement
-        {
-            var shadowRootRelativeFinder = new RelativeElementFinder(Logger, AqualityServices.ConditionalWait, ExpandShadowRoot);
-            var shadowRootFactory = new ElementFactory(AqualityServices.ConditionalWait, shadowRootRelativeFinder, AqualityServices.Get<ILocalizationManager>());
-            return shadowRootFactory.Get(locator, name, supplier, state);
-        }
-
-        /// <summary>
-        /// Perfroms click on element and waits for page is loaded.
+        /// Performs click on element and waits for page is loaded.
         /// </summary>
         public void ClickAndWait()
         {

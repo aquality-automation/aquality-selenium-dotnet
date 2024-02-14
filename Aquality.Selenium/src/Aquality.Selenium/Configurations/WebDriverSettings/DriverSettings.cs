@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -31,10 +30,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         }
 
         protected ISettingsFile SettingsFile { get; }
-
-        public virtual string WebDriverVersion => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.webDriverVersion", "Latest");
-
-        public Architecture SystemArchitecture => SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.systemArchitecture", Architecture.Auto).ToEnum<Architecture>();
 
         public abstract DriverOptions DriverOptions { get; }
 
