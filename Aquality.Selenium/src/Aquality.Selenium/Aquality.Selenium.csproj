@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright 2023 Aquality Automation</Copyright>
+    <Copyright>Copyright 2024 Aquality Automation</Copyright>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Remove="Resources\JavaScripts\ExpandShadowRoot.js" />
+    <None Remove="Resources\JavaScripts\GetElementCssSelector.js" />
     <None Remove="Resources\JavaScripts\SetAttribute.js" />
     <None Remove="Resources\Localization\be.json" />
     <None Remove="Resources\Localization\en.json" />
@@ -49,6 +50,7 @@
     <EmbeddedResource Include="Resources\JavaScripts\GetElementByXPath.js" />
     <EmbeddedResource Include="Resources\JavaScripts\ExpandShadowRoot.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementText.js" />
+    <EmbeddedResource Include="Resources\JavaScripts\GetElementCssSelector.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetElementXPath.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetTextFirstChild.js" />
     <EmbeddedResource Include="Resources\JavaScripts\GetViewPortCoordinates.js" />

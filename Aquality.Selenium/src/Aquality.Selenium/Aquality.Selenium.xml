@@ -571,16 +571,17 @@
             Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.ExecuteCdpCommand(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Executes a custom Chromium Dev Tools Protocol Command.
             Note: works only if current driver is instance of <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>.
             </summary>
             <param name="commandName">Name of the command to execute.</param>
             <param name="commandParameters">Parameters of the command to execute.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>An object representing the result of the command, if applicable.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Sends the specified command and returns the associated command response.
             </summary>
@@ -589,9 +590,10 @@
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Sends the specified command and returns the associated command response.
             </summary>
@@ -599,6 +601,7 @@
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
+            <param name="loggingOptions">Logging preferences.</param>
             <returns>A JToken based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions">
@@ -1108,16 +1111,6 @@
             Describes web driver settings.
             </summary>
         </member>
-        <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.WebDriverVersion">
-            <summary>
-            Gets version of web driver for WebDriverManager.
-            </summary>
-        </member>
-        <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.SystemArchitecture">
-            <summary>
-            Gets target system architecture for WebDriverManager.
-            </summary>
-        </member>
         <member name="P:Aquality.Selenium.Configurations.WebDriverSettings.IDriverSettings.DriverOptions">
             <summary>
             Gets desired options for web driver.
@@ -1243,21 +1236,9 @@
             </summary>
             <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Elements.Actions.JsActions.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds element in the shadow root of the current element.
-            </summary>
-            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
-            <param name="locator">Locator of the target element. 
-            Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
-            <param name="name">Name of the target element.</param>
-            <param name="supplier">Delegate that defines constructor of element.</param>
-            <param name="state">State of the target element.</param>
-            <returns>Instance of element.</returns>
-        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.ClickAndWait">
             <summary>
-            Perfroms click on element and waits for page is loaded.
+            Performs click on element and waits for page is loaded.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Elements.Actions.JsActions.Click">
@@ -1738,6 +1719,15 @@
             </summary>
             <returns>Dictionary where key is interface and value is its implementation.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
+            <summary>
+            Generates locator for target element
+            </summary>
+            <param name="baseLocator">locator of parent element</param>
+            <param name="webElement">target element</param>
+            <param name="elementIndex">index of target element</param>
+            <returns>target element's locator</returns>
+        </member>
         <member name="M:Aquality.Selenium.Elements.ElementFactory.GenerateXpathLocator(OpenQA.Selenium.By,OpenQA.Selenium.IWebElement,System.Int32)">
             <summary>
             Generates xpath locator for target element
@@ -1941,24 +1931,6 @@
             </summary>
             <param name="key"> Key for sending.</param>
         </member>
-        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.ExpandShadowRoot">
-            <summary>
-            Expands shadow root.
-            </summary>
-            <returns><see cref="T:OpenQA.Selenium.ShadowRoot"/> search context.</returns>
-        </member>
-        <member name="M:Aquality.Selenium.Elements.Interfaces.IElement.FindElementInShadowRoot``1(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
-            <summary>
-            Finds element in the shadow root of the current element.
-            </summary>
-            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
-            <param name="locator">Locator of the target element. 
-            Note that some browsers don't support XPath locator for shadow elements.</param>
-            <param name="name">Name of the target element.</param>
-            <param name="supplier">Delegate that defines constructor of element.</param>
-            <param name="state">State of the target element.</param>
-            <returns>Instance of element.</returns>
-        </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IElementFactory">
             <summary>
             Defines the interface used to create the elements.
@@ -2064,6 +2036,55 @@
             Gets RadioButton state.
             </summary>
             <value>True if checked and false otherwise.</value>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.IShadowRootExpander">
+            <summary>
+            Shadow Root expander.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IShadowRootExpander.ExpandShadowRoot">
+            <summary>
+            Expands shadow root.
+            </summary>
+            <returns>ShadowRoot search context.</returns>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions">
+            <summary>
+            Extensions for Shadow Root expander (like element or JS Actions).
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.GetShadowRootElementFactory(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander)">
+            <summary>
+            Provides <see cref="T:Aquality.Selenium.Elements.Interfaces.IElementFactory"/> to find elements in the shadow root of the current element.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.FindElementInShadowRoot``1(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander,OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds element in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target element that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="shadowRootExpander">Current instance of the Shadow root expander.</param>
+            <param name="locator">Locator of the target element. 
+            Note that some browsers don't support XPath locator for shadow elements (e.g. Chrome).</param>
+            <param name="name">Name of the target element.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="state">State of the target element.</param>
+            <returns>Instance of element.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ShadowRootExpanderExtensions.FindElementsInShadowRoot``1(Aquality.Selenium.Elements.Interfaces.IShadowRootExpander,OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementSupplier{``0},Aquality.Selenium.Core.Elements.ElementsCount,Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Finds elements in the shadow root of the current element.
+            </summary>
+            <typeparam name="T">Type of the target elements that has to implement <see cref="T:Aquality.Selenium.Elements.Interfaces.IElement"/>.</typeparam>
+            <param name="shadowRootExpander">Current instance of the Shadow root expander.</param>
+            <param name="locator">Locator of target elements. 
+            Note that some browsers don't support XPath locator for shadow elements.
+            Therefore, we suggest to use CSS selectors</param>
+            <param name="name">Name of target elements.</param>
+            <param name="supplier">Delegate that defines constructor of element.</param>
+            <param name="expectedCount">Expected number of elements that have to be found (zero, more then zero, any).</param>
+            <param name="state">State of target elements.</param>
+            <returns>List of found elements.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.ITextBox">
             <summary>
@@ -2184,6 +2205,21 @@
             </summary>
             <param name="x">horizontal coordinate</param>
             <param name="y">vertical coordinate</param>
+        </member>
+        <member name="T:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions">
+            <summary>
+            DevTools Command/Result logging options.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions.Command">
+            <summary>
+            Controls logging of command info: name and parameters (if any).
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Logging.DevToolsCommandLoggingOptions.Result">
+            <summary>
+            Controls logging of command result (if present).
+            </summary>
         </member>
         <member name="T:Aquality.Selenium.Logging.HttpExchangeLoggingOptions">
             <summary>

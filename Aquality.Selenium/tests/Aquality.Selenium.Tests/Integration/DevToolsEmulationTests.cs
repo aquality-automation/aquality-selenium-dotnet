@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Logging;
 using Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms;
 using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
@@ -58,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V119.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V120.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V119.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V120.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V119.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V120.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
@@ -113,7 +114,8 @@ namespace Aquality.Selenium.Tests.Integration
                         { "latitude", latitude},
                         { "longitude", longitude},
                         { "accuracy", accuracy},
-                       }),
+                       },
+                       new DevToolsCommandLoggingOptions { Command = new LoggingParameters { Enabled = false } , Result = new LoggingParameters { Enabled = false } }),
                    () => DevTools.ExecuteCdpCommand(new ClearGeolocationOverrideCommandSettings().CommandName, new Dictionary<string, object>()));
         }
 

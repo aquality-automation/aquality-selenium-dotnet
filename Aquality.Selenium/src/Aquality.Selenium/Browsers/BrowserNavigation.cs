@@ -52,6 +52,11 @@ namespace Aquality.Selenium.Browsers
             catch (WebDriverException e) when (driver.Url == url)
             {
                 Logger.Fatal($"Navigation error occurred: [{e.Message}], but successfully navigated to URL [{url}]", e);
+                // ignore only unknown errors
+                if (e.GetType() != typeof(WebDriverException))
+                {
+                    throw;
+                }
             }            
         }
 

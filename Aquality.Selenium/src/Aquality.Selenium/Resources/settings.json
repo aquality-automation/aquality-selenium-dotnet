@@ -6,7 +6,6 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "MatchingBrowser",
       "capabilities": {
         "selenoid:options": 
         { 
@@ -30,7 +29,6 @@
       "pageLoadStrategy": "Normal"
     },
     "firefox": {
-      "webDriverVersion": "Latest",
       "isGeckoServiceHostDefaultEnabled": false,
       "capabilities": {
         "enableVNC": true,
@@ -54,8 +52,6 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true,
         "unhandledPromptBehavior": "default"
@@ -104,7 +100,6 @@
       "startArguments": ["--remote-debugging-port=9222", "--no-sandbox", "--disable-dev-shm-usage"]
     },
     "yandex": {
-      "webDriverVersion": "102.0.5005.61",
       "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe",
       "capabilities": {
         "enableVNC": true,
