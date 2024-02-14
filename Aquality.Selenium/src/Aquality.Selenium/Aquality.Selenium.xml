@@ -558,7 +558,7 @@
         <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession">
             <summary>
             Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
-            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)"/>, where parameter protocolVersion
+            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(OpenQA.Selenium.DevTools.DevToolsOptions)"/>, where parameter protocolVersion
             defaults to autodetect the protocol version for Chromium, V85 for Firefox.
             </summary>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
@@ -568,6 +568,14 @@
             Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
             </summary>
             <param name="protocolVersion">The version of the Chromium Developer Tools protocol to use. 
+            Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(OpenQA.Selenium.DevTools.DevToolsOptions)">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            </summary>
+            <param name="devToolsOptions"> Developer Tools options. 
             Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         </member>
