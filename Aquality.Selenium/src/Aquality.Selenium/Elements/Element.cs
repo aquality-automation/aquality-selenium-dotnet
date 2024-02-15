@@ -16,6 +16,7 @@ using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
+using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements
 {
@@ -133,14 +134,6 @@ namespace Aquality.Selenium.Elements
             LogElementAction("loc.shadowroot.expand");
             var shadowRoot = (ShadowRoot)GetElement().GetShadowRoot();
             return shadowRoot;
-        }
-
-        public T FindElementInShadowRoot<T>(By locator, string name, ElementSupplier<T> supplier = null, ElementState state = ElementState.Displayed) 
-            where T : IElement
-        {
-            var shadowRootRelativeFinder = new RelativeElementFinder(LocalizedLogger, ConditionalWait, ExpandShadowRoot);
-            var shadowRootFactory = new ElementFactory(ConditionalWait, shadowRootRelativeFinder, LocalizationManager);
-            return shadowRootFactory.Get(locator, name, supplier, state);
         }
     }
 }

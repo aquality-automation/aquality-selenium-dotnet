@@ -120,6 +120,26 @@ namespace Aquality.Selenium.Elements
         }
 
         /// <summary>
+        /// Generates locator for target element
+        /// </summary>
+        /// <param name="baseLocator">locator of parent element</param>
+        /// <param name="webElement">target element</param>
+        /// <param name="elementIndex">index of target element</param>
+        /// <returns>target element's locator</returns>
+        protected override By GenerateLocator(By baseLocator, IWebElement webElement, int elementIndex)
+        {
+            try
+            {
+                return GenerateXpathLocator(baseLocator, webElement, elementIndex);
+            }
+            catch (WebDriverException ex)
+            {
+                return By.CssSelector(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
+                    JavaScript.GetElementCssSelector.GetScript(), webElement), message: $"{ex.Message}. CSS selector generation failed too."));
+            }
+        }
+
+        /// <summary>
         /// Generates xpath locator for target element
         /// </summary>
         /// <param name="baseLocator">locator of parent element</param>
@@ -128,10 +148,16 @@ namespace Aquality.Selenium.Elements
         /// <returns>target element's locator</returns>
         protected override By GenerateXpathLocator(By baseLocator, IWebElement webElement, int elementIndex)
         {
-            return IsLocatorSupportedForXPathExtraction(baseLocator)
-                ? base.GenerateXpathLocator(baseLocator, webElement, elementIndex)
-                : By.XPath(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
-                    JavaScript.GetElementXPath.GetScript(), webElement), message: "XPath generation failed"));
+            if (IsLocatorSupportedForXPathExtraction(baseLocator))
+            {
+                var locator = base.GenerateXpathLocator(baseLocator, webElement, elementIndex);
+                if (ElementFinder.FindElements(locator).Count == 1)
+                {
+                    return locator;
+                }
+            }
+            return By.XPath(ConditionalWait.WaitFor(driver => driver.ExecuteJavaScript<string>(
+                JavaScript.GetElementXPath.GetScript(), webElement), message: "XPath generation failed"));
         }
 
         /// <summary>

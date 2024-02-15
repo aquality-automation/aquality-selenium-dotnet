@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using WebDriverManager.Helpers;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -8,16 +7,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     /// </summary>
     public interface IDriverSettings
     {
-        /// <summary>
-        /// Gets version of web driver for WebDriverManager.
-        /// </summary>
-        string WebDriverVersion { get; }
-
-        /// <summary>
-        /// Gets target system architecture for WebDriverManager.
-        /// </summary>
-        Architecture SystemArchitecture { get; }
-
         /// <summary>
         /// Gets desired options for web driver.
         /// </summary>

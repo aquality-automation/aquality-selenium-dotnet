@@ -6,9 +6,11 @@
 
   "driverSettings": {
     "chrome": {
-      "webDriverVersion": "MatchingBrowser",
       "capabilities": {
-        "enableVNC": true,
+        "selenoid:options": 
+        { 
+            "enableVNC": true 
+        },
         "unhandledPromptBehavior": "ignore"
       },
       "options": {
@@ -27,8 +29,6 @@
       "pageLoadStrategy": "Normal"
     },
     "firefox": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X64",
       "capabilities": {
         "enableVNC": true,
         "unhandledPromptBehavior": "ignore"
@@ -51,8 +51,6 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "Latest",
-      "systemArchitecture": "X32",
       "capabilities": {
         "ignoreProtectedModeSettings": true,
         "requireWindowFocus": false,
@@ -61,7 +59,6 @@
       }
     },
     "edge": {
-      "webDriverVersion": "Latest",
       "capabilities": {
         "enableVNC": true,
         "unhandledPromptBehavior": "ignore"
@@ -100,7 +97,6 @@
       "startArguments": ["--remote-debugging-port=9222", "--no-sandbox", "--disable-dev-shm-usage"]
     },
     "yandex": {
-      "webDriverVersion": "102.0.5005.61",
       "binaryLocation": "%USERPROFILE%\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe",
       "capabilities": {
         "enableVNC": true,
