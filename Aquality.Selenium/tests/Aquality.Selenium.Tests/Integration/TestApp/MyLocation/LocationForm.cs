@@ -14,7 +14,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         private readonly IButton browserGeoLocationButton = ElementFactory.GetButton(By.XPath("//*[@aria-controls='geo-div']"), "Browser GeoLocation");
         private readonly IButton startTestButton = ElementFactory.GetButton(By.Id("geo-test"), "Browser GeoLocation");
         private readonly IButton consentCookieInfoButton = ElementFactory.GetButton(By.XPath("//button[contains(@aria-label,'Consent')]"), "Consent cookie info");
-        
+        private readonly IButton gotItCookieButton = ElementFactory.GetButton(By.XPath("//a[contains(@aria-label,'dismiss')]"), "Got it! for Google cookie");
+
         public LocationForm() : base(By.Id("accordion"), "My Location")
         {
         }
@@ -23,6 +24,8 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         {
             consentCookieInfoButton.Click();
             consentCookieInfoButton.State.WaitForNotDisplayed();
+            gotItCookieButton.Click();
+            gotItCookieButton.State.WaitForNotDisplayed();
         }
 
         public void DetectBrowserGeolocation()

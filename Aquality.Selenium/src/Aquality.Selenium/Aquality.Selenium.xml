@@ -575,7 +575,7 @@
             <summary>
             Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
             </summary>
-            <param name="devToolsOptions"> Developer Tools options. 
+            <param name="options"> The options for the DevToolsSession to use.
             Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         </member>
