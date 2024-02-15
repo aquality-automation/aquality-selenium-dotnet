@@ -558,7 +558,7 @@
         <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession">
             <summary>
             Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
-            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(System.Int32)"/>, where parameter protocolVersion
+            Calls overload <see cref="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(OpenQA.Selenium.DevTools.DevToolsOptions)"/>, where parameter protocolVersion
             defaults to autodetect the protocol version for Chromium, V85 for Firefox.
             </summary>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
@@ -568,6 +568,14 @@
             Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
             </summary>
             <param name="protocolVersion">The version of the Chromium Developer Tools protocol to use. 
+            Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
+            <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.GetDevToolsSession(OpenQA.Selenium.DevTools.DevToolsOptions)">
+            <summary>
+            Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+            </summary>
+            <param name="options"> The options for the DevToolsSession to use.
             Defaults to autodetect the protocol version for <see cref="T:OpenQA.Selenium.Chromium.ChromiumDriver"/>, V85 for FirefoxDriver.</param>
             <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
         </member>
@@ -1759,6 +1767,56 @@
             <summary>
             Possible element hightlight states (on/off).
             </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.ByImage">
+            <summary>
+            Locator to search elements by image.
+            Takes screenshot and finds match using openCV.
+            Then finds elements by coordinates using JavaScript.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.#ctor(System.IO.FileInfo)">
+            <summary>
+            Constructor accepting image file.
+            </summary>
+            <param name="file">Image file to locate element by.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.#ctor(System.Byte[])">
+            <summary>
+            Constructor accepting image bytes.
+            </summary>
+            <param name="bytes">Image bytes to locate element by.</param>
+        </member>
+        <member name="P:Aquality.Selenium.Elements.Interfaces.ByImage.Threshold">
+            <summary>
+            Threshold of image similarity.
+            Should be a float between 0 and 1, where 1 means 100% match, and 0.5 means 50% match.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.GetElementOnPoint(OpenCvSharp.Point,OpenQA.Selenium.ISearchContext)">
+            <summary>
+            Gets a single element on point (find by center coordinates, then select closest to matchLocation).
+            </summary>
+            <param name="matchLocation">Location of the upper-left point of the element.</param>
+            <param name="context">Search context.
+            If the searchContext is Locatable (like WebElement), will adjust coordinates to be absolute coordinates.</param>
+            <returns>The closest found element.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.DistanceToPoint(OpenCvSharp.Point,OpenQA.Selenium.IWebElement)">
+            <summary>
+            Calculates distance from element to matching point.
+            </summary>
+            <param name="matchLocation">Matching point.</param>
+            <param name="element">Target element.</param>
+            <returns>Distance in pixels.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ByImage.GetScreenshot(OpenQA.Selenium.ISearchContext)">
+            <summary>
+            Takes screenshot from searchContext if supported, or from browser.
+            Performs screenshot scaling if devicePixelRatio != 1.
+            </summary>
+            <param name="context">Search context for element location.</param>
+            <returns>Captured screenshot as Mat object.</returns>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IButton">
             <summary>

@@ -61,7 +61,7 @@ namespace Aquality.Selenium.Browsers
 
         /// <summary>
         /// Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
-        /// Calls overload <see cref="GetDevToolsSession(int)"/>, where parameter protocolVersion
+        /// Calls overload <see cref="GetDevToolsSession(DevToolsOptions)"/>, where parameter protocolVersion
         /// defaults to autodetect the protocol version for Chromium, V85 for Firefox.
         /// </summary>
         /// <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
@@ -79,10 +79,25 @@ namespace Aquality.Selenium.Browsers
         /// <param name="protocolVersion">The version of the Chromium Developer Tools protocol to use. 
         /// Defaults to autodetect the protocol version for <see cref="ChromiumDriver"/>, V85 for FirefoxDriver.</param>
         /// <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        [Obsolete("Use GetDevToolsSession(DevToolsOptions options)")]
         public DevToolsSession GetDevToolsSession(int protocolVersion)
         {
             Logger.Info("loc.browser.devtools.session.get", protocolVersion);
             var session = devToolsProvider.GetDevToolsSession(protocolVersion);
+            wasDevToolsSessionClosed = false;
+            return session;
+        }
+
+        /// <summary>
+        /// Creates a session to communicate with a browser using the Chromium Developer Tools debugging protocol.
+        /// </summary>
+        /// <param name="options"> The options for the DevToolsSession to use.
+        /// Defaults to autodetect the protocol version for <see cref="ChromiumDriver"/>, V85 for FirefoxDriver.</param>
+        /// <returns>The active session to use to communicate with the Chromium Developer Tools debugging protocol.</returns>
+        public DevToolsSession GetDevToolsSession(DevToolsOptions options)
+        {
+            Logger.Info("loc.browser.devtools.session.get", options.ProtocolVersion?.ToString() ?? "default");
+            var session = devToolsProvider.GetDevToolsSession(options);
             wasDevToolsSessionClosed = false;
             return session;
         }
