@@ -47,6 +47,11 @@ namespace Aquality.Selenium.Elements
             return ResolveSupplier<IComboBox>()(locator, name, state);
         }
 
+        public IMultiChoiceBox GetMultiChoiceBox(By locator, string name, ElementState state = ElementState.Displayed)
+        {
+            return ResolveSupplier<IMultiChoiceBox>()(locator, name, state);
+        }
+
         public ILabel GetLabel(By locator, string name, ElementState state = ElementState.Displayed)
         {
             return ResolveSupplier<ILabel>()(locator, name, state);
@@ -105,6 +110,7 @@ namespace Aquality.Selenium.Elements
                     { typeof(IButton), typeof(Button) },
                     { typeof(ICheckBox), typeof(CheckBox) },
                     { typeof(IComboBox), typeof(ComboBox) },
+                    { typeof(IMultiChoiceBox), typeof(MultiChoiceBox) },
                     { typeof(ILabel), typeof(Label) },
                     { typeof(ILink), typeof(Link) },
                     { typeof(IRadioButton), typeof(RadioButton) },

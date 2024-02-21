@@ -15,6 +15,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         private readonly IButton startTestButton = ElementFactory.GetButton(By.Id("geo-test"), "Browser GeoLocation");
         private readonly IButton consentCookieInfoButton = ElementFactory.GetButton(By.XPath("//button[contains(@aria-label,'Consent')]"), "Consent cookie info");
         private readonly IButton gotItCookieButton = ElementFactory.GetButton(By.XPath("//a[contains(@aria-label,'dismiss')]"), "Got it! for Google cookie");
+        private readonly IButton closeCookieSettingsButton = ElementFactory.GetButton(By.XPath("//*[contains(@class,'google-revocation-link')]//*[contains(@src,'close') or contains(@aria-label, 'lose')]"), "Close cookie settings");
 
         public LocationForm() : base(By.Id("accordion"), "My Location")
         {
@@ -26,12 +27,16 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
             consentCookieInfoButton.State.WaitForNotDisplayed();
             gotItCookieButton.Click();
             gotItCookieButton.State.WaitForNotDisplayed();
+            if (closeCookieSettingsButton.State.IsDisplayed)
+            {
+                closeCookieSettingsButton.Click();
+            }
         }
 
         public void DetectBrowserGeolocation()
         {
-            browserGeoLocationButton.Click();
-            startTestButton.Click();
+            browserGeoLocationButton.JsActions.Click();
+            startTestButton.JsActions.Click();
         }
 
         public double Latitude => double.Parse(latitudeLabel.Text, CultureInfo.InvariantCulture);

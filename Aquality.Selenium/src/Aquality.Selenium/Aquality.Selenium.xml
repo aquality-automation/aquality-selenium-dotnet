@@ -2021,6 +2021,15 @@
             <param name="state">Element state</param>
             <returns>Instance of element that implements IComboBox interface</returns>
         </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IElementFactory.GetMultiChoiceBox(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementState)">
+            <summary>
+            Creates element that implements IMultiChoiceBox interface.
+            </summary>
+            <param name="locator">Element locator</param>
+            <param name="name">Element name</param>
+            <param name="state">Element state</param>
+            <returns>Instance of element that implements IMultiChoiceBox interface</returns>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Interfaces.IElementFactory.GetLabel(OpenQA.Selenium.By,System.String,Aquality.Selenium.Core.Elements.ElementState)">
             <summary>
             Creates element that implements ILabel interface.
@@ -2083,6 +2092,63 @@
             Gets value of href attribute.
             </summary>
             <value>String representation of element's href.</value>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox">
+            <summary>
+            Describes behavior of MultiChoice ComboBox UI element.
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.SelectedValues">
+            <summary>
+            Gets value of all selected options.
+            </summary>
+            <value>Selected values.</value>
+        </member>
+        <member name="P:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.SelectedTexts">
+            <summary>
+            Gets text of all selected options.
+            </summary>
+            <value>Selected texts.</value>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.SelectAll">
+            <summary>
+            Select all options
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectAll">
+            <summary>
+            De-select all options
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectByIndex(System.Int32)">
+            <summary>
+            De-select selected option by index
+            </summary>
+            <param name="index">Number of selected option.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectByValue(System.String)">
+            <summary>
+            De-select selected option by value.
+            </summary>
+            <param name="value">Option value.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectByContainingValue(System.String)">
+            <summary>
+            De-select selected option by containing value.
+            </summary>
+            <param name="value">Partial option's value.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectByText(System.String)">
+            <summary>
+            De-select selected option by visible text.
+            </summary>
+            <param name="text">Text to be deselected.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.IMultiChoiceBox.DeselectByContainingText(System.String)">
+            <summary>
+            De-select selected option by containing visible text.
+            </summary>
+            <param name="text">Partial option's text.</param>
         </member>
         <member name="T:Aquality.Selenium.Elements.Interfaces.IRadioButton">
             <summary>
@@ -2182,6 +2248,11 @@
         <member name="T:Aquality.Selenium.Elements.Link">
             <summary>
             Defines Link UI element.
+            </summary>
+        </member>
+        <member name="T:Aquality.Selenium.Elements.MultiChoiceBox">
+            <summary>
+            Defines MultiChoiceBox UI element.
             </summary>
         </member>
         <member name="T:Aquality.Selenium.Elements.RadioButton">
