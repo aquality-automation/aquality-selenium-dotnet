@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             FileDownloadHelper.DeleteFileIfExist(filePath);
 
             var lblFileContent = AqualityServices.Get<IElementFactory>().GetLabel(By.XPath("//pre"), "text file content");
-            Assert.False(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), $"file {filePath} should not exist before downloading");
+            Assert.That(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), Is.False, $"file {filePath} should not exist before downloading");
 
             var oldWindowHandle = browser.Tabs().CurrentTabHandle;
             browser.ExecuteScriptFromFile("Resources.OpenUrlInNewWindow.js", downloaderForm.Url);

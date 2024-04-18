@@ -18,14 +18,14 @@ namespace Aquality.Selenium.Tests.Unit
         [Test]
         public void Should_BeAbleCheck_IsBrowserNotStarted()
         {
-            Assert.IsFalse(AqualityServices.IsBrowserStarted, "Browser is not started");
+            Assert.That(AqualityServices.IsBrowserStarted, Is.False, "Browser is not started");
         }
 
         [Test]
         public void Should_BeAbleCheck_IsBrowserStarted()
         {
             AqualityServices.Browser.WaitForPageToLoad();
-            Assert.IsTrue(AqualityServices.IsBrowserStarted, "Browser is started");
+            Assert.That(AqualityServices.IsBrowserStarted, "Browser is started");
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Aquality.Selenium.Tests.Unit
             Environment.SetEnvironmentVariable("browserName", browserName.ToString());
             Environment.SetEnvironmentVariable("isRemote", "false");
             Assert.DoesNotThrow(() => AqualityServices.Browser.WaitForPageToLoad());
-            Assert.AreEqual(AqualityServices.Browser.BrowserName, browserName);
+            Assert.That(browserName, Is.EqualTo(AqualityServices.Browser.BrowserName));
         }
 
         [TearDown]

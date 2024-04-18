@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.Click();
-            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
+            Assert.That(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).JsActions.ClickAndWait();
-            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
+            Assert.That(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var dropdownExample = welcomeForm.GetExampleLink(AvailableExample.Dropdown);
             dropdownExample.JsActions.HighlightElement(HighlightState.Highlight);
             var border = dropdownExample.GetCssValue("border");
-            Assert.AreEqual("3px solid rgb(255, 0, 0)", border, "Element should be highlighted");
+            Assert.That(border, Is.EqualTo("3px solid rgb(255, 0, 0)"), "Element should be highlighted");
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var menuForm = new JQueryMenuForm();
             menuForm.Open();
             JQueryMenuForm.EnabledButton.JsActions.HoverMouse();            
-            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after hover");
+            Assert.That(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after hover");
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             ForgotPasswordForm.EmailTextBox.JsActions.SetFocus();
             ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Delete);
             ForgotPasswordForm.EmailTextBox.SendKeys(Keys.Backspace);
-            Assert.AreEqual(expectedText, ForgotPasswordForm.EmailTextBox.Value, $"One character should be removed from '{currentText}'");
+            Assert.That(ForgotPasswordForm.EmailTextBox.Value, Is.EqualTo(expectedText), $"One character should be removed from '{currentText}'");
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             hoversForm.Open();
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), 
+                Assert.That(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).JsActions.IsElementOnScreen(), Is.False,
                     $"Hidden element for {HoverExample.First} should be invisible.");
-                Assert.IsTrue(HoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
+                Assert.That(HoversForm.GetExample(HoverExample.First).JsActions.IsElementOnScreen(),
                     $"Element for {HoverExample.First} should be visible.");
             });
         }
@@ -89,7 +89,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             const string text = "text";
             keyPressesForm.InputTextBox.JsActions.SetValue(text);
             var actualText = keyPressesForm.InputTextBox.Value;
-            Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via JS");
+            Assert.That(actualText, Is.EqualTo(text), $"Text should be '{text}' after setting value via JS");
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
         {
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            Assert.AreEqual(WelcomeForm.SubTitle, welcomeForm.SubTitleLabel.JsActions.GetElementText(),
+            Assert.That(welcomeForm.SubTitleLabel.JsActions.GetElementText(), Is.EqualTo(WelcomeForm.SubTitle),
                 $"Sub title should be {WelcomeForm.SubTitle}");
         }
 
@@ -108,7 +108,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             welcomeForm.Open();
             var actualLocator = welcomeForm.SubTitleLabel.JsActions.GetXPath();
             const string expectedLocator = "/html/body/DIV[2]/DIV[1]/H2[1]";
-            Assert.AreEqual(expectedLocator, actualLocator, $"Locator of sub title should be {expectedLocator}");
+            Assert.That(actualLocator, Is.EqualTo(expectedLocator), $"Locator of sub title should be {expectedLocator}");
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             var actualPoint = welcomeForm.SubTitleLabel.JsActions.GetViewPortCoordinates();
-            Assert.IsFalse(actualPoint.IsEmpty, "Coordinates of Sub title should not be empty");
+            Assert.That(actualPoint.IsEmpty, Is.False, "Coordinates of Sub title should not be empty");
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
                     Select(item => (int)Math.Round(double.Parse(item.ToString())))
                 .ToList();
             var actualPoint = new Point(currentCoordinates[0], currentCoordinates[1]);
-            Assert.AreEqual(point, actualPoint, $"Current coordinates should be '{point}'");
+            Assert.That(actualPoint, Is.EqualTo(point), $"Current coordinates should be '{point}'");
         }
 
         [Test]
@@ -163,7 +163,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var currentY = AqualityServices.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
                 welcomeForm.GetExampleLink(AvailableExample.Hovers).GetElement()).ToString();
             var coordinateRelatingWindowCenter = double.Parse(windowSize) / 2 - double.Parse(currentY);
-            Assert.LessOrEqual(Math.Abs(coordinateRelatingWindowCenter), accuracy, "Upper bound of element should be in the center of the page");
+            Assert.That(Math.Abs(coordinateRelatingWindowCenter), Is.LessThanOrEqualTo(accuracy), "Upper bound of element should be in the center of the page");
         }
 
         [Test]

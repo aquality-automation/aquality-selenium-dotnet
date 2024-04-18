@@ -16,16 +16,16 @@ namespace Aquality.Selenium.Tests.Integration
             AqualityServices.Browser.GoTo("http://www.google.com");
             IDictionary<string, double> metrics = null;
             Assert.DoesNotThrowAsync(async () => metrics = await DevTools.GetPerformanceMetrics(), "Should be possible to get performance metrics");
-            CollectionAssert.IsNotEmpty(metrics, "Some metrics should be returned");
+            Assert.That(metrics, Is.Not.Empty, "Some metrics should be returned");
             
             AqualityServices.Browser.Refresh();
             IDictionary<string, double> otherMetrics = DevTools.GetPerformanceMetrics().GetAwaiter().GetResult();
-            CollectionAssert.AreNotEqual(otherMetrics, metrics, "Some additional metrics should have been collected");
+            Assert.That(otherMetrics, Is.Not.EqualTo(metrics), "Some additional metrics should have been collected");
 
             Assert.DoesNotThrowAsync(async () => await DevTools.DisablePerfomanceMonitoring(), "Should be possible to disable performance monitoring");
             AqualityServices.Browser.Refresh();
             metrics = DevTools.GetPerformanceMetrics().GetAwaiter().GetResult();
-            CollectionAssert.IsEmpty(metrics, "Metrics should have not been collected after performance monitoring have been disabled");
+            Assert.That(metrics, Is.Empty, "Metrics should have not been collected after performance monitoring have been disabled");
         }
     }
 }

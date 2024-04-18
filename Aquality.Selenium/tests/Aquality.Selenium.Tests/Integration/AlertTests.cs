@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class AlertTests : UITest
     {
-        private readonly JavaScriptAlertsForm alertsForm = new JavaScriptAlertsForm();
+        private readonly JavaScriptAlertsForm alertsForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             alertsForm.JsAlertButton.Click();
             AqualityServices.Browser.HandleAlert(AlertAction.Accept);
-            Assert.AreEqual("You successfully clicked an alert", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo("You successfully clicked an alert"));
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             alertsForm.JsConfirmButton.Click();
             AqualityServices.Browser.HandleAlert(AlertAction.Accept);
-            Assert.AreEqual("You clicked: Ok", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo("You clicked: Ok"));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Aquality.Selenium.Tests.Integration
                 }
                 
             });
-            Assert.AreEqual("You clicked: Ok", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo("You clicked: Ok"));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             alertsForm.JsConfirmButton.Click();
             AqualityServices.Browser.HandleAlert(AlertAction.Decline);
-            Assert.AreEqual("You clicked: Cancel", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo("You clicked: Cancel"));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Aquality.Selenium.Tests.Integration
             alertsForm.JsPromptButton.Click();
             var text = "accept alert text";
             AqualityServices.Browser.HandleAlert(AlertAction.Accept, text);
-            Assert.AreEqual($"You entered: {text}", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo($"You entered: {text}"));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             alertsForm.JsPromptButton.Click();
             AqualityServices.Browser.HandleAlert(AlertAction.Decline, "decline alert text");
-            Assert.AreEqual("You entered: null", alertsForm.ResultLabel.GetText());
+            Assert.That(alertsForm.ResultLabel.GetText(), Is.EqualTo("You entered: null"));
         }
 
         [Test]

@@ -33,15 +33,15 @@ namespace Aquality.Selenium.Tests.Integration
             welcomeForm.SubTitleLabel.JsActions.SetAttribute(attributeName, attributeValue);
             AqualityServices.ConditionalWait.WaitForTrue(() => attributeValueChanges.Count > 0, 
                 message: "Some mutation events should be found, should be possible to subscribe to DOM mutation event");
-            Assert.AreEqual(1, attributeValueChanges.Count, "Exactly one change in DOM is expected");
+            Assert.That(attributeValueChanges.Count, Is.EqualTo(1), "Exactly one change in DOM is expected");
             var record = attributeValueChanges.Single();
-            Assert.AreEqual(attributeName, record.AttributeName, "Attribute name should match to expected");
-            Assert.AreEqual(attributeValue, record.AttributeValue, "Attribute value should match to expected");
+            Assert.That(record.AttributeName, Is.EqualTo(attributeName), "Attribute name should match to expected");
+            Assert.That(record.AttributeValue, Is.EqualTo(attributeValue), "Attribute value should match to expected");
 
             JavaScriptEngine.DomMutated -= eventHandler;
             welcomeForm.SubTitleLabel.JsActions.SetAttribute(attributeName, attributeName);
             AqualityServices.ConditionalWait.WaitFor(() => attributeValueChanges.Count > 1, timeout: NegativeConditionTimeout);
-            Assert.AreEqual(1, attributeValueChanges.Count, "No more changes in DOM is expected, should be possible to unsubscribe from DOM mutation event");
+            Assert.That(attributeValueChanges.Count, Is.EqualTo(1), "No more changes in DOM is expected, should be possible to unsubscribe from DOM mutation event");
 
             Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.DisableDomMutationMonitoring(), "Should be possible to disable DOM mutation monitoring");
             Assert.DoesNotThrow(() => JavaScriptEngine.StopEventMonitoring(), "Should be possible to stop event monitoring");
@@ -57,9 +57,9 @@ namespace Aquality.Selenium.Tests.Integration
             welcomeForm.Open();
 
             var xpath = pinnedScript.ExecuteScript<string>(welcomeForm.SubTitleLabel);
-            Assert.IsNotEmpty(xpath, "Pinned script should be possible to execute");
+            Assert.That(xpath, Is.Not.Empty, "Pinned script should be possible to execute");
             var expectedValue = welcomeForm.SubTitleLabel.JsActions.GetXPath();
-            Assert.AreEqual(expectedValue, xpath, "Pinned script should return the same value");
+            Assert.That(xpath, Is.EqualTo(expectedValue), "Pinned script should return the same value");
 
             Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
             Assert.Throws<JavaScriptException>(
@@ -81,7 +81,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.DoesNotThrow(() => pinnedScript.ExecuteScript(keyPressesForm.InputTextBox, text), "Should be possible to execute pinned script without return value");
 
             var actualText = keyPressesForm.InputTextBox.Value;
-            Assert.AreEqual(text, actualText, $"Text should be '{text}' after setting value via pinned JS");
+            Assert.That(actualText, Is.EqualTo(text), $"Text should be '{text}' after setting value via pinned JS");
 
             Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.UnpinScript(pinnedScript), "Should be possible to unpin the script");
             Assert.Throws<JavaScriptException>(() => pinnedScript.ExecuteScript(keyPressesForm.InputTextBox, text),  "Unpinned script should not be executed");
@@ -105,7 +105,7 @@ namespace Aquality.Selenium.Tests.Integration
             JavaScriptEngine.JavaScriptConsoleApiCalled -= eventHandler;
             AqualityServices.Browser.ExecuteScript(consoleApiScript);
             AqualityServices.ConditionalWait.WaitFor(() => apiCalledMessages.Count > previousCount, timeout: NegativeConditionTimeout);
-            Assert.AreEqual(previousCount, apiCalledMessages.Count, "No more JS console API events should be recorded, should be possible to unsubscribe from JS Console API called event");
+            Assert.That(apiCalledMessages.Count, Is.EqualTo(previousCount), "No more JS console API events should be recorded, should be possible to unsubscribe from JS Console API called event");
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace Aquality.Selenium.Tests.Integration
             JavaScriptEngine.JavaScriptExceptionThrown -= eventHandler;
             welcomeForm.SubTitleLabel.Click();
             AqualityServices.ConditionalWait.WaitFor(() => errorMessages.Count > previousCount, timeout: NegativeConditionTimeout);
-            Assert.AreEqual(previousCount, errorMessages.Count, "No more JS exceptions should be recorded, should be possible to unsubscribe from JS Exceptions thrown event");
+            Assert.That(errorMessages.Count, Is.EqualTo(previousCount), "No more JS exceptions should be recorded, should be possible to unsubscribe from JS Exceptions thrown event");
         }
 
         [Test]
@@ -136,9 +136,9 @@ namespace Aquality.Selenium.Tests.Integration
             const string name = "alert";
             InitializationScript initScript = null;
             Assert.DoesNotThrowAsync(async () => initScript = await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add initialization script");
-            Assert.IsNotNull(initScript, "Some initialization script model should be returned");
-            Assert.AreEqual(script, initScript.ScriptSource, "Saved script source should match to expected");
-            Assert.AreEqual(name, initScript.ScriptName, "Saved script name should match to expected");
+            Assert.That(initScript, Is.Not.Null, "Some initialization script model should be returned");
+            Assert.That(initScript.ScriptSource, Is.EqualTo(script), "Saved script source should match to expected");
+            Assert.That(initScript.ScriptName, Is.EqualTo(name), "Saved script name should match to expected");
 
             Assert.DoesNotThrowAsync(async() => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
             AqualityServices.Browser.Refresh();

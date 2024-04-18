@@ -14,7 +14,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         private readonly IButton browserGeoLocationButton = ElementFactory.GetButton(By.XPath("//*[@aria-controls='geo-div']"), "Browser GeoLocation");
         private readonly IButton startTestButton = ElementFactory.GetButton(By.Id("geo-test"), "Browser GeoLocation");
         private readonly IButton consentCookieInfoButton = ElementFactory.GetButton(By.XPath("//button[contains(@aria-label,'Consent')]"), "Consent cookie info");
-        private readonly IButton gotItCookieButton = ElementFactory.GetButton(By.XPath("//a[contains(@aria-label,'dismiss')]"), "Got it! for Google cookie");
+        private readonly IButton gotItCookieButton = ElementFactory.GetButton(By.XPath("//a[contains(@aria-label,'dismiss')] | //img[contains(@src,'close')]"), "Got it! for Google cookie");
         private readonly IButton closeCookieSettingsButton = ElementFactory.GetButton(By.XPath("//*[contains(@class,'google-revocation-link')]//*[contains(@src,'close') or contains(@aria-label, 'lose')]"), "Close cookie settings");
 
         public LocationForm() : base(By.Id("accordion"), "My Location")
@@ -25,8 +25,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         {
             consentCookieInfoButton.Click();
             consentCookieInfoButton.State.WaitForNotDisplayed();
-            gotItCookieButton.Click();
-            gotItCookieButton.State.WaitForNotDisplayed();
+            if (gotItCookieButton.State.WaitForDisplayed())
+            {
+                gotItCookieButton.Click();
+                gotItCookieButton.State.WaitForNotDisplayed();
+            }
             if (closeCookieSettingsButton.State.IsDisplayed)
             {
                 closeCookieSettingsButton.Click();

@@ -48,8 +48,8 @@ namespace Aquality.Selenium.Tests.Unit
             }
 
             var logMessage = File.ReadAllLines(LogPath).LastOrDefault();
-            Assert.IsFalse(string.IsNullOrEmpty(logMessage), "Message should appear in log file");
-            Assert.IsTrue(logMessage.Contains(LocalizedNavigationMessage),
+            Assert.That(string.IsNullOrEmpty(logMessage), Is.False, "Message should appear in log file");
+            Assert.That(logMessage.Contains(LocalizedNavigationMessage),
                 $"Message should be localized. Expected: {LocalizedNavigationMessage}, actual: {logMessage}");
         }
 
@@ -57,7 +57,7 @@ namespace Aquality.Selenium.Tests.Unit
         public void Should_BeAble_ToLocalizeLoggerMessage()
         {
             var message = LocalizationManager.GetLocalizedMessage("loc.browser.navigate", "test");
-            Assert.AreEqual(LocalizedNavigationMessage, message, "Message should be localized");
+            Assert.That(message, Is.EqualTo(LocalizedNavigationMessage), "Message should be localized");
         }
 
         public enum LogLevel

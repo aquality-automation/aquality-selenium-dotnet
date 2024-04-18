@@ -9,21 +9,20 @@ namespace Aquality.Selenium.Tests.Unit
     [Parallelizable(ParallelScope.All)]
     internal class JavaScriptTests
     {
-#pragma warning disable IDE0052 // Remove unread private members
         private static readonly JavaScript[] JavaScripts = Enum.GetValues(typeof(JavaScript)) as JavaScript[];
-#pragma warning restore IDE0052 // Remove unread private members
 
         [TestCaseSource("JavaScripts")]
         public void Should_GetJavaScript(JavaScript script)
         {
-            Assert.IsNotEmpty(script.GetScript(), $"Failed to get javascript {script}");
+            Assert.That(script.GetScript(), Is.Not.Empty, $"Failed to get javascript {script}");
         }
         
         [Test]
         public void Should_BeUniqueJavaScripts()
         {
-            Assert.IsEmpty(
+            Assert.That(
                 JavaScripts.GroupBy(script => script.GetScript()).Where(group => group.Count() > 1).Select(group => string.Join(" and ", group)), 
+                Is.Empty,
                 "some duplicates where found among JavaScripts");
         }
     }

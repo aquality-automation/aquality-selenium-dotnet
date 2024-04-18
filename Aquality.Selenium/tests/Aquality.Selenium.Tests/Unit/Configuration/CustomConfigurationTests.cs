@@ -24,19 +24,19 @@ namespace Aquality.Selenium.Tests.Unit.Configuration
         [Test]
         public void Should_BeAbleOverrideDependencies_AndGetCustomService()
         {
-            Assert.AreEqual(SpecialLoggerLanguage, AqualityServices.Get<ILoggerConfiguration>().Language, "Configuration value should be overriden.");
+            Assert.That(AqualityServices.Get<ILoggerConfiguration>().Language, Is.EqualTo(SpecialLoggerLanguage), "Configuration value should be overriden.");
         }
 
         [Test]
         public void Should_BeAbleAdd_CustomService()
         {
-            Assert.AreEqual(SpecialCustomValue, AqualityServices.Get<ICustomService>().CustomValue, "Custom service should have value");
+            Assert.That(AqualityServices.Get<ICustomService>().CustomValue, Is.EqualTo(SpecialCustomValue), "Custom service should have value");
         }
 
         [Test]
         public void Should_BeAbleGet_DefaultService()
         {
-            Assert.AreEqual(DefaultCommandTimeout, AqualityServices.Get<ITimeoutConfiguration>().Command, "Default service value should have default value");
+            Assert.That(AqualityServices.Get<ITimeoutConfiguration>().Command, Is.EqualTo(DefaultCommandTimeout), "Default service value should have default value");
         }
 
         [TearDown]

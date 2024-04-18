@@ -7,7 +7,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 {
     internal class LinkTests : UITest
     {
-        private readonly RedirectorForm redirectorForm = new RedirectorForm();
+        private readonly RedirectorForm redirectorForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var link = redirectorForm.RedirectLink;
             link.Click();
             WaitForRedirect();
-            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), AqualityServices.Browser.CurrentUrl.ToLower());
+            Assert.That(AqualityServices.Browser.CurrentUrl.ToLower(), Is.EqualTo(new StatusCodesForm().Url.ToLower()));
         }
 
         [Test]
@@ -30,10 +30,10 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var link = redirectorForm.RedirectLink;
             AqualityServices.Browser.GoTo(link.Href);
             WaitForRedirect();
-            Assert.AreEqual(new StatusCodesForm().Url.ToLower(), AqualityServices.Browser.CurrentUrl.ToLower());
+            Assert.That(AqualityServices.Browser.CurrentUrl.ToLower(), Is.EqualTo(new StatusCodesForm().Url.ToLower()));
         }
 
-        private void WaitForRedirect()
+        private static void WaitForRedirect()
         {
             AqualityServices.ConditionalWait.WaitFor(() => AqualityServices.Browser.CurrentUrl.Equals(new StatusCodesForm().Url, StringComparison.OrdinalIgnoreCase));
         }

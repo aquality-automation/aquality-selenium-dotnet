@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class HiddenElementsTests : UITest
     {
-        private static readonly HoversForm hoversForm = new HoversForm();
+        private static readonly HoversForm hoversForm = new();
 
         private static readonly Func<ElementState, ElementsCount, IList<ILabel>>[] ElementListProviders
             = new Func<ElementState, ElementsCount, IList<ILabel>>[]
@@ -34,7 +34,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_CheckThatHiddenElementExists()
         {
-            Assert.IsTrue(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).State.IsExist);
+            Assert.That(HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState).State.IsExist);
         }
 
         [Test]
@@ -44,8 +44,8 @@ namespace Aquality.Selenium.Tests.Integration
             var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(elements.Any());
-                Assert.IsTrue(elements.All(element => element.State.WaitForExist()));
+                Assert.That(elements.Any());
+                Assert.That(elements.All(element => element.State.WaitForExist()));
             });
         }
 
@@ -56,8 +56,8 @@ namespace Aquality.Selenium.Tests.Integration
             var elements = elementListProvider(ElementState.ExistsInAnyState, ElementsCount.MoreThenZero);
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(elements.Any());
-                Assert.IsTrue(elements.All(element =>
+                Assert.That(elements.Any());
+                Assert.That(elements.All(element =>
                 {
                     var result = element.State.WaitForNotDisplayed();
                     if (!result)
