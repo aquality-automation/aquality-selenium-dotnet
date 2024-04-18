@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var checkBox = checkBoxesForm.FirstCheckBox;
             checkBox.Check();
-            Assert.That(checkBox.IsChecked);
+            Assert.That(checkBox.IsChecked, Is.True);
         }
 
         [Test]
