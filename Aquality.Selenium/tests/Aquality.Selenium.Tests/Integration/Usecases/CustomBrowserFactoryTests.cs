@@ -5,7 +5,6 @@ using OpenQA.Selenium.Chrome;
 using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.DriverConfigs;
 using WebDriverManager.Helpers;
 using System.IO;
 using Aquality.Selenium.Core.Utilities;
@@ -58,12 +57,12 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 get
                 {
                     var driverSettings = BrowserProfile.DriverSettings;
-                    SetUpDriver(new ChromeConfig());
+                    SetUpDriver(new());
                     return new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
                 }
             }
             
-            private static void SetUpDriver(IDriverConfig driverConfig)
+            private static void SetUpDriver(ChromeConfig driverConfig)
             {
                 var architecture = ArchitectureHelper.GetArchitecture();
                 var version = driverConfig.GetMatchingBrowserVersion();
