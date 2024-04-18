@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class ImageLocatorTests : UITest
     {
-        private readonly BrokenImagesForm form = new BrokenImagesForm();
+        private readonly BrokenImagesForm form = new();
 
         [Test]
         public void Should_BePossibleTo_FindByImage()

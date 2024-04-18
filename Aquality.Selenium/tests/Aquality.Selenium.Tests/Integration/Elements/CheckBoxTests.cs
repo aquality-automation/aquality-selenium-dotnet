@@ -5,7 +5,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 {
     internal class CheckBoxTests : UITest
     {
-        private readonly CheckBoxesForm checkBoxesForm = new CheckBoxesForm();
+        private readonly CheckBoxesForm checkBoxesForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var checkBox1 = checkBoxesForm.FirstCheckBox;
             var checkBox1State = checkBox1.IsChecked;
             checkBox1.Toggle();
-            Assert.AreEqual(!checkBox1State, checkBox1.IsChecked);
+            Assert.That(checkBox1.IsChecked, Is.EqualTo(!checkBox1State));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var checkBox = checkBoxesForm.SecondCheckBox;
             checkBox.Uncheck();
-            Assert.IsFalse(checkBox.IsChecked);
+            Assert.That(checkBox.IsChecked, Is.False);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var checkBox = checkBoxesForm.FirstCheckBox;
             checkBox.Check();
-            Assert.IsTrue(checkBox.IsChecked);
+            Assert.That(checkBox.IsChecked);
         }
 
         [Test]
@@ -49,8 +49,8 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(checkBox1.JsActions.IsChecked());
-                Assert.IsFalse(checkBox2.JsActions.IsChecked());
+                Assert.That(checkBox1.JsActions.IsChecked());
+                Assert.That(checkBox2.JsActions.IsChecked(), Is.False);
             });
         }
     }

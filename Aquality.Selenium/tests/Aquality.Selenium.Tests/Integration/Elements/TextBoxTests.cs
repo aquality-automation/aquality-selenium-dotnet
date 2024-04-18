@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 {
     internal class TextBoxTests : UITest
     {
-        private readonly AuthenticationForm authForm = new AuthenticationForm();
+        private readonly AuthenticationForm authForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var text = "wrong";
             var usernameTxb = authForm.UserNameTextBox;
             usernameTxb.Type(text);
-            Assert.AreEqual(text, usernameTxb.Value);
+            Assert.That(usernameTxb.Value, Is.EqualTo(text));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var usernameTxb = authForm.UserNameTextBox;
             usernameTxb.Type(initialText);
             usernameTxb.ClearAndType(targetText);
-            Assert.AreEqual(targetText, usernameTxb.Value);
+            Assert.That(usernameTxb.Value, Is.EqualTo(targetText));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.SendKey(Key.NumberPad0);
-            Assert.AreEqual("0", passwordTxb.Value);
+            Assert.That(passwordTxb.Value, Is.EqualTo("0"));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.SendKeys("00");
-            Assert.AreEqual("00", passwordTxb.Value);
+            Assert.That(passwordTxb.Value, Is.EqualTo("00"));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         {
             var passwordTxb = authForm.PasswordTextBox;
             passwordTxb.Submit();
-            Assert.IsTrue(AqualityServices.ConditionalWait.WaitFor(() => passwordTxb.Value.Equals("", StringComparison.OrdinalIgnoreCase)));
+            Assert.That(AqualityServices.ConditionalWait.WaitFor(() => passwordTxb.Value.Equals("", StringComparison.OrdinalIgnoreCase)));
         }
 
         [Test]
@@ -72,8 +72,8 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(usernameTxb.State.WaitForNotExist());
-                Assert.IsTrue(authForm.GetCustomElementBasedOnLoginLabel("/p[.='123123']").State.WaitForDisplayed());
+                Assert.That(usernameTxb.State.WaitForNotExist());
+                Assert.That(authForm.GetCustomElementBasedOnLoginLabel("/p[.='123123']").State.WaitForDisplayed());
             });
         }
 
@@ -85,8 +85,8 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var usernameTxb = authForm.UserNameTextBox;
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(usernameTxb.GetCssValue(propertyName).Contains(expectedCssValue));
-                Assert.IsTrue(usernameTxb.GetCssValue(propertyName, HighlightState.Highlight).Contains(expectedCssValue));
+                Assert.That(usernameTxb.GetCssValue(propertyName).Contains(expectedCssValue));
+                Assert.That(usernameTxb.GetCssValue(propertyName, HighlightState.Highlight).Contains(expectedCssValue));
             });
         }
 

@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     internal class ElementExistsButNotDisplayedTests : UITest
     {
-        private static readonly HoversForm hoversForm = new HoversForm();
+        private static readonly HoversForm hoversForm = new();
         private readonly By fakeElement = By.XPath("//fake");
         private readonly TimeSpan smallTimeout = TimeSpan.FromSeconds(1);
 
@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_WaitForElement_WhichExistsButNotDisplayed()
         {
             var button = HoversForm.GetHiddenElement(HoverExample.First, ElementState.ExistsInAnyState);
-            Assert.IsTrue(AqualityServices.ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
+            Assert.That(AqualityServices.ConditionalWait.WaitFor(() => button.State.IsExist && !button.State.IsDisplayed));
         }
 
         [Test]

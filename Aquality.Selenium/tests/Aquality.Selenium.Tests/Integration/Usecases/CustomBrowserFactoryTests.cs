@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Configurations;
-using Aquality.Selenium.Configurations.WebDriverSettings;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -26,7 +25,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var browserFactory = new CustomLocalBrowserFactory();
             AqualityServices.Browser = browserFactory.Browser;
             AqualityServices.Browser.GoTo(url);
-            Assert.AreEqual(url, AqualityServices.Browser.CurrentUrl);
+            Assert.That(AqualityServices.Browser.CurrentUrl, Is.EqualTo(url));
         }
 
         [Test]
@@ -35,7 +34,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var browserFactory = new CustomLocalBrowserFactory();
             AqualityServices.BrowserFactory = browserFactory;
             AqualityServices.Browser.GoTo(url);
-            Assert.AreEqual(url, AqualityServices.Browser.CurrentUrl);
+            Assert.That(AqualityServices.Browser.CurrentUrl, Is.EqualTo(url));
         }
 
         [TearDown]
@@ -47,7 +46,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 
         public class CustomLocalBrowserFactory : BrowserFactory
         {
-            private static readonly object WebDriverDownloadingLock = new object();
+            private static readonly object WebDriverDownloadingLock = new();
 
             public CustomLocalBrowserFactory() : 
                 base(AqualityServices.Get<IActionRetrier>(), AqualityServices.Get<IBrowserProfile>(), AqualityServices.Get<ITimeoutConfiguration>(), AqualityServices.LocalizedLogger)
@@ -59,12 +58,12 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 get
                 {
                     var driverSettings = BrowserProfile.DriverSettings;
-                    SetUpDriver(new ChromeConfig(), driverSettings);
+                    SetUpDriver(new ChromeConfig());
                     return new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
                 }
             }
             
-            private static void SetUpDriver(IDriverConfig driverConfig, IDriverSettings driverSettings)
+            private static void SetUpDriver(IDriverConfig driverConfig)
             {
                 var architecture = ArchitectureHelper.GetArchitecture();
                 var version = driverConfig.GetMatchingBrowserVersion();

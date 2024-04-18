@@ -6,7 +6,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class ElementStateTests : UITest
     {
-        private readonly DynamicControlsForm dynamicControlsForm = new DynamicControlsForm();
+        private readonly DynamicControlsForm dynamicControlsForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -19,8 +19,8 @@ namespace Aquality.Selenium.Tests.Integration
         {
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(dynamicControlsForm.ChangeInputStateButton.State.IsEnabled, "Change state button should be enabled");
-                Assert.IsFalse(dynamicControlsForm.TextInputTextBox.State.IsEnabled, "Text input should be disabled");
+                Assert.That(dynamicControlsForm.ChangeInputStateButton.State.IsEnabled, "Change state button should be enabled");
+                Assert.That(dynamicControlsForm.TextInputTextBox.State.IsEnabled, Is.False, "Text input should be disabled");
             });
         }
         
@@ -29,17 +29,17 @@ namespace Aquality.Selenium.Tests.Integration
         {
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(dynamicControlsForm.TextInputTextBox.State.IsDisplayed, "Text input should be displayed");
-                Assert.IsFalse(dynamicControlsForm.LoadingLabel.State.IsDisplayed, "Loading should not be displayed");
+                Assert.That(dynamicControlsForm.TextInputTextBox.State.IsDisplayed, "Text input should be displayed");
+                Assert.That(dynamicControlsForm.LoadingLabel.State.IsDisplayed, Is.False, "Loading should not be displayed");
             });
         }
 
         [Test]
         public void Should_BePossibleTo_CheckExistElementState()
         {
-            Assert.IsFalse(dynamicControlsForm.LoadingLabel.State.IsExist, "Loading element should not be exist by default");
+            Assert.That(dynamicControlsForm.LoadingLabel.State.IsExist, Is.False, "Loading element should not be exist by default");
             dynamicControlsForm.ChangeInputStateButton.Click();
-            Assert.IsTrue(dynamicControlsForm.LoadingLabel.State.IsExist, "Loading element should not exist after changing state");
+            Assert.That(dynamicControlsForm.LoadingLabel.State.IsExist, "Loading element should not exist after changing state");
         }
 
         [Test]
@@ -47,37 +47,37 @@ namespace Aquality.Selenium.Tests.Integration
         {
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(dynamicControlsForm.ChangeInputStateButton.State.IsClickable, "Change state button should be clickable");
-                Assert.IsFalse(dynamicControlsForm.TextInputTextBox.State.IsClickable, "Text input should not be clickable");
+                Assert.That(dynamicControlsForm.ChangeInputStateButton.State.IsClickable, "Change state button should be clickable");
+                Assert.That(dynamicControlsForm.TextInputTextBox.State.IsClickable, Is.False, "Text input should not be clickable");
             });
         }
 
         [Test]
         public void Should_BePossibleTo_WaitForElementEnabledState()
         {
-            Assert.IsTrue(dynamicControlsForm.State.WaitForDisplayed(), "Form 'Dynamic Controls' should be displayed");
+            Assert.That(dynamicControlsForm.State.WaitForDisplayed(), "Form 'Dynamic Controls' should be displayed");
             dynamicControlsForm.ChangeInputStateButton.Click();
-            Assert.IsTrue(dynamicControlsForm.TextInputTextBox.State.WaitForEnabled(), "Text input should be enable after changing state");
+            Assert.That(dynamicControlsForm.TextInputTextBox.State.WaitForEnabled(), "Text input should be enable after changing state");
             dynamicControlsForm.ChangeInputStateButton.Click();
-            Assert.IsTrue(dynamicControlsForm.TextInputTextBox.State.WaitForNotEnabled(), "Text input should be disabled after changing state");
+            Assert.That(dynamicControlsForm.TextInputTextBox.State.WaitForNotEnabled(), "Text input should be disabled after changing state");
         }
 
         [Test]
         public void Should_BePossibleTo_WaitForElementDisplayedState()
         {
             dynamicControlsForm.RemoveAddExampleButton.Click();
-            Assert.IsTrue(dynamicControlsForm.ExampleCheckbox.State.WaitForNotDisplayed(), "Checkbox example should not be displayed after removing");
+            Assert.That(dynamicControlsForm.ExampleCheckbox.State.WaitForNotDisplayed(), "Checkbox example should not be displayed after removing");
             dynamicControlsForm.RemoveAddExampleButton.Click();
-            Assert.IsTrue(dynamicControlsForm.ExampleCheckbox.State.WaitForDisplayed(), "Checkbox example should be displayed after adding");
+            Assert.That(dynamicControlsForm.ExampleCheckbox.State.WaitForDisplayed(), "Checkbox example should be displayed after adding");
         }
 
         [Test]
         public void Should_BePossibleTo_WaitForElementExistState()
         {
             dynamicControlsForm.RemoveAddExampleButton.Click();
-            Assert.IsTrue(dynamicControlsForm.ExampleCheckbox.State.WaitForNotExist(), "Checkbox example should not be exist after removing");
+            Assert.That(dynamicControlsForm.ExampleCheckbox.State.WaitForNotExist(), "Checkbox example should not be exist after removing");
             dynamicControlsForm.RemoveAddExampleButton.Click();
-            Assert.IsTrue(dynamicControlsForm.ExampleCheckbox.State.WaitForExist(), "Checkbox example should be exist after adding");
+            Assert.That(dynamicControlsForm.ExampleCheckbox.State.WaitForExist(), "Checkbox example should be exist after adding");
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.Throws<WebDriverTimeoutException>(() => dynamicControlsForm.TextInputTextBox.State.WaitForClickable(), "Textbox should not be clickable");
             dynamicControlsForm.ChangeInputStateButton.Click();
             dynamicControlsForm.TextInputTextBox.State.WaitForClickable();
-            Assert.IsTrue(dynamicControlsForm.TextInputTextBox.State.IsClickable, "Textbox should not be clickable after changing state");
+            Assert.That(dynamicControlsForm.TextInputTextBox.State.IsClickable, "Textbox should not be clickable after changing state");
         }
     }
 }

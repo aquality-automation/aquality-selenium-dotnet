@@ -82,8 +82,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.0.6" />
-    <PackageReference Include="WebDriverManager" Version="2.17.1" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.0.7" />
+    <PackageReference Include="OpenCvSharp4.runtime.osx_arm64" Version="4.8.1-rc" />
+    <PackageReference Include="WebDriverManager" Version="2.17.2" />
 	<PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
 	<PackageReference Include="OpenCvSharp4.runtime.linux-arm" Version="4.9.0.20240103" />
 	<PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20230105" />

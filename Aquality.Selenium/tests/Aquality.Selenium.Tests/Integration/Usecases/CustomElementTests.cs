@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var userNameCustomTxb = new CustomTextBox(userNameTxb.Locator, userNameTxb.Name);
             userNameTxb.Type("wrong");
             userNameCustomTxb.Type("right");
-            Assert.AreEqual(userNameTxb.Value, userNameCustomTxb.Text);
+            Assert.That(userNameCustomTxb.Text, Is.EqualTo(userNameTxb.Value));
         }
 
         private class CustomTextBox : TextBox

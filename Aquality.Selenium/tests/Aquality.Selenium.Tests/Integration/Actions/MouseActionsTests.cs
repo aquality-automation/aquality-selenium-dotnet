@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
             welcomeForm.GetExampleLink(AvailableExample.Dropdown).MouseActions.Click();
-            Assert.IsTrue(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
+            Assert.That(new DropdownForm().State.WaitForDisplayed(), "Dropdown form should be displayed");
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             addRemoveElementsForm.Open();
             addRemoveElementsForm.AddButton.MouseActions.DoubleClick();
             var addedButtonsCount = addRemoveElementsForm.ListOfDeleteButtons.Count;
-            Assert.AreEqual(2, addedButtonsCount, "2 elements should be added after double click");
+            Assert.That(addedButtonsCount, Is.EqualTo(2), "2 elements should be added after double click");
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var menuForm = new JQueryMenuForm();
             menuForm.Open();
             JQueryMenuForm.EnabledButton.MouseActions.MoveToElement();
-            Assert.IsTrue(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
+            Assert.That(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
         }
     }
 }

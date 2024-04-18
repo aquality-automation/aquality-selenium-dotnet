@@ -12,7 +12,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.AutomationPractice.Forms
 {
     internal class ProductListForm : Form
     {
-        private readonly Random random = new Random();
+        private readonly Random random = new();
 
         private const string FormLocator = "//ul[@id='homefeatured']";
 

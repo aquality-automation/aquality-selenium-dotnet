@@ -9,7 +9,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
     [Parallelizable(ParallelScope.None)]
     internal class MultiChoiceBoxTests : UITest
     {
-        private readonly SelectMultipleForm selectMultipleForm = new SelectMultipleForm();
+        private readonly SelectMultipleForm selectMultipleForm = new();
 
         [SetUp]
         public void BeforeTest()
@@ -26,12 +26,12 @@ namespace Aquality.Selenium.Tests.Integration.Elements
 
             selectMultipleForm.SelectAll();
             var selected = selectMultipleForm.SelectedTexts;
-            Assert.AreEqual(selected, allTexts, "Not all texts were selected");
+            Assert.That(allTexts, Is.EqualTo(selected), "Not all texts were selected");
 
             selected = selectMultipleForm.SelectedValues;
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(selected, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(selected));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var remaining = selectMultipleForm.DeselectByValue(valuesToRemove);
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(remaining, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(remaining));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var remaining = selectMultipleForm.DeselectByContainingValue(valuesToRemove);
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(remaining, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(remaining));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var remaining = selectMultipleForm.DeselectByText(valuesToRemove);
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(remaining, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(remaining));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var remaining = selectMultipleForm.DeselectByContainingText(valuesToRemove);
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(remaining, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(remaining));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             var remaining = selectMultipleForm.DeselectByIndex(valuesToRemove);
             selectMultipleForm.Submit();
 
-            Assert.AreEqual(remaining, selectMultipleForm.ValuesFromResult);
+            Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(remaining));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             selectMultipleForm.DeselectAll();
             selectMultipleForm.Submit();
 
-            Assert.False(selectMultipleForm.ValuesFromResult.Any());
+            Assert.That(selectMultipleForm.ValuesFromResult.Any(), Is.False);
         }
     }
 }

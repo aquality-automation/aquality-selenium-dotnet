@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Tests.Integration
 {
     internal class BrowserTabsTests : UITest
     {
-        private readonly WelcomeForm WelcomeForm = new WelcomeForm();
+        private readonly WelcomeForm WelcomeForm = new();
 
         [SetUp]
         public void Before()
@@ -22,8 +22,8 @@ namespace Aquality.Selenium.Tests.Integration
             var url = new WelcomeForm().Url;
             var browser = AqualityServices.Browser;
             browser.Tabs().OpenInNewTab(url);
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
-            Assert.AreEqual(browser.Driver.Url, url);
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2));
+            Assert.That(url, Is.EqualTo(browser.Driver.Url));
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace Aquality.Selenium.Tests.Integration
             var url = new WelcomeForm().Url;
             var browser = AqualityServices.Browser;
             browser.Tabs().OpenInNewTabViaJs(url);
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
-            Assert.AreEqual(browser.Driver.Url, url);
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2));
+            Assert.That(url, Is.EqualTo(browser.Driver.Url));
         }
 
         [Test]
@@ -42,8 +42,8 @@ namespace Aquality.Selenium.Tests.Integration
             var url = new Uri(new WelcomeForm().Url);
             var browser = AqualityServices.Browser;
             browser.Tabs().OpenInNewTab(url);
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count);
-            Assert.AreEqual(new Uri(browser.Driver.Url), url);
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2));
+            Assert.That(url, Is.EqualTo(new Uri(browser.Driver.Url)));
         }
         
         [Test]
@@ -51,7 +51,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = AqualityServices.Browser;
             var tabHandle = browser.Tabs().CurrentTabHandle;
-            Assert.IsNotEmpty(tabHandle, "Tab name should not be empty");
+            Assert.That(tabHandle, Is.Not.Empty, "Tab name should not be empty");
         }
 
         [Test]
@@ -59,8 +59,8 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = AqualityServices.Browser;
             var tabHandles = browser.Tabs().TabHandles;
-            Assert.AreEqual(1, tabHandles.Count, "Tab number should be correct");
-            Assert.IsNotEmpty(tabHandles.First(), "Tab handle should not be empty");
+            Assert.That(tabHandles.Count, Is.EqualTo(1), "Tab number should be correct");
+            Assert.That(tabHandles.First(), Is.Not.Empty, "Tab handle should not be empty");
         }
 
         [Test]
@@ -71,12 +71,12 @@ namespace Aquality.Selenium.Tests.Integration
 
             browser.Tabs().OpenNewTab();
             var newTabHandle = browser.Tabs().CurrentTabHandle;
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count, "New tab should be opened");
-            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2), "New tab should be opened");
+            Assert.That(newTabHandle, Is.Not.EqualTo(tabHandle), "Browser should be switched to new tab");
 
             browser.Tabs().OpenNewTab(false);
-            Assert.AreEqual(3, browser.Tabs().TabHandles.Count, "New tab should be opened");
-            Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should not be switched to new tab");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(3), "New tab should be opened");
+            Assert.That(browser.Tabs().CurrentTabHandle, Is.EqualTo(newTabHandle), "Browser should not be switched to new tab");
         }
 
         [Test]
@@ -87,12 +87,12 @@ namespace Aquality.Selenium.Tests.Integration
 
             browser.Tabs().OpenNewTabViaJs();
             var newTabHandle = browser.Tabs().CurrentTabHandle;
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count, "New tab should be opened");
-            Assert.AreNotEqual(tabHandle, newTabHandle, "Browser should be switched to new tab");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2), "New tab should be opened");
+            Assert.That(newTabHandle, Is.Not.EqualTo(tabHandle), "Browser should be switched to new tab");
 
             browser.Tabs().OpenNewTabViaJs(false);
-            Assert.AreEqual(3, browser.Tabs().TabHandles.Count, "New tab should be opened");
-            Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should not be switched to new tab");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(3), "New tab should be opened");
+            Assert.That(browser.Tabs().CurrentTabHandle, Is.EqualTo(newTabHandle), "Browser should not be switched to new tab");
         }
 
         [Test]
@@ -100,9 +100,9 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = AqualityServices.Browser;
             WelcomeForm.ClickElementalSelenium();
-            Assert.AreEqual(2, browser.Tabs().TabHandles.Count, "New tab should be opened");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(2), "New tab should be opened");
             browser.Tabs().CloseTab();
-            Assert.AreEqual(1, browser.Tabs().TabHandles.Count, "New tab should be closed");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(1), "New tab should be closed");
         }
 
         [Test]
@@ -177,11 +177,12 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var browser = AqualityServices.Browser;
             var tabHandle = browser.Tabs().CurrentTabHandle;
+            Assert.That(tabHandle, Is.Not.Empty);
             WelcomeForm.ClickElementalSelenium();
             var newTabHandle = browser.Tabs().TabHandles.Last();
             switchMethod.Invoke();
-            Assert.AreEqual(newTabHandle, browser.Tabs().CurrentTabHandle, "Browser should be switched to correct tab");
-            Assert.AreEqual(expectedTabCount, browser.Tabs().TabHandles.Count, "Number of tabs should be correct");
+            Assert.That(browser.Tabs().CurrentTabHandle, Is.EqualTo(newTabHandle), "Browser should be switched to correct tab");
+            Assert.That(browser.Tabs().TabHandles.Count, Is.EqualTo(expectedTabCount), "Number of tabs should be correct");
         }
     }
 }

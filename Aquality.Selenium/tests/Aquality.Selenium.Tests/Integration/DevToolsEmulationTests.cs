@@ -30,13 +30,13 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_GetAndCloseDevToolsSession()
         {
-            Assert.IsFalse(DevTools.HasActiveDevToolsSession, "No DevTools session should be running initially");
-            Assert.IsNotNull(DevTools.GetDevToolsSession(), "Should be possible to get DevTools session");
-            Assert.IsTrue(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting");
+            Assert.That(DevTools.HasActiveDevToolsSession, Is.False, "No DevTools session should be running initially");
+            Assert.That(DevTools.GetDevToolsSession(), Is.Not.Null, "Should be possible to get DevTools session");
+            Assert.That(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting");
             Assert.DoesNotThrow(() => DevTools.CloseDevToolsSession(), "Should be possible to close DevTools session");
-            Assert.IsFalse(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as not active after close");
-            Assert.IsNotNull(DevTools.GetDevToolsSession(), "Should be possible to get a new DevTools session after close");
-            Assert.IsTrue(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting for a second time");
+            Assert.That(DevTools.HasActiveDevToolsSession, Is.False, "DevTools session should be indicated as not active after close");
+            Assert.That(DevTools.GetDevToolsSession(), Is.Not.Null, "Should be possible to get a new DevTools session after close");
+            Assert.That(DevTools.HasActiveDevToolsSession, "DevTools session should be indicated as active after getting for a second time");
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Aquality.Selenium.Tests.Integration
         {
             var canEmulate = false;
             Assert.DoesNotThrowAsync(async () => canEmulate = await DevTools.CanEmulate(), "Should be possible to check that browser can emulate");
-            Assert.IsTrue(canEmulate, "Emulation should be supported in browser");
+            Assert.That(canEmulate, "Emulation should be supported in browser");
         }
 
         [Test]
@@ -59,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V120.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V123.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V120.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V123.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V120.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V123.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
@@ -85,12 +85,12 @@ namespace Aquality.Selenium.Tests.Integration
             var initialValue = getWindowHeight();
             Assume.That(initialValue, Is.Not.EqualTo(DeviceModeSettingHeight), "To check that override works, initial value should differ from the new one");
             setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
-            Assert.AreEqual(DeviceModeSettingHeight, getWindowHeight(), "Browser height should match to override value");
+            Assert.That(getWindowHeight(), Is.EqualTo(DeviceModeSettingHeight), "Browser height should match to override value");
             
             Assert.DoesNotThrowAsync(async () => await DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
             AqualityServices.Browser.Refresh();
             AqualityServices.Browser.WaitForPageToLoad();
-            Assert.AreEqual(initialValue, getWindowHeight(), "Browser height should match to initial value after clear");
+            Assert.That(getWindowHeight(), Is.EqualTo(initialValue), "Browser height should match to initial value after clear");
         }
 
         [Test]
@@ -133,15 +133,15 @@ namespace Aquality.Selenium.Tests.Integration
             setAction(LatitudeForOverride, LongitudeForOverride, Accuracy);
             AqualityServices.Browser.Refresh();
             locationForm.DetectBrowserGeolocation();
-            Assert.AreEqual(LatitudeForOverride, locationForm.Latitude, "Latitude should match to override value");
-            Assert.AreEqual(LongitudeForOverride, locationForm.Longitude, "Longitude should match to override value");
+            Assert.That(locationForm.Latitude, Is.EqualTo(LatitudeForOverride), "Latitude should match to override value");
+            Assert.That(locationForm.Longitude, Is.EqualTo(LongitudeForOverride), "Longitude should match to override value");
 
             clearAction();
             AqualityServices.Browser.WaitForPageToLoad();
             AqualityServices.Browser.Refresh();
             locationForm.DetectBrowserGeolocation();
-            Assert.AreEqual(defaultLatitude, locationForm.Latitude, "Latitude should match to default");
-            Assert.AreEqual(defaultLongitude, locationForm.Longitude, "Longitude should match to default");
+            Assert.That(locationForm.Latitude, Is.EqualTo(defaultLatitude), "Latitude should match to default");
+            Assert.That(locationForm.Longitude, Is.EqualTo(defaultLongitude), "Longitude should match to default");
         }
 
         [Test]
@@ -154,8 +154,8 @@ namespace Aquality.Selenium.Tests.Integration
             Assume.That(defaultUserAgent, Is.Not.EqualTo(CustomUserAgent), "Default user agent header should be different from the custom one to check override");
 
             Assert.DoesNotThrowAsync(async () => await DevTools.SetUserAgentOverride(CustomUserAgent, CustomAcceptLanguage), "Should be possible to set user agent override");
-            StringAssert.Contains(CustomAcceptLanguage, new BrowserLanguageForm().Open().Value, "Accept-language header should match to value set");
-            Assert.AreEqual(CustomUserAgent, new UserAgentForm().Open().Value, "User agent should match to value set");
+            Assert.That(new BrowserLanguageForm().Open().Value, Does.Contain(CustomAcceptLanguage), "Accept-language header should match to value set");
+            Assert.That(new UserAgentForm().Open().Value, Is.EqualTo(CustomUserAgent), "User agent should match to value set");
         }
 
         [Test]
@@ -182,10 +182,10 @@ namespace Aquality.Selenium.Tests.Integration
             Assume.That(isTouchEnabled, Is.False, "Touch should be initially disabled");
 
             Assert.DoesNotThrowAsync(async () => await DevTools.SetTouchEmulationEnabled(true), "Should be possible to enable touch emulation");
-            Assert.IsTrue(isTouchEnabled(), "Touch should be enabled");
+            Assert.That(isTouchEnabled(), "Touch should be enabled");
             Assert.DoesNotThrowAsync(async () => await DevTools.SetTouchEmulationEnabled(new SetTouchEmulationEnabledCommandSettings { Enabled = false }), 
                 "Should be possible to disable touch emulation");
-            Assert.IsFalse(isTouchEnabled(), "Touch should be disabled");
+            Assert.That(isTouchEnabled(), Is.False, "Touch should be disabled");
         }
 
         [Test]
@@ -199,9 +199,9 @@ namespace Aquality.Selenium.Tests.Integration
 
             Assert.DoesNotThrowAsync(async () => await DevTools.SetEmulatedMedia(emulatedMedia, new Dictionary<string, string> { { "width", DeviceModeSettingWidth.ToString() } }), 
                 "Should be possible to set emulated media");
-            Assert.AreEqual(emulatedMedia, getMediaType(), "Media type should equal to emulated");
+            Assert.That(getMediaType(), Is.EqualTo(emulatedMedia), "Media type should equal to emulated");
             Assert.DoesNotThrowAsync(async () => await DevTools.DisableEmulatedMediaOverride(), "Should be possible to disable emulated media override");
-            Assert.AreEqual(initialValue, getMediaType(), "Media type should equal to initial after disabling the override");
+            Assert.That(getMediaType(), Is.EqualTo(initialValue), "Media type should equal to initial after disabling the override");
         }
 
         [Test]

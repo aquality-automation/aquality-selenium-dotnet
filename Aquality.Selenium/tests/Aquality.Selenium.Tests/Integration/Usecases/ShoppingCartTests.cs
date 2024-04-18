@@ -40,12 +40,12 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             SiteLoader.OpenAutomationPracticeSite();
             AqualityServices.Browser.Maximize();
             var sliderForm = new SliderForm();
-            Assert.IsTrue(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
+            Assert.That(sliderForm.State.WaitForDisplayed(), "Slider Form is not opened");
 
             sliderForm.ClickNextButton();
             sliderForm.ClickNextButton();
             var productListForm = new ProductListForm();
-            Assert.AreEqual(ExpectedNumdberOfProducts, productListForm.GetNumberOfProductsInContainer(), "Number of products is incorrect");
+            Assert.That(productListForm.GetNumberOfProductsInContainer(), Is.EqualTo(ExpectedNumdberOfProducts), "Number of products is incorrect");
 
             productListForm.AddRandomProductToCart();
             var proceedToCheckoutModal = new ProceedToCheckoutModal();
@@ -53,11 +53,11 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var shoppingCardSummaryForm = new ShoppingCardSummaryForm();
             shoppingCardSummaryForm.ClickPlusButton();
             var actualQuantity = shoppingCardSummaryForm.WaitForQuantityAndGetValue(ExpectedQuantity);
-            Assert.AreEqual(ExpectedQuantity, actualQuantity, "Quantity is incorrect");
+            Assert.That(actualQuantity, Is.EqualTo(ExpectedQuantity), "Quantity is incorrect");
 
             shoppingCardSummaryForm.ClickProceedToCheckoutButton();
             var authForm = new AuthenticationForm();
-            Assert.IsTrue(authForm.State.WaitForDisplayed(), "Authentication Form is not opened");
+            Assert.That(authForm.State.WaitForDisplayed(), "Authentication Form is not opened");
 
             var cartMenuForm = new CartMenuForm();
             cartMenuForm.OpenCartMenu();
@@ -71,14 +71,14 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             personalInfoForm.SelectGender(Gender);
             personalInfoForm.SetFirstName(FirstName);
             var actualNumberOfDays = personalInfoForm.GetNumberOfDays();
-            Assert.AreEqual(ExpectedNumberOfDays, actualNumberOfDays, "Number of days from combobox is incorrect");
+            Assert.That(actualNumberOfDays, Is.EqualTo(ExpectedNumberOfDays), "Number of days from combobox is incorrect");
 
             personalInfoForm.SelectState(State);
             personalInfoForm.SelectDay(DayToSelect);
-            Assert.IsFalse(personalInfoForm.IsNewsCheckBoxChecked(), "News checkbox state is not correct");
+            Assert.That(personalInfoForm.IsNewsCheckBoxChecked(), Is.False, "News checkbox state is not correct");
 
             personalInfoForm.SetNewsCheckBox();
-            Assert.IsTrue(personalInfoForm.IsNewsCheckBoxChecked(), "News checkbox state is not correct");
+            Assert.That(personalInfoForm.IsNewsCheckBoxChecked(), "News checkbox state is not correct");
         }
     }
 }

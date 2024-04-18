@@ -6,7 +6,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     internal class VisualTests : UITest
     {
-        private static readonly DynamicContentForm dynamicContentForm = new DynamicContentForm();
+        private static readonly DynamicContentForm dynamicContentForm = new();
 
         [SetUp]
         public void BeforeTest()

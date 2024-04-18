@@ -20,7 +20,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.DoesNotThrowAsync(async () => await AqualityServices.Browser.RegisterBasicAuthenticationAndStartMonitoring(BasicAuthForm.Domain, BasicAuthForm.User, BasicAuthForm.Password),
                 "Should be possible to set basic authentication async");
             basicAuthForm.Open();
-            Assert.IsTrue(basicAuthForm.IsCongratulationsPresent, "Basic authentication should work");
+            Assert.That(basicAuthForm.IsCongratulationsPresent, "Basic authentication should work");
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Tests.Integration
                 "Should be possible to set basic authentication async");
             AqualityServices.Browser.Network.ClearAuthenticationHandlers();
             basicAuthForm.Open();            
-            Assert.IsFalse(basicAuthForm.IsCongratulationsPresent, "Basic authentication should not work after the handler is cleared");
+            Assert.That(basicAuthForm.IsCongratulationsPresent, Is.False, "Basic authentication should not work after the handler is cleared");
             Assert.DoesNotThrowAsync(async () => await AqualityServices.Browser.Network.StopMonitoring(), "Should be possible to stop network monitoring");
         }
 
@@ -50,10 +50,10 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.DoesNotThrowAsync(() => AqualityServices.Browser.Network.StartMonitoring());
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            StringAssert.Contains(somePhrase, AqualityServices.Browser.Driver.PageSource, "Request should be intercepted");
+            Assert.That(AqualityServices.Browser.Driver.PageSource, Does.Contain(somePhrase), "Request should be intercepted");
             AqualityServices.Browser.Network.ClearRequestHandlers();
             welcomeForm.Open();
-            StringAssert.DoesNotContain(somePhrase, AqualityServices.Browser.Driver.PageSource, "Request should not be intercepted");
+            Assert.That(AqualityServices.Browser.Driver.PageSource, Does.Not.Contain(somePhrase), "Request should not be intercepted");
         }
 
         [Test]
@@ -69,10 +69,10 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.DoesNotThrowAsync(async() => await AqualityServices.Browser.Network.StartMonitoring());
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            StringAssert.Contains(somePhrase, AqualityServices.Browser.Driver.PageSource, "Response should be intercepted");
+            Assert.That(AqualityServices.Browser.Driver.PageSource, Does.Contain(somePhrase), "Response should be intercepted");
             AqualityServices.Browser.Network.ClearResponseHandlers();
             welcomeForm.Open();
-            StringAssert.DoesNotContain(somePhrase, AqualityServices.Browser.Driver.PageSource, "Response should not be intercepted");
+            Assert.That(AqualityServices.Browser.Driver.PageSource, Does.Not.Contain(somePhrase), "Response should not be intercepted");
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Aquality.Selenium.Tests.Integration
             var oldValue = counter;
             AqualityServices.Browser.Network.NetworkRequestSent -= eventHandler;
             welcomeForm.Open();
-            Assert.AreEqual(oldValue, counter, "Should be possible to unsubscribe from Request Sent event");
+            Assert.That(counter, Is.EqualTo(oldValue), "Should be possible to unsubscribe from Request Sent event");
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Aquality.Selenium.Tests.Integration
             var oldValue = counter;
             AqualityServices.Browser.Network.NetworkResponseReceived -= eventHandler;
             welcomeForm.Open();
-            Assert.AreEqual(oldValue, counter, "Should be possible to unsubscribe from Response Received event");
+            Assert.That(counter, Is.EqualTo(oldValue), "Should be possible to unsubscribe from Response Received event");
         }
 
         [Test]
@@ -116,12 +116,12 @@ namespace Aquality.Selenium.Tests.Integration
             var someForm = new DropdownForm();
             someForm.Open();
             var logMessage1 = File.ReadAllLines(LogPath).LastOrDefault();
-            Assert.IsFalse(string.IsNullOrEmpty(logMessage1), "Some message should appear in log file and should not be empty");
+            Assert.That(string.IsNullOrEmpty(logMessage1), Is.False, "Some message should appear in log file and should not be empty");
             Assert.DoesNotThrowAsync(async () => await AqualityServices.Browser.EnableHttpExchangeLoggingAndStartMonitoring(), "Should be possible to enable HTTP exchange logging");
             AqualityServices.Browser.Driver.Navigate().Refresh();
             var logMessage2 = File.ReadAllLines(LogPath).LastOrDefault();
-            Assert.IsFalse(string.IsNullOrEmpty(logMessage2), "Some message should appear in log file and should not be empty");
-            Assert.AreNotEqual(logMessage1, logMessage2, "HTTP logging message should be in file, although no Aquality-actions performed");
+            Assert.That(string.IsNullOrEmpty(logMessage2), Is.False, "Some message should appear in log file and should not be empty");
+            Assert.That(logMessage2, Is.Not.EqualTo(logMessage1), "HTTP logging message should be in file, although no Aquality-actions performed");
         }
     }
 }
