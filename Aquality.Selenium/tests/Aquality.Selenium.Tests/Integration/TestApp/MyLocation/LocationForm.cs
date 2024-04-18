@@ -25,8 +25,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
         {
             consentCookieInfoButton.Click();
             consentCookieInfoButton.State.WaitForNotDisplayed();
-            gotItCookieButton.Click();
-            gotItCookieButton.State.WaitForNotDisplayed();
+            if (gotItCookieButton.State.WaitForDisplayed())
+            {
+                gotItCookieButton.Click();
+                gotItCookieButton.State.WaitForNotDisplayed();
+            }
             if (closeCookieSettingsButton.State.IsDisplayed)
             {
                 closeCookieSettingsButton.Click();
