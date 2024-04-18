@@ -47,7 +47,8 @@ stages:
 
     variables:
       profile: 'azure'
-        
+
+    steps:        
     - task: DotNetCoreCLI@2
       displayName: 'Run tests'
       retryCountOnTaskFailure: 1
