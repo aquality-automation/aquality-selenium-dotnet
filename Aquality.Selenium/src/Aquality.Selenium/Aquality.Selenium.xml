@@ -182,6 +182,12 @@
             </summary>
             <returns>Instance of IBrowserTabNavigation.</returns>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.Windows">
+            <summary>
+            Provides interface to manage of browser windows.
+            </summary>
+            <returns>Instance of IBrowserWindowNavigation.</returns>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.HandleAlert(Aquality.Selenium.Browsers.AlertAction,System.String)">
             <summary>
             Handles alert.
@@ -660,18 +666,21 @@
         <member name="P:Aquality.Selenium.Browsers.IBrowserTabNavigation.CurrentTabHandle">
             <summary>
             Gets current tab handle.
+            Obsolete, use <see cref="P:Aquality.Selenium.Browsers.IBrowserWindowNavigation.CurrentHandle"/> instead.
             </summary>
             <returns>Current tab handle.</returns>
         </member>
         <member name="P:Aquality.Selenium.Browsers.IBrowserTabNavigation.TabHandles">
             <summary>
             Gets opened tab handles.
+            Obsolete, use <see cref="P:Aquality.Selenium.Browsers.IBrowserWindowNavigation.Handles"/> instead.
             </summary>
             <returns>List of tab handles.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToTab(System.String,System.Boolean)">
             <summary>
             Switches to tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchTo(System.String,System.Boolean)"/> instead.
             </summary>
             <param name="tabHandle">Tab handle.</param>
             <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
@@ -679,6 +688,7 @@
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToTab(System.Int32,System.Boolean)">
             <summary>
             Switches to tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchTo(System.Int32,System.Boolean)"/> instead.
             </summary>
             <param name="index">Tab index.</param>
             <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
@@ -686,41 +696,120 @@
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.SwitchToLastTab(System.Boolean)">
             <summary>
             Switches to the last tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchToLast(System.Boolean)"/> instead.
             </summary>
             <param name="closeCurrent">Close current tab if true and leave it otherwise.</param>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.CloseTab">
             <summary>
             Closes current tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.Close"/> instead.
             </summary>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTab(System.Boolean)">
             <summary>
             Opens new tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenNew(System.Boolean)"/> instead.
             </summary>
             <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenNewTabViaJs(System.Boolean)">
             <summary>
             Opens new tab using JS function.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenNewViaJs(System.Boolean)"/> instead.
             </summary>
             <param name="switchToNew">Switches to new tab if true and stays at current otherwise.</param>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.String)">
             <summary>
             Navigates to desired url in new tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNew(System.String)"/> instead.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTab(System.Uri)">
             <summary>
             Navigates to desired url in new tab.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNew(System.Uri)"/> instead.
             </summary>
             <param name="url">target URL.</param>
         </member>
         <member name="M:Aquality.Selenium.Browsers.IBrowserTabNavigation.OpenInNewTabViaJs(System.String)">
             <summary>
             Navigates to desired url in new tab using JS function.
+            Obsolete, use <see cref="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNewViaJs(System.String)"/> instead.
+            </summary>
+            <param name="url">String representation of URL.</param>
+        </member>
+        <member name="T:Aquality.Selenium.Browsers.IBrowserWindowNavigation">
+            <summary>
+            Provides functionality to work with browser tab/window navigation.  
+            </summary>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.IBrowserWindowNavigation.CurrentHandle">
+            <summary>
+            Gets current tab/window handle.
+            </summary>
+            <returns>Current tab/window handle.</returns>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.IBrowserWindowNavigation.Handles">
+            <summary>
+            Gets opened tab/window handles.
+            </summary>
+            <returns>List of tab/window handles.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchTo(System.String,System.Boolean)">
+            <summary>
+            Switches to tab/window.
+            </summary>
+            <param name="handle">Tab/window handle.</param>
+            <param name="closeCurrent">Close current tab/window if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchTo(System.Int32,System.Boolean)">
+            <summary>
+            Switches to tab/window.
+            </summary>
+            <param name="index">Tab/window index.</param>
+            <param name="closeCurrent">Close current tab/window if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.SwitchToLast(System.Boolean)">
+            <summary>
+            Switches to the last tab/window.
+            </summary>
+            <param name="closeCurrent">Close current tab/window if true and leave it otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.Close">
+            <summary>
+            Closes current tab/window.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenNew(System.Boolean)">
+            <summary>
+            Opens new tab/window.
+            </summary>
+            <param name="switchToNew">Switches to new tab/window if true and stays at current otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenNewViaJs(System.Boolean)">
+            <summary>
+            Opens new tab/window using JS function.
+            </summary>
+            <param name="switchToNew">Switches to new tab/window if true and stays at current otherwise.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNew(System.String)">
+            <summary>
+            Navigates to desired url in new tab/window.
+            </summary>
+            <param name="url">String representation of URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNew(System.Uri)">
+            <summary>
+            Navigates to desired url in new tab/window.
+            </summary>
+            <param name="url">target URL.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.IBrowserWindowNavigation.OpenInNewViaJs(System.String)">
+            <summary>
+            Navigates to desired url in new tab/window using JS function.
             </summary>
             <param name="url">String representation of URL.</param>
         </member>

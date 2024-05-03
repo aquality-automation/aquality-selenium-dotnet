@@ -14,16 +14,16 @@ namespace Aquality.Selenium.Tests.Integration
         private static readonly HoversForm hoversForm = new();
 
         private static readonly Func<ElementState, ElementsCount, IList<ILabel>>[] ElementListProviders
-            = new Func<ElementState, ElementsCount, IList<ILabel>>[]
-            {
-                (state, count) => HoversForm.GetListElements(state, count),
-                (state, count) => hoversForm.GetListElementsByName(state, count),
-                (state, count) => hoversForm.GetListElementsByClassName(state, count),
-                (state, count) => hoversForm.GetListElementsByCss(state, count),
-                (state, count) => hoversForm.GetListElementsByDottedXPath(state, count),
-                (state, count) => hoversForm.GetChildElementsByDottedXPath(state, count),
+            =
+            [
+                HoversForm.GetListElements,
+                hoversForm.GetListElementsByName,
+                hoversForm.GetListElementsByClassName,
+                hoversForm.GetListElementsByCss,
+                hoversForm.GetListElementsByDottedXPath,
+                hoversForm.GetChildElementsByDottedXPath,
                 (state, count) => new List<ILabel> { hoversForm.GetChildElementByNonXPath(state) }
-            };
+            ];
 
         [SetUp]
         public void BeforeTest()
