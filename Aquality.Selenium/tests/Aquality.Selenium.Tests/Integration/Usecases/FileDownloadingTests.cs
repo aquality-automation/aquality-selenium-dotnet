@@ -24,10 +24,10 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var lblFileContent = AqualityServices.Get<IElementFactory>().GetLabel(By.XPath("//pre"), "text file content");
             Assert.That(FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent), Is.False, $"file {filePath} should not exist before downloading");
 
-            var oldWindowHandle = browser.Tabs().CurrentTabHandle;
+            var oldWindowHandle = browser.Tabs().CurrentHandle;
             browser.ExecuteScriptFromFile("Resources.OpenUrlInNewWindow.js", downloaderForm.Url);
 
-            browser.Tabs().SwitchToLastTab();
+            browser.Tabs().SwitchToLast();
             downloaderForm.Open();
             var downloadLink = downloaderForm.GetDownloadLink(fileName);
             if (downloadLink.State.IsDisplayed)
@@ -39,7 +39,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                 browser.GoTo(new Uri($"{downloaderForm.Url}/{fileName}"));
             }
 
-            browser.Tabs().SwitchToTab(oldWindowHandle);
+            browser.Tabs().SwitchTo(oldWindowHandle);
             bool condition() => FileDownloadHelper.IsFileDownloaded(filePath, lblFileContent);
             var message = $"file {filePath} was not downloaded";
             try

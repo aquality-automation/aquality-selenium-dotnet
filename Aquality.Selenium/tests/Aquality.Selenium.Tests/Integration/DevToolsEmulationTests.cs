@@ -59,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V123.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V124.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V123.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V124.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V123.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V124.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
@@ -87,7 +87,7 @@ namespace Aquality.Selenium.Tests.Integration
             setAction(DeviceModeSettingWidth, DeviceModeSettingHeight, DeviceModeSettingMobile, DeviceModeSettingDeviceScaleFactor);
             Assert.That(getWindowHeight(), Is.EqualTo(DeviceModeSettingHeight), "Browser height should match to override value");
             
-            Assert.DoesNotThrowAsync(async () => await DevTools.ClearDeviceMetricsOverride(), "Should be possible to clear device metrics override");
+            Assert.DoesNotThrowAsync(DevTools.ClearDeviceMetricsOverride, "Should be possible to clear device metrics override");
             AqualityServices.Browser.Refresh();
             AqualityServices.Browser.WaitForPageToLoad();
             Assert.That(getWindowHeight(), Is.EqualTo(initialValue), "Browser height should match to initial value after clear");
@@ -116,7 +116,7 @@ namespace Aquality.Selenium.Tests.Integration
                         { "accuracy", accuracy},
                        },
                        new DevToolsCommandLoggingOptions { Command = new LoggingParameters { Enabled = false } , Result = new LoggingParameters { Enabled = false } }),
-                   () => DevTools.ExecuteCdpCommand(new ClearGeolocationOverrideCommandSettings().CommandName, new Dictionary<string, object>()));
+                   () => DevTools.ExecuteCdpCommand(new ClearGeolocationOverrideCommandSettings().CommandName, []));
         }
 
         private static void CheckGeolocationOverride(Action<double?, double?, double?> setAction, Action clearAction)

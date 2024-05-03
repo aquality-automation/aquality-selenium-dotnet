@@ -225,7 +225,16 @@ namespace Aquality.Selenium.Browsers
         /// <returns>Instance of IBrowserTabNavigation.</returns>
         public IBrowserTabNavigation Tabs()
         {
-            return new BrowserTabNavigation(Driver, Logger);
+            return new BrowserWindowNavigation(Driver, Logger, WindowType.Tab);
+        }
+
+        /// <summary>
+        /// Provides interface to manage of browser windows.
+        /// </summary>
+        /// <returns>Instance of IBrowserWindowNavigation.</returns>
+        public IBrowserWindowNavigation Windows()
+        {
+            return new BrowserWindowNavigation(Driver, Logger, WindowType.Window);
         }
 
         /// <summary>
