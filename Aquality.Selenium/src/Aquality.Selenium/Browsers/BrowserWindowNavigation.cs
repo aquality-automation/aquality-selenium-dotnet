@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Aquality.Selenium.Browsers
 {
-    public class BrowserWindowNavigation : IBrowserTabNavigation, IBrowserWindowNavigation
+    public class BrowserWindowNavigation : IBrowserTabNavigation
     {
         private readonly WebDriver driver;
         private readonly WindowType windowType;
@@ -98,13 +98,14 @@ namespace Aquality.Selenium.Browsers
         public void SwitchToLast(bool closeCurrent = false)
         {
             Logger.Info($"loc.browser.switch.to.new.{type}");
-            CloseAndSwitch(Handles.Last(), closeCurrent);
+            var handles = Handles;
+            CloseAndSwitch(handles[handles.Count - 1], closeCurrent);
         }
 
-        public void SwitchTo(string tabHandle, bool closeCurrent = false)
+        public void SwitchTo(string handle, bool closeCurrent = false)
         {
-            Logger.Info($"loc.browser.switch.to.{type}.handle", tabHandle);
-            CloseAndSwitch(tabHandle, closeCurrent);
+            Logger.Info($"loc.browser.switch.to.{type}.handle", handle);
+            CloseAndSwitch(handle, closeCurrent);
         }
 
         public void SwitchTo(int index, bool closeCurrent = false)
@@ -135,8 +136,8 @@ namespace Aquality.Selenium.Browsers
 
         public IList<string> TabHandles => Handles;
 
-        public void SwitchToTab(string windowHandle, bool closeCurrent = false)
-            => SwitchTo(windowHandle, closeCurrent);
+        public void SwitchToTab(string tabHandle, bool closeCurrent = false)
+            => SwitchTo(tabHandle, closeCurrent);
 
         public void SwitchToTab(int index, bool closeCurrent = false)
             => SwitchTo(index, closeCurrent);
