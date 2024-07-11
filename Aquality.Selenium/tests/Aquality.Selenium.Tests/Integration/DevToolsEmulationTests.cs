@@ -59,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V124.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V125.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V124.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V125.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V124.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V125.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
