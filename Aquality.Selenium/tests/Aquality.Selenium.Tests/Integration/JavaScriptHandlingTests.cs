@@ -134,36 +134,35 @@ namespace Aquality.Selenium.Tests.Integration
         {
             const string script = "alert('Hello world')";
             const string name = "alert";
-            InitializationScript initScript = null;
-            Assert.DoesNotThrowAsync(async () => initScript = await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add initialization script");
+            InitializationScript initScript = JavaScriptEngine.AddInitializationScript(name, script).Result;
             Assert.That(initScript, Is.Not.Null, "Some initialization script model should be returned");
             Assert.That(initScript.ScriptSource, Is.EqualTo(script), "Saved script source should match to expected");
             Assert.That(initScript.ScriptName, Is.EqualTo(name), "Saved script name should match to expected");
 
-            Assert.DoesNotThrowAsync(async() => await JavaScriptEngine.StartEventMonitoring(), "Should be possible to start event monitoring");
+            JavaScriptEngine.StartEventMonitoring().GetAwaiter().GetResult();
             AqualityServices.Browser.Refresh();
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear after the refresh and be possible to handle");
 
             Assert.That(JavaScriptEngine.InitializationScripts, Has.Member(initScript), "Should be possible to read initialization scripts");
 
-            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.RemoveInitializationScript(name), "Should be possible to remove initialization script");
+            JavaScriptEngine.RemoveInitializationScript(name).GetAwaiter().GetResult();
             AqualityServices.Browser.Refresh();
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.HandleAlert(AlertAction.Accept), "Initialization script should not be executed after the remove");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after remove");
 
-            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
+            JavaScriptEngine.AddInitializationScript(name, script).GetAwaiter().GetResult();
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
             Assert.That(JavaScriptEngine.InitializationScripts, Has.One.Items, "Exactly one script should be among initialization scripts");
 
-            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.ClearInitializationScripts(), "Should be possible to clear initialization scripts");
+            JavaScriptEngine.ClearInitializationScripts().GetAwaiter().GetResult();
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Initialization script should not be executed after the clear");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after clear");
 
 
-            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.AddInitializationScript(name, script), "Should be possible to add the same initialization script again");
+            JavaScriptEngine.AddInitializationScript(name, script).GetAwaiter().GetResult();
             Assert.DoesNotThrow(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Alert should appear and be possible to handle");
-            Assert.DoesNotThrowAsync(async () => await JavaScriptEngine.ClearAll(), "Should be possible to clear all JavaScript monitoring"); 
+            JavaScriptEngine.ClearAll().GetAwaiter().GetResult(); 
             Assert.Throws<NoAlertPresentException>(() => AqualityServices.Browser.RefreshPageWithAlert(AlertAction.Accept), "Initialization script should not be executed after the clear all");
             Assert.That(JavaScriptEngine.InitializationScripts, Is.Empty, "Should be possible to read initialization scripts after clear all");
 
