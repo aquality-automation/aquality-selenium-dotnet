@@ -15,8 +15,8 @@ namespace Aquality.Selenium.Browsers
     /// </summary>
     public class AqualityServices : AqualityServices<Browser>
     {
-        private static readonly ThreadLocal<BrowserStartup> BrowserStartupContainer = new ThreadLocal<BrowserStartup>(() => new BrowserStartup());
-        private static readonly ThreadLocal<IBrowserFactory> BrowserFactoryContainer = new ThreadLocal<IBrowserFactory>();
+        private static readonly AsyncLocal<BrowserStartup> BrowserStartupContainer = new AsyncLocal<BrowserStartup>();
+        private static readonly AsyncLocal<IBrowserFactory> BrowserFactoryContainer = new AsyncLocal<IBrowserFactory>();
 
         /// <summary>
         /// Check if browser already started.
@@ -71,7 +71,7 @@ namespace Aquality.Selenium.Browsers
         {
             get
             {
-                if (!BrowserFactoryContainer.IsValueCreated)
+                if (BrowserFactoryContainer.Value == null)
                 {
                     SetDefaultFactory();
                 }
@@ -116,6 +116,10 @@ namespace Aquality.Selenium.Browsers
 
         private static IServiceCollection ConfigureServices()
         {
+            if (BrowserStartupContainer.Value == null)
+            {
+                BrowserStartupContainer.Value = new BrowserStartup();
+            }
             return BrowserStartupContainer.Value.ConfigureServices(new ServiceCollection(), services => Browser);
         }
     }
