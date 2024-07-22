@@ -42,5 +42,38 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             JQueryMenuForm.EnabledButton.MouseActions.MoveToElement();
             Assert.That(JQueryMenuForm.IsEnabledButtonFocused, "Element should be focused after move mouse");
         }
+
+        [Test]
+        public void Should_BePossibleTo_ScrollToElement()
+        {
+            var infiniteScrollForm = new InfiniteScrollForm();
+            infiniteScrollForm.Open();
+            infiniteScrollForm.WaitForPageToLoad();
+            var size = infiniteScrollForm.LastExampleLabel.Visual.Size;
+            AqualityServices.Browser.SetWindowSize(size.Width, size.Height);
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            Assert.DoesNotThrow(
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
+                {
+                    infiniteScrollForm.LastExampleLabel.MouseActions.ScrollToElement();
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }), "Some examples should be added after scroll");
+        }
+
+        [Test]
+        public void Should_BePossibleTo_ScrollFromOrigin()
+        {
+            var infiniteScrollForm = new InfiniteScrollForm();
+            infiniteScrollForm.Open();
+            infiniteScrollForm.WaitForPageToLoad();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            Assert.DoesNotThrow(
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
+                {
+                    var formHeight = infiniteScrollForm.Size.Height;
+                    infiniteScrollForm.LastExampleLabel.MouseActions.ScrollFromOrigin(0, formHeight);
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }), "Some examples should be added after scroll");
+        }
     }
 }

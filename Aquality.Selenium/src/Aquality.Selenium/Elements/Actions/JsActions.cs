@@ -93,7 +93,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="y">Vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            LogElementAction("loc.scrolling.js");
+            LogElementAction("loc.scrolling.by.js", x, y);
             ExecuteScript(JavaScript.ScrollBy, x, y);
         }
 

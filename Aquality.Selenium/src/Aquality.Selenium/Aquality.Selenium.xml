@@ -230,6 +230,21 @@
             <param name="x">Horizontal coordinate.</param>
             <param name="y">Vertical coordinate.</param>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.ScrollWindowByViaJs(System.Int32,System.Int32)">
+            <summary>
+            Scrolls window by coordinates using JavaScript.
+            </summary>
+            <param name="x">Horizontal coordinate.</param>
+            <param name="y">Vertical coordinate.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Browsers.Browser.ScrollFromOrigin(OpenQA.Selenium.Interactions.WheelInputDevice.ScrollOrigin,System.Int32,System.Int32)">
+            <summary>
+            Scrolls portion of screen from specified origin
+            </summary>
+            <param name="scrollOrigin">Origination point (either viewport or element, with possible offset).</param>
+            <param name="x">Horizontal coordinate.</param>
+            <param name="y">Vertical coordinate.</param>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.Browser.ExecuteScriptFromFile(System.String,System.Object[])">
             <summary>
             Executes JS script from embedded resource file (*.js).
@@ -1452,6 +1467,16 @@
             Perfroms right click on element.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.MouseActions.ScrollToElement">
+            <summary>
+            Scrolling page to the element.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Actions.MouseActions.ScrollFromOrigin(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Scrolling page from an element.
+            </summary>
+        </member>
         <member name="M:Aquality.Selenium.Elements.Actions.MouseActions.MoveToElement">
             <summary>
             Moves mouse to the element.
@@ -2420,6 +2445,13 @@
         <member name="M:Aquality.Selenium.Forms.Form.ScrollBy(System.Int32,System.Int32)">
             <summary>
             Scroll form without scrolling entire page
+            </summary>
+            <param name="x">horizontal coordinate</param>
+            <param name="y">vertical coordinate</param>
+        </member>
+        <member name="M:Aquality.Selenium.Forms.Form.ScrollByJs(System.Int32,System.Int32)">
+            <summary>
+            Scroll form via JavaScript without scrolling entire page
             </summary>
             <param name="x">horizontal coordinate</param>
             <param name="y">vertical coordinate</param>
