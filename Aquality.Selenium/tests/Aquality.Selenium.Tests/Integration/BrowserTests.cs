@@ -201,6 +201,22 @@ namespace Aquality.Selenium.Tests.Integration
         }
 
         [Test]
+        public void Should_BePossibleTo_ScrollWindowBy_ViaJs()
+        {
+            var infiniteScrollForm = new InfiniteScrollForm();
+            infiniteScrollForm.Open();
+            infiniteScrollForm.WaitForPageToLoad();
+            var defaultCount = infiniteScrollForm.ExampleLabels.Count;
+            Assert.DoesNotThrow(
+                () => AqualityServices.ConditionalWait.WaitForTrue(() =>
+                {
+                    var formHeight = infiniteScrollForm.Size.Height;
+                    AqualityServices.Browser.ScrollWindowByViaJs(0, formHeight);
+                    return infiniteScrollForm.ExampleLabels.Count > defaultCount;
+                }), "Some examples should be added after scroll");
+        }
+
+        [Test]
         public void Should_BePossibleTo_GetBrowserName()
         {
             var profileNameFromEnvironment = Environment.GetEnvironmentVariable("profile");

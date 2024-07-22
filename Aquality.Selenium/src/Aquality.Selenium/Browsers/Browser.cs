@@ -10,6 +10,8 @@ using Aquality.Selenium.Core.Waitings;
 using System.Collections.ObjectModel;
 
 using IDevTools = OpenQA.Selenium.DevTools.IDevTools;
+using OpenQA.Selenium.Interactions;
+using static OpenQA.Selenium.Interactions.WheelInputDevice;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -319,7 +321,30 @@ namespace Aquality.Selenium.Browsers
         /// <param name="y">Vertical coordinate.</param>
         public void ScrollWindowBy(int x, int y)
         {
+            Logger.Info("loc.scrolling.by", x, y);
+            new Actions(Driver).ScrollByAmount(x, y).Perform();
+        }
+
+        /// <summary>
+        /// Scrolls window by coordinates using JavaScript.
+        /// </summary>
+        /// <param name="x">Horizontal coordinate.</param>
+        /// <param name="y">Vertical coordinate.</param>
+        public void ScrollWindowByViaJs(int x, int y)
+        {
+            Logger.Info("loc.scrolling.by.js", x, y);
             ExecuteScript(JavaScript.ScrollWindowBy, x, y);
+        }
+
+        /// <summary>
+        /// Scrolls portion of screen from specified origin
+        /// </summary>
+        /// <param name="scrollOrigin">Origination point (either viewport or element, with possible offset).</param>
+        /// <param name="x">Horizontal coordinate.</param>
+        /// <param name="y">Vertical coordinate.</param>
+        public void ScrollFromOrigin(ScrollOrigin scrollOrigin, int x, int y)
+        {
+            new Actions(Driver).ScrollFromOrigin(scrollOrigin, x, y).Perform();
         }
 
         /// <summary>
