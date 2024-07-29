@@ -50,7 +50,7 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
-        /// Perfroms right click on element.
+        /// Performs right click on element.
         /// </summary>
         public void RightClick()
         {

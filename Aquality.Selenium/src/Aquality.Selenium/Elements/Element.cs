@@ -16,7 +16,6 @@ using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
-using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements
 {
