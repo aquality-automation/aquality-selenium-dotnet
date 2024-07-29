@@ -27,8 +27,8 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected override IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
         {
-            { "binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },            
-            { "firefox_binary", (options, value) => ((FirefoxOptions) options).BrowserExecutableLocation = value.ToString() },
+            { "binary", (options, value) => ((FirefoxOptions) options).BinaryLocation = value.ToString() },            
+            { "firefox_binary", (options, value) => ((FirefoxOptions) options).BinaryLocation = value.ToString() },
             { "firefox_profile", (options, value) => ((FirefoxOptions) options).Profile = new FirefoxProfileManager().GetProfile(value.ToString()) },
             { "log", (options, value) => ((FirefoxOptions) options).LogLevel = value.ToEnum<FirefoxDriverLogLevel>() }
         };

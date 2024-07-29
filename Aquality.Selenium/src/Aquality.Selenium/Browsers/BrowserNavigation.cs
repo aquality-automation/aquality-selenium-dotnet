@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Core.Localization;
 using OpenQA.Selenium;
 using System;
+using System.Threading.Tasks;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -29,12 +30,32 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Move back a single entry in the browser's history as an asynchronous task.
+        /// </summary>
+        /// <returns>A task object representing the asynchronous operation.</returns>
+        public Task BackAsync()
+        {
+            Logger.Info("loc.browser.back");
+            return driver.Navigate().BackAsync();
+        }
+
+        /// <summary>
         /// Navigates forward.
         /// </summary>
         public void Forward()
         {
             Logger.Info("loc.browser.forward");
             driver.Navigate().Forward();
+        }
+
+        /// <summary>
+        /// Move a single "item" forward in the browser's history as an asynchronous task.
+        /// </summary>
+        /// <returns>A task object representing the asynchronous operation.</returns>
+        public Task ForwardAsync()
+        {
+            Logger.Info("loc.browser.forward");
+            return driver.Navigate().ForwardAsync();
         }
 
         /// <summary>
@@ -78,12 +99,44 @@ namespace Aquality.Selenium.Browsers
         }
 
         /// <summary>
+        /// Navigate to a url as an asynchronous task.
+        /// </summary>
+        /// <param name="url">String representation of where you want the browser to go.</param>
+        /// <returns>A task object representing the asynchronous operation.</returns>
+        public Task GoToUrlAsync(string url)
+        {
+            InfoLocNavigate(url);
+            return driver.Navigate().GoToUrlAsync(url);
+        }
+
+        /// <summary>
+        /// Navigate to a url as an asynchronous task.
+        /// </summary>
+        /// <param name="url">Uri object of where you want the browser to go.</param>
+        /// <returns>A task object representing the asynchronous operation.</returns>
+        public Task GoToUrlAsync(Uri url)
+        {
+            InfoLocNavigate(url.ToString());
+            return driver.Navigate().GoToUrlAsync(url);
+        }
+
+        /// <summary>
         /// Refreshes current page.
         /// </summary>
         public void Refresh()
         {
             Logger.Info("loc.browser.refresh");
             driver.Navigate().Refresh();
+        }
+
+        /// <summary>
+        /// Reload the current page as an asynchronous task.
+        /// </summary>
+        /// <returns>A task object representing the asynchronous operation.</returns>
+        public Task RefreshAsync()
+        {
+            Logger.Info("loc.browser.refresh");
+            return driver.Navigate().RefreshAsync();
         }
 
         private void InfoLocNavigate(string url)
