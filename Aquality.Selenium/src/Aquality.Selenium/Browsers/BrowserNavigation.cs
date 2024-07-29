@@ -29,9 +29,14 @@ namespace Aquality.Selenium.Browsers
             driver.Navigate().Back();
         }
 
+        /// <summary>
+        /// Move back a single entry in the browser's history as an asynchronous task.
+        /// </summary>
+        /// <returns>A task object representing the asynchronous operation.</returns>
         public Task BackAsync()
         {
-            throw new NotImplementedException();
+            Logger.Info("loc.browser.back");
+            return driver.Navigate().BackAsync();
         }
 
         /// <summary>
@@ -96,7 +101,7 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Navigate to a url as an asynchronous task.
         /// </summary>
-        /// <param name="url">Uri object of where you want the browser to go.</param>
+        /// <param name="url">String representation of where you want the browser to go.</param>
         /// <returns>A task object representing the asynchronous operation.</returns>
         public Task GoToUrlAsync(string url)
         {
