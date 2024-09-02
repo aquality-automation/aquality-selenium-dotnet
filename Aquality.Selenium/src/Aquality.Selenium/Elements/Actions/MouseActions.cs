@@ -113,7 +113,7 @@ namespace Aquality.Selenium.Elements.Actions
                     .MoveToElement(element, -element.Size.Width / 2, -element.Size.Height / 2)));
         }
 
-        private SeleniumActions MoveToElement(IWebElement element)
+        private static SeleniumActions MoveToElement(IWebElement element)
         {
             return new SeleniumActions(AqualityServices.Browser.Driver).MoveToElement(element);
         }

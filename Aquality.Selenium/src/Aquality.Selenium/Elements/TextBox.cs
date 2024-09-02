@@ -19,6 +19,13 @@ namespace Aquality.Selenium.Elements
 
         public string Value => GetAttribute(Attributes.Value);
 
+        public void Clear()
+        {
+            LogElementAction("loc.text.clearing");
+            JsActions.HighlightElement();
+            DoWithRetry(() => GetElement().Clear());
+        }
+
         public void Type(string value, bool secret = false)
         {
             LogElementAction("loc.text.typing", secret ? SecretMask : value);

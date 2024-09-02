@@ -29,9 +29,9 @@ namespace Aquality.Selenium.Elements.Actions
             Logger = logger;
         }
 
-        private Browser Browser => AqualityServices.Browser;
+        private static Browser Browser => AqualityServices.Browser;
 
-        private IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
+        private static IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
 
         protected ILocalizedLogger Logger { get; }
 

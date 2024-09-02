@@ -23,7 +23,7 @@ namespace Aquality.Selenium.Browsers
             javaScriptEngine = new JavaScriptEngine(driver);
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private static ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
         /// <summary>
         /// Gets the read-only list of initialization scripts added for this JavaScript engine.

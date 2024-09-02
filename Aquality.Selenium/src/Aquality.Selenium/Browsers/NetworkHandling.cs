@@ -21,7 +21,7 @@ namespace Aquality.Selenium.Browsers
             network = driver.Manage().Network;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private static ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
         /// <summary>
         /// A network request sent event.

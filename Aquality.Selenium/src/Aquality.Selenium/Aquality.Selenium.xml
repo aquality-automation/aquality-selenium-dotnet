@@ -349,6 +349,12 @@
             Navigates back.
             </summary>
         </member>
+        <member name="M:Aquality.Selenium.Browsers.BrowserNavigation.BackAsync">
+            <summary>
+            Move back a single entry in the browser's history as an asynchronous task.
+            </summary>
+            <returns>A task object representing the asynchronous operation.</returns>
+        </member>
         <member name="M:Aquality.Selenium.Browsers.BrowserNavigation.Forward">
             <summary>
             Navigates forward.
@@ -376,7 +382,7 @@
             <summary>
             Navigate to a url as an asynchronous task.
             </summary>
-            <param name="url">Uri object of where you want the browser to go.</param>
+            <param name="url">String representation of where you want the browser to go.</param>
             <returns>A task object representing the asynchronous operation.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.BrowserNavigation.GoToUrlAsync(System.Uri)">
@@ -636,17 +642,17 @@
             <param name="loggingOptions">Logging preferences.</param>
             <returns>An object representing the result of the command, if applicable.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,Newtonsoft.Json.Linq.JToken,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(System.String,System.Text.Json.Nodes.JsonNode,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
             Sends the specified command and returns the associated command response.
             </summary>
             <param name="commandName">The name of the command to send.</param>
-            <param name="commandParameters">The parameters of the command as a JToken object.</param>
+            <param name="commandParameters">The parameters of the command as a JsonNode object.</param>
             <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
             <param name="loggingOptions">Logging preferences.</param>
-            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
+            <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsHandling.SendCommand(OpenQA.Selenium.DevTools.ICommand,System.Threading.CancellationToken,System.Nullable{System.Int32},System.Boolean,Aquality.Selenium.Logging.DevToolsCommandLoggingOptions)">
             <summary>
@@ -657,7 +663,7 @@
             <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
             <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
             <param name="loggingOptions">Logging preferences.</param>
-            <returns>A JToken based on a command created with the specified command name and parameters.</returns>
+            <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
         </member>
         <member name="T:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions">
             <summary>
@@ -665,14 +671,14 @@
             For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Performance/"/>.
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.DisablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.DisablePerformanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling)">
             <summary>
             Disable collecting and reporting metrics.
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.EnablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling,System.String)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.EnablePerformanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling,System.String)">
             <summary>
             Enable collecting and reporting metrics.
             </summary>
@@ -2360,6 +2366,11 @@
             Gets text value of an element.
             </summary>
             <value>String representation of element's value</value>
+        </member>
+        <member name="M:Aquality.Selenium.Elements.Interfaces.ITextBox.Clear">
+            <summary>
+            Clear element text.
+            </summary>
         </member>
         <member name="M:Aquality.Selenium.Elements.Interfaces.ITextBox.Type(System.String,System.Boolean)">
             <summary>
