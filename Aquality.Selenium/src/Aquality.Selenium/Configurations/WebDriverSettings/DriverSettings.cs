@@ -201,7 +201,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             }
         }
 
-        private void SetOptionByPropertyName(DriverOptions options, KeyValuePair<string, object> option, Exception exception)
+        private static void SetOptionByPropertyName(DriverOptions options, KeyValuePair<string, object> option, Exception exception)
         {
             var optionProperty = options
                             .GetType()
