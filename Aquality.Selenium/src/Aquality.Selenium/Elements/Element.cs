@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Elements
 
         public override ICoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder, LogElementState);
 
-        protected IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
+        protected virtual IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
 
         public JsActions JsActions => new JsActions(this, ElementType, LocalizedLogger, BrowserProfile);
 

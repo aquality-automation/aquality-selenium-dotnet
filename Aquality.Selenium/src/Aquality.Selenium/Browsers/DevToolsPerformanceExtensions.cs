@@ -18,7 +18,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <param name="devTools">Current instance of <see cref="DevToolsHandling"/>.</param>
         /// <returns>A task for asynchronous command.</returns>
-        public static async Task DisablePerfomanceMonitoring(this DevToolsHandling devTools)
+        public static async Task DisablePerformanceMonitoring(this DevToolsHandling devTools)
         {
             await devTools.SendCommand(new DisableCommandSettings());
         }
@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Browsers
         /// <param name="timeDomain">Time domain to use for collecting and reporting duration metrics.
         /// Allowed Values: timeTicks, threadTicks. </param>
         /// <returns>A task for asynchronous command.</returns>
-        public static async Task EnablePerfomanceMonitoring(this DevToolsHandling devTools, string timeDomain = null)
+        public static async Task EnablePerformanceMonitoring(this DevToolsHandling devTools, string timeDomain = null)
         {
             await devTools.SendCommand(new EnableCommandSettings { TimeDomain = timeDomain });
         }

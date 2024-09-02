@@ -237,7 +237,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                     && propertyType.IsEnumDefined(Convert.ChangeType(optionValue, Enum.GetUnderlyingType(propertyType))));
         }
 
-        private bool IsValueOfIntegralNumericType(object value)
+        private static bool IsValueOfIntegralNumericType(object value)
         {
             return value is byte || value is sbyte
                 || value is ushort || value is short
@@ -245,7 +245,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
                 || value is ulong || value is long;
         }
 
-        private bool IsPropertyNameMatchOption(string propertyName, string optionKey)
+        private static bool IsPropertyNameMatchOption(string propertyName, string optionKey)
         {
             return propertyName.Equals(optionKey, StringComparison.InvariantCultureIgnoreCase)
                 || optionKey.ToLowerInvariant().Contains(propertyName.ToLowerInvariant());

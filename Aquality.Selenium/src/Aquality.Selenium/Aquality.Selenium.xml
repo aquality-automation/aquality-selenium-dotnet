@@ -671,14 +671,14 @@
             For more information, see <see href="https://chromedevtools.github.io/devtools-protocol/tot/Performance/"/>.
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.DisablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.DisablePerformanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling)">
             <summary>
             Disable collecting and reporting metrics.
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.EnablePerfomanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling,System.String)">
+        <member name="M:Aquality.Selenium.Browsers.DevToolsPerformanceExtensions.EnablePerformanceMonitoring(Aquality.Selenium.Browsers.DevToolsHandling,System.String)">
             <summary>
             Enable collecting and reporting metrics.
             </summary>

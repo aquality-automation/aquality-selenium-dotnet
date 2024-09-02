@@ -32,7 +32,7 @@ namespace Aquality.Selenium.Browsers
             wasDevToolsSessionClosed = false;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private static ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
         /// <summary>
         /// Gets a value indicating whether a DevTools session is active.
@@ -192,7 +192,7 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private bool IsNotEmpty(JsonNode jsonNode)
+        private static bool IsNotEmpty(JsonNode jsonNode)
         {
             return jsonNode is JsonArray array ? array.Any() : (jsonNode as JsonObject).Any();
         }
