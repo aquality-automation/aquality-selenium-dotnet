@@ -86,7 +86,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.0.12" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.1.1" />
     <PackageReference Include="OpenCvSharp4.runtime.osx_arm64" Version="4.8.1-rc" />
     <PackageReference Include="WebDriverManager" Version="2.17.4" />
 	<PackageReference Include="OpenCvSharp4" Version="4.10.0.20240616" />

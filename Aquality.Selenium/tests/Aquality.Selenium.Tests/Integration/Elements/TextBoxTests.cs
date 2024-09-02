@@ -28,6 +28,33 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         }
 
         [Test]
+        public void Should_BePossibleTo_Clear_WhenWasEmpty()
+        {
+            var usernameTxb = authForm.UserNameTextBox;
+            usernameTxb.Clear();
+            Assert.That(usernameTxb.Value, Is.Empty);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_Clear_WhenWasFilled()
+        {
+            var initialText = "initial value";
+            var usernameTxb = authForm.UserNameTextBox;
+            usernameTxb.Type(initialText);
+            usernameTxb.Clear();
+            Assert.That(usernameTxb.Value, Is.Empty);
+        }
+
+        [Test]
+        public void Should_BePossibleTo_Clear_Twice()
+        {
+            var usernameTxb = authForm.UserNameTextBox;
+            usernameTxb.Clear();
+            usernameTxb.Clear();
+            Assert.That(usernameTxb.Value, Is.Empty);
+        }
+
+        [Test]
         public void Should_BePossibleTo_ClearAndType()
         {
             var initialText = "initial value";

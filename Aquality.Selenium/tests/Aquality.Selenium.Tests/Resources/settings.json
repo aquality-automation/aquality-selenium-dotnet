@@ -25,7 +25,7 @@
           "Performance": "All"
       },
       "excludedArguments": [ "enable-automation" ],
-      "startArguments": [],
+      "startArguments": [ "--disable-search-engine-choice-screen" ],
       "pageLoadStrategy": "Normal"
     },
     "firefox": {
