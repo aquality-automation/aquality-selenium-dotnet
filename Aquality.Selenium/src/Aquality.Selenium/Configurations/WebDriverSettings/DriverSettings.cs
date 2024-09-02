@@ -215,14 +215,14 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             optionProperty.SetValue(options, valueToSet);
         }
 
-        private object ParseEnumValue(Type propertyType, object optionValue)
+        private static object ParseEnumValue(Type propertyType, object optionValue)
         {
             return optionValue is string
                 ? Enum.Parse(propertyType, optionValue.ToString(), ignoreCase: true)
                 : Enum.ToObject(propertyType, Convert.ChangeType(optionValue, Enum.GetUnderlyingType(propertyType)));
         }
 
-        private bool IsEnumValue(Type propertyType, object optionValue)
+        private static bool IsEnumValue(Type propertyType, object optionValue)
         {
             var valueAsString = optionValue.ToString();
             if (!propertyType.IsEnum || string.IsNullOrEmpty(valueAsString))

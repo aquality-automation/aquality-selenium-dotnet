@@ -166,7 +166,7 @@ namespace Aquality.Selenium.Browsers
                 cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived, loggingOptions);
         }
 
-        private void LogCommand(string commandName, JsonNode commandParameters, DevToolsCommandLoggingOptions loggingOptions = null)
+        protected virtual void LogCommand(string commandName, JsonNode commandParameters, DevToolsCommandLoggingOptions loggingOptions = null)
         {
             var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Command;
             if (!logging.Enabled)
@@ -183,7 +183,7 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private void LogCommandResult(JsonNode result, DevToolsCommandLoggingOptions loggingOptions = null)
+        protected virtual void LogCommandResult(JsonNode result, DevToolsCommandLoggingOptions loggingOptions = null)
         {
             var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Result;
             if (IsNotEmpty(result) && logging.Enabled)
