@@ -73,8 +73,7 @@ namespace Aquality.Selenium.Browsers
                         var config = new OperaConfig();
                         var operaSettings = (OperaSettings)driverSettings;
                         var driverPath = new DriverManager().SetUpDriver(config, operaSettings.WebDriverVersion, operaSettings.SystemArchitecture);
-                        driverCtx = GetDriver<ChromeDriver>(
-                            () => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
+                        driverCtx = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:

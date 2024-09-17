@@ -30,7 +30,6 @@ namespace Aquality.Selenium.Browsers
         /// <summary>
         /// Instantiate browser.
         /// </summary>
-        /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
         /// <param name="driverContext">Context of the webdriver (for example: DriverService is a part of context)</param>
         public Browser(DriverContext driverContext)
         {
@@ -57,6 +56,10 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
         public WebDriver Driver { get; }
+        
+        /// <summary>
+        /// Container of WebDriver and other objects which are involved into webdriver instantiation process
+        /// </summary>
         public DriverContext DriverContext { get; }
 
         /// <summary>
