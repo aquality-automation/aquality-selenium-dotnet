@@ -28,11 +28,7 @@ namespace Aquality.Selenium.Browsers
                 try
                 {
                     var driver = new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
-                    var context = new DriverContext
-                    {
-                        Driver = driver,
-                        DriverService = null
-                    };
+                    var context = new DriverContext(driver);
                     return context;
                 }
                 catch (Exception e)

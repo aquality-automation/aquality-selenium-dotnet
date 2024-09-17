@@ -95,9 +95,8 @@ namespace Aquality.Selenium.Browsers
             {
                 var driverService = driverServiceProvider.Invoke();
                 var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
-                var context = new DriverContext
+                var context = new DriverContext(driver)
                 {
-                    Driver = driver,
                     DriverService = driverService
                 };
                 return context;
@@ -110,9 +109,8 @@ namespace Aquality.Selenium.Browsers
                 Environment.SetEnvironmentVariable(DriverVersionVariableName, currentVersion);
                 var driverService = driverServiceProvider.Invoke();
                 var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
-                var context = new DriverContext
+                var context = new DriverContext(driver)
                 {
-                    Driver = driver,
                     DriverService = driverService
                 };
                 return context;

@@ -61,9 +61,8 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
                     SetUpDriver(new());
                     var driverService = ChromeDriverService.CreateDefaultService();
                     var driver = new ChromeDriver(driverService, (ChromeOptions)driverSettings.DriverOptions);
-                    return new DriverContext
+                    return new DriverContext(driver)
                     {
-                        Driver = driver,
                         DriverService = driverService
                     };
                 }
