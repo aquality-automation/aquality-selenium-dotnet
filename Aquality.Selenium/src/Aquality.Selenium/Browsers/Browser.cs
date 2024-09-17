@@ -29,11 +29,13 @@ namespace Aquality.Selenium.Browsers
         /// Instantiate browser.
         /// </summary>
         /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
-        public Browser(WebDriver webDriver)
+        /// <param name="driverContext">Context of the webdriver (for example: DriverService is a part of context)</param>
+        public Browser(DriverContext driverContext)
         {
-            Driver = webDriver;
-            Network = new NetworkHandling(webDriver);
-            JavaScriptEngine = new JavaScriptHandling(webDriver);
+            Driver = driverContext.Driver;
+            DriverContext = driverContext;
+            Network = new NetworkHandling(driverContext.Driver);
+            JavaScriptEngine = new JavaScriptHandling(driverContext.Driver);
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
@@ -53,6 +55,7 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
         public WebDriver Driver { get; }
+        public DriverContext DriverContext { get; }
 
         /// <summary>
         /// Provides Network Handling functionality <see cref="NetworkHandling"/>

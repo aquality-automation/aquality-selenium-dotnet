@@ -32,63 +32,76 @@ namespace Aquality.Selenium.Browsers
         {
         }
 
-        protected override WebDriver Driver
+        protected override WebDriver Driver => DriverContext.Driver;
+
+        protected override DriverContext DriverContext
         {
             get
             {
                 var commandTimeout = TimeoutConfiguration.Command;
                 var browserName = BrowserProfile.BrowserName;
                 var driverSettings = BrowserProfile.DriverSettings;
-                WebDriver driver;
+                DriverContext driverCtx;
                 switch (browserName)
                 {
                     case BrowserName.Chrome:
                     case BrowserName.Yandex:
-                        driver = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(),
+                        driverCtx = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Firefox:
                         Func<DriverService> geckoServiceProvider = () =>
                         {
                             var geckoService = FirefoxDriverService.CreateDefaultService();
-                            geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled ? HostAddressDefault : geckoService.Host;
+                            geckoService.Host = ((FirefoxSettings)driverSettings).IsGeckoServiceHostDefaultEnabled
+                                ? HostAddressDefault
+                                : geckoService.Host;
                             return geckoService;
                         };
 
-                        driver = GetDriver<FirefoxDriver>(geckoServiceProvider, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
+                        driverCtx = GetDriver<FirefoxDriver>(geckoServiceProvider, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.IExplorer:
-                        driver = GetDriver<InternetExplorerDriver>(() => InternetExplorerDriverService.CreateDefaultService(),
+                        driverCtx = GetDriver<InternetExplorerDriver>(() => InternetExplorerDriverService.CreateDefaultService(),
                             (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Edge:
-                        driver = GetDriver<EdgeDriver>(() => EdgeDriverService.CreateDefaultService(),
+                        driverCtx = GetDriver<EdgeDriver>(() => EdgeDriverService.CreateDefaultService(),
                             (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Opera:
                         var config = new OperaConfig();
-                        var operaSettings = (OperaSettings) driverSettings;
+                        var operaSettings = (OperaSettings)driverSettings;
                         var driverPath = new DriverManager().SetUpDriver(config, operaSettings.WebDriverVersion, operaSettings.SystemArchitecture);
-                        driver = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
+                        driverCtx = GetDriver<ChromeDriver>(
+                            () => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:
-                        driver = GetDriver<SafariDriver>(() => SafariDriverService.CreateDefaultService(),
+                        driverCtx = GetDriver<SafariDriver>(() => SafariDriverService.CreateDefaultService(),
                             (SafariOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     default:
                         throw new NotSupportedException($"Browser [{browserName}] is not supported.");
                 }
-                return driver;
+
+                return driverCtx;
             }
         }
 
-        private WebDriver GetDriver<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
+        private DriverContext GetDriver<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
         {
             var currentBrowserVersionRegex = new Regex(CurrentBrowserVersionPattern, RegexOptions.None, TimeoutConfiguration.Condition);
             try
             {
-                return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
+                var driverService = driverServiceProvider.Invoke();
+                var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
+                var context = new DriverContext
+                {
+                    Driver = driver,
+                    DriverService = driverService
+                };
+                return context;
             }
             catch (TargetInvocationException exception)
             when (exception.InnerException != null && currentBrowserVersionRegex.IsMatch(exception.InnerException.Message))
@@ -96,7 +109,14 @@ namespace Aquality.Selenium.Browsers
                 Logger.Instance.Debug(exception.InnerException.Message, exception);
                 var currentVersion = currentBrowserVersionRegex.Match(exception.InnerException.Message).Groups[1].Value;
                 Environment.SetEnvironmentVariable(DriverVersionVariableName, currentVersion);
-                return (T)Activator.CreateInstance(typeof(T), driverServiceProvider.Invoke(), driverOptions, commandTimeout);
+                var driverService = driverServiceProvider.Invoke();
+                var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
+                var context = new DriverContext
+                {
+                    Driver = driver,
+                    DriverService = driverService
+                };
+                return context;
             }
         }
     }
