@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Logging;
-using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.DevTools;
@@ -8,6 +7,8 @@ using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Aquality.Selenium.Browsers
             wasDevToolsSessionClosed = false;
         }
 
-        private ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+        private static ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
 
         /// <summary>
         /// Gets a value indicating whether a DevTools session is active.
@@ -114,9 +115,9 @@ namespace Aquality.Selenium.Browsers
         {
             if (devToolsProvider is ChromiumDriver driver)
             {
-                LogCommand(commandName, JToken.FromObject(commandParameters), loggingOptions);
+                LogCommand(commandName, JsonSerializer.SerializeToNode(commandParameters), loggingOptions);
                 var result = driver.ExecuteCdpCommand(commandName, commandParameters);
-                var formattedResult = JToken.FromObject(result);
+                var formattedResult = JsonSerializer.SerializeToNode(result);
                 LogCommandResult(formattedResult, loggingOptions);
                 return result;
             }
@@ -130,17 +131,17 @@ namespace Aquality.Selenium.Browsers
         /// Sends the specified command and returns the associated command response.
         /// </summary>
         /// <param name="commandName">The name of the command to send.</param>
-        /// <param name="commandParameters">The parameters of the command as a JToken object.</param>
+        /// <param name="commandParameters">The parameters of the command as a JsonNode object.</param>
         /// <param name="cancellationToken">A CancellationToken object to allow for cancellation of the command.</param>
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <param name="loggingOptions">Logging preferences.</param>
-        /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
-        public async Task<JToken> SendCommand(string commandName, JToken commandParameters = null, 
+        /// <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
+        public async Task<JsonNode> SendCommand(string commandName, JsonNode commandParameters = null, 
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true, 
             DevToolsCommandLoggingOptions loggingOptions = null)
         {
-            var parameters = commandParameters ?? new JObject();
+            var parameters = commandParameters ?? new JsonObject();
             LogCommand(commandName, parameters, loggingOptions);
             var result = await devToolsProvider.GetDevToolsSession()
                 .SendCommand(commandName, parameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
@@ -156,23 +157,23 @@ namespace Aquality.Selenium.Browsers
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <param name="loggingOptions">Logging preferences.</param>
-        /// <returns>A JToken based on a command created with the specified command name and parameters.</returns>
-        public async Task<JToken> SendCommand(ICommand commandWithParameters,
+        /// <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
+        public async Task<JsonNode> SendCommand(ICommand commandWithParameters,
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true, 
             DevToolsCommandLoggingOptions loggingOptions = null)
         {
-            return await SendCommand(commandWithParameters.CommandName, JToken.FromObject(commandWithParameters), 
+            return await SendCommand(commandWithParameters.CommandName, JsonSerializer.SerializeToNode(commandWithParameters, commandWithParameters.GetType()), 
                 cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived, loggingOptions);
         }
 
-        private void LogCommand(string commandName, JToken commandParameters, DevToolsCommandLoggingOptions loggingOptions = null)
+        protected virtual void LogCommand(string commandName, JsonNode commandParameters, DevToolsCommandLoggingOptions loggingOptions = null)
         {
             var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Command;
             if (!logging.Enabled)
             {
                 return;
             }
-            if (commandParameters.Any())
+            if (IsNotEmpty(commandParameters))
             {
                 Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute.withparams", commandName, commandParameters.ToString());
             }
@@ -182,13 +183,18 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private void LogCommandResult(JToken result, DevToolsCommandLoggingOptions loggingOptions = null)
+        protected virtual void LogCommandResult(JsonNode result, DevToolsCommandLoggingOptions loggingOptions = null)
         {
             var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Result;
-            if (result.Any() && logging.Enabled)
+            if (IsNotEmpty(result) && logging.Enabled)
             {
                 Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute.result", result.ToString());
             }
+        }
+
+        private static bool IsNotEmpty(JsonNode jsonNode)
+        {
+            return jsonNode is JsonArray array ? array.Any() : (jsonNode as JsonObject).Any();
         }
     }
 }

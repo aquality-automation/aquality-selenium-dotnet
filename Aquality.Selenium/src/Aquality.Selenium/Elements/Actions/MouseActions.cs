@@ -6,6 +6,7 @@ using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Configurations;
+using static OpenQA.Selenium.Interactions.WheelInputDevice;
 
 namespace Aquality.Selenium.Elements.Actions
 {
@@ -49,12 +50,45 @@ namespace Aquality.Selenium.Elements.Actions
         }
 
         /// <summary>
-        /// Perfroms right click on element.
+        /// Performs right click on element.
         /// </summary>
         public void RightClick()
         {
             LogElementAction("loc.clicking.right");
             elementActionsRetrier.DoWithRetry(() => PerformAction(element => MoveToElement(element).ContextClick(element)));
+        }
+
+        /// <summary>
+        /// Scrolling page to the element.
+        /// </summary>
+        public void ScrollToElement()
+        {
+            LogElementAction("loc.scrolling");
+            elementActionsRetrier.DoWithRetry(() => PerformAction(element => new SeleniumActions(AqualityServices.Browser.Driver).ScrollToElement(element)));
+        }
+
+        /// <summary>
+        /// Scrolling page from an element.
+        /// </summary>
+        public void ScrollFromOrigin(int x, int y, int? xOffset = null, int? yOffset = null)
+        {
+            LogElementAction("loc.scrolling.by", x, y);
+            elementActionsRetrier.DoWithRetry(() =>
+            {
+                var scrollOrigin = new ScrollOrigin
+                {
+                    Element = element.GetElement()
+                };
+                if (xOffset != null)
+                {
+                    scrollOrigin.XOffset = xOffset.Value;
+                }
+                if (yOffset != null)
+                {
+                    scrollOrigin.YOffset = yOffset.Value;
+                }
+                AqualityServices.Browser.ScrollFromOrigin(scrollOrigin, x, y);
+            });
         }
 
         /// <summary>
@@ -79,7 +113,7 @@ namespace Aquality.Selenium.Elements.Actions
                     .MoveToElement(element, -element.Size.Width / 2, -element.Size.Height / 2)));
         }
 
-        private SeleniumActions MoveToElement(IWebElement element)
+        private static SeleniumActions MoveToElement(IWebElement element)
         {
             return new SeleniumActions(AqualityServices.Browser.Driver).MoveToElement(element);
         }

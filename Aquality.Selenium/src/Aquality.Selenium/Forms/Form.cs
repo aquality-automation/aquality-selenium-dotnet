@@ -87,6 +87,16 @@ namespace Aquality.Selenium.Forms
         /// <param name="y">vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
+            FormElement.MouseActions.ScrollFromOrigin(x, y);
+        }
+
+        /// <summary>
+        /// Scroll form via JavaScript without scrolling entire page
+        /// </summary>
+        /// <param name="x">horizontal coordinate</param>
+        /// <param name="y">vertical coordinate</param>
+        public void ScrollByJs(int x, int y)
+        {
             FormElement.JsActions.ScrollBy(x, y);
         }
     }

@@ -29,9 +29,9 @@ namespace Aquality.Selenium.Elements.Actions
             Logger = logger;
         }
 
-        private Browser Browser => AqualityServices.Browser;
+        private static Browser Browser => AqualityServices.Browser;
 
-        private IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
+        private static IElementActionRetrier ActionRetrier => AqualityServices.Get<IElementActionRetrier>();
 
         protected ILocalizedLogger Logger { get; }
 
@@ -93,7 +93,7 @@ namespace Aquality.Selenium.Elements.Actions
         /// <param name="y">Vertical coordinate</param>
         public void ScrollBy(int x, int y)
         {
-            LogElementAction("loc.scrolling.js");
+            LogElementAction("loc.scrolling.by.js", x, y);
             ExecuteScript(JavaScript.ScrollBy, x, y);
         }
 

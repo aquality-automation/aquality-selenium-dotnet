@@ -12,6 +12,11 @@
         string Value { get; }
 
         /// <summary>
+        /// Clear element text.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// Type text in an element.
         /// </summary>
         /// <param name="value">Text to type.</param>

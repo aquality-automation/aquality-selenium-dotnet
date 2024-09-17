@@ -4,7 +4,6 @@ using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {

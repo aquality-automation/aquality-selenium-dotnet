@@ -16,7 +16,6 @@ using CoreElement = Aquality.Selenium.Core.Elements.Element;
 using ICoreElementFactory = Aquality.Selenium.Core.Elements.Interfaces.IElementFactory;
 using ICoreElementFinder = Aquality.Selenium.Core.Elements.Interfaces.IElementFinder;
 using ICoreElementStateProvider = Aquality.Selenium.Core.Elements.Interfaces.IElementStateProvider;
-using System.Collections.Generic;
 
 namespace Aquality.Selenium.Elements
 {
@@ -31,7 +30,7 @@ namespace Aquality.Selenium.Elements
 
         public override ICoreElementStateProvider State => new ElementStateProvider(Locator, ConditionalWait, Finder, LogElementState);
 
-        protected IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
+        protected virtual IBrowserProfile BrowserProfile => AqualityServices.Get<IBrowserProfile>();
 
         public JsActions JsActions => new JsActions(this, ElementType, LocalizedLogger, BrowserProfile);
 

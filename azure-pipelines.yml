@@ -15,11 +15,12 @@ stages:
     displayName: Analyse code with SonarQube
 
     steps:
-    - task: SonarCloudPrepare@1
+    - task: SonarCloudPrepare@2
       displayName: 'Prepare SonarCloud analysis'
       inputs:
         SonarCloud: 'SonarCloud'
         organization: 'aqualityautomation'
+        scannerMode: 'MSBuild'
         projectKey: 'aquality-automation_aquality-selenium-dotnet'
         projectName: 'aquality-selenium-dotnet'
         projectVersion: '$(Build.BuildNumber)'
@@ -35,12 +36,16 @@ stages:
         projects: Aquality.Selenium/Aquality.Selenium.sln
         arguments: -c $(buildConfiguration)      
 
-    - task: SonarCloudAnalyze@1
+    - task: SonarCloudAnalyze@2
       displayName: 'Run SonarCloud code analysis'
       continueOnError: true
+      inputs:
+        jdkversion: 'JAVA_HOME_17_X64'
 
-    - task: SonarCloudPublish@1
+    - task: SonarCloudPublish@2
       displayName: 'Publish SonarCloud quality gate results'
+      inputs:
+        pollingTimeoutSec: '300'
 
   - job: tests
     displayName: Run tests
