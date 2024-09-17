@@ -258,5 +258,12 @@ namespace Aquality.Selenium.Tests.Integration
             var downloadDir = AqualityServices.Browser.DownloadDirectory;
             Assert.That(downloadDir.ToLower().Contains("downloads", StringComparison.InvariantCultureIgnoreCase));
         }
+
+        [Test]
+        public void Should_BePossibleTo_GetAccessToDriverContext()
+        {
+            var driverProcessId = AqualityServices.Browser.DriverContext.DriverService?.ProcessId;
+            Assert.That(driverProcessId, Is.Not.EqualTo(0));
+        }
     }
 }
