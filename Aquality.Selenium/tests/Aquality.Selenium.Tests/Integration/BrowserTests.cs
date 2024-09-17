@@ -263,7 +263,7 @@ namespace Aquality.Selenium.Tests.Integration
         public void Should_BePossibleTo_GetAccessToDriverContext()
         {
             var driverProcessId = AqualityServices.Browser.DriverContext.DriverService?.ProcessId;
-            Assert.That(driverProcessId, Is.Not.EqualTo(0));
+            Assert.That(driverProcessId, Is.Not.Null.And.Not.EqualTo(0), "DriverProcessId should not be null or zero.");
         }
     }
 }
