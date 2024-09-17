@@ -93,12 +93,7 @@ namespace Aquality.Selenium.Browsers
             var currentBrowserVersionRegex = new Regex(CurrentBrowserVersionPattern, RegexOptions.None, TimeoutConfiguration.Condition);
             try
             {
-                var driverService = driverServiceProvider.Invoke();
-                var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
-                var context = new DriverContext(driver)
-                {
-                    DriverService = driverService
-                };
+                var context = CreateWebDriverInstance<T>(driverServiceProvider, driverOptions, commandTimeout);
                 return context;
             }
             catch (TargetInvocationException exception)
@@ -107,14 +102,20 @@ namespace Aquality.Selenium.Browsers
                 Logger.Instance.Debug(exception.InnerException.Message, exception);
                 var currentVersion = currentBrowserVersionRegex.Match(exception.InnerException.Message).Groups[1].Value;
                 Environment.SetEnvironmentVariable(DriverVersionVariableName, currentVersion);
-                var driverService = driverServiceProvider.Invoke();
-                var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
-                var context = new DriverContext(driver)
-                {
-                    DriverService = driverService
-                };
+                var context = CreateWebDriverInstance<T>(driverServiceProvider, driverOptions, commandTimeout);
                 return context;
             }
+        }
+
+        private DriverContext CreateWebDriverInstance<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout)  where T : WebDriver
+        {
+            var driverService = driverServiceProvider.Invoke();
+            var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
+            var context = new DriverContext(driver)
+            {
+                DriverService = driverService
+            };
+            return context;
         }
     }
 }
