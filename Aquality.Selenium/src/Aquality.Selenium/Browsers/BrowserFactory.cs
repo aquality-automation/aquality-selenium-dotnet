@@ -33,9 +33,8 @@ namespace Aquality.Selenium.Browsers
             {
                 var driverCtx = ActionRetrier.DoWithRetry(() => DriverContext,
                     new[] { typeof(WebDriverException), typeof(InvalidOperationException) });
-                
-                Browser browser;
-                browser = driverCtx != null 
+
+                var browser = driverCtx != null 
                     ? new Browser(driverCtx.Driver, driverCtx.DriverService) 
                     : new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException), typeof(InvalidOperationException) }));
                 
