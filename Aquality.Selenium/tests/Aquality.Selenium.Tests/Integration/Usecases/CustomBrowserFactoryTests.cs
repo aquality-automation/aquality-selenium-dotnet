@@ -52,22 +52,16 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             {
             }
 
-            protected override WebDriver Driver => DriverContext.Driver;
-
-            protected override DriverContext DriverContext {
+            protected override WebDriver Driver
+            {
                 get
                 {
                     var driverSettings = BrowserProfile.DriverSettings;
                     SetUpDriver(new());
-                    var driverService = ChromeDriverService.CreateDefaultService();
-                    var driver = new ChromeDriver(driverService, (ChromeOptions)driverSettings.DriverOptions);
-                    return new DriverContext(driver)
-                    {
-                        DriverService = driverService
-                    };
+                    return new ChromeDriver((ChromeOptions)driverSettings.DriverOptions);
                 }
             }
-
+            
             private static void SetUpDriver(ChromeConfig driverConfig)
             {
                 var architecture = ArchitectureHelper.GetArchitecture();

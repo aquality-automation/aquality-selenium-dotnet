@@ -66,11 +66,12 @@
             Provides functionality to work with browser via Selenium WebDriver.  
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(Aquality.Selenium.Browsers.DriverContext)">
+        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(OpenQA.Selenium.WebDriver,OpenQA.Selenium.DriverService)">
             <summary>
             Instantiate browser.
             </summary>
-            <param name="driverContext">Context of the webdriver (for example: DriverService is a part of context)</param>
+            <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
+            <param name="driverService">Exposes the service provided by a native WebDriver server executable.</param>
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.Driver">
             <summary>
@@ -78,9 +79,9 @@
             </summary>
             <value>Instance of Selenium WebDriver for desired web browser.</value>
         </member>
-        <member name="P:Aquality.Selenium.Browsers.Browser.DriverContext">
+        <member name="P:Aquality.Selenium.Browsers.Browser.DriverService">
             <summary>
-            Container of WebDriver and other objects which are involved into webdriver instantiation process
+            Exposes the service provided by a native WebDriver server executable.
             </summary>
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.Network">

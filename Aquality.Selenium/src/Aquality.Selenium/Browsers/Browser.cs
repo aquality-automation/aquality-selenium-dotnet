@@ -26,17 +26,19 @@ namespace Aquality.Selenium.Browsers
 
         private readonly IBrowserProfile browserProfile;
         private readonly IConditionalWait conditionalWait;
+        private readonly DriverService driverService;
 
         /// <summary>
         /// Instantiate browser.
         /// </summary>
-        /// <param name="driverContext">Context of the webdriver (for example: DriverService is a part of context)</param>
-        public Browser(DriverContext driverContext)
+        /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
+        /// <param name="driverService">Exposes the service provided by a native WebDriver server executable.</param>
+        public Browser(WebDriver webDriver, DriverService driverService = null)
         {
-            Driver = driverContext.Driver;
-            DriverContext = driverContext;
-            Network = new NetworkHandling(driverContext.Driver);
-            JavaScriptEngine = new JavaScriptHandling(driverContext.Driver);
+            Driver = webDriver;
+            this.driverService = driverService;
+            Network = new NetworkHandling(webDriver);
+            JavaScriptEngine = new JavaScriptHandling(webDriver);
             Logger = AqualityServices.LocalizedLogger;
             LocalizationManager = AqualityServices.Get<ILocalizationManager>();
             browserProfile = AqualityServices.Get<IBrowserProfile>();
@@ -58,9 +60,21 @@ namespace Aquality.Selenium.Browsers
         public WebDriver Driver { get; }
         
         /// <summary>
-        /// Container of WebDriver and other objects which are involved into webdriver instantiation process
+        /// Exposes the service provided by a native WebDriver server executable.
         /// </summary>
-        public DriverContext DriverContext { get; }
+        public DriverService DriverService
+        {
+            get
+            {
+                if (driverService != null)
+                {
+                    return driverService;
+                }
+
+                throw new InvalidOperationException("DriverService hasn't been provided during Browser instantiation." +
+                                                    "\nPlease, check your BrowserFactory if it passes DriverService during the Browser instantiation.");
+            }
+        }
 
         /// <summary>
         /// Provides Network Handling functionality <see cref="NetworkHandling"/>

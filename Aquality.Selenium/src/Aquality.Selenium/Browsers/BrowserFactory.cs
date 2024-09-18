@@ -25,14 +25,20 @@ namespace Aquality.Selenium.Browsers
         protected ILocalizedLogger LocalizedLogger { get; }
 
         protected abstract WebDriver Driver { get; }
-        protected abstract DriverContext DriverContext { get; }
+        protected virtual DriverContext DriverContext { get; }
 
         public virtual Browser Browser
         {
             get
             {
-                var driverCtx = ActionRetrier.DoWithRetry(() => DriverContext, new[] { typeof(WebDriverException), typeof(InvalidOperationException) });
-                var browser = new Browser(driverCtx);
+                var driverCtx = ActionRetrier.DoWithRetry(() => DriverContext,
+                    new[] { typeof(WebDriverException), typeof(InvalidOperationException) });
+                
+                Browser browser;
+                browser = driverCtx != null 
+                    ? new Browser(driverCtx.Driver, driverCtx.DriverService) 
+                    : new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException), typeof(InvalidOperationException) }));
+                
                 LocalizedLogger.Info("loc.browser.ready", BrowserProfile.BrowserName);
                 return browser;
             }
