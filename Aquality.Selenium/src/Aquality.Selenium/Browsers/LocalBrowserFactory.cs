@@ -46,7 +46,7 @@ namespace Aquality.Selenium.Browsers
                 {
                     case BrowserName.Chrome:
                     case BrowserName.Yandex:
-                        driverCtx = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(),
+                        driverCtx = GetDriverContext<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Firefox:
@@ -59,25 +59,25 @@ namespace Aquality.Selenium.Browsers
                             return geckoService;
                         };
 
-                        driverCtx = GetDriver<FirefoxDriver>(geckoServiceProvider, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
+                        driverCtx = GetDriverContext<FirefoxDriver>(geckoServiceProvider, (FirefoxOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.IExplorer:
-                        driverCtx = GetDriver<InternetExplorerDriver>(() => InternetExplorerDriverService.CreateDefaultService(),
+                        driverCtx = GetDriverContext<InternetExplorerDriver>(() => InternetExplorerDriverService.CreateDefaultService(),
                             (InternetExplorerOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Edge:
-                        driverCtx = GetDriver<EdgeDriver>(() => EdgeDriverService.CreateDefaultService(),
+                        driverCtx = GetDriverContext<EdgeDriver>(() => EdgeDriverService.CreateDefaultService(),
                             (EdgeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Opera:
                         var config = new OperaConfig();
                         var operaSettings = (OperaSettings)driverSettings;
                         var driverPath = new DriverManager().SetUpDriver(config, operaSettings.WebDriverVersion, operaSettings.SystemArchitecture);
-                        driverCtx = GetDriver<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
+                        driverCtx = GetDriverContext<ChromeDriver>(() => ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(driverPath), config.GetBinaryName()),
                             (ChromeOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     case BrowserName.Safari:
-                        driverCtx = GetDriver<SafariDriver>(() => SafariDriverService.CreateDefaultService(),
+                        driverCtx = GetDriverContext<SafariDriver>(() => SafariDriverService.CreateDefaultService(),
                             (SafariOptions)driverSettings.DriverOptions, commandTimeout);
                         break;
                     default:
@@ -88,7 +88,7 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private DriverContext GetDriver<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
+        private DriverContext GetDriverContext<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout) where T : WebDriver
         {
             var currentBrowserVersionRegex = new Regex(CurrentBrowserVersionPattern, RegexOptions.None, TimeoutConfiguration.Condition);
             try
