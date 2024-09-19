@@ -107,7 +107,7 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        private DriverContext CreateWebDriverInstance<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout)  where T : WebDriver
+        private static DriverContext CreateWebDriverInstance<T>(Func<DriverService> driverServiceProvider, DriverOptions driverOptions, TimeSpan commandTimeout)  where T : WebDriver
         {
             var driverService = driverServiceProvider.Invoke();
             var driver = (T)Activator.CreateInstance(typeof(T), driverService, driverOptions, commandTimeout);
