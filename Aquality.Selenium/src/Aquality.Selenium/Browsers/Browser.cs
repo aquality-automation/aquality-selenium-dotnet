@@ -72,7 +72,7 @@ namespace Aquality.Selenium.Browsers
                 }
 
                 throw new InvalidOperationException("DriverService hasn't been provided during Browser instantiation." +
-                                                    "\nPlease, check your BrowserFactory if it passes DriverService during the Browser instantiation.");
+                                                    Environment.NewLine + "Please, check your BrowserFactory if it passes DriverService during the Browser instantiation.");
             }
         }
 
