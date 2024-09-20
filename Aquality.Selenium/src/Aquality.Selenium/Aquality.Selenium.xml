@@ -66,17 +66,23 @@
             Provides functionality to work with browser via Selenium WebDriver.  
             </summary>
         </member>
-        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(OpenQA.Selenium.WebDriver)">
+        <member name="M:Aquality.Selenium.Browsers.Browser.#ctor(OpenQA.Selenium.WebDriver,OpenQA.Selenium.DriverService)">
             <summary>
             Instantiate browser.
             </summary>
             <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
+            <param name="driverService">Exposes the service provided by a native WebDriver server executable.</param>
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.Driver">
             <summary>
             Gets instance of Selenium WebDriver.
             </summary>
             <value>Instance of Selenium WebDriver for desired web browser.</value>
+        </member>
+        <member name="P:Aquality.Selenium.Browsers.Browser.DriverService">
+            <summary>
+            Exposes the service provided by a native WebDriver server executable.
+            </summary>
         </member>
         <member name="P:Aquality.Selenium.Browsers.Browser.Network">
             <summary>

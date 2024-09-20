@@ -26,14 +26,17 @@ namespace Aquality.Selenium.Browsers
 
         private readonly IBrowserProfile browserProfile;
         private readonly IConditionalWait conditionalWait;
+        private readonly DriverService driverService;
 
         /// <summary>
         /// Instantiate browser.
         /// </summary>
         /// <param name="webDriver">Instance of Selenium WebDriver for desired web browser.</param>
-        public Browser(WebDriver webDriver)
+        /// <param name="driverService">Exposes the service provided by a native WebDriver server executable.</param>
+        public Browser(WebDriver webDriver, DriverService driverService = null)
         {
             Driver = webDriver;
+            this.driverService = driverService;
             Network = new NetworkHandling(webDriver);
             JavaScriptEngine = new JavaScriptHandling(webDriver);
             Logger = AqualityServices.LocalizedLogger;
@@ -55,6 +58,23 @@ namespace Aquality.Selenium.Browsers
         /// </summary>
         /// <value>Instance of Selenium WebDriver for desired web browser.</value>
         public WebDriver Driver { get; }
+        
+        /// <summary>
+        /// Exposes the service provided by a native WebDriver server executable.
+        /// </summary>
+        public DriverService DriverService
+        {
+            get
+            {
+                if (driverService != null)
+                {
+                    return driverService;
+                }
+
+                throw new InvalidOperationException("DriverService hasn't been provided during Browser instantiation." +
+                                                    Environment.NewLine + "Please, check your BrowserFactory if it passes DriverService during the Browser instantiation.");
+            }
+        }
 
         /// <summary>
         /// Provides Network Handling functionality <see cref="NetworkHandling"/>

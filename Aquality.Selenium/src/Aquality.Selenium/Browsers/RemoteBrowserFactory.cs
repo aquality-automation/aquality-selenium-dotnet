@@ -17,7 +17,9 @@ namespace Aquality.Selenium.Browsers
         {
         }
 
-        protected override WebDriver Driver
+        protected override WebDriver Driver => DriverContext.Driver;
+
+        protected override DriverContext DriverContext
         {
             get
             {
@@ -25,7 +27,9 @@ namespace Aquality.Selenium.Browsers
                 var capabilities = BrowserProfile.DriverSettings.DriverOptions.ToCapabilities();
                 try
                 {
-                    return new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
+                    var driver = new RemoteWebDriver(BrowserProfile.RemoteConnectionUrl, capabilities, TimeoutConfiguration.Command);
+                    var context = new DriverContext(driver, null);
+                    return context;
                 }
                 catch (Exception e)
                 {
