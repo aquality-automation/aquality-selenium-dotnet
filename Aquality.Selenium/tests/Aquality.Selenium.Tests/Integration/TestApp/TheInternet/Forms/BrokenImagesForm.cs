@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Aquality.Selenium.Support.Locators;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
