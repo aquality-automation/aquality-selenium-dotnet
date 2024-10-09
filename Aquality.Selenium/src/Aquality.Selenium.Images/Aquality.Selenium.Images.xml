@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Aquality.Selenium.Images</name>
+    </assembly>
+    <members>
+        <member name="T:Aquality.Selenium.Images.Locators.ByImage">
+            <summary>
+            Locator to search elements by image.
+            Takes screenshot and finds match using openCV.
+            Then finds elements by coordinates using JavaScript.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Images.Locators.ByImage.#ctor(System.IO.FileInfo)">
+            <summary>
+            Constructor accepting image file.
+            </summary>
+            <param name="file">Image file to locate element by.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Images.Locators.ByImage.#ctor(System.Byte[])">
+            <summary>
+            Constructor accepting image bytes.
+            </summary>
+            <param name="bytes">Image bytes to locate element by.</param>
+        </member>
+        <member name="P:Aquality.Selenium.Images.Locators.ByImage.Threshold">
+            <summary>
+            Threshold of image similarity.
+            Should be a float between 0 and 1, where 1 means 100% match, and 0.5 means 50% match.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Images.Locators.ByImage.GetElementOnPoint(OpenCvSharp.Point,OpenQA.Selenium.ISearchContext)">
+            <summary>
+            Gets a single element on point (find by center coordinates, then select closest to matchLocation).
+            </summary>
+            <param name="matchLocation">Location of the upper-left point of the element.</param>
+            <param name="context">Search context.
+            If the searchContext is Locatable (like WebElement), will adjust coordinates to be absolute coordinates.</param>
+            <returns>The closest found element.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Images.Locators.ByImage.DistanceToPoint(OpenCvSharp.Point,OpenQA.Selenium.IWebElement)">
+            <summary>
+            Calculates distance from element to matching point.
+            </summary>
+            <param name="matchLocation">Matching point.</param>
+            <param name="element">Target element.</param>
+            <returns>Distance in pixels.</returns>
+        </member>
+        <member name="M:Aquality.Selenium.Images.Locators.ByImage.GetScreenshot(OpenQA.Selenium.ISearchContext)">
+            <summary>
+            Takes screenshot from searchContext if supported, or from browser.
+            Performs screenshot scaling if devicePixelRatio != 1.
+            </summary>
+            <param name="context">Search context for element location.</param>
+            <returns>Captured screenshot as Mat object.</returns>
+        </member>
+    </members>
+</doc>

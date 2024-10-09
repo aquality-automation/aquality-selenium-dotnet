@@ -14,6 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
     <Copyright>Copyright 2024 Aquality Automation</Copyright>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
@@ -38,6 +39,10 @@
     <None Remove="Resources\Localization\uk.json" />
     <None Remove="Resources\settings.json" />
     <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
@@ -86,14 +91,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.1.1" />
-    <PackageReference Include="OpenCvSharp4.runtime.osx_arm64" Version="4.8.1-rc" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.1.2" />
     <PackageReference Include="WebDriverManager" Version="2.17.4" />
-	<PackageReference Include="OpenCvSharp4" Version="4.10.0.20240616" />
-	<PackageReference Include="OpenCvSharp4.runtime.linux-arm" Version="4.10.0.20240616" />
-	<PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20230105" />
-	<PackageReference Include="OpenCvSharp4.runtime.win" Version="4.10.0.20240616" />
-	<PackageReference Include="OpenCvSharp4_.runtime.ubuntu.20.04-x64" Version="4.10.0.20240616" />
   </ItemGroup>
 
 </Project>

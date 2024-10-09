@@ -10,7 +10,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.Browser.Forms
     {
         private const string Address = "chrome://downloads/";
 
-        public static By NestedShadowRootLocator => By.Id("moreActionsMenu");
+        public static By NestedShadowRootLocator => By.CssSelector("cr-toolbar");
         public ILabel DownloadsToolbarLabel => FormElement.FindElementInShadowRoot<ILabel>(By.CssSelector("downloads-toolbar"), "Downloads toolbar");
         public IList<ILabel> DivElementLabels => FormElement.FindElementsInShadowRoot<ILabel>(By.CssSelector("div"), "div");
         public IList<ILabel> MainContainerLabels => FormElement.FindElementsInShadowRoot<ILabel>(By.Id("mainContainer"), "main container");

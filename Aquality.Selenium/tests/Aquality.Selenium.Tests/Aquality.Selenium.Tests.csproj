@@ -34,10 +34,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Aquality.Selenium.Images\Aquality.Selenium.Images.csproj" />
     <ProjectReference Include="..\..\src\Aquality.Selenium\Aquality.Selenium.csproj" />
   </ItemGroup>
 
