@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Aquality.Selenium.Support\Aquality.Selenium.Support.csproj" />
+    <ProjectReference Include="..\..\src\Aquality.Selenium.Images\Aquality.Selenium.Images.csproj" />
     <ProjectReference Include="..\..\src\Aquality.Selenium\Aquality.Selenium.csproj" />
   </ItemGroup>
 

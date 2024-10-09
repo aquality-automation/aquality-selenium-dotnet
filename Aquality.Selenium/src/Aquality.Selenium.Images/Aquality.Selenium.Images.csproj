@@ -6,8 +6,8 @@
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <Authors>aquality automation committers</Authors>
 	  <Company>aquality automation</Company>
-	  <Description>Support classes for Aquality.Selenium, such as ByImage locator</Description>
-	  <PackageDescription>Support classes for Aquality.Selenium, such as ByImage locator</PackageDescription>
+	  <Description>Support classes to work with Images in Aquality.Selenium, such as ByImage locator</Description>
+	  <PackageDescription>Support classes to work with Images in Aquality.Selenium, such as ByImage locator</PackageDescription>
 	  <PackageLicenseExpression></PackageLicenseExpression>
 	  <RepositoryUrl>https://github.com/aquality-automation/aquality-selenium-dotnet</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-	  <DocumentationFile>Aquality.Selenium.Support.xml</DocumentationFile>
+	  <DocumentationFile>Aquality.Selenium.Images.xml</DocumentationFile>
 	  <NoWarn>1591</NoWarn>
   </PropertyGroup>
 

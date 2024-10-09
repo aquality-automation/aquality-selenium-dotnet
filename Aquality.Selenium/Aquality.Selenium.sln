@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquality.Selenium.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{999ED05C-B034-45A1-8F11-2B519C308250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquality.Selenium.Support", "src\Aquality.Selenium.Support\Aquality.Selenium.Support.csproj", "{72EB3821-6AB9-465C-9B88-D878D677C754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquality.Selenium.Images", "src\Aquality.Selenium.Images\Aquality.Selenium.Images.csproj", "{72EB3821-6AB9-465C-9B88-D878D677C754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
