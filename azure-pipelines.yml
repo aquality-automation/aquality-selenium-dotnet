@@ -80,7 +80,7 @@ stages:
         useConfigFile: true
         configFilePath: 'GitVersion.yml'
        
-    - script: dotnet pack Aquality.Selenium\src\Aquality.Selenium\Aquality.Selenium.csproj -c $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersion) -o $(Build.ArtifactStagingDirectory)
+    - script: dotnet pack Aquality.Selenium\Aquality.Selenium.sln -c $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersion) -o $(Build.ArtifactStagingDirectory)
       displayName: 'Pack to NuGet package'
 
     - task: GitHubRelease@0
