@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
-namespace Aquality.Selenium.Support.Locators
+namespace Aquality.Selenium.Images.Locators
 {
     /// <summary>
     /// Locator to search elements by image.
