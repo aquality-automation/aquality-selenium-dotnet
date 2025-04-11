@@ -14,7 +14,7 @@
 	  <PackageTags>selenium webdriver browser automation image locator</PackageTags>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <Copyright>Copyright 2024 Aquality Automation</Copyright>
+	  <Copyright>Copyright 2025 Aquality Automation</Copyright>
 	  <IsPackable>true</IsPackable>
   </PropertyGroup>
 

@@ -15,7 +15,7 @@
     <PackageTags>selenium webdriver browser automation</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright 2024 Aquality Automation</Copyright>
+    <Copyright>Copyright 2025 Aquality Automation</Copyright>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -91,8 +91,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.1.3" />
-    <PackageReference Include="WebDriverManager" Version="2.17.4" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.2.1" />
+    <PackageReference Include="WebDriverManager" Version="2.17.5" />
   </ItemGroup>
 
 </Project>
