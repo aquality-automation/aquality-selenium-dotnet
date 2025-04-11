@@ -117,7 +117,7 @@ namespace Aquality.Selenium.Browsers
             {
                 LogCommand(commandName, JsonSerializer.SerializeToNode(commandParameters), loggingOptions);
                 var result = driver.ExecuteCdpCommand(commandName, commandParameters);
-                var formattedResult = JsonSerializer.SerializeToNode(result);
+                var formattedResult = JsonSerializer.SerializeToElement(result);
                 LogCommandResult(formattedResult, loggingOptions);
                 return result;
             }
@@ -136,8 +136,8 @@ namespace Aquality.Selenium.Browsers
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <param name="loggingOptions">Logging preferences.</param>
-        /// <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
-        public async Task<JsonNode> SendCommand(string commandName, JsonNode commandParameters = null, 
+        /// <returns>A JsonElement? based on a command created with the specified command name and parameters.</returns>
+        public async Task<JsonElement?> SendCommand(string commandName, JsonNode commandParameters = null, 
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true, 
             DevToolsCommandLoggingOptions loggingOptions = null)
         {
@@ -157,8 +157,8 @@ namespace Aquality.Selenium.Browsers
         /// <param name="millisecondsTimeout">The execution timeout of the command in milliseconds.</param>
         /// <param name="throwExceptionIfResponseNotReceived"><see langword="true"/> to throw an exception if a response is not received; otherwise, <see langword="false"/>.</param>
         /// <param name="loggingOptions">Logging preferences.</param>
-        /// <returns>A JsonNode based on a command created with the specified command name and parameters.</returns>
-        public async Task<JsonNode> SendCommand(ICommand commandWithParameters,
+        /// <returns>A JsonElement? based on a command created with the specified command name and parameters.</returns>
+        public async Task<JsonElement?> SendCommand(ICommand commandWithParameters,
             CancellationToken cancellationToken = default, int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true, 
             DevToolsCommandLoggingOptions loggingOptions = null)
         {
@@ -183,12 +183,37 @@ namespace Aquality.Selenium.Browsers
             }
         }
 
-        protected virtual void LogCommandResult(JsonNode result, DevToolsCommandLoggingOptions loggingOptions = null)
+        protected virtual void LogCommandResult(JsonElement? result, DevToolsCommandLoggingOptions loggingOptions = null)
         {
             var logging = (loggingOptions ?? new DevToolsCommandLoggingOptions()).Result;
             if (IsNotEmpty(result) && logging.Enabled)
             {
                 Logger.LogByLevel(logging.LogLevel, "loc.browser.devtools.command.execute.result", result.ToString());
+            }
+        }
+
+        private static bool IsNotEmpty(JsonElement? jsonElement)
+        {
+            if (!jsonElement.HasValue)
+            {
+                return false;
+            }
+
+            var element = jsonElement.Value;
+            switch (element.ValueKind)
+            {
+                case JsonValueKind.Object:
+                    return element.EnumerateObject().Any();
+                case JsonValueKind.Array:
+                    return element.EnumerateArray().Any();
+                case JsonValueKind.String:
+                    return !string.IsNullOrEmpty(element.GetString());
+                case JsonValueKind.Number:
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    return true;
+                default:
+                    return false;
             }
         }
 

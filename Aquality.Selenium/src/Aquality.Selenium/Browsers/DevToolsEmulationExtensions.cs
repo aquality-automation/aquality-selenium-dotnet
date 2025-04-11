@@ -1,10 +1,11 @@
 ﻿using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V85.DOM;
-using OpenQA.Selenium.DevTools.V85.Emulation;
+using OpenQA.Selenium.DevTools.V135.DOM;
+using OpenQA.Selenium.DevTools.V135.Emulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Aquality.Selenium.Browsers
@@ -24,7 +25,10 @@ namespace Aquality.Selenium.Browsers
         public static async Task<bool> CanEmulate(this DevToolsHandling devTools)
         {
             var response = await devTools.SendCommand(new CanEmulateCommandSettings());
-            return response["result"]?.ToString().Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase) == true;
+            return response.HasValue && response.Value.TryGetProperty("result", out JsonElement resultElement)
+                && (resultElement.ValueKind == JsonValueKind.True ||
+                (resultElement.ValueKind == JsonValueKind.String &&
+                resultElement.GetString().Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase)));
         }
 
         /// <summary>

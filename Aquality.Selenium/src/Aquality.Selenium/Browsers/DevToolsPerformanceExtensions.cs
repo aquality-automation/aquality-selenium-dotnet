@@ -1,8 +1,8 @@
-﻿using OpenQA.Selenium.DevTools.V85.Performance;
+﻿using OpenQA.Selenium.DevTools.V135.Performance;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.Json.Nodes;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Aquality.Selenium.Browsers
@@ -42,9 +42,9 @@ namespace Aquality.Selenium.Browsers
         /// <returns>A task for asynchronous command with current values for run-time metrics as result.</returns>
         public static async Task<IDictionary<string, double>> GetPerformanceMetrics(this DevToolsHandling devTools)
         {
-            JsonNode result = await devTools.SendCommand(new GetMetricsCommandSettings());
-            return (result["metrics"].AsArray())
-                .ToDictionary(item => item["name"].ToString(), item => double.Parse(item["value"].ToString(), CultureInfo.InvariantCulture));
+            JsonElement? result = await devTools.SendCommand(new GetMetricsCommandSettings());
+            return (result.Value.GetProperty("metrics").EnumerateArray())
+                .ToDictionary(item => item.GetProperty("name").ToString(), item => double.Parse(item.GetProperty("value").ToString(), CultureInfo.InvariantCulture));
         }
     }
 }
