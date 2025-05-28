@@ -5,7 +5,7 @@ using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V135.Emulation;
+using OpenQA.Selenium.DevTools.V136.Emulation;
 using System;
 using System.Collections.Generic;
 
