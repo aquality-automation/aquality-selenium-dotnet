@@ -27,8 +27,14 @@ namespace Aquality.Selenium.Tests.Integration
 
             var documentByTag = AqualityServices.Get<IElementFactory>().GetLabel(By.TagName("body"), "document by tag");
             var fullThreshold = 1;
-            var documentByImage = AqualityServices.Get<IElementFactory>().GetLabel(new ByImage(documentByTag.GetElement().GetScreenshot().AsByteArray) { Threshold = fullThreshold },
+            var getDocByImage = () => AqualityServices.Get<IElementFactory>().GetLabel(new ByImage(documentByTag.GetElement().GetScreenshot().AsByteArray) { Threshold = fullThreshold },
                     "body screen");
+            ILabel documentByImage = getDocByImage();
+            AqualityServices.ConditionalWait.WaitForTrue(() =>
+            {
+                documentByImage = getDocByImage();
+                return documentByImage.State.IsDisplayed;
+            });
             Assert.That(documentByImage.State.IsDisplayed, "Should be possible to find element by document screenshot");
             Assert.That((documentByImage.Locator as ByImage)?.Threshold, Is.EqualTo(fullThreshold), "Should be possible to get ByImage threshold");
             Assert.That(documentByImage.GetElement().TagName, Is.EqualTo("body"), "Correct element must be found");
