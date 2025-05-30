@@ -5,7 +5,7 @@ using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V135.Emulation;
+using OpenQA.Selenium.DevTools.V136.Emulation;
 using System;
 using System.Collections.Generic;
 
@@ -59,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V134.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V136.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V134.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V136.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V134.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V136.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
