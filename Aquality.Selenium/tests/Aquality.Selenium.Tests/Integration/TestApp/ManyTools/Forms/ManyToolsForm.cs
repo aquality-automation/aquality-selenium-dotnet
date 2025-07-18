@@ -15,7 +15,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
         protected ManyToolsForm(By locator, string name) : base(locator, name)
         {
         }
-        private IButton AgreeButton => ElementFactory.GetButton(By.XPath("//button[@mode='primary']"), "Agree");
+
         private ILabel ValueLabel => FormElement.FindChildElement<ILabel>(By.XPath(".//code"), Name);
 
         protected abstract string UrlPart { get; }
@@ -29,13 +29,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
             AqualityServices.Get<IActionRetrier>().DoWithRetry(() =>
             {
                 AqualityServices.Browser.GoTo(Url);
-                AqualityServices.Browser.WaitForPageToLoad();
                 State.WaitForDisplayed();
-                if (AgreeButton.State.IsDisplayed)
-                {
-                    AgreeButton.Click();
-                    AgreeButton.State.WaitForNotDisplayed();
-                }
             }, new List<Type> { typeof(WebDriverTimeoutException) });
 
             return (T)this;

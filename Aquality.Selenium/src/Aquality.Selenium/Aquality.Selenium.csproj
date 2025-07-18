@@ -91,8 +91,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aquality.Selenium.Core" Version="3.3.0" />
-    <PackageReference Include="WebDriverManager" Version="2.17.5" />
+    <PackageReference Include="Aquality.Selenium.Core" Version="3.4.0" />
+    <PackageReference Include="WebDriverManager" Version="2.17.6" />
   </ItemGroup>
 
 </Project>
