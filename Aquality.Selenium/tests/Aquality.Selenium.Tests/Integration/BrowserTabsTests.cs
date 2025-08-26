@@ -142,7 +142,7 @@ namespace Aquality.Selenium.Tests.Integration
             });
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_SwitchToNewByIndex()
         {
             CheckSwitchingBy(3, () =>

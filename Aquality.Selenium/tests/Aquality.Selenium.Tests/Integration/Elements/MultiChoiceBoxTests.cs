@@ -34,7 +34,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
             Assert.That(selectMultipleForm.ValuesFromResult, Is.EqualTo(selected));
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_DeselectByValue()
         {
             var valuesToRemove = new List<string> { "volvo", "saab" };
