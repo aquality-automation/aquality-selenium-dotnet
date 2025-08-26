@@ -100,7 +100,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(currentUrl, Is.EqualTo(dynamicContentForm.Url));
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_ExecuteAsyncJavaScript()
         {
             const int expectedDurationInSeconds = 1;
@@ -226,7 +226,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(AqualityServices.Browser.BrowserName, Is.EqualTo(browserName));
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_SetImplicitWait()
         {
             var browser = AqualityServices.Browser;

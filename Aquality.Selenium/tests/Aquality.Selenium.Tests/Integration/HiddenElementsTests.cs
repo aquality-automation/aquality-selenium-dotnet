@@ -49,7 +49,7 @@ namespace Aquality.Selenium.Tests.Integration
             });
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_CheckThatHiddenElementsNotDisplayed(
             [ValueSource(nameof(ElementListProviders))] Func<ElementState, ElementsCount, IList<ILabel>> elementListProvider)
         {

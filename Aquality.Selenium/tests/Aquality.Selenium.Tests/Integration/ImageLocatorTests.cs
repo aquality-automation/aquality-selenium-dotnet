@@ -11,7 +11,7 @@ namespace Aquality.Selenium.Tests.Integration
     {
         private readonly BrokenImagesForm form = new();
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_FindByImage()
         {
             new CheckBoxesForm().Open();

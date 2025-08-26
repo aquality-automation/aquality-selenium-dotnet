@@ -8,6 +8,9 @@ namespace Aquality.Selenium.Tests.Integration
     [Parallelizable(ParallelScope.All)]
     internal class UITest
     {
+        protected const int RetriesCount = 5;
+        protected const string RetriesGroup = "Flaky";
+
         [TearDown]
         public void CleanUp()
         {

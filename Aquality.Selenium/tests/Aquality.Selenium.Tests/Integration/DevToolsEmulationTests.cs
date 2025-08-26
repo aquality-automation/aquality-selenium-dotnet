@@ -5,7 +5,7 @@ using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V136.Emulation;
+using OpenQA.Selenium.DevTools.V139.Emulation;
 using System;
 using System.Collections.Generic;
 
@@ -59,11 +59,11 @@ namespace Aquality.Selenium.Tests.Integration
         {
             void setAction(long width, long height, bool isMobile, double scaleFactor)
             {
-                var parameters = new OpenQA.Selenium.DevTools.V136.Emulation.SetDeviceMetricsOverrideCommandSettings
+                var parameters = new OpenQA.Selenium.DevTools.V138.Emulation.SetDeviceMetricsOverrideCommandSettings
                 {
-                    DisplayFeature = new OpenQA.Selenium.DevTools.V136.Emulation.DisplayFeature
+                    DisplayFeature = new OpenQA.Selenium.DevTools.V138.Emulation.DisplayFeature
                     {
-                        Orientation = OpenQA.Selenium.DevTools.V136.Emulation.DisplayFeatureOrientationValues.Horizontal
+                        Orientation = OpenQA.Selenium.DevTools.V138.Emulation.DisplayFeatureOrientationValues.Horizontal
                     },
                     Width = width,
                     Height = height,
@@ -93,7 +93,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(getWindowHeight(), Is.EqualTo(initialValue), "Browser height should match to initial value after clear");
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_SetAndClearGeoLocationOverride()
         {
             CheckGeolocationOverride(
@@ -102,7 +102,7 @@ namespace Aquality.Selenium.Tests.Integration
                 () => Assert.DoesNotThrowAsync(async () => await DevTools.ClearGeolocationOverride(), "Should be possible to clear geoLocation"));
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_SetAndClearGeoLocationOverride_ByExecutingCdpCommand()
         {
             CheckGeolocationOverride(
@@ -144,7 +144,7 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(locationForm.Longitude, Is.EqualTo(defaultLongitude), "Longitude should match to default");
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_SetUserAgentAndLanguageOverride()
         {
             var defaultLanguage = new BrowserLanguageForm().Open().Value;
