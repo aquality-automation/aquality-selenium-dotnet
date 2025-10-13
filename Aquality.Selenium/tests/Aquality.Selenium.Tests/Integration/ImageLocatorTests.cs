@@ -30,7 +30,7 @@ namespace Aquality.Selenium.Tests.Integration
             var getDocByImage = () => AqualityServices.Get<IElementFactory>().GetLabel(new ByImage(documentByTag.GetElement().GetScreenshot().AsByteArray) { Threshold = fullThreshold },
                     "body screen");
             ILabel documentByImage = getDocByImage();
-            AqualityServices.ConditionalWait.WaitForTrue(() =>
+            AqualityServices.ConditionalWait.WaitFor(() =>
             {
                 documentByImage = getDocByImage();
                 return documentByImage.State.IsDisplayed;
