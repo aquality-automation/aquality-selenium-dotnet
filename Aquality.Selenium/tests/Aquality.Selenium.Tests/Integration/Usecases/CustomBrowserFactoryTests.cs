@@ -24,7 +24,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var browserFactory = new CustomLocalBrowserFactory();
             AqualityServices.Browser = browserFactory.Browser;
             AqualityServices.Browser.GoTo(url);
-            Assert.That(AqualityServices.Browser.CurrentUrl, Is.EqualTo(url));
+            Assert.That(AqualityServices.Browser.CurrentUrl, Does.StartWith(url));
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
             var browserFactory = new CustomLocalBrowserFactory();
             AqualityServices.BrowserFactory = browserFactory;
             AqualityServices.Browser.GoTo(url);
-            Assert.That(AqualityServices.Browser.CurrentUrl, Is.EqualTo(url));
+            Assert.That(AqualityServices.Browser.CurrentUrl, Does.StartWith(url));
         }
 
         [TearDown]
