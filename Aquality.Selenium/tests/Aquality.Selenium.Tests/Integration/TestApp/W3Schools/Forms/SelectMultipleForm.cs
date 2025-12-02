@@ -12,9 +12,10 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.W3Schools.Forms
     internal class SelectMultipleForm : Form
     {
         private readonly IMultiChoiceBox carsMultiChoiceBox = ElementFactory.GetMultiChoiceBox(By.Id("cars"), "Cars");
-        private readonly IButton submitButton = ElementFactory.GetButton(By.CssSelector("input[type='submit']"), "Submit");
+        private readonly IButton submitButton = ElementFactory.GetButton(By.CssSelector("input[type=submit]"), "Submit");
         private readonly ITextBox resultTextBox = ElementFactory.GetTextBox(By.CssSelector(".w3-large"), "Result");
-        private readonly IButton acceptCookiesButton = ElementFactory.GetButton(By.Id("accept-choices"), "Accept cookies");
+        private readonly IButton acceptCookiesButton = ElementFactory.GetButton(By.CssSelector("span.fast-cmp-home-accept button"), "Accept cookies");
+        private readonly ILabel cmpContainerIframe = ElementFactory.GetLabel(By.Id("fast-cmp-iframe"), "Cookies iframe");
 
         public SelectMultipleForm() : base(By.Id("iframe"), "Select Multiple")
         {
@@ -22,11 +23,18 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.W3Schools.Forms
 
         public void AcceptCookies()
         {
+            if (cmpContainerIframe.State.WaitForExist())
+            {
+                AqualityServices.Browser.Driver.SwitchTo().Frame(cmpContainerIframe.GetElement());
+            }
+                
             if (acceptCookiesButton.State.WaitForDisplayed())
             {
                 acceptCookiesButton.Click();
                 acceptCookiesButton.State.WaitForNotDisplayed();
             }
+
+            AqualityServices.Browser.Driver.SwitchTo().DefaultContent();
         }
 
         public static void SwitchToResultFrame()
