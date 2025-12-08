@@ -478,7 +478,7 @@
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <param name="commandParameters">Version-specific set of parameters. 
-            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V142.Emulation.SetDeviceMetricsOverrideCommandSettings"/>.</param>
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V143.Emulation.SetDeviceMetricsOverrideCommandSettings"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetDeviceMetricsOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.Int64,System.Int64,System.Boolean,System.Double,System.String,System.Nullable{System.Int32})">
@@ -508,7 +508,7 @@
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <param name="commandParameters">Version-specific set of parameters. 
-            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V142.Emulation.SetUserAgentOverrideCommandSettings"/>.</param>
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V143.Emulation.SetUserAgentOverrideCommandSettings"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetUserAgentOverride(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.String,System.String)">
@@ -544,7 +544,7 @@
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <param name="commandParameters">Version-specific set of parameters. 
-            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V142.Emulation.SetTouchEmulationEnabledCommandSettings"/>.</param>
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V143.Emulation.SetTouchEmulationEnabledCommandSettings"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.SetEmulatedMedia(Aquality.Selenium.Browsers.DevToolsHandling,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
@@ -563,7 +563,7 @@
             </summary>
             <param name="devTools">Current instance of <see cref="T:Aquality.Selenium.Browsers.DevToolsHandling"/>.</param>
             <param name="commandParameters">Version-specific set of parameters. 
-            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V142.Emulation.SetEmulatedMediaCommandSettings"/>.</param>
+            For example, take a look at <see cref="T:OpenQA.Selenium.DevTools.V143.Emulation.SetEmulatedMediaCommandSettings"/>.</param>
             <returns>A task for asynchronous command.</returns>
         </member>
         <member name="M:Aquality.Selenium.Browsers.DevToolsEmulationExtensions.DisableEmulatedMediaOverride(Aquality.Selenium.Browsers.DevToolsHandling)">
