@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V143.DOM;
-using OpenQA.Selenium.DevTools.V143.Emulation;
+using OpenQA.Selenium.DevTools.V144.DOM;
+using OpenQA.Selenium.DevTools.V144.Emulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
