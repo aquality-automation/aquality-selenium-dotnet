@@ -34,7 +34,7 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             Assert.DoesNotThrow(() => AqualityServices.Browser.HandleAlert(AlertAction.Decline), "Alert should be opened after right click");
         }
 
-        [Test]
+        [Test, Category(RetriesGroup), Retry(RetriesCount)]
         public void Should_BePossibleTo_MoveToElement()
         {
             var menuForm = new JQueryMenuForm();
