@@ -8,16 +8,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
 {
     internal class LocationForm : Form
     {
-        private const string LocatorTemplate = "//div[@aria-expanded='true']//td[contains(., '{0}')]/following-sibling::td[not(contains(.,'waiting') or contains(.,'failed'))]";
-        private readonly ILabel latitudeLabel = ElementFactory.GetLabel(By.XPath(string.Format(LocatorTemplate, "Latitude")), "Latitude");
-        private readonly ILabel longitudeLabel = ElementFactory.GetLabel(By.XPath(string.Format(LocatorTemplate, "Longitude")), "Longitude");
-        private readonly IButton browserGeoLocationButton = ElementFactory.GetButton(By.XPath("//button[contains(., 'Browser Geolocation')]"), "Browser GeoLocation");
-        private readonly IButton startTestButton = ElementFactory.GetButton(By.Id("geo-test"), "Start Test");
-        private readonly IButton consentCookieInfoButton = ElementFactory.GetButton(By.XPath("//button[contains(@aria-label,'Consent')]"), "Consent cookie info");
-        private readonly IButton gotItCookieButton = ElementFactory.GetButton(By.XPath("//a[contains(@aria-label,'dismiss')] | //img[contains(@src,'close')]"), "Got it! for Google cookie");
-        private readonly IButton closeCookieSettingsButton = ElementFactory.GetButton(By.XPath("//*[contains(@class,'google-revocation-link')]//*[contains(@src,'close') or contains(@aria-label, 'lose')]"), "Close cookie settings");
-
-        public LocationForm() : base(By.Id("accordion"), "My Location")
+        private readonly ILabel latitudeLabel = ElementFactory.GetLabel(By.Id("latitude"), "Latitude");
+        private readonly ILabel longitudeLabel = ElementFactory.GetLabel(By.Id("longitude"), "Longitude");
+        private readonly IButton consentCookieInfoButton = ElementFactory.GetButton(By.XPath("//button[@aria-label='Consent' or contains(@class,'fc-cta-consent')]"), "Consent cookie info");
+      
+        public LocationForm() : base(By.XPath("//*[contains(text(),'Location')]"), "Location")
         {
         }
 
@@ -28,21 +23,12 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
                 consentCookieInfoButton.Click();
                 consentCookieInfoButton.State.WaitForNotDisplayed();
             }
-            if (gotItCookieButton.State.WaitForDisplayed())
-            {
-                gotItCookieButton.Click();
-                gotItCookieButton.State.WaitForNotDisplayed();
-            }
-            if (closeCookieSettingsButton.State.IsDisplayed)
-            {
-                closeCookieSettingsButton.Click();
-            }
         }
 
         public void DetectBrowserGeolocation()
         {
-            browserGeoLocationButton.JsActions.Click();
-            startTestButton.JsActions.Click();
+            ConditionalWait.WaitForTrue(() => latitudeLabel.State.IsDisplayed && !string.IsNullOrWhiteSpace(latitudeLabel.GetText()),
+                message: "Latitude text should be displayed & not empty");
         }
 
         public double Latitude => double.Parse(latitudeLabel.Text, CultureInfo.InvariantCulture);
