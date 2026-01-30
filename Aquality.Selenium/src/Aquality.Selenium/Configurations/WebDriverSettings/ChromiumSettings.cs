@@ -28,6 +28,11 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
             { MobileEmulationCapability, (options, value) => SetMobileEmulation((ChromiumOptions) options) }
         };
 
+        /// <summary>
+        /// Allows the Chromium browser to emulate a mobile device. Settings are gathered from capabilities.mobileEmulation path.
+        /// </summary>
+        /// <param name="options">Current options object to inject capabilities into.</param>
+        /// <exception cref="ArgumentException">Thrown if the mobileEmulation is not a dictionary, does not have a user agent string set nor the name of the device to emulate.</exception>
         protected void SetMobileEmulation(ChromiumOptions options)
         {
             var dictionary = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.capabilities.{MobileEmulationCapability}");
