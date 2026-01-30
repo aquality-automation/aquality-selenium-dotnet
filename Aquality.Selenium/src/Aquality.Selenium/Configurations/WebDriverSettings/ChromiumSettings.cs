@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chromium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Aquality.Selenium.Configurations.WebDriverSettings
 {
@@ -36,7 +37,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         protected void SetMobileEmulation(ChromiumOptions options)
         {
             var dictionary = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.capabilities.{MobileEmulationCapability}");
-            if (!dictionary.Any(pair => pair.Key.Equals("deviceName") || pair.Key.Equals("userAgent")))
+            if (!dictionary.Any(pair => new Regex("(deviceName|userAgent)").IsMatch(pair.Key)))
             {
                 throw new ArgumentException("mobileEmulation must be an object (dictionary), and have either deviceName or userAgent specified", nameof(options));
             }
