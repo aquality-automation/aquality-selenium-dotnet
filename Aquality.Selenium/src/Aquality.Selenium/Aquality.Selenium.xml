@@ -1215,6 +1215,24 @@
             </summary>
             <param name="settingsFile">JSON settings file.</param>
         </member>
+        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.ChromiumSettings">
+            <summary>
+            Settings specific for Chromium web driver.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.ChromiumSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
+            <summary>
+            Instantiates class using file with general settings.
+            </summary>
+            <param name="settingsFile">Settings file.</param>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.ChromiumSettings.SetMobileEmulation(OpenQA.Selenium.Chromium.ChromiumOptions)">
+            <summary>
+            Allows the Chromium browser to emulate a mobile device. Settings are gathered from capabilities.mobileEmulation path.
+            </summary>
+            <param name="options">Current options object to inject capabilities into.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the mobileEmulation is not a dictionary, does not have a user agent string set nor the name of the device to emulate.</exception>
+        </member>
         <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.DriverSettings">
             <summary>
             Abstract representation of web driver settings.
