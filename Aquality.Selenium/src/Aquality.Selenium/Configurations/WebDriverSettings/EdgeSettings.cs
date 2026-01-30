@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     /// <summary>
     /// Settings specific for Edge (chromium) web driver.
     /// </summary>
-    public class EdgeSettings : DriverSettings
+    public class EdgeSettings : ChromiumSettings
     {
         /// <summary>
         /// Instantiates class using JSON file with general settings.
@@ -20,7 +20,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected override BrowserName BrowserName => BrowserName.Edge;
 
-        public override string DownloadDirCapabilityKey => "download.default_directory";
 
         public override DriverOptions DriverOptions
         {

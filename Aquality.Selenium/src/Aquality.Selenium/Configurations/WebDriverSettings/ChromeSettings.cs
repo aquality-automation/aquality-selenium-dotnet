@@ -8,7 +8,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     /// <summary>
     /// Settings specific for Chrome web driver.
     /// </summary>
-    public class ChromeSettings : DriverSettings
+    public class ChromeSettings : ChromiumSettings
     {
         /// <summary>
         /// Instantiates class using JSON file with general settings.
@@ -19,8 +19,6 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         }
 
         protected override BrowserName BrowserName => BrowserName.Chrome;
-
-        public override string DownloadDirCapabilityKey => "download.default_directory";
 
         public override DriverOptions DriverOptions
         {

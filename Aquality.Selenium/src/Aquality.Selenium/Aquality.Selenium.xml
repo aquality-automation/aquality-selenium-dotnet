@@ -1215,6 +1215,17 @@
             </summary>
             <param name="settingsFile">JSON settings file.</param>
         </member>
+        <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.ChromiumSettings">
+            <summary>
+            Settings specific for Chromium web driver.
+            </summary>
+        </member>
+        <member name="M:Aquality.Selenium.Configurations.WebDriverSettings.ChromiumSettings.#ctor(Aquality.Selenium.Core.Configurations.ISettingsFile)">
+            <summary>
+            Instantiates class using file with general settings.
+            </summary>
+            <param name="settingsFile">Settings file.</param>
+        </member>
         <member name="T:Aquality.Selenium.Configurations.WebDriverSettings.DriverSettings">
             <summary>
             Abstract representation of web driver settings.
