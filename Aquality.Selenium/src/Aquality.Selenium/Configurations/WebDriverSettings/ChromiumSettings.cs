@@ -31,9 +31,9 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         protected void SetMobileEmulation(ChromiumOptions options)
         {
             var dictionary = SettingsFile.GetValueDictionaryOrEmpty<object>($"{DriverSettingsPath}.capabilities.{MobileEmulationCapability}");
-            if (!dictionary.Any())
+            if (!dictionary.Any(pair => pair.Key.Equals("deviceName") || pair.Key.Equals("userAgent")))
             {
-                throw new ArgumentException("mobileEmulation must be an object (dictionary", nameof(options));
+                throw new ArgumentException("mobileEmulation must be an object (dictionary), and have either deviceName or userAgent specified", nameof(options));
             }
             if (dictionary.TryGetValue("deviceName", out object deviceName))
             {
