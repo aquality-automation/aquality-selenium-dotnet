@@ -19,7 +19,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
         /// Instantiates class using file with general settings.
         /// </summary>
         /// <param name="settingsFile">Settings file.</param>
-        public ChromiumSettings(ISettingsFile settingsFile) : base(settingsFile)
+        protected ChromiumSettings(ISettingsFile settingsFile) : base(settingsFile)
         {
         }
 
