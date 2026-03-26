@@ -5,7 +5,7 @@ using Aquality.Selenium.Tests.Integration.TestApp.MyLocation;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V143.Emulation;
+using OpenQA.Selenium.DevTools.V144.Emulation;
 using System;
 using System.Collections.Generic;
 
@@ -124,7 +124,10 @@ namespace Aquality.Selenium.Tests.Integration
             LocationForm.Open();
             var locationForm = new LocationForm();
             locationForm.DismissCookieInfo();
-            locationForm.DetectBrowserGeolocation();
+            if (!locationForm.DetectBrowserGeolocation())
+            {
+                Assert.Inconclusive("Geolocation access is disabled");
+            }
             var defaultLatitude = locationForm.Latitude;
             var defaultLongitude = locationForm.Longitude;
             Assume.That(defaultLatitude, Is.Not.EqualTo(LatitudeForOverride), "Default latitude should differ from the value for override");

@@ -25,10 +25,9 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.MyLocation
             }
         }
 
-        public void DetectBrowserGeolocation()
+        public bool DetectBrowserGeolocation()
         {
-            ConditionalWait.WaitForTrue(() => latitudeLabel.State.IsDisplayed && !string.IsNullOrWhiteSpace(latitudeLabel.GetText()),
-                message: "Latitude text should be displayed & not empty");
+            return ConditionalWait.WaitFor(() => latitudeLabel.State.IsDisplayed && !string.IsNullOrWhiteSpace(latitudeLabel.GetText()));
         }
 
         public double Latitude => double.Parse(latitudeLabel.Text, CultureInfo.InvariantCulture);
