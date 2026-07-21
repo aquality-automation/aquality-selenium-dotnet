@@ -34,14 +34,14 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected void SetUnhandledPromptBehavior(ChromiumOptions options)
         {
-            var behavior = SettingsFile.GetValueOrDefault($"{DriverSettingsPath}.capabilities.{UnhandledPromptBehaviorCapability}", "dismiss");
+            var behavior = SettingsFile.GetValueOrDefault<string>($"{DriverSettingsPath}.capabilities.{UnhandledPromptBehaviorCapability}");
             if (Enum.TryParse(behavior, true, out UnhandledPromptBehavior parsedBehavior))
             {
                 options.UnhandledPromptBehavior = parsedBehavior;
             }
             else
             {
-                Logger.Instance.Warn($"Unsupported unhandledPromptBehavior value '{behavior}' in configuration was ignored. Defaulting to 'dismiss'.");
+                Logger.Instance.Warn($"Unsupported unhandledPromptBehavior value '{behavior}' in configuration was ignored.");
             }
         }
 
