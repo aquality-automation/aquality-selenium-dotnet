@@ -1,10 +1,9 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Elements;
 using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
 {
@@ -16,7 +15,11 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
         {
         }
 
-        private ILabel ValueLabel => FormElement.FindChildElement<ILabel>(By.XPath(".//code"), Name);
+        private ILabel ValueLabel => FormElement.FindChildElement<ILabel>(By.XPath(".//code"), Name, state: ElementState.ExistsInAnyState);
+
+        private ILabel ConsentDialog => ElementFactory.GetLabel(By.Id("cmpwrapper"), "Cookie consent dialog", ElementState.ExistsInAnyState);
+
+        private IButton DeclineCookiesButton => ConsentDialog.FindElementInShadowRoot<IButton>(By.Id("cmpbntnotxt"), "Decline cookies");
 
         protected abstract string UrlPart { get; }
 
@@ -30,7 +33,13 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.ManyTools.Forms
             {
                 AqualityServices.Browser.GoTo(Url);
                 State.WaitForDisplayed();
-            }, new List<Type> { typeof(WebDriverTimeoutException) });
+            }, [typeof(WebDriverTimeoutException)]);
+
+            if (ConsentDialog.State.IsExist && DeclineCookiesButton.State.IsDisplayed)
+            {
+                DeclineCookiesButton.Click();
+                ConsentDialog.State.WaitForNotDisplayed();
+            }
 
             return (T)this;
         }

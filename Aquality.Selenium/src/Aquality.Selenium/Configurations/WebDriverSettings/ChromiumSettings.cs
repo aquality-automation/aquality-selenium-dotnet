@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Core.Configurations;
+using Aquality.Selenium.Core.Logging;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chromium;
@@ -15,6 +16,7 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
     public abstract class ChromiumSettings : DriverSettings
     {
         private const string MobileEmulationCapability = "mobileEmulation";
+        private const string UnhandledPromptBehaviorCapability = "unhandledPromptBehavior";
 
         /// <summary>
         /// Instantiates class using file with general settings.
@@ -26,8 +28,22 @@ namespace Aquality.Selenium.Configurations.WebDriverSettings
 
         protected override IDictionary<string, Action<DriverOptions, object>> KnownCapabilitySetters => new Dictionary<string, Action<DriverOptions, object>>
         {
-            { MobileEmulationCapability, (options, value) => SetMobileEmulation((ChromiumOptions) options) }
+            { MobileEmulationCapability, (options, value) => SetMobileEmulation((ChromiumOptions) options) },
+            { UnhandledPromptBehaviorCapability, (options, value) => SetUnhandledPromptBehavior((ChromiumOptions) options) }
         };
+
+        protected void SetUnhandledPromptBehavior(ChromiumOptions options)
+        {
+            var behavior = SettingsFile.GetValueOrDefault<string>($"{DriverSettingsPath}.capabilities.{UnhandledPromptBehaviorCapability}");
+            if (Enum.TryParse(behavior, true, out UnhandledPromptBehavior parsedBehavior))
+            {
+                options.UnhandledPromptBehavior = parsedBehavior;
+            }
+            else
+            {
+                Logger.Instance.Warn($"Unsupported unhandledPromptBehavior value '{behavior}' in configuration was ignored.");
+            }
+        }
 
         /// <summary>
         /// Allows the Chromium browser to emulate a mobile device. Settings are gathered from capabilities.mobileEmulation path.
