@@ -15,13 +15,13 @@ namespace Aquality.Selenium.Tests.Integration
         [SetUp]
         public void Before()
         {
-            AqualityServices.Browser.GoTo(WelcomeForm.Url);
+            WelcomeForm.Open();
         }
 
         [Test]
         public void Should_BePossibleTo_OpenUrlInNew()
         {
-            var url = new WelcomeForm().Url;
+            var url = WelcomeForm.Url;
             var browser = AqualityServices.Browser;
             Tabs.OpenInNew(url);
             Assert.That(Tabs.Handles.Count, Is.EqualTo(2));
@@ -31,7 +31,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_OpenUrlInNew_ViaJs()
         {
-            var url = new WelcomeForm().Url;
+            var url = WelcomeForm.Url;
             var browser = AqualityServices.Browser;
             Tabs.OpenInNewViaJs(url);
             Assert.That(Tabs.Handles.Count, Is.EqualTo(2));
@@ -41,7 +41,7 @@ namespace Aquality.Selenium.Tests.Integration
         [Test]
         public void Should_BePossibleTo_OpenUriInNew()
         {
-            var url = new Uri(new WelcomeForm().Url);
+            var url = new Uri(WelcomeForm.Url);
             var browser = AqualityServices.Browser;
             Tabs.OpenInNew(url);
             Assert.That(Tabs.Handles.Count, Is.EqualTo(2));

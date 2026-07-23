@@ -2,6 +2,7 @@
 using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
+using System;
 
 namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 {
@@ -16,11 +17,20 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
 
         protected abstract string UrlPart { get; }
 
-        public string Url => BaseUrl + UrlPart;
+        public virtual string Url => BaseUrl + UrlPart;
 
         public void Open()
         {
-            AqualityServices.Browser.GoTo(Url);
+            try
+            {
+                AqualityServices.Browser.GoTo(Url);
+
+            }
+            catch (WebDriverException e) when (e.Message.Contains("timed out", StringComparison.InvariantCultureIgnoreCase))
+            {
+                AqualityServices.Browser.Quit();
+                AqualityServices.Browser.GoTo(Url);
+            }
             AqualityServices.Browser.WaitForPageToLoad();
         }
 
