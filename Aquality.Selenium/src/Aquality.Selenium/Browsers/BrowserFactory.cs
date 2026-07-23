@@ -3,6 +3,7 @@ using Aquality.Selenium.Core.Localization;
 using Aquality.Selenium.Core.Utilities;
 using OpenQA.Selenium;
 using System;
+using System.Reflection;
 
 namespace Aquality.Selenium.Browsers
 {
@@ -27,16 +28,17 @@ namespace Aquality.Selenium.Browsers
         protected abstract WebDriver Driver { get; }
         protected virtual DriverContext DriverContext { get; }
 
+        protected virtual T DoWithRetry<T>(Func<T> function) => ActionRetrier.DoWithRetry(function, new[] { typeof(WebDriverException), typeof(InvalidOperationException), typeof(TargetInvocationException) });
+
         public virtual Browser Browser
         {
             get
             {
-                var driverCtx = ActionRetrier.DoWithRetry(() => DriverContext,
-                    new[] { typeof(WebDriverException), typeof(InvalidOperationException) });
+                var driverCtx = DoWithRetry(() => DriverContext);
 
                 var browser = driverCtx != null 
-                    ? new Browser(driverCtx.Driver, driverCtx.DriverService) 
-                    : new Browser(ActionRetrier.DoWithRetry(() => Driver, new[] { typeof(WebDriverException), typeof(InvalidOperationException) }));
+                    ? DoWithRetry(() => new Browser(driverCtx.Driver, driverCtx.DriverService))
+                    : DoWithRetry(() => new Browser(Driver));
                 
                 LocalizedLogger.Info("loc.browser.ready", BrowserProfile.BrowserName);
                 return browser;
