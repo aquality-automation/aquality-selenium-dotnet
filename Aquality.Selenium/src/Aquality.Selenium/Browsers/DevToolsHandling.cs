@@ -8,7 +8,6 @@ using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading;
@@ -132,7 +131,7 @@ namespace Aquality.Selenium.Browsers
         {
             var parameters = commandParameters ?? new JsonObject();
             LogCommand(commandName, parameters, loggingOptions);
-            var result = await devToolsProvider.GetDevToolsSession()
+            var result = await GetDevToolsSession()
                 .SendCommand(commandName, parameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
             LogCommandResult(result, loggingOptions);            
             return result;

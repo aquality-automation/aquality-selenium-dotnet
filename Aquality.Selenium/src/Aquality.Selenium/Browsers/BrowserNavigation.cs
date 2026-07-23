@@ -74,7 +74,7 @@ namespace Aquality.Selenium.Browsers
             {
                 Logger.Fatal($"Navigation error occurred: [{e.Message}], but successfully navigated to URL [{url}]", e);
                 // ignore only unknown errors
-                if (e.GetType() != typeof(WebDriverException))
+                if (e.GetType() != typeof(UnknownErrorException))
                 {
                     throw;
                 }
