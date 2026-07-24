@@ -1,4 +1,5 @@
 ﻿using Aquality.Selenium.Core.Localization;
+using Aquality.Selenium.Core.Utilities;
 using Aquality.Selenium.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chromium;
@@ -33,6 +34,8 @@ namespace Aquality.Selenium.Browsers
         }
 
         private static ILocalizedLogger Logger => AqualityServices.LocalizedLogger;
+
+        private static T DoWithRetry<T>(Func<T> function) => AqualityServices.Get<IActionRetrier>().DoWithRetry(function, new[] { typeof(WebDriverException), typeof(InvalidOperationException) });
 
         /// <summary>
         /// Gets a value indicating whether a DevTools session is active.
@@ -69,7 +72,7 @@ namespace Aquality.Selenium.Browsers
         public DevToolsSession GetDevToolsSession()
         {
             Logger.Info("loc.browser.devtools.session.get", "default");
-            var session = devToolsProvider.GetDevToolsSession();
+            var session = DoWithRetry(() => devToolsProvider.GetDevToolsSession());
             wasDevToolsSessionClosed = false;
             return session;
         }
@@ -83,7 +86,7 @@ namespace Aquality.Selenium.Browsers
         public DevToolsSession GetDevToolsSession(DevToolsOptions options)
         {
             Logger.Info("loc.browser.devtools.session.get", options.ProtocolVersion?.ToString() ?? "default");
-            var session = devToolsProvider.GetDevToolsSession(options);
+            var session = DoWithRetry(() => devToolsProvider.GetDevToolsSession(options));
             wasDevToolsSessionClosed = false;
             return session;
         }
@@ -128,7 +131,7 @@ namespace Aquality.Selenium.Browsers
         {
             var parameters = commandParameters ?? new JsonObject();
             LogCommand(commandName, parameters, loggingOptions);
-            var result = await devToolsProvider.GetDevToolsSession()
+            var result = await GetDevToolsSession()
                 .SendCommand(commandName, parameters, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
             LogCommandResult(result, loggingOptions);            
             return result;
