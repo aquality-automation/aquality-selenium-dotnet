@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.DevTools.V151.Performance;
+﻿using OpenQA.Selenium.DevTools.V152.Performance;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
