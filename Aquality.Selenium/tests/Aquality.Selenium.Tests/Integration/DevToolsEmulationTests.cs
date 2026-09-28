@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Aquality.Selenium.Tests.Integration
 {
+    [SingleThreaded]
     internal class DevToolsEmulationTests : UITest
     {
         private const double LatitudeForOverride = 35.8235;
