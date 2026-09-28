@@ -40,8 +40,7 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
                 }
                 if (AqualityServices.Browser.CurrentUrl != Url)
                 {
-                    AqualityServices.Browser.ExecuteScript(JavaScript.AutoAcceptAlerts);
-                    AqualityServices.Browser.GoTo(Url);
+                    throw new NoSuchWindowException($"{Url} was not opened", e);
                 }
                 AqualityServices.Browser.WaitForPageToLoad();
             }
