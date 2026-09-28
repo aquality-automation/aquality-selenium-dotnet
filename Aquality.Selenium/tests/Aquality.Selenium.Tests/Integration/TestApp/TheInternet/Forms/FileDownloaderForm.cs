@@ -38,6 +38,12 @@ namespace Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms
                         break;
                     }
                 }
+                if (AqualityServices.Browser.CurrentUrl != Url)
+                {
+                    AqualityServices.Browser.ExecuteScript(JavaScript.AutoAcceptAlerts);
+                    AqualityServices.Browser.GoTo(Url);
+                }
+                AqualityServices.Browser.WaitForPageToLoad();
             }
 
         }
