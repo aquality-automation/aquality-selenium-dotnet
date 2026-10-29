@@ -108,7 +108,7 @@ namespace Aquality.Selenium.Tests.Integration.Elements
         public void Should_BePossibleTo_GetCssValue()
         {
             var propertyName = "font-family";
-            var expectedCssValue = "Helvetica";
+            var expectedCssValue = "Arial";
             var usernameTxb = authForm.UserNameTextBox;
             Assert.Multiple(() =>
             {

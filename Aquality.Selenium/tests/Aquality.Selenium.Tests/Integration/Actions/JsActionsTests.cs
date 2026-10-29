@@ -157,11 +157,12 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             const int accuracy = 1;
             var welcomeForm = new WelcomeForm();
             welcomeForm.Open();
-            welcomeForm.GetExampleLink(AvailableExample.Hovers).JsActions.ScrollToTheCenter();
+            var link = welcomeForm.GetExampleLink(AvailableExample.Checkboxes);
+            link.JsActions.ScrollToTheCenter();
 
             var windowSize = AqualityServices.Browser.ExecuteScriptFromFile<object>("Resources.GetWindowSize.js").ToString();
             var currentY = AqualityServices.Browser.ExecuteScriptFromFile<object>("Resources.GetElementYCoordinate.js",
-                welcomeForm.GetExampleLink(AvailableExample.Hovers).GetElement()).ToString();
+                link.GetElement()).ToString();
             var coordinateRelatingWindowCenter = double.Parse(windowSize) / 2 - double.Parse(currentY);
             Assert.That(Math.Abs(coordinateRelatingWindowCenter), Is.LessThanOrEqualTo(accuracy), "Upper bound of element should be in the center of the page");
         }
