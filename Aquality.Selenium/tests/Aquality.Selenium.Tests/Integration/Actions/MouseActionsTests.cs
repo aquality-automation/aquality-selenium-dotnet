@@ -49,8 +49,9 @@ namespace Aquality.Selenium.Tests.Integration.Actions
             var infiniteScrollForm = new InfiniteScrollForm();
             infiniteScrollForm.Open();
             infiniteScrollForm.WaitForPageToLoad();
-            var size = infiniteScrollForm.LastExampleLabel.Visual.Size;
-            AqualityServices.Browser.SetWindowSize(size.Width, size.Height);
+            var formHeight = infiniteScrollForm.Size.Height;
+            infiniteScrollForm.LastExampleLabel.MouseActions.ScrollFromOrigin(0, formHeight);
+            infiniteScrollForm.LastExampleLabel.MouseActions.ScrollFromOrigin(0, -formHeight);
             var defaultCount = infiniteScrollForm.ExampleLabels.Count;
             Assert.DoesNotThrow(
                 () => AqualityServices.ConditionalWait.WaitForTrue(() =>

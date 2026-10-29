@@ -1,31 +1,30 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
+using System;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
     internal class VisualTests : UITest
     {
-        private static readonly DynamicContentForm dynamicContentForm = new();
-
-        [SetUp]
-        public void BeforeTest()
-        {
-            dynamicContentForm.Open();
-            AqualityServices.Browser.Maximize();
-        }
-
         [Test]
         public void Should_BePossibleTo_CheckVisualState_WhenItHasNotChanged()
         {
-            Assume.That(dynamicContentForm.State.WaitForDisplayed(), "Form is not opened");
-            Assert.DoesNotThrow(() => dynamicContentForm.Dump.Save(), "Should be possible to save dump");
-            Assert.That(dynamicContentForm.Dump.Compare(), Is.EqualTo(0), "Form dump should remain the same");
+            var checkboxesForm = new CheckBoxesForm();
+            checkboxesForm.Open();
+            AqualityServices.Browser.WaitForPageToLoad();
+            Assume.That(checkboxesForm.State.WaitForDisplayed(), "Form is not opened");
+            Assert.DoesNotThrow(() => checkboxesForm.Dump.Save(), "Should be possible to save dump");
+            Assert.That(checkboxesForm.Dump.Compare(), Is.EqualTo(0), "Form dump should remain the same");
         }
 
         [Test]
         public void Should_BePossibleTo_CheckVisualState_WhenItDifferes()
         {
+            var dynamicContentForm = new DynamicContentForm();
+            dynamicContentForm.Open();
+            AqualityServices.Browser.Maximize();
             const string dumpName = "the differed dump";
             
             Assume.That(dynamicContentForm.State.WaitForDisplayed(), "Form is not opened");
