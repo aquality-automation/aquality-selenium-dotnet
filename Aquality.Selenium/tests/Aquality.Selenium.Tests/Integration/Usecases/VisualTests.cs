@@ -1,6 +1,8 @@
 ﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Configurations;
 using Aquality.Selenium.Tests.Integration.TestApp.TheInternet.Forms;
 using NUnit.Framework;
+using System;
 
 namespace Aquality.Selenium.Tests.Integration.Usecases
 {
@@ -19,8 +21,9 @@ namespace Aquality.Selenium.Tests.Integration.Usecases
         public void Should_BePossibleTo_CheckVisualState_WhenItHasNotChanged()
         {
             AqualityServices.Browser.Refresh();
-            Assume.That(dynamicContentForm.State.WaitForDisplayed(), "Form is not opened");
+            dynamicContentForm.State.WaitForNotDisplayed(AqualityServices.Get<ITimeoutConfiguration>().Script); // Wait for page to settle
             AqualityServices.Browser.WaitForPageToLoad();
+            Assume.That(dynamicContentForm.State.WaitForDisplayed(), "Form is not opened");
             Assert.DoesNotThrow(() => dynamicContentForm.Dump.Save(), "Should be possible to save dump");
             Assert.That(dynamicContentForm.Dump.Compare(), Is.EqualTo(0), "Form dump should remain the same");
         }
