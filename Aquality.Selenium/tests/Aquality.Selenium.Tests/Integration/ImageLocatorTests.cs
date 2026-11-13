@@ -26,9 +26,9 @@ namespace Aquality.Selenium.Tests.Integration
             Assert.That(docLabels.Count, Is.GreaterThan(1), "List of elements should be possible to find by image");
             Assert.That(docLabels.Count, Is.EqualTo(childLabels.Count), "Should be possible to find child elements by image with the same count");
 
-            var imageByTag = AqualityServices.Get<IElementFactory>().GetLabel(By.TagName(ImageTag), "Image by tag");
+            var imageByXPath = AqualityServices.Get<IElementFactory>().GetLabel(By.XPath("//img[contains(@src, 'img')]"), "Image by tag");
             var fullThreshold = 1;
-            var getDocByImage = () => AqualityServices.Get<IElementFactory>().GetLabel(new ByImage(imageByTag.GetElement().GetScreenshot().AsByteArray) { Threshold = fullThreshold },
+            var getDocByImage = () => AqualityServices.Get<IElementFactory>().GetLabel(new ByImage(imageByXPath.GetElement().GetScreenshot().AsByteArray) { Threshold = fullThreshold },
                     "image by screenshot");
             ILabel documentByImage = getDocByImage();
             AqualityServices.ConditionalWait.WaitFor(() =>
